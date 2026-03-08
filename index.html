@@ -381,195 +381,29 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 <div id="qr-overlay" onclick="if(event.target===this)closeQR()">
   <div id="qr-modal">
     <h3>📷 QR Code</h3>
-    <canvas id="qr-canvas" width="200" height="200" style="border-radius:10px;"></canvas>
-    <div class="qr-url">www.eimarker.com</div>
+    <div id="qr-canvas" style="border-radius:10px;overflow:hidden;line-height:0;"></div>
+    <div class="qr-url">www.eimaker.com</div>
     <p>Aponte a câmera do celular para acessar o site.</p>
     <button id="qr-close" onclick="closeQR()">✕ Fechar</button>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
-/* ── Pure-JS QR Code (Reed-Solomon + matrix) ── */
-(function(){
+let qrGenerated = false;
 
-/* ---------- Minimal QR encoder (alphanumeric/byte mode, version 1-10) ---------- */
-// Based on public QR spec — generates the QR matrix purely in JS
-
-const URL = 'https://www.eimarker.com';
-
-/* Galois Field GF(256) */
-const GF_EXP = new Uint8Array(512);
-const GF_LOG = new Uint8Array(256);
-(function(){
-  let x=1;
-  for(let i=0;i<255;i++){
-    GF_EXP[i]=x; GF_LOG[x]=i;
-    x<<=1; if(x&256) x^=285;
-  }
-  for(let i=255;i<512;i++) GF_EXP[i]=GF_EXP[i-255];
-})();
-function gf_mul(x,y){ return (x===0||y===0)?0:GF_EXP[(GF_LOG[x]+GF_LOG[y])%255]; }
-function gf_poly_mul(p,q){
-  const r=new Uint8Array(p.length+q.length-1);
-  for(let i=0;i<p.length;i++) for(let j=0;j<q.length;j++) r[i+j]^=gf_mul(p[i],q[j]);
-  return r;
-}
-function gf_poly_div(dividend,divisor){
-  let msg=[...dividend];
-  for(let i=0;i<dividend.length-(divisor.length-1);i++){
-    const c=msg[i];
-    if(c!==0) for(let j=1;j<divisor.length;j++) msg[i+j]^=gf_mul(divisor[j],c);
-  }
-  return new Uint8Array(msg.splice(-(divisor.length-1)));
-}
-function rs_gen_poly(n){
-  let g=new Uint8Array([1]);
-  for(let i=0;i<n;i++) g=gf_poly_mul(g,new Uint8Array([1,GF_EXP[i]]));
-  return g;
-}
-function rs_encode(data,n){
-  const gen=rs_gen_poly(n);
-  const padded=new Uint8Array(data.length+n);
-  padded.set(data);
-  const rem=gf_poly_div(padded,gen);
-  const out=new Uint8Array(data.length+n);
-  out.set(data); out.set(rem,data.length);
-  return out;
-}
-
-/* QR encode URL — Version 3-L (53 data bytes, 15 EC bytes, 29×29) */
-function encodeQR(url){
-  // Version 3-L: 53 data codewords, 15 EC codewords
-  const VERSION=3, SIZE=17+VERSION*4; // 29
-  const EC_CODEWORDS=15;
-  const DATA_CODEWORDS=53;
-
-  /* Byte mode encoding */
-  const bytes=[...new TextEncoder().encode(url)];
-  let bits=[];
-  const addBits=(val,len)=>{ for(let i=len-1;i>=0;i--) bits.push((val>>i)&1); };
-  addBits(0b0100,4);           // byte mode
-  addBits(bytes.length,8);     // char count
-  bytes.forEach(b=>addBits(b,8));
-  addBits(0,4);                // terminator
-  while(bits.length%8) bits.push(0);
-  const cw=[];
-  for(let i=0;i<bits.length;i+=8) cw.push(bits.slice(i,i+8).reduce((a,b,j)=>a|(b<<(7-j)),0));
-  const pad=[0xEC,0x11];
-  while(cw.length<DATA_CODEWORDS) cw.push(pad[cw.length%2===0?0:1]);
-
-  /* RS error correction */
-  const full=rs_encode(new Uint8Array(cw),EC_CODEWORDS);
-
-  /* Build bit stream */
-  const stream=[];
-  full.forEach(b=>{ for(let i=7;i>=0;i--) stream.push((b>>i)&1); });
-  // remainder bits for version 3 = 7
-  for(let i=0;i<7;i++) stream.push(0);
-
-  /* --- Matrix --- */
-  const mat=Array.from({length:SIZE},()=>new Int8Array(SIZE).fill(-1)); // -1=unset
-  const res=Array.from({length:SIZE},()=>new Uint8Array(SIZE));         // 1=reserved
-
-  function setModule(r,c,v){ mat[r][c]=v; res[r][c]=1; }
-
-  /* Finder patterns */
-  function finder(tr,tc){
-    for(let r=-1;r<=7;r++) for(let c=-1;c<=7;c++){
-      if(tr+r<0||tr+r>=SIZE||tc+c<0||tc+c>=SIZE) continue;
-      const dark=(r===0||r===6||c===0||c===6||(r>=2&&r<=4&&c>=2&&c<=4));
-      setModule(tr+r,tc+c,dark?1:0);
-    }
-  }
-  finder(0,0); finder(0,SIZE-7); finder(SIZE-7,0);
-
-  /* Separators already covered by finder (-1 border is white) */
-
-  /* Alignment pattern (version 3: center at 22,22) */
-  const ap=[[22,22]];
-  ap.forEach(([ar,ac])=>{
-    for(let r=-2;r<=2;r++) for(let c=-2;c<=2;c++){
-      if(res[ar+r][ac+c]) continue;
-      setModule(ar+r,ac+c,(r===0&&c===0)||Math.abs(r)===2||Math.abs(c)===2?1:0);
-    }
-  });
-
-  /* Timing patterns */
-  for(let i=8;i<SIZE-8;i++){
-    if(!res[6][i]){ setModule(6,i,i%2===0?1:0); }
-    if(!res[i][6]){ setModule(i,6,i%2===0?1:0); }
-  }
-
-  /* Dark module */
-  setModule(SIZE-8,8,1);
-
-  /* Format info placeholders */
-  const fmtPos=[];
-  for(let i=0;i<=8;i++){
-    if(i!==6){ fmtPos.push([8,i],[i,8]); }
-    if(i!==6){ fmtPos.push([8,SIZE-1-i]); }
-    if(i<7)   { fmtPos.push([SIZE-1-i,8]); }
-  }
-  fmtPos.forEach(([r,c])=>{ res[r][c]=1; if(mat[r][c]===-1) mat[r][c]=0; });
-
-  /* Data placement (mask 0: (r+c)%2===0) */
-  const MASK=(r,c)=>(r+c)%2===0;
-  let bit=0;
-  let up=true;
-  for(let col=SIZE-1;col>=1;col-=2){
-    if(col===6) col=5;
-    for(let row=0;row<SIZE;row++){
-      const r=up?SIZE-1-row:row;
-      for(let dc=0;dc<2;dc++){
-        const c=col-dc;
-        if(!res[r][c]){
-          const d=bit<stream.length?stream[bit++]:0;
-          mat[r][c]=d^(MASK(r,c)?1:0);
-        }
-      }
-    }
-    up=!up;
-  }
-
-  /* Format string — L, mask 0 = 0b111011111000100 XOR 101010000010010 */
-  const fmt=0b111011111000100^0b101010000010010; // = 0b010001111010110 = 0x0F6... let me compute
-  // Standard format: ECC=L(01), mask=0(000) → data=01000 → BCH → 0100000011101100 XOR mask 101010000010010
-  // Pre-computed for L, mask 0: 0b111011111000100 is already XOR'd
-  // Correct value: format data = 0b01000, BCH = 10011010101, combined = 0101000011010101 XOR 101010000010010 = nope
-  // Use lookup: L+mask0 = 0x77C4 (standard table)
-  const FMT=0x77C4; // ECC level L, mask pattern 0 — verified
-  const fmtBits=[];
-  for(let i=14;i>=0;i--) fmtBits.push((FMT>>i)&1);
-
-  // Place format bits (two copies)
-  const seq1=[[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,7],[8,8],[7,8],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8]];
-  const seq2=[[SIZE-1,8],[SIZE-2,8],[SIZE-3,8],[SIZE-4,8],[SIZE-5,8],[SIZE-6,8],[SIZE-7,8],[8,SIZE-8],[8,SIZE-7],[8,SIZE-6],[8,SIZE-5],[8,SIZE-4],[8,SIZE-3],[8,SIZE-2],[8,SIZE-1]];
-  seq1.forEach(([r,c],i)=>{ mat[r][c]=fmtBits[i]; });
-  seq2.forEach(([r,c],i)=>{ mat[r][c]=fmtBits[i]; });
-
-  return mat;
-}
-
-/* ── Draw on canvas ── */
 window.openQR = function(){
   document.getElementById('qr-overlay').classList.add('open');
-  const mat = encodeQR(URL);
-  const canvas = document.getElementById('qr-canvas');
-  const ctx = canvas.getContext('2d');
-  const S = 200;
-  const N = mat.length; // 29
-  const Q = 4; // quiet zone modules
-  const total = N + Q*2;
-  const cell = S / total;
-  ctx.fillStyle='#fff';
-  ctx.fillRect(0,0,S,S);
-  ctx.fillStyle='#1e2130';
-  for(let r=0;r<N;r++){
-    for(let c=0;c<N;c++){
-      if(mat[r][c]===1){
-        ctx.fillRect((c+Q)*cell,(r+Q)*cell,cell,cell);
-      }
-    }
+  if(!qrGenerated){
+    new QRCode(document.getElementById('qr-canvas'), {
+      text: 'https://www.eimaker.com',
+      width: 200,
+      height: 200,
+      colorDark: '#1e2130',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+    qrGenerated = true;
   }
 };
 
@@ -577,9 +411,7 @@ window.closeQR = function(){
   document.getElementById('qr-overlay').classList.remove('open');
 };
 
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeQR(); });
-
-})();
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeQR(); });
 </script>
 
 </body>
