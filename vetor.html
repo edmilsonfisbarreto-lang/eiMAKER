@@ -585,21 +585,24 @@
 
     <!-- ANSWER INPUT (Unitário Soma — Rx e Ry) -->
     <div class="answer-section" id="answerSomaSection">
-      <div class="answer-label">🎯 Informe as componentes e o módulo da resultante</div>
+      <div class="answer-label" id="answerSomaLabel">🎯 Informe as componentes e o módulo da resultante</div>
       <div class="answer-input-row" style="margin-bottom:.5rem;">
-        <span class="answer-unit" style="min-width:32px;text-align:right;">Rx =</span>
+        <span class="answer-unit" id="labelRx" style="min-width:32px;text-align:right;">Rx =</span>
         <input class="answer-input" id="answerRx" type="number" step="any" placeholder="valor em u" />
         <span class="answer-unit">u</span>
       </div>
       <div class="answer-input-row" style="margin-bottom:.5rem;">
-        <span class="answer-unit" style="min-width:32px;text-align:right;">Ry =</span>
+        <span class="answer-unit" id="labelRy" style="min-width:32px;text-align:right;">Ry =</span>
         <input class="answer-input" id="answerRy" type="number" step="any" placeholder="valor em u" />
         <span class="answer-unit">u</span>
       </div>
-      <div class="answer-input-row">
+      <div class="answer-input-row" id="rowRmag">
         <span class="answer-unit" style="min-width:32px;text-align:right;">|R| =</span>
         <input class="answer-input" id="answerRmag" type="number" step="any" placeholder="valor em u" />
         <span class="answer-unit">u</span>
+        <button class="btn-submit" onclick="submitSomaAnswer()">Enviar ✓</button>
+      </div>
+      <div class="answer-input-row" id="rowRmagHidden" style="display:none;">
         <button class="btn-submit" onclick="submitSomaAnswer()">Enviar ✓</button>
       </div>
     </div>
@@ -1029,6 +1032,17 @@ let uniAnswered = false;
 const OX = W/2, OY = H/2;          // canvas origin coords
 const ORIGIN_SNAP = 30;             // px radius to snap to origin
 
+function configSomaSection(){
+  const isComp = (mode==='unitario' && uniMode==='vetor' && uniCalc==='componentes');
+  document.getElementById('answerSomaLabel').textContent = isComp
+    ? '🎯 Informe as componentes do vetor A'
+    : '🎯 Informe as componentes e o módulo da resultante';
+  document.getElementById('labelRx').textContent = isComp ? 'Ax =' : 'Rx =';
+  document.getElementById('labelRy').textContent = isComp ? 'Ay =' : 'Ry =';
+  document.getElementById('rowRmag').style.display       = isComp ? 'none' : '';
+  document.getElementById('rowRmagHidden').style.display = isComp ? ''     : 'none';
+}
+
 function setUniMode(m){
   uniMode = m;
   document.getElementById('btnUniVetor').classList.toggle('active', m==='vetor');
@@ -1036,6 +1050,7 @@ function setUniMode(m){
   document.getElementById('uniVetorPanel').style.display = m==='vetor' ? '' : 'none';
   document.getElementById('uniSomaPanel').style.display  = m==='soma'  ? '' : 'none';
   resetUnitario();
+  configSomaSection();
 }
 
 function setUniCalc(c){
@@ -1045,8 +1060,9 @@ function setUniCalc(c){
   const hint = document.getElementById('uniCalcHint');
   if(hint) hint.innerHTML = c==='modulo'
     ? 'Calcule o <strong>módulo</strong> e informe o valor'
-    : 'Calcule as <strong>componentes</strong> separadamente';
+    : 'Calcule as <strong>componentes</strong> Ax e Ay';
   resetUnitario();
+  configSomaSection();
 }
 
 function randomUniVec(){
@@ -1567,6 +1583,7 @@ function setMode(m){
     document.getElementById('btnUniComponentes').classList.remove('active');
     uniVec = randomUniVec();
     document.getElementById('uniSomaTableWrap').style.display='none';
+    configSomaSection();
   }
   [2,3,4,5].forEach(n=>document.getElementById('vn'+n).classList.remove('active'));
   drawFrame();
