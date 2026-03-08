@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Metodologia – eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--red:#e02020;--yellow:#d4890a;--green:#4a9c2f;--blue1:#1a9fd4;--blue2:#2563a8;--purple:#6b3f9a;--bg:#f0f2f7;--surface:#fff;--card:#fff;--card2:#f7f9fc;--text:#1e2130;--muted:#5a6078;--border:rgba(0,0,0,0.09);--shadow:0 2px 16px rgba(0,0,0,0.08)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#e8eaf0}::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
+.color-strip{display:flex;height:4px}.cs1{flex:1;background:var(--red)}.cs2{flex:1;background:var(--yellow)}.cs3{flex:1;background:var(--green)}.cs4{flex:1;background:var(--blue1)}.cs5{flex:1;background:var(--blue2)}.cs6{flex:1;background:var(--purple)}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;box-shadow:0 1px 8px rgba(0,0,0,0.07)}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-keys{display:flex;gap:4px;align-items:center}
+.key{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.key-red{background:var(--red)}.key-yellow{background:var(--yellow)}.key-green{background:var(--green)}.key-blue1{background:var(--blue1)}.key-blue2{background:var(--blue2)}.key-purple{background:var(--purple)}
+nav{display:flex;gap:.15rem}
+nav a{color:var(--muted);text-decoration:none;padding:.4rem .9rem;border-radius:8px;font-weight:700;font-size:.85rem;transition:color .2s,background .2s}
+nav a:hover{color:var(--text);background:var(--bg)}
+nav a.active{color:var(--green);background:rgba(74,156,47,.08)}
+.breadcrumb{padding:.7rem 2rem;background:var(--surface);border-bottom:1px solid var(--border);font-size:.8rem;color:var(--muted)}
+.breadcrumb a{color:var(--blue1);text-decoration:none}.breadcrumb span{margin:0 .4rem}
+.page-hero{padding:2.75rem 2rem 2.25rem;background:linear-gradient(135deg,#f2fbf0 0%,#fff 55%,#f0f2f7 100%);border-bottom:1px solid var(--border);text-align:center}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem 1rem;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:.9rem;background:rgba(74,156,47,.1);border:1px solid rgba(74,156,47,.2);color:var(--green)}
+.page-hero h1{font-size:clamp(1.75rem,4vw,2.6rem);font-weight:900;margin-bottom:.65rem;line-height:1.15}
+.page-hero p{max-width:540px;margin:0 auto;color:var(--muted);font-size:.96rem;line-height:1.75}
+.prog-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.prog-btn{padding:.4rem 1rem;border-radius:999px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;border:2px solid var(--border);background:var(--card2);color:var(--muted);transition:all .2s;text-decoration:none;display:inline-block}
+.prog-btn:hover,.prog-btn.act{border-color:var(--green);color:var(--green);background:rgba(74,156,47,.08)}
+section{padding:2.5rem 2rem}
+.container{max-width:960px;margin:0 auto}
+.section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:.4rem}
+h2{font-size:1.4rem;font-weight:900;margin-bottom:1.2rem;line-height:1.2}
+h3{font-size:.98rem;font-weight:800;margin-bottom:.5rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+@media(max-width:680px){.two-col{grid-template-columns:1fr}}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;box-shadow:var(--shadow)}
+.info-card ul{padding-left:1.2rem;color:var(--muted);font-size:.87rem;line-height:1.95}
+.info-card p{color:var(--muted);font-size:.87rem;line-height:1.75}
+/* MODALITY CARDS */
+.mod-grid{display:grid;gap:1.1rem}
+.mod-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;box-shadow:var(--shadow);display:flex;gap:1.25rem;align-items:flex-start;transition:box-shadow .2s}
+.mod-card:hover{box-shadow:0 6px 24px rgba(0,0,0,.1)}
+.mod-icon{font-size:2rem;flex-shrink:0}
+.mod-body h3{font-size:1rem;margin-bottom:.4rem}
+.mod-body p{font-size:.87rem;color:var(--muted);line-height:1.7;margin-bottom:.6rem}
+.chip-row{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.22rem .7rem;font-size:.74rem;font-weight:700;color:var(--muted)}
+/* TIMELINE */
+.timeline{position:relative;padding-left:2.25rem;margin-top:.5rem}
+.timeline::before{content:'';position:absolute;left:.6rem;top:.5rem;bottom:.5rem;width:2px;background:linear-gradient(to bottom,var(--green),var(--blue1))}
+.tl-item{position:relative;margin-bottom:1.4rem;padding:1.1rem 1.3rem;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow)}
+.tl-item::before{content:'';position:absolute;left:-1.85rem;top:1.1rem;width:13px;height:13px;border-radius:50%;background:var(--green);border:2px solid #fff;box-shadow:0 0 0 2px var(--green)}
+.tl-item h4{font-size:.92rem;font-weight:800;margin-bottom:.3rem}
+.tl-item p{font-size:.83rem;color:var(--muted);line-height:1.65}
+/* EAD BOX */
+.ead-box{background:linear-gradient(135deg,rgba(37,99,168,.06),rgba(26,159,212,.05));border:1px solid rgba(26,159,212,.2);border-radius:14px;padding:1.6rem 1.75rem}
+.ead-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.85rem;margin-top:1rem}
+.ead-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem;text-align:center;box-shadow:var(--shadow)}
+.ead-icon{font-size:1.4rem;margin-bottom:.4rem}
+.ead-item strong{display:block;color:var(--text);font-size:.83rem;margin-bottom:.15rem}
+.ead-item p{font-size:.75rem;color:var(--muted);line-height:1.5}
+/* VIDEO */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.video-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s}
+.video-card:hover{transform:translateY(-3px)}
+.video-thumb{position:relative;padding-bottom:56.25%;background:#111}
+.video-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-info{padding:1rem 1.1rem}
+.video-info h4{font-size:.9rem;font-weight:800;margin-bottom:.25rem}
+.video-info p{font-size:.78rem;color:var(--muted);line-height:1.55}
+/* READING */
+.reading-list{display:flex;flex-direction:column;gap:.75rem}
+.reading-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;box-shadow:var(--shadow);transition:border-color .2s}
+.reading-item:hover{border-color:var(--green)}
+.r-icon{font-size:1.5rem;flex-shrink:0}
+.r-body strong{display:block;font-size:.9rem;margin-bottom:.2rem}
+.r-body p{font-size:.8rem;color:var(--muted);line-height:1.55}
+.r-tag{display:inline-block;background:rgba(74,156,47,.1);color:var(--green);border-radius:4px;padding:.1rem .5rem;font-size:.7rem;font-weight:800;margin-top:.35rem}
+
+.r-link-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:.7rem}
+.r-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .9rem;border-radius:8px;font-size:.8rem;font-weight:800;color:var(--green);border:2px solid rgba(74,156,47,.3);background:rgba(74,156,47,.07);text-decoration:none;transition:all .2s}
+.r-btn:hover{background:rgba(74,156,47,.15);border-color:var(--green);transform:translateY(-1px)}
+/* TOOLS */
+.tools-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.9rem}
+.tool-mini{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.tool-mini:hover{transform:translateY(-3px);border-color:var(--green)}
+.tm-icon{font-size:1.6rem;margin-bottom:.5rem}
+.tool-mini h4{font-size:.85rem;font-weight:800;margin-bottom:.25rem}
+.tool-mini p{font-size:.75rem;color:var(--muted);line-height:1.5;margin-bottom:.4rem}
+.tool-mini a{font-size:.73rem;color:var(--blue1);text-decoration:none;font-weight:700}
+/* ACTIVITY */
+.activity{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--green);border-radius:0 14px 14px 0;padding:1.6rem 1.75rem;box-shadow:var(--shadow);margin-top:1rem}
+.act-title{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem}
+.act-title h3{margin-bottom:0;color:var(--green);font-size:1rem}
+.activity ol{padding-left:1.3rem;color:var(--muted);font-size:.88rem;line-height:2.1}
+.act-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--border)}
+.act-badge{font-size:.75rem;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:.35rem}
+/* QUIZ */
+.quiz-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;box-shadow:var(--shadow)}
+.quiz-q{margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
+.quiz-q:last-of-type{border-bottom:none;margin-bottom:1rem;padding-bottom:0}
+.quiz-q p{font-size:.93rem;font-weight:700;margin-bottom:.85rem;color:var(--text)}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem}
+.quiz-opt{display:flex;align-items:center;gap:.65rem;padding:.65rem 1rem;border-radius:10px;border:2px solid var(--border);cursor:pointer;transition:all .2s;font-size:.87rem;font-weight:600;color:var(--muted);background:var(--card2)}
+.quiz-opt:hover,.quiz-opt.selected{border-color:var(--green);color:var(--green);background:rgba(74,156,47,.07)}
+.quiz-opt.correct{border-color:var(--green)!important;color:var(--green)!important;background:rgba(74,156,47,.08)!important}
+.quiz-opt.wrong{border-color:#e53935!important;color:#e53935!important;background:rgba(229,57,53,.07)!important}
+.opt-letter{width:26px;height:26px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;border:1px solid var(--border)}
+.quiz-feedback{display:none;margin-top:.75rem;padding:.7rem 1rem;border-radius:8px;font-size:.83rem;font-weight:700;line-height:1.55}
+.quiz-btn-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem}
+.btn{padding:.65rem 1.4rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;border:none;display:inline-block;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-acc{background:var(--green);color:#fff;box-shadow:0 4px 14px rgba(74,156,47,.3)}
+.btn-out{background:transparent;border:2px solid var(--green);color:var(--green)}
+.btn-out:hover{background:rgba(74,156,47,.07)}
+.quiz-score{display:none;background:linear-gradient(135deg,rgba(74,156,47,.1),rgba(26,159,212,.07));border:1px solid rgba(74,156,47,.25);border-radius:12px;padding:1.25rem;text-align:center;margin-top:1.25rem}
+.quiz-score h3{font-size:1.3rem;color:var(--green);margin-bottom:.35rem}
+.quiz-score p{font-size:.88rem;color:var(--muted)}
+/* BIB */
+.bib-mini{display:flex;flex-direction:column;gap:.7rem}
+.bib-mini-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;display:flex;gap:.9rem;align-items:flex-start;box-shadow:var(--shadow)}
+.bib-badge{flex-shrink:0;width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-size:.72rem;font-weight:500}
+.bib-mini-item p{font-size:.83rem;color:var(--muted);line-height:1.65}
+.bib-mini-item em{font-style:normal;font-weight:700;color:var(--text)}
+.page-nav{background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.page-nav a{text-decoration:none;font-weight:800;font-size:.88rem;color:var(--muted);transition:color .2s}
+.page-nav a:hover,.page-nav .pg-next{color:var(--green)}
+footer{background:#1e2130;color:rgba(255,255,255,0.5);padding:1.75rem 2rem;text-align:center;font-size:.8rem}
+footer strong{color:#fff}
+footer a{color:var(--blue1);text-decoration:none}
+.footer-keys{display:flex;justify-content:center;gap:4px;margin-bottom:.65rem}
+@media(max-width:600px){nav{display:none}.mod-card{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<header>
+  <a class="logo-wrap" href="index.html"><div class="logo-keys"><div class="key key-red" style="font-size:.68rem">ei</div><div class="key key-yellow">M</div><div class="key key-green">A</div><div class="key key-blue1">K</div><div class="key key-blue2">E</div><div class="key key-purple">R</div></div></a>
+  <nav>
+    <a href="objetivos.html">Objetivos</a><a href="conteudos.html">Conteúdos</a>
+    <a href="metodologia.html" class="active">Metodologia</a><a href="ferramentas.html">Ferramentas</a><a href="bibliografia.html">Bibliografia</a>
+    <a href="projetos.html">Projetos</a>
+  </nav>
+</header>
+<div class="page-hero">
+  <div class="badge">🧭 Metodologia de Abordagem</div>
+  <h1>Como as aulas são <span style="color:var(--green)">organizadas</span></h1>
+  <p>Modalidades de ensino, estrutura das aulas, atividades EaD e formas de avaliação — tudo que você precisa saber sobre a dinâmica desta disciplina.</p>
+</div>
+<div class="prog-nav">
+  <a class="prog-btn act" href="#teoria">📖 Teoria</a>
+  <a class="prog-btn" href="#videos">🎥 Vídeos</a>
+  <a class="prog-btn" href="#leituras">📚 Leituras</a>
+  <a class="prog-btn" href="#ferramentas-sec">🛠️ Ferramentas</a>
+  <a class="prog-btn" href="#atividade">✏️ Atividade</a>
+  <a class="prog-btn" href="#quiz">🧠 Quiz</a>
+  <a class="prog-btn" href="#referencias">📖 Refs.</a>
+</div>
+
+<section id="teoria">
+  <div class="container">
+    <div class="section-label" style="color:var(--green)">📖 Teoria</div>
+    <h2>Quatro modalidades de ensino</h2>
+    <div class="mod-grid">
+      <div class="mod-card"><div class="mod-icon">🗣️</div><div class="mod-body"><h3>Aulas Expositivo-Dialogadas</h3><p>O professor apresenta os conceitos sobre TICs com diálogo ativo. Os alunos relacionam os conteúdos com suas experiências prévias e com a realidade do ensino de Física. Momento central para construção conceitual compartilhada.</p><div class="chip-row"><span class="chip">Presencial</span><span class="chip">Interação</span><span class="chip">Conceitos</span><span class="chip">Reflexão</span></div></div></div>
+      <div class="mod-card"><div class="mod-icon">🔬</div><div class="mod-body"><h3>Atividades Experimentais Investigativas</h3><p>Práticas no <strong>laboratório de Informática</strong> e no <strong>laboratório de Física</strong> do curso. Alunos testam, exploram e constroem conhecimento de forma ativa, desenvolvendo autonomia e pensamento investigativo.</p><div class="chip-row"><span class="chip">Lab. Informática</span><span class="chip">Lab. Física</span><span class="chip">Prática</span><span class="chip">Investigação</span></div></div></div>
+      <div class="mod-card"><div class="mod-icon">💡</div><div class="mod-body"><h3>Desenvolvimento de Projetos</h3><p>Alunos criam projetos reais: blogs, sites, AVAs e materiais digitais. O foco está no processo criativo, nas decisões pedagógicas e na avaliação crítica dos produtos. Atividade central para integração dos conteúdos.</p><div class="chip-row"><span class="chip">Criação</span><span class="chip">Projeto</span><span class="chip">Colaboração</span><span class="chip">Avaliação por pares</span></div></div></div>
+      <div class="mod-card"><div class="mod-icon">💻</div><div class="mod-body"><h3>Atividades EaD — 4 horas</h3><p>Realizadas pelos ambientes virtuais institucionais (<strong>Sigaa ou Moodle</strong>), em momentos síncronos e assíncronos. Recursos: livros digitais, videoaulas, questionários, fóruns e chats. Registradas oficialmente.</p><div class="chip-row"><span class="chip">Sigaa/Moodle</span><span class="chip">Síncrono</span><span class="chip">Assíncrono</span><span class="chip">4h EaD</span></div></div></div>
+    </div>
+
+    <div style="margin-top:2rem">
+      <h2>Percurso pedagógico de uma aula típica</h2>
+      <div class="timeline">
+        <div class="tl-item"><h4>🎯 Contextualização — 10 min</h4><p>O professor apresenta o tema com uma pergunta provocadora ou situação-problema do ensino de Física.</p></div>
+        <div class="tl-item"><h4>📖 Conteúdo e Demonstração — 20 min</h4><p>Apresentação do conteúdo principal com demonstração da ferramenta ou conceito em foco.</p></div>
+        <div class="tl-item"><h4>🛠️ Prática Orientada — 40 min</h4><p>Alunos trabalham individualmente ou em grupos: explorar simulador, criar blog, montar estrutura de AVA.</p></div>
+        <div class="tl-item"><h4>🗣️ Socialização — 15 min</h4><p>Grupos compartilham resultados, dificuldades e descobertas. Discussão coletiva mediada pelo professor.</p></div>
+        <div class="tl-item"><h4>📝 Síntese e Próximos Passos — 5 min</h4><p>Registro dos principais aprendizados e orientação sobre as atividades EaD ou de casa.</p></div>
+      </div>
+    </div>
+
+    <div class="ead-box" style="margin-top:2rem">
+      <h3 style="color:var(--blue2);margin-bottom:.6rem">💻 Como funcionam as Atividades EaD</h3>
+      <p style="font-size:.87rem;color:var(--muted);line-height:1.7">As 4 horas de EaD são realizadas de forma oficial pelo Sigaa ou Moodle. Podem ser síncronas (horário marcado) ou assíncronas (com prazo).</p>
+      <div class="ead-grid">
+        <div class="ead-item"><div class="ead-icon">📚</div><strong>Leituras</strong><p>Textos digitais disponibilizados no AVA</p></div>
+        <div class="ead-item"><div class="ead-icon">🎬</div><strong>Videoaulas</strong><p>Aulas gravadas e tutoriais de ferramentas</p></div>
+        <div class="ead-item"><div class="ead-icon">📋</div><strong>Questionários</strong><p>Verificação de leitura e compreensão</p></div>
+        <div class="ead-item"><div class="ead-icon">💬</div><strong>Fóruns</strong><p>Discussões temáticas assíncronas</p></div>
+        <div class="ead-item"><div class="ead-icon">🗨️</div><strong>Chats</strong><p>Interações síncronas programadas</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="videos" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">🎥 Vídeos de Apoio</div>
+    <h2>Metodologias ativas e ensino híbrido</h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/pBY0v-BdROM" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>Metodologias Ativas no Ensino</h4><p>O que são e como aplicar metodologias ativas na educação: PBL, sala de aula invertida e mais.</p></div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/hN84XwIvXQE" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>Ensino Híbrido na Prática</h4><p>Como combinar momentos presenciais e online de forma pedagogicamente integrada.</p></div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/2t0ub6pvyNg" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>Como Planejar uma Aula com TICs</h4><p>Dicas práticas para planejar aulas que integram tecnologias digitais de forma intencional.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="leituras">
+  <div class="container">
+    <div class="section-label" style="color:var(--green)">📚 Leituras Recomendadas</div>
+    <h2>Aprofundamento em metodologia</h2>
+    <div class="reading-list">
+
+      <div class="reading-item">
+        <div class="r-icon">🔄</div>
+        <div class="r-body">
+          <strong>Ensino Híbrido nas Ciências: revisão sistemática de teses e dissertações — BOTELHO &amp; JARDIM (2022)</strong>
+          <p>Revisão de teses e dissertações brasileiras sobre ensino híbrido no ensino de Ciências da Natureza para a educação básica. Publicado na <em>Revista Brasileira de Pesquisa em Educação em Ciências</em> (RBPEC), acesso aberto via Redalyc.</p>
+          <span class="r-tag">Ensino Híbrido · RBPEC / Redalyc · 2022</span>
+          <div class="r-link-row">
+            <a href="https://www.redalyc.org/journal/5716/571674320046/html/" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-item">
+        <div class="r-icon">🎯</div>
+        <div class="r-body">
+          <strong>Metodologias Ativas no Ensino de Física — COLLOQUIUM HUMANARUM (2022)</strong>
+          <p>Artigo que apresenta um panorama das pesquisas sobre metodologias ativas (Sala de Aula Invertida, Ensino sob Medida, Instrução pelos Colegas e 3MP) aplicadas ao ensino de Física na educação básica. Disponível gratuitamente no portal da Unoeste.</p>
+          <span class="r-tag">Metodologias Ativas · Colloquium Humanarum / Unoeste</span>
+          <div class="r-link-row">
+            <a href="https://journal.unoeste.br/index.php/ch/article/view/3229" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-item">
+        <div class="r-icon">🏫</div>
+        <div class="r-body">
+          <strong>Sala de Aula Invertida: metodologia ativa e TDIC na Educação Profissional — RBEPT / IFRN (2024)</strong>
+          <p>Artigo da <em>Revista Brasileira da Educação Profissional e Tecnológica</em> (IFRN) que analisa como a sala de aula invertida integrada às TDICs contribui para o processo de ensino-aprendizagem no Ensino Médio Integrado — contexto próximo ao do IFSC. Acesso aberto.</p>
+          <span class="r-tag">Sala de Aula Invertida · RBEPT / IFRN · 2024</span>
+          <div class="r-link-row">
+            <a href="https://www2.ifrn.edu.br/ojs/index.php/RBEPT/article/view/12664" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+</section>
+
+<section id="ferramentas-sec" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--purple)">🛠️ Ferramentas desta Aula</div>
+    <h2>Para planejar suas aulas</h2>
+    <div class="tools-mini">
+      <div class="tool-mini"><div class="tm-icon">📋</div><h4>Google Classroom</h4><p>Gerencie turmas, distribua tarefas, dê feedback — integrado ao Google Workspace.</p><a href="https://classroom.google.com" target="_blank">→ classroom.google.com</a></div>
+      <div class="tool-mini"><div class="tm-icon">📊</div><h4>Mentimeter</h4><p>Crie enquetes e quizzes ao vivo para usar durante as aulas expositivo-dialogadas.</p><a href="https://www.mentimeter.com" target="_blank">→ mentimeter.com</a></div>
+      <div class="tool-mini"><div class="tm-icon">📌</div><h4>Padlet</h4><p>Mural digital colaborativo para socialização de resultados e síntese coletiva de aulas.</p><a href="https://padlet.com" target="_blank">→ padlet.com</a></div>
+      <div class="tool-mini"><div class="tm-icon">📖</div><h4>Moodle Demo</h4><p>Explore um AVA Moodle demo para planejar a estrutura das atividades EaD.</p><a href="https://school.moodledemo.net" target="_blank">→ school.moodledemo.net</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="atividade">
+  <div class="container">
+    <div class="section-label" style="color:var(--green)">✏️ Atividade Prática</div>
+    <h2>Planejamento de uma aula com TICs</h2>
+    <p style="color:var(--muted);font-size:.9rem;line-height:1.75;max-width:680px;margin-bottom:1rem">Aplicar a estrutura metodológica estudada na criação real de um plano de aula que integre TICs ao ensino de Física.</p>
+    <div class="activity">
+      <div class="act-title"><span style="font-size:1.3rem">📐</span><h3>Atividade 3 — Plano de Aula com TICs</h3></div>
+      <ol>
+        <li>Escolha um <strong>conteúdo de Física</strong> do Ensino Médio (ex: cinemática, eletrostática, ondulatória).</li>
+        <li>Elabore um <strong>plano de aula de 90 minutos</strong> seguindo o percurso: contextualização → conteúdo e demonstração → prática orientada → socialização → síntese.</li>
+        <li>Para cada etapa, especifique <strong>qual TIC será usada</strong> (simulador, AVA, blog, documento colaborativo, videoaula) e como.</li>
+        <li>Defina também <strong>uma atividade EaD complementar</strong> (fórum, questionário ou leitura) a ser realizada antes ou depois da aula presencial.</li>
+        <li>Apresente o plano em um documento Google Docs compartilhado e receba feedback escrito do professor e de dois colegas.</li>
+      </ol>
+      <div class="act-meta">
+        <span class="act-badge">⏱️ 2 aulas (100 min)</span>
+        <span class="act-badge">👥 Individual ou dupla</span>
+        <span class="act-badge">📍 Presencial + EaD</span>
+        <span class="act-badge">📊 Avaliado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">🧠 Quiz de Fixação</div>
+    <h2>Teste seus conhecimentos sobre Metodologia</h2>
+    <div class="quiz-wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:.2rem .7rem;font-size:.73rem;font-weight:700;color:var(--muted)">5 perguntas</span>
+          <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:.2rem .7rem;font-size:.73rem;font-weight:700;color:var(--muted)">🎲 Seleção aleatória</span>
+        </div>
+      </div>
+      <div id="mq_container"></div>
+      <div class="quiz-btn-row">
+        <button class="btn btn-acc" onclick="mq_check()">✔ Verificar</button>
+        <button class="btn" style="background:var(--purple);color:#fff;box-shadow:0 4px 14px rgba(107,63,154,.3)" onclick="mq_build()">🎲 Novas perguntas</button>
+        <button class="btn btn-out" onclick="mq_reset()">↺ Limpar</button>
+      </div>
+      <div class="quiz-score" id="quiz-score"></div>
+    </div>
+  </div>
+</section>
+
+<section id="referencias">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">📖 Referências desta Aula</div>
+    <h2>Fontes utilizadas</h2>
+    <div class="bib-mini">
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(224,32,32,.1);color:var(--red)">[1]</div><p>BRITO, G. S.; PURIFICAÇÃO, I. <em>Educação e novas tecnologias: um (re)pensar.</em> Curitiba: InterSaberes, 2011. <strong style="color:var(--red)">[BÁSICA]</strong></p></div>
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(224,32,32,.1);color:var(--red)">[2]</div><p>DEMO, Pedro. <em>Formação permanente e tecnologias educacionais.</em> 2. ed. Petrópolis: Vozes, 2011. <strong style="color:var(--red)">[BÁSICA]</strong></p></div>
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(37,99,168,.1);color:var(--blue2)">[3]</div><p>PEREIRA, A. C. <em>Ambientes Virtuais de Aprendizagem em Diferentes Contextos.</em> Rio de Janeiro: Ciência Moderna, 2007. <strong style="color:var(--blue2)">[COMPLEMENTAR]</strong></p></div>
+    </div>
+  </div>
+</section>
+
+<div class="page-nav">
+  <a href="conteudos.html">← Conteúdos</a>
+  <a href="ferramentas.html" class="pg-next">Próximo: Ferramentas →</a>
+</div>
+<footer>
+  <div class="footer-keys"><div class="key key-red" style="font-size:.6rem;width:24px;height:24px">ei</div><div class="key key-yellow" style="width:24px;height:24px;font-size:.75rem">M</div><div class="key key-green" style="width:24px;height:24px;font-size:.75rem">A</div><div class="key key-blue1" style="width:24px;height:24px;font-size:.75rem">K</div><div class="key key-blue2" style="width:24px;height:24px;font-size:.75rem">E</div><div class="key key-purple" style="width:24px;height:24px;font-size:.75rem">R</div></div>
+  <p><strong>eiMAKER</strong> · <a href="https://www.ifsc.edu.br" target="_blank">IFSC</a> · Tecnologias de Informação e Comunicação na Educação</p>
+</footer>
+<div class="color-strip" style="height:3px"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<script>
+/* ── QUIZ BANCO — METODOLOGIA ── */
+const mq_banco = [
+
+  // ── Modalidades e Estrutura da Disciplina ──
+  {topic:'🗂️ Estrutura da Disciplina', tc:'rgba(74,156,47,.12)', tt:'#2a6b10',
+   q:'Qual é a carga horária de atividades EaD desta disciplina?',
+   opts:['2 horas','8 horas','4 horas','10 horas'],
+   correct:2,
+   fb:['Incorreto. 2h seria insuficiente para as atividades propostas.','Incorreto. 8h é a carga do semestre seguinte.','Correto! Esta disciplina possui 4 horas de atividades EaD distribuídas ao longo do semestre.','Incorreto.']},
+  {topic:'🗂️ Estrutura da Disciplina', tc:'rgba(74,156,47,.12)', tt:'#2a6b10',
+   q:'A modalidade EaD desta disciplina é chamada de:',
+   opts:['Ensino totalmente a distância','Ensino presencial puro','Ensino híbrido — combinando momentos presenciais e remotos','Ensino por correspondência'],
+   correct:2,
+   fb:['Incorreto. A disciplina não é totalmente a distância.','Incorreto. Há atividades EaD previstas.','Correto! O modelo híbrido combina encontros presenciais e atividades remotas assíncronas no AVA.','Incorreto. Correspondência não é a modalidade adotada.']},
+  {topic:'🗂️ Estrutura da Disciplina', tc:'rgba(74,156,47,.12)', tt:'#2a6b10',
+   q:'Qual plataforma institucional do IFSC é usada para as atividades EaD desta disciplina?',
+   opts:['YouTube','Google Classroom','Blackboard','Sigaa ou Moodle'],
+   correct:3,
+   fb:['Incorreto. YouTube é uma ferramenta de vídeo, não o AVA institucional.','Incorreto. Google Classroom pode ser usado, mas não é a plataforma oficial do IFSC.','Incorreto. Blackboard não é utilizado no IFSC.','Correto! O Sigaa e o Moodle são as plataformas institucionais do IFSC.']},
+  {topic:'🗂️ Estrutura da Disciplina', tc:'rgba(74,156,47,.12)', tt:'#2a6b10',
+   q:'Qual é o objetivo final do projeto de desenvolvimento desta disciplina?',
+   opts:['Criar recursos digitais reais (blogs, sites, AVAs) para o ensino','Substituir todas as provas escritas do semestre','Aprender a programar em Python','Realizar pesquisas científicas publicáveis'],
+   correct:0,
+   fb:['Correto! O projeto visa criar recursos reais e significativos, aplicáveis ao ensino de Física.','Incorreto. O projeto é uma forma de avaliação, não substitui todas as outras.','Incorreto. O foco é o ensino de Física, não programação.','Incorreto. O foco é a prática pedagógica.']},
+
+  // ── Metodologias Ativas ──
+  {topic:'🎯 Metodologias Ativas', tc:'rgba(212,137,10,.12)', tt:'#7a4d00',
+   q:'O que define uma "metodologia ativa" de ensino?',
+   opts:['O professor explica todo o conteúdo em aulas expositivas','O aluno é o centro do processo, com papel ativo na construção do conhecimento','Os alunos assistem videoaulas antes das provas','O professor usa apenas slides digitais'],
+   correct:1,
+   fb:['Incorreto. Metodologias ativas buscam superar o modelo expositivo centrado no professor.','Correto! Nas metodologias ativas, o aluno pesquisa, reflete, debate e produz — assumindo protagonismo no aprendizado.','Incorreto. Assistir passivamente não caracteriza aprendizagem ativa.','Incorreto. O uso de slides não define o tipo de metodologia.']},
+  {topic:'🎯 Metodologias Ativas', tc:'rgba(212,137,10,.12)', tt:'#7a4d00',
+   q:'Na Sala de Aula Invertida, o que acontece FORA da sala de aula?',
+   opts:['Os alunos fazem as provas em casa','O aluno estuda o conteúdo previamente por vídeos ou materiais digitais','O professor corrige exercícios remotamente','Os alunos constroem maquetes em grupo'],
+   correct:1,
+   fb:['Incorreto. Provas em casa não é o foco da inversão.','Correto! Na SAI, o contato com o conteúdo ocorre antes da aula — por vídeos ou leituras — liberando o tempo presencial para aprofundamento e prática.','Incorreto. Correção remota não define a SAI.','Incorreto. Maquetes são atividade presencial.']},
+  {topic:'🎯 Metodologias Ativas', tc:'rgba(212,137,10,.12)', tt:'#7a4d00',
+   q:'O Peer Instruction (Instrução pelos Colegas) consiste em:',
+   opts:['O professor reprova quem não responde corretamente','Alunos discutem entre si a resposta de uma questão conceitual, justificando suas escolhas','Substituição do professor por monitores','Avaliação apenas com questões abertas'],
+   correct:1,
+   fb:['Incorreto. O objetivo é a aprendizagem colaborativa, não a reprovação.','Correto! No Peer Instruction, após uma questão conceitual, os alunos debatem com colegas e reapresentam respostas — aprendendo ao ensinar e ao ouvir.','Incorreto. O professor continua presente e mediando.','Incorreto. O Peer Instruction usa questões de múltipla escolha (ConcepTests).']},
+  {topic:'🎯 Metodologias Ativas', tc:'rgba(212,137,10,.12)', tt:'#7a4d00',
+   q:'Os Três Momentos Pedagógicos (3MP) de Delizoicov consistem em:',
+   opts:['Introdução, Desenvolvimento e Conclusão da aula','Problematização Inicial, Organização do Conhecimento e Aplicação','Diagnóstico, Intervenção e Avaliação','Motivação, Conteúdo e Exercício'],
+   correct:1,
+   fb:['Incorreto. Essa é uma estrutura genérica de aula, não os 3MP.','Correto! Os 3MP partem de uma situação-problema real, organizam o conhecimento científico necessário e o aplicam para resolver o problema inicial.','Incorreto. Diagnóstico não é o primeiro momento pedagógico dos 3MP.','Incorreto.']},
+  {topic:'🎯 Metodologias Ativas', tc:'rgba(212,137,10,.12)', tt:'#7a4d00',
+   q:'A Aprendizagem Baseada em Projetos (ABP/PBL) é uma metodologia na qual:',
+   opts:['Alunos resolvem listas de exercícios do livro didático','Alunos investigam e produzem soluções reais para problemas concretos e significativos','O professor projeta slides e os alunos copiam no caderno','Alunos leem e resumem capítulos do livro'],
+   correct:1,
+   fb:['Incorreto. Listas de exercícios são práticas tradicionais.','Correto! Na ABP, os alunos desenvolvem projetos reais, aplicando conhecimentos para resolver problemas autênticos — integrando teoria e prática.','Incorreto. Copiar slides é modelo transmissivo.','Incorreto. Resumir capítulos não constitui metodologia ativa de projeto.']},
+
+  // ── Sequência Didática ──
+  {topic:'📋 Sequência Didática', tc:'rgba(26,159,212,.12)', tt:'#0a5e8a',
+   q:'Qual é o primeiro momento de uma boa sequência didática com TICs?',
+   opts:['A avaliação dos alunos','A contextualização com uma pergunta ou situação-problema','A leitura do livro didático','A apresentação da lista de exercícios'],
+   correct:1,
+   fb:['Incorreto. A avaliação vem depois da construção do conhecimento.','Correto! Contextualizar com uma pergunta-problema ativa o interesse e os conhecimentos prévios dos alunos.','Incorreto. O livro pode ser usado, mas não deve ser o ponto de partida.','Incorreto. A lista de exercícios é uma forma de avaliação, não de abertura.']},
+  {topic:'📋 Sequência Didática', tc:'rgba(26,159,212,.12)', tt:'#0a5e8a',
+   q:'Na fase de "socialização" de uma sequência com metodologias ativas, o que acontece?',
+   opts:['Os alunos fazem login nas redes sociais pessoais','Grupos compartilham resultados e discutem descobertas com a turma','O professor apresenta o conteúdo do próximo bimestre','Os alunos fazem a chamada digital'],
+   correct:1,
+   fb:['Incorreto. "Socialização" tem sentido pedagógico específico neste contexto.','Correto! É o momento de compartilhar descobertas, comparar abordagens e consolidar o aprendizado coletivamente.','Incorreto. Apresentar novo conteúdo é outra fase.','Incorreto.']},
+  {topic:'📋 Sequência Didática', tc:'rgba(26,159,212,.12)', tt:'#0a5e8a',
+   q:'Qual é a sequência mais adequada para uma aula híbrida de Física com simuladores?',
+   opts:['Prova → Simulador → Vídeo → Exercício','Contextualização → Simulador (exploração) → Sistematização → Aplicação/Avaliação','Leitura do livro → Prova → Simulador → Nota','Exercício → Aula expositiva → Simulador → Tarefa de casa'],
+   correct:1,
+   fb:['Incorreto. Iniciar com prova não faz sentido pedagógico.','Correto! Partir de um problema, explorar com o simulador, sistematizar os conceitos e aplicar em uma atividade avaliativa é uma sequência coerente e ativa.','Incorreto. Prova após leitura não considera aprendizagem ativa.','Incorreto. Exercício sem contextualização prévia é menos eficaz.']},
+  {topic:'📋 Sequência Didática', tc:'rgba(26,159,212,.12)', tt:'#0a5e8a',
+   q:'Por que é importante registrar a sequência didática por escrito antes da aula?',
+   opts:['Para cumprir burocracia escolar','Para orientar a prática, antecipar dificuldades e permitir revisão e melhoria contínua','Para entregar ao MEC no fim do semestre','Porque a escola exige plano de aula impresso'],
+   correct:1,
+   fb:['Incorreto. O registro tem valor pedagógico além da burocracia.','Correto! O planejamento escrito ajuda a antecipar imprevistos, alinhar objetivos e permite reflexão sobre a prática após a aula.','Incorreto. O objetivo é pedagógico.','Incorreto. O valor está no processo reflexivo de planejar, não no papel impresso.']},
+
+  // ── Avaliação e EaD ──
+  {topic:'📊 Avaliação & EaD', tc:'rgba(107,63,154,.12)', tt:'#5a1f9a',
+   q:'A avaliação numa abordagem metodológica ativa deve ser:',
+   opts:['Apenas com prova escrita ao final do semestre','Processual, diversificada e alinhada aos objetivos de aprendizagem','Baseada exclusivamente em presença e participação','Realizada somente por pares, sem interferência do professor'],
+   correct:1,
+   fb:['Incorreto. Avaliação apenas somativa e única ignora o processo de aprendizagem.','Correto! A avaliação processual acompanha o aluno ao longo do percurso, usando instrumentos variados alinhados às atividades realizadas.','Incorreto. Presença e participação são critérios complementares, não suficientes.','Incorreto. A avaliação por pares pode ser usada, mas o professor também avalia.']},
+  {topic:'📊 Avaliação & EaD', tc:'rgba(107,63,154,.12)', tt:'#5a1f9a',
+   q:'O fórum de discussão no AVA é um instrumento de avaliação que privilegia:',
+   opts:['A velocidade de resposta dos alunos','A qualidade da argumentação e a interação entre os participantes','A quantidade de palavras por postagem','A organização visual do texto'],
+   correct:1,
+   fb:['Incorreto. Velocidade não é critério pedagógico de qualidade.','Correto! Fóruns avaliam a capacidade de argumentar, questionar e construir conhecimento coletivamente — habilidades essenciais na formação docente.','Incorreto. Extensão não garante qualidade argumentativa.','Incorreto. Organização é aspecto secundário no fórum.']},
+  {topic:'📊 Avaliação & EaD', tc:'rgba(107,63,154,.12)', tt:'#5a1f9a',
+   q:'Qual é a principal diferença entre avaliação formativa e somativa?',
+   opts:['Formativa usa provas, somativa usa trabalhos','Formativa acompanha o processo de aprendizagem; somativa mede o resultado final','Formativa é feita pelo aluno, somativa pelo professor','Formativa vale nota, somativa não vale'],
+   correct:1,
+   fb:['Incorreto. Ambas podem usar provas ou trabalhos.','Correto! A avaliação formativa ocorre ao longo do processo e orienta o aprendizado; a somativa registra o resultado ao final de uma etapa.','Incorreto. Ambas podem ser realizadas pelo professor.','Incorreto. Ambas podem ter ou não peso na nota.']},
+  {topic:'📊 Avaliação & EaD', tc:'rgba(107,63,154,.12)', tt:'#5a1f9a',
+   q:'O Ensino Híbrido combina:',
+   opts:['Aulas de dois professores diferentes','Momentos presenciais com atividades online, de forma integrada e planejada','Ensino de duas disciplinas ao mesmo tempo','Ensino público e privado'],
+   correct:1,
+   fb:['Incorreto.','Correto! O ensino híbrido integra intencionalmente o presencial e o online, aproveitando o melhor dos dois ambientes no percurso de aprendizagem.','Incorreto.','Incorreto.']},
+];
+
+const mq_N = 5;
+let mq_sel = [];
+const mq_ans = {};
+
+function mq_shuffle(a) {
+  const b = [...a];
+  for (let i = b.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [b[i], b[j]] = [b[j], b[i]];
+  }
+  return b;
+}
+
+function mq_build() {
+  Object.keys(mq_ans).forEach(k => delete mq_ans[k]);
+  document.getElementById('quiz-score').style.display = 'none';
+  const topics = [...new Set(mq_banco.map(q => q.topic))];
+  let pool = [];
+  topics.forEach(t => {
+    const tqs = mq_shuffle(mq_banco.filter(q => q.topic === t));
+    pool.push(...tqs.slice(0, 2));
+  });
+  mq_sel = mq_shuffle(pool).slice(0, mq_N);
+  document.getElementById('mq_container').innerHTML = mq_sel.map((q, i) => `
+    <div class="quiz-q" data-idx="${i}">
+      <div style="background:${q.tc};color:${q.tt};display:inline-block;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:.15rem .55rem;border-radius:4px;margin-bottom:.6rem">${q.topic}</div>
+      <p>${i + 1}. ${q.q}</p>
+      <div class="quiz-opts">
+        ${q.opts.map((o, oi) => `<div class="quiz-opt" onclick="mq_sel_opt(this,${i},${oi})"><span class="opt-letter">${'ABCD'[oi]}</span>${o}</div>`).join('')}
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>`).join('');
+}
+
+function mq_sel_opt(el, qi, oi) {
+  el.closest('.quiz-q').querySelectorAll('.quiz-opt').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+  mq_ans[qi] = oi;
+}
+
+function mq_check() {
+  let s = 0;
+  mq_sel.forEach((q, i) => {
+    const qEl = document.querySelector('.quiz-q[data-idx="' + i + '"]');
+    const opts = qEl.querySelectorAll('.quiz-opt');
+    const fb = qEl.querySelector('.quiz-feedback');
+    opts.forEach(o => { o.classList.remove('correct', 'wrong'); o.style.pointerEvents = 'none'; });
+    if (mq_ans[i] !== undefined) {
+      opts[q.correct].classList.add('correct');
+      if (mq_ans[i] !== q.correct) opts[mq_ans[i]].classList.add('wrong');
+      else s++;
+      fb.textContent = q.fb[mq_ans[i]];
+      fb.style.display = 'block';
+      const ok = mq_ans[i] === q.correct;
+      fb.style.background = ok ? 'rgba(74,156,47,.1)' : 'rgba(224,32,32,.08)';
+      fb.style.color = ok ? 'var(--green)' : '#c62828';
+      fb.style.border = '1px solid ' + (ok ? 'rgba(74,156,47,.25)' : 'rgba(224,32,32,.2)');
+    }
+  });
+  const sc = document.getElementById('quiz-score');
+  sc.style.display = 'block';
+  const p = Math.round(s / mq_N * 100);
+  sc.innerHTML = '<h3>' + s + '/' + mq_N + ' acertos (' + p + '%)</h3><p>' +
+    (p >= 80 ? '🎉 Excelente! Você dominou a metodologia.' : p >= 60 ? '👍 Bom resultado! Revise os itens que errou.' : '📚 Releia a teoria e tente novamente.') + '</p>';
+}
+
+function mq_reset() {
+  Object.keys(mq_ans).forEach(k => delete mq_ans[k]);
+  document.querySelectorAll('#mq_container .quiz-opt').forEach(o => { o.classList.remove('selected', 'correct', 'wrong'); o.style.pointerEvents = ''; });
+  document.querySelectorAll('#mq_container .quiz-feedback').forEach(f => f.style.display = 'none');
+  document.getElementById('quiz-score').style.display = 'none';
+}
+
+document.querySelectorAll('.prog-btn').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const t = document.querySelector(href);
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelectorAll('.prog-btn').forEach(b => b.classList.remove('act'));
+    a.classList.add('act');
+  });
+});
+
+mq_build();
+</script>
+</body>
+</html>

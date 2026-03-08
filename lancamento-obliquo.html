@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lançamento Oblíquo — eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── SITE TOKENS ── */
+  :root {
+    --red:#e02020; --yellow:#d4890a; --green:#4a9c2f;
+    --blue1:#1a9fd4; --blue2:#2563a8; --purple:#6b3f9a;
+    --bg:#f0f2f7; --surface:#fff; --card:#fff; --card2:#f7f9fc;
+    --text:#1e2130; --muted:#5a6078;
+    --border:rgba(0,0,0,0.09); --shadow:0 2px 16px rgba(0,0,0,0.08);
+    /* simulator accent — IFSC green kept only for canvas elements */
+    --accent:#4a9c2f; --accent2:#d4890a; --accent3:#e02020;
+    --ifsc-green:#4a9c2f; --ifsc-green2:#4a9c2f;
+    --panel:#fff; --panel2:#f7f9fc;
+    --em-chrome:56px;
+  }
+  *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Nunito',sans-serif;
+    background:var(--bg); color:var(--text);
+    min-height:100vh; overflow-x:hidden;
+    padding-top:var(--em-chrome) !important;
+  }
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:#e8eaf0}
+  ::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
+
+  /* ── ROTATE OVERLAY ── */
+  #rotate-overlay {
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:#1e2130;
+    flex-direction:column; align-items:center; justify-content:center;
+    gap:1.5rem; text-align:center; padding:2rem;
+  }
+  #rotate-overlay.show { display:flex; }
+  .rotate-icon { font-size:5rem; animation:rotateHint 1.5s ease-in-out infinite; }
+  @keyframes rotateHint{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
+  #rotate-overlay h2 { font-size:1.5rem; font-weight:900; color:var(--green); }
+  #rotate-overlay p  { color:rgba(255,255,255,.6); font-size:.95rem; max-width:260px; }
+
+  /* ── eiMAKER CHROME ── */
+  .em-strip { display:flex; height:4px; position:fixed; top:0; left:0; right:0; z-index:10000; }
+  .cs1{flex:1;background:#e02020}.cs2{flex:1;background:#d4890a}
+  .cs3{flex:1;background:#4a9c2f}.cs4{flex:1;background:#1a9fd4}
+  .cs5{flex:1;background:#2563a8}.cs6{flex:1;background:#6b3f9a}
+  .em-header {
+    position:fixed; top:4px; left:0; right:0; z-index:9999;
+    display:flex; align-items:center; gap:.9rem;
+    padding:0 1.4rem; height:52px;
+    background:rgba(255,255,255,0.97);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(12px);
+    box-shadow:0 1px 8px rgba(0,0,0,.07);
+  }
+  .em-logo { display:flex; align-items:center; text-decoration:none; flex-shrink:0; }
+  .em-keys { display:flex; gap:3px; }
+  .em-key {
+    width:24px; height:24px; border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:.7rem;
+    color:#fff; box-shadow:0 2px 4px rgba(0,0,0,.18);
+  }
+  .em-red{background:#e02020}.em-yellow{background:#d4890a}.em-green{background:#4a9c2f}
+  .em-blue1{background:#1a9fd4}.em-blue2{background:#2563a8}.em-purple{background:#6b3f9a}
+  .em-nav { display:flex; gap:2px; flex:1; justify-content:center; }
+  .em-nav a {
+    color:var(--muted); text-decoration:none;
+    padding:.3rem .75rem; border-radius:8px;
+    font-family:'Nunito',sans-serif; font-weight:700; font-size:.82rem;
+    transition:color .2s,background .2s; white-space:nowrap;
+  }
+  .em-nav a:hover { color:var(--text); background:var(--bg); }
+  .em-nav a.em-act { color:var(--green); background:rgba(74,156,47,.09); }
+  .em-proj { font-family:'Nunito',sans-serif; font-size:.76rem; font-weight:700;
+    color:var(--muted); white-space:nowrap; flex-shrink:0; }
+  @media(max-width:640px){ .em-nav{display:none} .em-proj{display:none} }
+  .header-inner, header.lc-orig { display:none !important; }
+
+  /* ── PAGE TITLE BAR ── */
+  .page-title-bar {
+    padding:1.5rem 2rem 1.2rem;
+    background:linear-gradient(135deg,#f0fff4 0%,#fff 55%,var(--bg) 100%);
+    border-bottom:1px solid var(--border);
+    text-align:center;
+  }
+  .page-title-bar .badge {
+    display:inline-flex; align-items:center; gap:.4rem;
+    padding:.28rem .9rem; border-radius:999px; font-size:.72rem;
+    font-weight:800; letter-spacing:.8px; text-transform:uppercase;
+    margin-bottom:.7rem;
+    background:rgba(74,156,47,.1); border:1px solid rgba(74,156,47,.25); color:var(--green);
+  }
+  .page-title-bar h1 {
+    font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900;
+    line-height:1.1; margin-bottom:.5rem;
+  }
+  .page-title-bar p { color:var(--muted); font-size:.9rem; }
+
+  /* ── LAYOUT ── */
+  .app {
+    display:grid; grid-template-columns:300px 1fr;
+    gap:1.25rem; max-width:1300px;
+    margin:1.5rem auto; padding:0 1.5rem 2.5rem;
+  }
+  @media(max-width:900px){ .app{grid-template-columns:1fr} }
+
+  /* ── PANEL (controles) ── */
+  .panel {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:1.5rem;
+    box-shadow:var(--shadow); height:fit-content;
+    position:relative; overflow:hidden;
+  }
+  .panel::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--green),var(--blue1),var(--green));
+  }
+  .panel-title {
+    font-size:.72rem; font-weight:800; letter-spacing:2px;
+    text-transform:uppercase; color:var(--green);
+    margin-bottom:1.25rem; padding-bottom:.65rem;
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .panel-title::before {
+    content:''; width:7px; height:7px; background:var(--green);
+    border-radius:50%; animation:pulse 1.6s infinite; flex-shrink:0;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+  /* ── FIELDS ── */
+  .field { margin-bottom:1.25rem; }
+  .field label {
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.8rem; font-weight:700; color:var(--muted);
+    text-transform:uppercase; letter-spacing:.06em; margin-bottom:.5rem;
+  }
+  .field label span {
+    font-size:1rem; font-weight:900; color:var(--green);
+    font-family:'Fira Code',monospace;
+  }
+  input[type=range] {
+    -webkit-appearance:none; width:100%; height:6px;
+    background:linear-gradient(90deg,var(--green) var(--pct,50%),var(--border) var(--pct,50%));
+    border-radius:3px; outline:none; cursor:pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance:none; width:18px; height:18px;
+    background:var(--green); border-radius:50%;
+    border:2px solid #fff; box-shadow:0 2px 8px rgba(74,156,47,.4);
+    transition:transform .15s;
+  }
+  input[type=range]:hover::-webkit-slider-thumb { transform:scale(1.2); }
+
+  /* ── TARGET ── */
+  .target-info {
+    background:rgba(212,137,10,.07); border:1px solid rgba(212,137,10,.25);
+    border-radius:12px; padding:1rem 1.1rem; margin-bottom:1.25rem;
+    display:flex; align-items:center; gap:.9rem;
+  }
+  .target-icon { font-size:1.8rem; }
+  .target-info .t-label {
+    font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--yellow); margin-bottom:.15rem; font-weight:700;
+  }
+  .target-info .t-value {
+    font-size:1.6rem; font-weight:900; color:var(--yellow);
+    font-family:'Fira Code',monospace;
+  }
+
+  /* ── FORMULA ── */
+  .formula-card {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:10px; padding:.9rem; margin-bottom:1.25rem;
+    font-size:.78rem; line-height:1.9; color:var(--muted);
+    font-family:'Fira Code',monospace;
+  }
+  .formula-card .f-line { display:flex; gap:.4rem; align-items:baseline; }
+  .formula-card .sym { color:var(--green); font-weight:700; min-width:88px; }
+
+  /* ── RESULT ── */
+  .result-box {
+    border-radius:12px; padding:1rem 1.1rem; margin-bottom:1.25rem;
+    display:none; border:1px solid rgba(74,156,47,.3);
+    background:rgba(74,156,47,.06);
+  }
+  .result-box.show { display:block; }
+  .result-box .r-title {
+    font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.4rem; font-weight:700;
+  }
+  .result-box .r-val { font-size:1.1rem; font-weight:900; margin-bottom:.2rem; }
+  .result-box .r-val.hit { color:var(--green); }
+  .result-box .r-val.miss { color:var(--red); }
+
+  /* ── BUTTONS ── */
+  .btn-row { display:flex; gap:.75rem; flex-wrap:wrap; }
+  button {
+    font-family:'Nunito',sans-serif; font-weight:800; font-size:.9rem;
+    border:none; border-radius:10px; cursor:pointer;
+    padding:.7rem 1.25rem; transition:transform .15s,box-shadow .15s;
+    letter-spacing:.02em;
+  }
+  button:hover { transform:translateY(-2px); }
+  button:active { transform:translateY(0); }
+
+  .btn-fire {
+    background:var(--red); color:#fff;
+    box-shadow:0 4px 14px rgba(224,32,32,.35);
+  }
+  .btn-fire:hover { box-shadow:0 6px 22px rgba(224,32,32,.5); }
+  .btn-fire:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+  .btn-reset {
+    background:transparent; color:var(--green);
+    border:2px solid rgba(74,156,47,.4);
+  }
+  .btn-reset:hover { background:rgba(74,156,47,.08); border-color:var(--green); }
+
+  /* ── SHOTS COUNTER ── */
+  .shots-row {
+    display:flex; align-items:center; gap:.6rem;
+    padding:.5rem 0; margin-bottom:.5rem;
+  }
+  .shots-label {
+    font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); font-weight:700; margin-right:.2rem;
+  }
+  .shot-dot {
+    width:22px; height:22px; border-radius:50%;
+    border:2px solid var(--border); background:transparent;
+    display:flex; align-items:center; justify-content:center; font-size:12px;
+    transition:border-color .2s;
+  }
+  .shot-dot.used { border-color:#ccc; background:var(--card2); }
+  .shots-sep { color:var(--border); font-size:1.1rem; margin:0 .3rem; }
+
+  /* ── CANVAS ── */
+  .canvas-wrap { display:flex; flex-direction:column; gap:1rem; }
+  .canvas-container {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:14px; overflow:hidden;
+    box-shadow:var(--shadow); position:relative;
+  }
+  canvas { display:block; width:100%; height:auto; }
+
+  /* ── READOUTS ── */
+  .readout-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; }
+  @media(max-width:600px){ .readout-grid{grid-template-columns:repeat(2,1fr)} }
+  .readout-card {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:12px; padding:.8rem 1rem; text-align:center;
+    box-shadow:var(--shadow); transition:border-color .3s,box-shadow .3s;
+  }
+  .readout-card.active { border-color:var(--green); box-shadow:0 0 12px rgba(74,156,47,.15); }
+  .readout-card .rc-label {
+    font-size:.65rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.3rem; font-weight:700;
+  }
+  .readout-card .rc-val {
+    font-size:1.05rem; font-weight:900; color:var(--green);
+    font-family:'Fira Code',monospace;
+  }
+
+  /* ── TOAST ── */
+  #toast {
+    position:fixed; bottom:2rem; left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:var(--card); border:2px solid var(--border);
+    border-radius:50px; padding:.7rem 2rem;
+    font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800;
+    z-index:100; transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s;
+    opacity:0; pointer-events:none; white-space:nowrap;
+    box-shadow:var(--shadow);
+  }
+  #toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+  #toast.hit  { color:var(--green); border-color:var(--green); box-shadow:0 4px 20px rgba(74,156,47,.25); }
+  #toast.miss { color:var(--red);   border-color:var(--red);   box-shadow:0 4px 20px rgba(224,32,32,.2); }
+  #toast.info { color:var(--yellow);border-color:var(--yellow);box-shadow:0 4px 20px rgba(212,137,10,.2); }
+
+  /* color strip bottom */
+  .color-strip{display:flex;height:3px}
+  .color-strip .cs1{flex:1;background:#e02020}.color-strip .cs2{flex:1;background:#d4890a}
+  .color-strip .cs3{flex:1;background:#4a9c2f}.color-strip .cs4{flex:1;background:#1a9fd4}
+  .color-strip .cs5{flex:1;background:#2563a8}.color-strip .cs6{flex:1;background:#6b3f9a}
+
+  /* ── MODE BUTTONS ── */
+  .mode-btns { display:flex; gap:.6rem; margin-bottom:1.25rem; }
+  .mode-btn {
+    flex:1; padding:.65rem; border-radius:10px; border:2px solid var(--border);
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:.95rem;
+    cursor:pointer; background:var(--card2); color:var(--muted);
+    transition:all .2s;
+  }
+  .mode-btn.active {
+    background:var(--green); color:#fff;
+    border-color:var(--green); box-shadow:0 4px 14px rgba(74,156,47,.35);
+  }
+  .mode-btn:hover:not(.active) { border-color:var(--green); color:var(--green); background:#f0fff4; }
+
+  /* ── FIXED VALUE BADGE (canvas overlay) ── */
+  #fixedBadge {
+    position:absolute; top:12px; right:12px; z-index:10;
+    background:rgba(74,156,47,.92); color:#fff;
+    border-radius:10px; padding:.45rem .9rem;
+    font-family:'Fira Code',monospace; font-weight:700; font-size:.85rem;
+    box-shadow:0 2px 10px rgba(74,156,47,.4);
+    display:none; backdrop-filter:blur(4px);
+    border:1px solid rgba(255,255,255,.2);
+  }
+  #fixedBadge.show { display:block; }
+
+  /* ── DOC BUTTONS ── */
+  .doc-btns { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem; }
+  .doc-btn {
+    flex:1; display:inline-flex; align-items:center; justify-content:center; gap:.4rem;
+    padding:.6rem .8rem; border-radius:10px; font-family:'Nunito',sans-serif;
+    font-weight:800; font-size:.82rem; text-decoration:none;
+    border:2px solid var(--border); background:var(--card2); color:var(--muted);
+    transition:all .2s; cursor:pointer;
+  }
+  .doc-btn:hover { border-color:var(--blue2); color:var(--blue2); background:rgba(37,99,168,.06); transform:translateY(-1px); }
+</style>
+</head>
+<body>
+
+
+<!-- ROTATE WARNING (portrait mobile) -->
+<div id="rotate-overlay">
+  <div class="rotate-icon">📱</div>
+  <h2>Gire o dispositivo!</h2>
+  <p>Para uma melhor experiência, use o celular na posição <strong style="color:#fff">horizontal</strong>.</p>
+</div>
+
+<!-- HEADER -->
+
+<div class="em-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<div class="em-header">
+  <a class="em-logo" href="index.html">
+    <div class="em-keys">
+      <div class="em-key em-red" style="font-size:.62rem">ei</div>
+      <div class="em-key em-yellow">M</div><div class="em-key em-green">A</div>
+      <div class="em-key em-blue1">K</div><div class="em-key em-blue2">E</div><div class="em-key em-purple">R</div>
+    </div>
+  </a>
+  <nav class="em-nav">
+    <a href="objetivos.html">Objetivos</a>
+    <a href="conteudos.html">Conteúdos</a>
+    <a href="metodologia.html">Metodologia</a>
+    <a href="ferramentas.html">Ferramentas</a>
+    <a href="bibliografia.html">Bibliografia</a>
+    <a href="projetos.html" class="em-act">Projetos</a>
+  </nav>
+  <span class="em-proj">🚀 Lançamento Oblíquo</span>
+</div>
+
+
+
+<div class="page-title-bar">
+  <h1>Lançamento <span style="color:var(--green)">Oblíquo</span></h1>
+  <p>Simulador interativo de projéteis — controle ângulo, velocidade e observe a trajetória parabólica em tempo real.</p>
+</div>
+
+<div class="app">
+  <!-- CONTROLS -->
+  <aside class="panel" style="height:fit-content">
+    <div class="panel-title">Parâmetros</div>
+
+    <!-- MODE BUTTONS -->
+    <div class="mode-btns">
+      <button class="mode-btn active" id="btnModeAngle" onclick="setMode('angle')">📐 Ângulo</button>
+      <button class="mode-btn" id="btnModeSpeed" onclick="setMode('speed')">💨 Velocidade</button>
+    </div>
+
+    <div class="target-info">
+      <div class="target-icon">🎯</div>
+      <div>
+        <div class="t-label">Distância do Alvo</div>
+        <div class="t-value" id="targetDisplay">—</div>
+      </div>
+    </div>
+
+    <div class="field" id="fieldAngle">
+      <label>Ângulo de Disparo <span id="angleVal">45°</span></label>
+      <input type="range" id="angleSlider" min="5" max="85" value="45" step="1">
+    </div>
+
+    <div class="field" id="fieldSpeed">
+      <label>Velocidade Inicial <span id="speedVal" style="color:var(--muted);font-family:'Fira Code',monospace;font-size:.85rem"></span></label>
+      <input type="range" id="speedSlider" min="10" max="150" value="50" step="1">
+    </div>
+
+    <div class="formula-card">
+      <div class="f-line"><span class="sym">x(t) =</span> v·cos(θ)·t</div>
+      <div class="f-line"><span class="sym">y(t) =</span> v·sen(θ)·t − ½g·t²</div>
+      <div class="f-line"><span class="sym">Alcance =</span> v²·sen(2θ) / g</div>
+      <div class="f-line"><span class="sym">Hmáx =</span> v²·sen²(θ) / 2g</div>
+      <div class="f-line"><span class="sym">g =</span> 9,8 m/s²</div>
+    </div>
+
+    <!-- COMO JOGAR -->
+    <div style="margin-top:1rem;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem">
+      <div style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--blue1);margin-bottom:.6rem">🎮 Como jogar</div>
+      <ol style="padding-left:1.1rem;margin:0;font-size:.8rem;line-height:1.8;color:var(--muted)">
+        <li>Escolha o modo <strong style="color:var(--text)">Ângulo</strong> ou <strong style="color:var(--text)">Velocidade</strong></li>
+        <li>Ajuste o parâmetro disponível na barra</li>
+        <li>Acerte o alvo 🎯 em até <strong style="color:var(--text)">3 disparos</strong></li>
+        <li>Clique <strong style="color:var(--red)">Disparar!</strong> e observe a trajetória</li>
+        <li>Use <strong style="color:var(--text)">Nova Simulação</strong> para um novo alvo</li>
+      </ol>
+    </div>
+
+    <!-- DOC BUTTONS -->
+    <div class="doc-btns">
+      <a class="doc-btn" href="roteiro-lancamento-obliquo.docx" download>📋 Roteiro</a>
+      <a class="doc-btn" href="relatorio-lancamento-obliquo.docx" download>📝 Relatório</a>
+    </div>
+
+  </aside>
+
+  <!-- CANVAS + READOUTS -->
+  <div class="canvas-wrap">
+    <div class="canvas-container" style="position:relative">
+      <canvas id="sim" width="900" height="420"></canvas>
+      <div id="fixedBadge"></div>
+    </div>
+    <div class="result-box" id="resultBox">
+      <div class="r-title">Resultado</div>
+      <div class="r-val" id="resultText">—</div>
+      <div style="font-size:0.76rem;color:var(--muted);margin-top:0.35rem" id="resultDetail"></div>
+    </div>
+    <div class="shots-row">
+      <span class="shots-label">Disparos restantes</span>
+      <div class="shot-dot" id="sd0"></div>
+      <div class="shot-dot" id="sd1"></div>
+      <div class="shot-dot" id="sd2"></div>
+      <span class="shots-sep">|</span>
+      <span id="shotsMsg" style="font-size:0.75rem;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase"></span>
+    </div>
+    <div class="btn-row">
+      <button class="btn-fire" id="btnFire" onclick="fire()">🔥 Disparar!</button>
+      <button class="btn-reset" onclick="reset()">🔄 Nova Simulação</button>
+    </div>
+    <div class="readout-grid">
+      <div class="readout-card" id="rc1"><div class="rc-label">Altura Máxima</div><div class="rc-val" id="rc-hmax">— m</div></div>
+      <div class="readout-card" id="rc2"><div class="rc-label">Tempo de Voo</div><div class="rc-val" id="rc-time">— s</div></div>
+      <div class="readout-card" id="rc3"><div class="rc-label">Vel. Horizontal</div><div class="rc-val" id="rc-vx">— m/s</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+
+<script>
+
+// ── MOBILE ROTATE ─────────────────────────────────────────────
+function checkOrientation(){
+  const overlay=document.getElementById('rotate-overlay');
+  const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if(isMobile && window.innerHeight>window.innerWidth){
+    overlay.classList.add('show');
+  } else {
+    overlay.classList.remove('show');
+  }
+}
+window.addEventListener('resize',checkOrientation);
+window.addEventListener('orientationchange',checkOrientation);
+checkOrientation();
+
+// ── CONSTANTS ─────────────────────────────────────────────────
+const G=9.8;
+const MAX_SHOTS=3;
+const W=900, H=420;
+const GROUND_Y=H-70;
+const CANNON_X=70;
+
+let targetDist=0, animId=null, simRunning=false;
+let shotsUsed=0;
+// Store completed trajectories to redraw them
+let completedShots=[];
+
+const canvas=document.getElementById('sim');
+const ctx=canvas.getContext('2d');
+const angleSlider=document.getElementById('angleSlider');
+const speedSlider=document.getElementById('speedSlider');
+
+// ── SLIDERS ───────────────────────────────────────────────────
+function updateSlider(el){
+  const pct=(el.value-el.min)/(el.max-el.min)*100;
+  el.style.setProperty('--pct',pct+'%');
+}
+
+// ── MODE ──────────────────────────────────────────────────────
+let currentMode = 'angle'; // 'angle' or 'speed'
+
+function setMode(m) {
+  currentMode = m;
+  document.getElementById('btnModeAngle').classList.toggle('active', m==='angle');
+  document.getElementById('btnModeSpeed').classList.toggle('active', m==='speed');
+
+  const fieldAngle = document.getElementById('fieldAngle');
+  const fieldSpeed = document.getElementById('fieldSpeed');
+  const badge = document.getElementById('fixedBadge');
+
+  if (m === 'angle') {
+    // angle is free, speed is locked
+    angleSlider.disabled = false;
+    speedSlider.disabled = true;
+    fieldAngle.style.opacity = '1';
+    fieldSpeed.style.opacity = '0.4';
+    badge.textContent = '💨 Vel. Fixada: ' + speedSlider.value + ' m/s';
+    badge.classList.add('show');
+  } else {
+    // speed is free, angle is locked
+    angleSlider.disabled = true;
+    speedSlider.disabled = false;
+    fieldAngle.style.opacity = '0.4';
+    fieldSpeed.style.opacity = '1';
+    badge.textContent = '📐 Ângulo Fixo: ' + angleSlider.value + '°';
+    badge.classList.add('show');
+  }
+
+  // reset on mode change
+  if(animId){cancelAnimationFrame(animId);animId=null;}
+  simRunning=false; shotsUsed=0; completedShots=[];
+  document.getElementById('btnFire').disabled=false;
+  document.getElementById('resultBox').classList.remove('show');
+  document.querySelectorAll('.readout-card').forEach(c=>c.classList.remove('active'));
+  hideToast();
+  newTarget();
+  fixedScale = computeScale();
+  updateReadouts(); updateShotsUI(); drawStatic();
+}
+
+angleSlider.addEventListener('input',()=>{
+  document.getElementById('angleVal').textContent=angleSlider.value+'°';
+  updateSlider(angleSlider);
+  if(currentMode==='speed'){
+    document.getElementById('fixedBadge').textContent='📐 Ângulo Fixo: '+angleSlider.value+'°';
+  }
+  if(!simRunning){ drawStatic(); updateReadouts(); }
+});
+speedSlider.addEventListener('input',()=>{
+  document.getElementById('speedVal').textContent=speedSlider.value+' m/s';
+  updateSlider(speedSlider);
+  if(currentMode==='angle'){
+    document.getElementById('fixedBadge').textContent='💨 Vel. Fixada: '+speedSlider.value+' m/s';
+  }
+  if(!simRunning){ updateReadouts(); }
+});
+updateSlider(angleSlider); updateSlider(speedSlider);
+document.getElementById('speedVal').textContent=speedSlider.value+' m/s';
+
+// ── TARGET ────────────────────────────────────────────────────
+function newTarget(){
+  const mn=5,mx=30;
+  targetDist=(Math.floor(Math.random()*(mx-mn+1))+mn)*10;
+  document.getElementById('targetDisplay').textContent=targetDist+' m';
+}
+
+// ── PHYSICS ───────────────────────────────────────────────────
+function getParams(){
+  const angle=parseFloat(angleSlider.value)*Math.PI/180;
+  const v0=parseFloat(speedSlider.value);
+  const vx=v0*Math.cos(angle), vy=v0*Math.sin(angle);
+  const tFlight=2*vy/G;
+  const range=vx*tFlight;
+  const hMax=vy*vy/(2*G);
+  return{angle,v0,vx,vy,tFlight,range,hMax};
+}
+
+function updateReadouts(){
+  const p=getParams();
+  document.getElementById('rc-hmax').textContent=p.hMax.toFixed(1)+' m';
+  document.getElementById('rc-time').textContent=p.tFlight.toFixed(2)+' s';
+  document.getElementById('rc-vx').textContent=p.vx.toFixed(1)+' m/s';
+}
+
+// ── SHOTS UI ──────────────────────────────────────────────────
+function updateShotsUI(){
+  for(let i=0;i<MAX_SHOTS;i++){
+    const dot=document.getElementById('sd'+i);
+    if(i<shotsUsed){
+      dot.classList.add('used');
+      dot.textContent='💣';
+    } else {
+      dot.classList.remove('used');
+      dot.textContent='';
+    }
+  }
+  const remaining=MAX_SHOTS-shotsUsed;
+  const msg=document.getElementById('shotsMsg');
+  if(remaining===0){
+    msg.textContent='Sem disparos — reinicie!';
+    msg.style.color='#cc2200';
+  } else {
+    msg.textContent=`${remaining} disparo${remaining!==1?'s':''} restante${remaining!==1?'s':''}`;
+    msg.style.color='';
+  }
+}
+
+// ── CANVAS HELPERS ────────────────────────────────────────────
+function worldToCanvas(x,y,scale){
+  return{cx:CANNON_X+x*scale, cy:GROUND_Y-y*scale};
+}
+
+let fixedScale = 1; // set once at reset, never changes during a simulation round
+
+function computeScale(){
+  // Base scale only on targetDist and a reasonable max height guess
+  // Use a fixed world width = targetDist * 2.2 to give plenty of room
+  const maxX = targetDist * 2.2;
+  const maxY = targetDist * 0.7; // rough estimate of max height
+  const sx = (W - CANNON_X - 60) / Math.max(maxX, 1);
+  const sy = (GROUND_Y - 30) / Math.max(maxY, 1);
+  return Math.min(sx, sy, 10);
+}
+
+function getScale(){
+  return fixedScale;
+}
+
+// Shot colors for multiple trajectories
+const SHOT_COLORS=[
+  {trail:'rgba(255,200,50,A)',ball:'#ffcc00',shadow:'rgba(255,180,0,0.9)'},
+  {trail:'rgba(0,200,255,A)',ball:'#00ccff',shadow:'rgba(0,180,255,0.9)'},
+  {trail:'rgba(255,100,200,A)',ball:'#ff64c8',shadow:'rgba(255,80,180,0.9)'},
+];
+
+function drawScene(activeBallX, activeBallY, activeTrail, scale, done, activeShotIdx){
+  ctx.clearRect(0,0,W,H);
+
+  // Sky
+  const sky=ctx.createLinearGradient(0,0,0,GROUND_Y);
+  sky.addColorStop(0,'#a8d8f0'); sky.addColorStop(1,'#d4eef8');
+  ctx.fillStyle=sky; ctx.fillRect(0,0,W,GROUND_Y);
+
+  // Ground
+  const grd=ctx.createLinearGradient(0,GROUND_Y,0,H);
+  grd.addColorStop(0,'#4a9a3a'); grd.addColorStop(1,'#2d6622');
+  ctx.fillStyle=grd; ctx.fillRect(0,GROUND_Y,W,H-GROUND_Y);
+
+  // Ground glow
+  ctx.save(); ctx.shadowBlur=8; ctx.shadowColor='rgba(0,180,60,0.3)';
+  ctx.strokeStyle='#3a8a2a'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(0,GROUND_Y); ctx.lineTo(W,GROUND_Y); ctx.stroke();
+  ctx.restore();
+
+  // Grid
+  ctx.save(); ctx.strokeStyle='rgba(100,180,200,0.25)'; ctx.lineWidth=1;
+  for(let gx=CANNON_X;gx<W;gx+=60){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,GROUND_Y);ctx.stroke();}
+  for(let gy=20;gy<GROUND_Y;gy+=60){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
+  ctx.restore();
+
+  // ── Completed shots trails ──
+  completedShots.forEach((shot,idx)=>{
+    const col=SHOT_COLORS[idx%SHOT_COLORS.length];
+    if(shot.trail.length>1){
+      ctx.save();
+      for(let i=1;i<shot.trail.length;i++){
+        const a=(i/shot.trail.length)*0.6;
+        const c0=worldToCanvas(shot.trail[i-1].x,shot.trail[i-1].y,scale);
+        const c1=worldToCanvas(shot.trail[i].x,shot.trail[i].y,scale);
+        ctx.strokeStyle=col.trail.replace('A',String(a));
+        ctx.lineWidth=1.5+a*2; ctx.shadowBlur=5; ctx.shadowColor=col.shadow;
+        ctx.beginPath(); ctx.moveTo(c0.cx,c0.cy); ctx.lineTo(c1.cx,c1.cy); ctx.stroke();
+      }
+      ctx.restore();
+    }
+    // impact marker
+    const ic=worldToCanvas(shot.landX,0,scale);
+    ctx.save();
+    ctx.strokeStyle=col.ball; ctx.lineWidth=2; ctx.globalAlpha=0.7;
+    ctx.setLineDash([3,4]);
+    ctx.beginPath(); ctx.moveTo(ic.cx,GROUND_Y-8); ctx.lineTo(ic.cx,GROUND_Y+4); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle=col.ball; ctx.font='bold 10px Rajdhani'; ctx.textAlign='center'; ctx.globalAlpha=0.8;
+    ctx.fillText(shot.landX.toFixed(0)+'m',ic.cx,GROUND_Y+18);
+    ctx.restore();
+  });
+
+  // ── Target ──
+  const tc=worldToCanvas(targetDist,0,scale);
+  ctx.save();
+  ctx.strokeStyle='#6b3000'; ctx.lineWidth=5;
+  ctx.beginPath(); ctx.moveTo(tc.cx,GROUND_Y); ctx.lineTo(tc.cx,GROUND_Y-52); ctx.stroke();
+  ctx.fillStyle='#ff6b35';
+  ctx.beginPath(); ctx.moveTo(tc.cx,GROUND_Y-52); ctx.lineTo(tc.cx+30,GROUND_Y-39); ctx.lineTo(tc.cx,GROUND_Y-26); ctx.closePath(); ctx.fill();
+  ctx.strokeStyle='rgba(255,107,53,0.3)'; ctx.lineWidth=1.5; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(tc.cx,0); ctx.lineTo(tc.cx,GROUND_Y-52); ctx.stroke();
+  ctx.setLineDash([]);
+  // tolerance zone
+  const tolPx=10*scale;
+  ctx.fillStyle='rgba(255,107,53,0.1)';
+  ctx.beginPath(); ctx.rect(tc.cx-tolPx,GROUND_Y-4,tolPx*2,8); ctx.fill();
+  ctx.fillStyle='#ff8c5a'; ctx.font='bold 12px Rajdhani'; ctx.textAlign='center'; ctx.globalAlpha=1;
+  ctx.fillText(targetDist+'m',tc.cx,GROUND_Y+20);
+  ctx.restore();
+
+  // ── Active trail ──
+  if(activeTrail.length>1){
+    const col=SHOT_COLORS[activeShotIdx%SHOT_COLORS.length];
+    ctx.save();
+    for(let i=1;i<activeTrail.length;i++){
+      const a=(i/activeTrail.length)*0.9;
+      const c0=worldToCanvas(activeTrail[i-1].x,activeTrail[i-1].y,scale);
+      const c1=worldToCanvas(activeTrail[i].x,activeTrail[i].y,scale);
+      ctx.strokeStyle=col.trail.replace('A',String(a));
+      ctx.lineWidth=2+a*3; ctx.shadowBlur=10; ctx.shadowColor=col.shadow;
+      ctx.beginPath(); ctx.moveTo(c0.cx,c0.cy); ctx.lineTo(c1.cx,c1.cy); ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  // ── Cannon ──
+  ctx.save();
+  const bx=CANNON_X, by=GROUND_Y;
+  // Wheels
+  [bx-15,bx+15].forEach(wx=>{
+    ctx.beginPath(); ctx.arc(wx,by,11,0,Math.PI*2);
+    ctx.fillStyle='#2a2a35'; ctx.fill();
+    ctx.strokeStyle='#555'; ctx.lineWidth=2; ctx.stroke();
+    // spokes
+    for(let sp=0;sp<4;sp++){
+      const sa=sp*Math.PI/2;
+      ctx.beginPath(); ctx.moveTo(wx,by); ctx.lineTo(wx+Math.cos(sa)*8,by+Math.sin(sa)*8);
+      ctx.strokeStyle='#666'; ctx.lineWidth=1.5; ctx.stroke();
+    }
+    ctx.beginPath(); ctx.arc(wx,by,4,0,Math.PI*2);
+    ctx.fillStyle='#888'; ctx.fill();
+  });
+  // Body
+  const bodyGrad=ctx.createLinearGradient(bx-24,0,bx+24,0);
+  bodyGrad.addColorStop(0,'#3a3a50'); bodyGrad.addColorStop(0.5,'#5a5a70'); bodyGrad.addColorStop(1,'#3a3a50');
+  ctx.fillStyle=bodyGrad;
+  ctx.beginPath(); ctx.roundRect(bx-26,by-16,52,16,4); ctx.fill();
+  ctx.restore();
+
+  // Barrel (with recoil)
+  const angle=parseFloat(angleSlider.value)*Math.PI/180;
+  ctx.save(); ctx.translate(CANNON_X,GROUND_Y-10); ctx.rotate(-angle);
+  const bg=ctx.createLinearGradient(0,-9,0,9);
+  bg.addColorStop(0,'#888'); bg.addColorStop(0.45,'#eee'); bg.addColorStop(1,'#555');
+  ctx.fillStyle=bg; ctx.strokeStyle='#bbb'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.roundRect(0,-9,52,18,5); ctx.fill(); ctx.stroke();
+  // muzzle ring
+  ctx.fillStyle='#999';
+  ctx.beginPath(); ctx.roundRect(47,-10,8,20,2); ctx.fill();
+  ctx.restore();
+
+  // Angle arc
+  ctx.save(); ctx.translate(CANNON_X,GROUND_Y-10);
+  ctx.strokeStyle='rgba(0,80,200,0.55)'; ctx.lineWidth=1.5; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.arc(0,0,44,-angle,0); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='rgba(0,60,180,0.85)'; ctx.font='bold 10px "Nunito"'; ctx.textAlign='left';
+  ctx.fillText(angleSlider.value+'°',48,-12);
+  ctx.restore();
+
+  // ── Active Ball ──
+  if(activeBallX!==null){
+    const c=worldToCanvas(activeBallX,activeBallY,scale);
+    const col=SHOT_COLORS[activeShotIdx%SHOT_COLORS.length];
+    ctx.save();
+    const bg2=ctx.createRadialGradient(c.cx-3,c.cy-3,2,c.cx,c.cy,13);
+    bg2.addColorStop(0,'#fff'); bg2.addColorStop(0.25,col.ball); bg2.addColorStop(1,'rgba(0,0,0,0.5)');
+    ctx.fillStyle=bg2; ctx.shadowBlur=22; ctx.shadowColor=col.shadow;
+    ctx.beginPath(); ctx.arc(c.cx,c.cy,13,0,Math.PI*2); ctx.fill();
+    if(done){
+      ctx.strokeStyle=col.ball; ctx.lineWidth=2;
+      for(let r=18;r<=55;r+=14){
+        ctx.globalAlpha=0.55-r/80; ctx.beginPath(); ctx.arc(c.cx,c.cy,r,0,Math.PI*2); ctx.stroke();
+      }
+    }
+    ctx.restore();
+  }
+}
+
+function drawStatic(){
+  const sc=getScale();
+  drawScene(null,0,[],sc,false,shotsUsed);
+}
+
+// ── FIRE ──────────────────────────────────────────────────────
+function fire(){
+  if(simRunning||shotsUsed>=MAX_SHOTS) return;
+  simRunning=true;
+  document.getElementById('btnFire').disabled=true;
+  document.getElementById('resultBox').classList.remove('show');
+  hideToast();
+  document.querySelectorAll('.readout-card').forEach(c=>c.classList.add('active'));
+
+  const p=getParams();
+  const sc=getScale();
+  const trail=[]; let t=0; const dt=0.022;
+  const shotIdx=shotsUsed; // color index for this shot
+
+  // Smoke puff at cannon mouth
+  spawnSmoke(sc, p.angle);
+
+  function step(){
+    if(t>p.tFlight){
+      const fx=p.vx*p.tFlight;
+      // Save completed shot
+      completedShots.push({trail:[...trail],landX:fx,hMax:p.hMax});
+      shotsUsed++;
+      updateShotsUI();
+
+      drawScene(fx,0,trail,fixedScale,true,shotIdx);
+      const fc=worldToCanvas(fx,0,fixedScale);
+      boom(fc.cx,GROUND_Y,shotIdx);
+      evalResult(fx);
+
+      simRunning=false;
+      if(shotsUsed<MAX_SHOTS){
+        document.getElementById('btnFire').disabled=false;
+      } else {
+        document.getElementById('btnFire').disabled=true;
+        showToast('🚫 SEM DISPAROS — REINICIE!','info');
+      }
+      return;
+    }
+    const x=p.vx*t, y=p.vy*t-0.5*G*t*t;
+    if(y<0){t=p.tFlight;step();return;}
+    trail.push({x,y}); if(trail.length>80)trail.shift();
+    drawScene(x,y,trail,sc,false,shotIdx);
+    t+=dt; animId=requestAnimationFrame(step);
+  }
+  step();
+}
+
+// ── SMOKE ─────────────────────────────────────────────────────
+function spawnSmoke(scale, angle){
+  const muzzleX=CANNON_X+Math.cos(angle)*52;
+  const muzzleY=(GROUND_Y-10)-Math.sin(angle)*52;
+  const puffs=[];
+  for(let i=0;i<18;i++) puffs.push({
+    x:muzzleX,y:muzzleY,
+    vx:Math.cos(angle)*(Math.random()*3+1)+(Math.random()-0.5)*2,
+    vy:-Math.sin(angle)*(Math.random()*3+1)+(Math.random()-0.5)*1.5,
+    r:Math.random()*8+4, alpha:0.7, grow:0.4
+  });
+  let f=0;
+  function draw(){
+    if(f>28)return; f++;
+    ctx.save();
+    puffs.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.r+=p.grow; p.alpha-=0.028;
+      ctx.globalAlpha=Math.max(0,p.alpha);
+      ctx.fillStyle='rgba(200,210,180,1)';
+      ctx.shadowBlur=6; ctx.shadowColor='rgba(200,200,180,0.5)';
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    });
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ── EXPLOSION ─────────────────────────────────────────────────
+function boom(cx,cy,shotIdx){
+  const col=SHOT_COLORS[shotIdx%SHOT_COLORS.length];
+  const pts=[];
+  for(let i=0;i<45;i++) pts.push({
+    x:cx,y:cy,vx:(Math.random()-0.5)*12,
+    vy:-(Math.random()*11+2),r:Math.random()*6+2,
+    alpha:1,color:`hsl(${Math.random()*50+20},100%,${55+Math.random()*20}%)`
+  });
+  // debris
+  for(let i=0;i<12;i++) pts.push({
+    x:cx,y:cy,vx:(Math.random()-0.5)*7,
+    vy:-(Math.random()*5+1),r:Math.random()*3+1,
+    alpha:1,color:col.ball
+  });
+  // shockwave
+  let sw=0;
+  let f=0;
+  function draw(){
+    if(f>50)return; f++; sw+=3;
+    ctx.save();
+    // shockwave ring
+    if(sw<60){
+      ctx.strokeStyle=`rgba(255,255,200,${0.7-sw/70})`;
+      ctx.lineWidth=2; ctx.beginPath(); ctx.arc(cx,cy,sw,0,Math.PI*2); ctx.stroke();
+    }
+    pts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.45; p.alpha-=0.025;
+      ctx.globalAlpha=Math.max(0,p.alpha);
+      ctx.fillStyle=p.color; ctx.shadowBlur=10; ctx.shadowColor=p.color;
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+    });
+    ctx.restore();
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+
+// ── RESULT ────────────────────────────────────────────────────
+function evalResult(landX){
+  const tol=10;
+  const diff=Math.abs(landX-targetDist);
+  const rb=document.getElementById('resultBox');
+  const rt=document.getElementById('resultText');
+  const rd=document.getElementById('resultDetail');
+  rb.classList.add('show');
+
+  if(diff<=tol){
+    rt.className='r-val hit'; rt.textContent='🎯 ACERTOU O ALVO!';
+    rd.textContent=`Disparo ${shotsUsed}: pousou a ${landX.toFixed(1)}m — erro de ${diff.toFixed(1)}m`;
+    showToast('🎯 ALVO ACERTADO!','hit');
+  } else {
+    const over=landX>targetDist;
+    rt.className='r-val miss';
+    rt.textContent=over?'💥 Passou do Alvo!':'💨 Ficou Aquém!';
+    rd.textContent=`Disparo ${shotsUsed}: caiu a ${landX.toFixed(1)}m — alvo ${targetDist}m (Δ${diff.toFixed(1)}m)`;
+    showToast(over?'💥 PASSOU DO ALVO!':'💨 FICOU CURTO!','miss');
+  }
+}
+
+// ── TOAST ─────────────────────────────────────────────────────
+function showToast(msg,cls){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show '+cls;
+  setTimeout(()=>{t.className='';},3200);
+}
+function hideToast(){ document.getElementById('toast').className=''; }
+
+// ── RESET ─────────────────────────────────────────────────────
+function reset(){
+  if(animId){cancelAnimationFrame(animId);animId=null;}
+  simRunning=false; shotsUsed=0; completedShots=[];
+  document.getElementById('btnFire').disabled=false;
+  document.getElementById('resultBox').classList.remove('show');
+  document.querySelectorAll('.readout-card').forEach(c=>c.classList.remove('active'));
+  hideToast();
+  newTarget();
+  fixedScale = computeScale(); // lock scale based on target distance
+  updateReadouts(); updateShotsUI(); drawStatic();
+  // update badge after new target
+  if(currentMode==='angle'){
+    document.getElementById('fixedBadge').textContent='💨 Vel. Fixada: '+speedSlider.value+' m/s';
+  } else {
+    document.getElementById('fixedBadge').textContent='📐 Ângulo Fixo: '+angleSlider.value+'°';
+  }
+}
+
+reset();
+
+</script>
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+</body>
+</html>

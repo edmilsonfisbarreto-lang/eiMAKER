@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutorial — Biospeckle Tool · eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg: #f0f2f7;
+    --panel: #ffffff;
+    --panel2: #f7f9fc;
+    --border: rgba(0,0,0,0.09);
+    --accent: #1a9fd4;
+    --accent2: #4a9c2f;
+    --accent3: #e02020;
+    --text: #1e2130;
+    --text2: #5a6078;
+    --text3: #7a88a8;
+    --red: #e02020;
+    --yellow: #d4890a;
+    --green: #4a9c2f;
+    --blue1: #1a9fd4;
+    --blue2: #2563a8;
+    --purple: #6b3f9a;
+    --shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  header {
+    position: sticky; top: var(--em-chrome, 56px); z-index: 100;
+    background: rgba(255,255,255,0.96);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 32px;
+    backdrop-filter: blur(14px); box-shadow: 0 1px 8px rgba(0,0,0,.06);
+  }
+  .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: linear-gradient(135deg, var(--blue1), var(--green));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+    box-shadow: 0 2px 10px rgba(26,159,212,.25);
+  }
+  .logo-text { line-height: 1.1; }
+  .logo-title { font-size: 18px; font-weight: 900; color: var(--text); }
+  .logo-sub { font-size: 10px; color: var(--accent); font-family: 'Fira Code', monospace; letter-spacing: 2px; }
+  .back-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 18px;
+    border: 1px solid var(--border); background: transparent;
+    color: var(--text3); font-family: 'Nunito', sans-serif;
+    font-weight: 600; font-size: 13px; letter-spacing: 2px;
+    cursor: pointer; text-transform: uppercase; text-decoration: none; transition: all .2s;
+  }
+  .back-btn:hover { border-color: var(--blue1); color: var(--blue1); background: rgba(26,159,212,.06); }
+
+  .hero {
+    background: linear-gradient(135deg, #edf6ff 0%, #fff 55%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 64px 32px 56px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(26,159,212,.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block; font-family: 'Fira Code', monospace;
+    font-size: 11px; letter-spacing: 4px; color: var(--accent);
+    border: 1px solid rgba(0,229,255,.3); padding: 4px 14px;
+    margin-bottom: 20px; text-transform: uppercase;
+  }
+  .hero h1 { font-size: clamp(32px,5vw,52px); font-weight: 900; letter-spacing: 1px; color: var(--text); margin-bottom: 16px; }
+  .hero h1 span { color: var(--blue1); }
+  .hero p { font-size: 17px; color: var(--text3); max-width: 640px; margin: 0 auto; }
+
+  .container { max-width: 960px; margin: 0 auto; padding: 0 32px 80px; }
+
+  .progress-nav {
+    display: flex; gap: 0; margin: 48px 0 0;
+    border: 1px solid var(--border); overflow: hidden; border-radius: 4px;
+    flex-wrap: wrap;
+  }
+  .progress-step {
+    flex: 1; min-width: 80px; padding: 14px 8px; text-align: center;
+    font-family: 'Fira Code', monospace; font-size: 11px; letter-spacing: 1px;
+    color: var(--text2); background: var(--panel);
+    border-right: 1px solid var(--border);
+    cursor: pointer; transition: all .2s; text-decoration: none; display: block;
+  }
+  .progress-step:last-child { border-right: none; }
+  .progress-step:hover { background: var(--panel2); color: var(--text); }
+  .progress-step .step-num { display: block; font-size: 18px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+
+  .section { margin-top: 64px; scroll-margin-top: calc(80px + var(--em-chrome, 56px)); }
+  .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .section-num {
+    width: 44px; height: 44px; border: 2px solid var(--accent); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fira Code', monospace; font-size: 16px; font-weight: bold;
+    color: var(--accent); flex-shrink: 0; box-shadow: 0 0 16px rgba(0,229,255,.2);
+  }
+  .section-title-text { font-size: 22px; font-weight: 900; letter-spacing: .5px; color: var(--text); }
+  .section-title-sub { font-size: 13px; color: var(--text2); font-family: 'Fira Code', monospace; margin-top: 2px; }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--border);
+    padding: 24px 28px; margin-bottom: 16px; position: relative; transition: border-color .2s;
+  }
+  .card:hover { border-color: rgba(26,159,212,.3); box-shadow: 0 4px 18px rgba(26,159,212,.08); }
+  .card::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity .2s; }
+  .card:hover::before { opacity: 1; }
+  .card-title { font-size: 15px; font-weight: 800; color: var(--blue1); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+  .card p { color: var(--text3); font-size: 15px; }
+
+  .steps { display: flex; flex-direction: column; gap: 16px; }
+  .step-item { display: flex; gap: 20px; align-items: flex-start; background: var(--panel); border: 1px solid var(--border); padding: 20px 24px; }
+  .step-badge { width: 32px; height: 32px; background: var(--accent); color: #000; font-family: 'Fira Code', monospace; font-size: 14px; font-weight: bold; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-content {}
+  .step-title { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .step-desc { color: var(--text3); font-size: 15px; }
+  .step-desc strong { color: var(--green); }
+  .step-desc code { font-family: 'Fira Code', monospace; font-size: 13px; background: var(--panel2); border: 1px solid var(--border); padding: 1px 6px; color: var(--accent); border-radius: 2px; }
+
+  .algo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .algo-grid { grid-template-columns: 1fr; } }
+  .algo-card { background: var(--panel); border: 1px solid var(--border); padding: 24px; position: relative; overflow: hidden; transition: border-color .2s; }
+  .algo-card:hover { border-color: var(--blue1); box-shadow: 0 4px 18px rgba(26,159,212,.1); }
+  .algo-icon { font-size: 28px; margin-bottom: 12px; }
+  .algo-name { font-size: 16px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+  .algo-tag { display: inline-block; font-family: 'Fira Code', monospace; font-size: 10px; letter-spacing: 2px; padding: 2px 8px; border-radius: 2px; margin-bottom: 12px; }
+  .algo-card.lasca   .algo-tag { background: rgba(26,159,212,.1);  color: var(--blue1);  border: 1px solid rgba(26,159,212,.2); }
+  .algo-card.mhi     .algo-tag { background: rgba(74,156,47,.1);  color: var(--green); border: 1px solid rgba(74,156,47,.2); }
+  .algo-card.regions .algo-tag { background: rgba(224,32,32,.08); color: var(--red);    border: 1px solid rgba(224,32,32,.18); }
+  .algo-card.camera  .algo-tag { background: rgba(212,137,10,.1);  color: var(--yellow);  border: 1px solid rgba(212,137,10,.2); }
+  .algo-desc-text { color: var(--text3); font-size: 14px; line-height: 1.6; }
+
+  /* Filter cards for the noise section */
+  .filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+  @media (max-width: 600px) { .filter-grid { grid-template-columns: 1fr; } }
+  .filter-card { background: var(--panel2); border: 1px solid var(--border); padding: 16px 18px; border-radius: 2px; }
+  .filter-name { font-family: 'Fira Code', monospace; font-size: 13px; color: var(--accent); margin-bottom: 6px; font-weight: bold; }
+  .filter-desc { font-size: 13px; color: var(--text3); line-height: 1.5; }
+  .filter-tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; margin-bottom: 8px; font-family: 'Fira Code', monospace; }
+  .tag-fast    { background: rgba(74,156,47,.1);  color: var(--green);  border: 1px solid rgba(74,156,47,.2); }
+  .tag-quality { background: rgba(26,159,212,.1); color: var(--blue1);  border: 1px solid rgba(26,159,212,.2); }
+  .tag-edges   { background: rgba(224,32,32,.08);  color: var(--red);    border: 1px solid rgba(224,32,32,.18); }
+
+  .params-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 14px; }
+  .params-table th { text-align: left; padding: 10px 14px; background: var(--panel2); color: var(--accent); font-family: 'Fira Code', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid var(--border); }
+  .params-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--text3); vertical-align: top; }
+  .params-table tr:last-child td { border-bottom: none; }
+  .params-table td:first-child { font-family: 'Fira Code', monospace; color: var(--accent); font-size: 13px; white-space: nowrap; }
+  .params-table tr:hover td { background: rgba(26,159,212,.04); }
+
+  .tip { background: rgba(26,159,212,.05); border: 1px solid rgba(26,159,212,.2); border-left: 3px solid var(--blue1); padding: 16px 20px; margin: 20px 0; display: flex; gap: 12px; align-items: flex-start; }
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .tip-text { color: var(--text3); font-size: 14px; line-height: 1.6; }
+  .tip-text strong { color: var(--accent); }
+  .warn { background: rgba(212,137,10,.06); border: 1px solid rgba(212,137,10,.22); border-left: 3px solid var(--yellow); }
+  .warn .tip-text strong { color: var(--yellow); }
+  .success { background: rgba(74,156,47,.06); border: 1px solid rgba(74,156,47,.22); border-left: 3px solid var(--green); }
+  .success .tip-text strong { color: var(--green); }
+
+
+  .faq-item { border: 1px solid var(--border); margin-bottom: 10px; overflow: hidden; }
+  .faq-q { padding: 16px 20px; background: var(--panel); cursor: pointer; font-weight: 600; font-size: 15px; color: var(--text); display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: background .2s; user-select: none; }
+  .faq-q:hover { background: var(--panel2); }
+  .faq-q.open { color: var(--accent); }
+  .faq-icon { font-size: 18px; flex-shrink: 0; transition: transform .2s; }
+  .faq-q.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { display: none; padding: 16px 20px; color: var(--text3); font-size: 14px; line-height: 1.7; border-top: 1px solid var(--border); background: var(--panel2); }
+  .faq-a.open { display: block; }
+
+  footer { margin-top: 80px; border-top: 1px solid var(--border); background: var(--panel); padding: 32px; text-align: center; font-family: 'Fira Code', monospace; font-size: 11px; color: var(--text2); letter-spacing: 2px; }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--blue1); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--blue2); }
+
+  .divider { height: 1px; background: linear-gradient(to right, transparent, var(--border), transparent); margin: 48px 0 0; }
+
+
+  /* ═══ eiMAKER CHROME ═══ */
+  :root { --em-chrome: 56px; }
+  .em-strip {
+    display: flex; height: 4px;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 10000;
+  }
+  .cs1{flex:1;background:#e02020}.cs2{flex:1;background:#d4890a}
+  .cs3{flex:1;background:#4a9c2f}.cs4{flex:1;background:#1a9fd4}
+  .cs5{flex:1;background:#2563a8}.cs6{flex:1;background:#6b3f9a}
+  .em-header {
+    position: fixed; top: 4px; left: 0; right: 0; z-index: 9999;
+    display: flex; align-items: center; gap: .9rem;
+    padding: 0 1.4rem; height: 52px;
+    background: rgba(255,255,255,0.97);
+    border-bottom: 1px solid rgba(0,0,0,.09);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 1px 8px rgba(0,0,0,.07);
+  }
+  .em-logo { display:flex;align-items:center;text-decoration:none;flex-shrink:0; }
+  .em-keys { display:flex;gap:3px; }
+  .em-key {
+    width:24px;height:24px;border-radius:5px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Nunito',sans-serif;font-weight:900;font-size:.7rem;
+    color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.4);
+  }
+  .em-red{background:#e02020}.em-yellow{background:#d4890a}.em-green{background:#4a9c2f}
+  .em-blue1{background:#1a9fd4}.em-blue2{background:#2563a8}.em-purple{background:#6b3f9a}
+  .em-nav { display:flex;gap:2px;flex:1;justify-content:center; }
+  .em-nav a {
+    color:#5a6078; text-decoration:none;
+    padding:.28rem .65rem; border-radius:6px;
+    font-family:'Nunito',sans-serif; font-weight:700; font-size:.76rem;
+    transition:color .18s,background .18s; white-space:nowrap;
+  }
+  .em-nav a:hover { color:#fff; background:rgba(255,255,255,.08); }
+  .em-nav a.em-act { color:#1a9fd4; background:rgba(26,159,212,.15); }
+  .em-proj { font-family:'Nunito',sans-serif;font-size:.72rem;font-weight:700;
+    color:#5a6078;white-space:nowrap;flex-shrink:0; }
+  body { padding-top: var(--em-chrome) !important; }
+  /* hide original header */
+  header.tut-orig { display: none !important; }
+  @media(max-width:640px){ .em-nav{display:none} .em-proj{display:none} }
+
+
+  .color-strip{display:flex;height:3px}
+  .csr{flex:1;background:#e02020}.csy{flex:1;background:#d4890a}.csg{flex:1;background:#4a9c2f}.csb1{flex:1;background:#1a9fd4}.csb2{flex:1;background:#2563a8}.csp{flex:1;background:#6b3f9a}
+</style>
+</head>
+<body>
+<div class="em-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<div class="em-header">
+  <a class="em-logo" href="index.html">
+    <div class="em-keys">
+      <div class="em-key em-red" style="font-size:.62rem">ei</div>
+      <div class="em-key em-yellow">M</div><div class="em-key em-green">A</div>
+      <div class="em-key em-blue1">K</div><div class="em-key em-blue2">E</div><div class="em-key em-purple">R</div>
+    </div>
+  </a>
+  <nav class="em-nav">
+    <a href="objetivos.html">Objetivos</a>
+    <a href="conteudos.html">Conteúdos</a>
+    <a href="metodologia.html">Metodologia</a>
+    <a href="ferramentas.html">Ferramentas</a>
+    <a href="bibliografia.html">Bibliografia</a>
+    <a href="projetos.html" class="em-act">Projetos</a>
+  </nav>
+  <span class="em-proj">📖 Tutorial — Biospeckle</span>
+</div>
+
+
+<div class="hero">
+  <div class="hero-badge">Documentação Oficial</div>
+  <h1>Tutorial de <span>Uso</span></h1>
+  <p>Aprenda a configurar e utilizar todos os recursos do Biospeckle Tool Online para análise de laser speckle dinâmico — incluindo os novos controles de Aquisição.</p>
+</div>
+
+<div class="container">
+
+  <nav class="progress-nav">
+    <a class="progress-step" href="#inicio"><span class="step-num">01</span>Início</a>
+    <a class="progress-step" href="#camera"><span class="step-num">02</span>Câmera</a>
+    <a class="progress-step" href="#aquisicao"><span class="step-num">03</span>Aquisição</a>
+    <a class="progress-step" href="#algoritmos"><span class="step-num">04</span>Algoritmos</a>
+    <a class="progress-step" href="#parametros"><span class="step-num">05</span>Parâmetros</a>
+    <a class="progress-step" href="#salvar"><span class="step-num">06</span>Arquivos</a>
+    <a class="progress-step" href="#gravacao"><span class="step-num">07</span>Gravação</a>
+    <a class="progress-step" href="#mobile"><span class="step-num">08</span>Mobile</a>
+    <a class="progress-step" href="#faq"><span class="step-num">09</span>FAQ</a>
+  </nav>
+
+  <!-- ── 01 INÍCIO ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="inicio">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div>
+        <div class="section-title-text">Primeiros Passos</div>
+        <div class="section-title-sub">Visão geral da interface e requisitos</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🖥️ Visão Geral da Interface</div>
+      <p>O Biospeckle Tool Online é dividido em três áreas: o <strong style="color:var(--accent)">painel esquerdo</strong> com controles, seleção de algoritmo e parâmetros; a <strong style="color:var(--accent)">área central</strong> com a visualização do vídeo processado em tempo real; e o <strong style="color:var(--accent)">painel direito</strong> com histograma, estatísticas e informações do frame.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-badge">1</div>
+        <div class="step-content">
+          <div class="step-title">Requisitos do Sistema</div>
+          <div class="step-desc">Use um navegador moderno com suporte a WebRTC: <strong>Google Chrome</strong>, <strong>Firefox</strong>, <strong>Edge</strong> ou <strong>Opera GX</strong>. A câmera requer <strong>HTTPS</strong> — o GitHub Pages já oferece isso automaticamente.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">2</div>
+        <div class="step-content">
+          <div class="step-title">Equipamento Necessário</div>
+          <div class="step-desc">Uma webcam ou câmera de smartphone. Para experimentos reais de biospeckle: <strong>ponteiro laser classe 2</strong> (λ = 650 nm, P ≤ 5 mW) apontado para a amostra biológica, com a câmera capturando o padrão de speckle refletido.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">3</div>
+        <div class="step-content">
+          <div class="step-title">Resolução de Vídeo</div>
+          <div class="step-desc">O app negocia automaticamente a <strong>maior resolução disponível</strong> da câmera — tentando 1920×1080, depois 1280×720 e por fim 640×480. A resolução negociada aparece na barra de status com o badge <code>● FHD</code>, <code>● HD</code> ou <code>● SD</code> logo após ligar a câmera.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── 02 CÂMERA ──────────────────────────────────────────────────────────── -->
+  <section class="section" id="camera">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div>
+        <div class="section-title-text">Controle de Câmera</div>
+        <div class="section-title-sub">Ativar, selecionar dispositivo, carregar vídeo e tela cheia</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-badge">1</div>
+        <div class="step-content">
+          <div class="step-title">Ligar a Câmera</div>
+          <div class="step-desc">Clique em <strong>⏻ LIGAR CÂMERA</strong>. O navegador solicitará permissão — clique em <strong>"Permitir"</strong>. A câmera inicia, o vídeo ao vivo aparece na área central e a barra de status exibe a resolução negociada.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">2</div>
+        <div class="step-content">
+          <div class="step-title">Selecionar Câmera</div>
+          <div class="step-desc">Se houver mais de uma câmera, o seletor <code>CÂMERA</code> aparece automaticamente abaixo do botão. Escolha o dispositivo desejado — a troca acontece sem precisar desligar e religar.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">3</div>
+        <div class="step-content">
+          <div class="step-title">Carregar um Vídeo</div>
+          <div class="step-desc">Vá em <strong>Arquivo → Abrir Vídeo</strong> para processar um arquivo <code>.mp4</code> ou <code>.webm</code> previamente gravado. O vídeo é reproduzido sem áudio e em loop. Todos os algoritmos e controles funcionam normalmente sobre ele.</div>
+        </div>
+      </div>
+    </div>
+
+      <div class="step-item">
+        <div class="step-badge">⛶</div>
+        <div class="step-content">
+          <div class="step-title">Tela Cheia (Fullscreen)</div>
+          <div class="step-desc">Passe o mouse sobre a área de vídeo — um botão aparece no <strong>canto inferior direito</strong> da área de vídeo. Clique para expandir o canvas para tela cheia com fundo preto. Pressione <code>Esc</code> ou clique novamente no botão para sair. O processamento e a gravação continuam funcionando em fullscreen.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip warn">
+      <div class="tip-icon">⚠️</div>
+      <div class="tip-text"><strong>Sobrecarga:</strong> Se o indicador <code>⚠ SOBRECARGA</code> aparecer na barra de status, reduza o FPS Alvo ou desative o Filtro de Ruído. Câmeras de alta resolução + Gaussiano 7×7 com FPS alto podem saturar o processador.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── 03 AQUISIÇÃO ────────────────────────────────────────────────────────── -->
+  <section class="section" id="aquisicao">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div>
+        <div class="section-title-text">Painel de Aquisição</div>
+        <div class="section-title-sub">FPS, Contraste, Filtro de Ruído e Kernel</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 O que é o Painel de Aquisição?</div>
+      <p>O painel Aquisição controla <strong>como o frame bruto da câmera é preparado antes de ser enviado a qualquer algoritmo</strong>. Os ajustes de Contraste e Filtro de Ruído funcionam como um pré-processamento universal — afetam LASCA, MHI, Regiões e o modo Câmera igualmente.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-badge">⚡</div>
+        <div class="step-content">
+          <div class="step-title">FPS Alvo</div>
+          <div class="step-desc">Define quantos quadros por segundo o app processa (1 a 30). <strong>Entre 5 e 15 FPS</strong> é o intervalo ideal para a maioria dos experimentos de biospeckle — suficiente para capturar a dinâmica biológica sem sobrecarregar o processador.</div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-badge">🌗</div>
+        <div class="step-content">
+          <div class="step-title">Contraste</div>
+          <div class="step-desc">Slider de <strong>−100 a +100</strong> (padrão: 0).
+            <br><br>
+            <strong>Valores positivos</strong> fazem esticamento linear do histograma: mapeia o intervalo mín–máx do frame para 0–255, realçando detalhes em imagens com pouco contraste (ambientes semi-escurecidos, câmeras de baixa sensibilidade).
+            <br><br>
+            <strong>Valores negativos</strong> comprimem o contraste em direção ao cinza médio (128), útil para reduzir saturação em câmeras muito sensíveis ou com exposição excessiva.
+            <br><br>
+            O ajuste é proporcional: +50 aplica metade do esticamento máximo, preservando mais a escala original.
+          </div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-badge">🔧</div>
+        <div class="step-content">
+          <div class="step-title">Filtro de Ruído</div>
+          <div class="step-desc">Seletor com 4 opções de pré-processamento aplicado a cada frame antes dos algoritmos. O objetivo é <strong>reduzir o ruído eletrônico do sensor</strong> sem apagar o sinal real do padrão de speckle.</div>
+        </div>
+      </div>
+
+      <div class="step-item">
+        <div class="step-badge">⬛</div>
+        <div class="step-content">
+          <div class="step-title">Tamanho do Kernel</div>
+          <div class="step-desc">Controla o raio do filtro escolhido: <strong>1×1</strong> (equivale a desativar), <strong>3×3</strong>, <strong>5×5</strong> ou <strong>7×7</strong>. Kernels maiores suavizam mais intensamente, mas aumentam o custo computacional — especialmente no filtro Mediana.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter type cards -->
+    <div class="card" style="margin-top: 24px;">
+      <div class="card-title">🔧 Tipos de Filtro de Ruído</div>
+      <div class="filter-grid">
+        <div class="filter-card">
+          <div class="filter-name">Nenhum</div>
+          <div class="filter-desc">Frame passa direto para o algoritmo sem nenhum tratamento. Use quando a câmera já produz imagem limpa ou para ver o sinal bruto de speckle.</div>
+        </div>
+        <div class="filter-card">
+          <div class="filter-name">Box</div>
+          <div class="filter-tag tag-fast">● Mais rápido</div>
+          <div class="filter-desc">Média simples de todos os pixels na vizinhança. Implementado com tabela de área somada (SAT) — O(1) por pixel, independente do tamanho do kernel. Suavização uniforme, pode borrar bordas.</div>
+        </div>
+        <div class="filter-card">
+          <div class="filter-name">Gaussiano</div>
+          <div class="filter-tag tag-quality">● Melhor qualidade</div>
+          <div class="filter-desc">Média ponderada com kernel separável — peso maior no centro, menor nas bordas. Suavização mais natural, preserva melhor as transições do padrão de speckle. <strong>Recomendado para LASCA.</strong></div>
+        </div>
+        <div class="filter-card">
+          <div class="filter-name">Mediana</div>
+          <div class="filter-tag tag-edges">● Melhor preservação de bordas</div>
+          <div class="filter-desc">Substitui cada pixel pelo valor mediano dos vizinhos. Excelente para ruído impulsivo (pixels isolados muito claros ou escuros). Preserva bordas melhor que Box e Gaussiano. Use com kernel 3×3 para manter velocidade.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">💡</div>
+      <div class="tip-text">
+        <strong>Recomendação prática:</strong> Para a maioria dos experimentos de biospeckle, comece com <strong>Gaussiano 3×3 + Contraste +20</strong>. Isso remove o ruído do sensor sem comprometer o padrão de interferência que os algoritmos precisam detectar. Para câmeras com muito ruído impulsivo, prefira <strong>Mediana 3×3</strong>.
+      </div>
+    </div>
+
+    <div class="tip success">
+      <div class="tip-icon">✅</div>
+      <div class="tip-text"><strong>LASCA em Resolução Plena:</strong> O algoritmo LASCA agora usa <strong>tabela de área somada</strong> para calcular K = σ/⟨I⟩ em cada pixel individualmente (sem passo/step), mantendo a resolução total do vídeo. O indicador <code>Resolução Plena ✓</code> no painel LASCA confirma este modo.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── 04 ALGORITMOS ─────────────────────────────────────────────────────── -->
+  <section class="section" id="algoritmos">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div>
+        <div class="section-title-text">Algoritmos</div>
+        <div class="section-title-sub">Os quatro modos de processamento disponíveis</div>
+      </div>
+    </div>
+
+    <div class="algo-grid">
+      <div class="algo-card camera">
+        <div class="algo-icon">📷</div>
+        <div class="algo-name">Imagem da Câmera</div>
+        <div class="algo-tag">SEM PROCESSAMENTO</div>
+        <div class="algo-desc-text">Exibe o vídeo diretamente, sem algoritmo. Pode ser visualizado em modo <strong>Normal</strong>, <strong>Escala de Cinza</strong> ou com <strong>Coloração Artificial</strong> (pseudo-cores). Útil para verificar alinhamento da câmera e iluminação do laser antes de iniciar a análise.</div>
+      </div>
+      <div class="algo-card lasca">
+        <div class="algo-icon">🔬</div>
+        <div class="algo-name">LASCA</div>
+        <div class="algo-tag">LASER SPECKLE CONTRAST</div>
+        <div class="algo-desc-text">Implementa o <em>Laser Speckle Contrast Analysis</em> (Briers & Webster, 1996). Calcula o contraste K = σ/⟨I⟩ em janela deslizante pixel a pixel usando tabela de área somada. Regiões com <strong>maior atividade biológica</strong> têm menor contraste (K baixo → cores frias no mapa).</div>
+      </div>
+      <div class="algo-card mhi">
+        <div class="algo-icon">🌊</div>
+        <div class="algo-name">MHI</div>
+        <div class="algo-tag">MOTION HISTORY IMAGE</div>
+        <div class="algo-desc-text">Implementa o <em>Motion History Image</em> (Godinho et al., 2012). Acumula diferenças entre frames consecutivos em buffer temporal, revelando o histórico de movimento. Excelente para visualizar a <strong>dinâmica temporal</strong> de amostras biológicas.</div>
+      </div>
+      <div class="algo-card regions">
+        <div class="algo-icon">🗺️</div>
+        <div class="algo-name">Regiões</div>
+        <div class="algo-tag">DETECÇÃO DE ATIVIDADE</div>
+        <div class="algo-desc-text">Detecta e destaca regiões de maior atividade. Fundo em <strong>escala de cinza</strong>, áreas ativas em <strong>vermelho</strong>. Usa detecção de gradiente (Sobel) com blur interno para eliminar o ruído do speckle antes da análise de borda.</div>
+      </div>
+    </div>
+
+    <div class="tip success" style="margin-top:24px">
+      <div class="tip-icon">✅</div>
+      <div class="tip-text"><strong>Boa prática:</strong> Comece com <strong>Imagem da Câmera</strong> para verificar o setup. Depois configure o Contraste e o Filtro de Ruído no painel Aquisição. Só então alterne para LASCA ou MHI para análise quantitativa.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── 05 PARÂMETROS ─────────────────────────────────────────────────────── -->
+  <section class="section" id="parametros">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div>
+        <div class="section-title-text">Parâmetros dos Algoritmos</div>
+        <div class="section-title-sub">Como ajustar LASCA, MHI e Regiões</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px">
+      <div class="card-title">🔬 Parâmetros — LASCA</div>
+      <table class="params-table">
+        <thead><tr><th>Parâmetro</th><th>Valores</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Resultado Colorido</td>
+            <td>On / Off</td>
+            <td>Quando ativo, aplica a paleta pseudo-cores (azul→ciano→verde→amarelo→vermelho). Desativado exibe em escala de cinza.</td>
+          </tr>
+          <tr>
+            <td>Janela (Máscara)</td>
+            <td>3, 5, 7, 9</td>
+            <td>Tamanho da janela deslizante para cálculo do contraste K = σ/⟨I⟩. Janelas maiores suavizam o mapa de atividade mas perdem detalhes finos. Padrão 9 é adequado para a maioria das amostras.</td>
+          </tr>
+          <tr>
+            <td>Resolução Plena ✓</td>
+            <td>Fixo</td>
+            <td>O LASCA agora opera pixel a pixel com tabela de área somada — sem step/passo. A imagem de saída tem a mesma resolução do vídeo de entrada. Este indicador confirma o modo de alta resolução.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-bottom:24px">
+      <div class="card-title">🌊 Parâmetros — MHI</div>
+      <table class="params-table">
+        <thead><tr><th>Parâmetro</th><th>Valores</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Resultado Colorido</td>
+            <td>On / Off</td>
+            <td>Aplica a paleta pseudo-cores ao resultado do MHI, facilitando a visualização da intensidade de movimento.</td>
+          </tr>
+          <tr>
+            <td>Threshold</td>
+            <td>0 – 255</td>
+            <td>Limiar de sensibilidade para detecção de movimento entre frames. Valores <strong>baixos</strong> capturam movimentos sutis; valores <strong>altos</strong> ignoram variações leves. Recomendado: 20–60.</td>
+          </tr>
+          <tr>
+            <td>Buffer</td>
+            <td>2 – 32</td>
+            <td>Número de frames armazenados no histórico. Buffers maiores revelam movimentos mais lentos e acumulados ao longo do tempo.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🗺️ Parâmetros — Regiões</div>
+      <table class="params-table">
+        <thead><tr><th>Parâmetro</th><th>Valores</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Threshold</td>
+            <td>0 – 255</td>
+            <td>Sensibilidade da detecção de borda (magnitude do gradiente). Valores menores detectam variações sutis; valores maiores destacam apenas as regiões de maior contraste.</td>
+          </tr>
+          <tr>
+            <td>Blur Radius</td>
+            <td>1 – 4</td>
+            <td>Raio do filtro Box Blur interno aplicado antes da detecção de borda. Raios maiores eliminam mais ruído de speckle, gerando regiões mais compactas e menos fragmentadas.</td>
+          </tr>
+          <tr>
+            <td>Espessura</td>
+            <td>1 – 5</td>
+            <td>Espessura visual do destaque vermelho nas regiões ativas. Não afeta o cálculo, apenas a visualização.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">💡</div>
+      <div class="tip-text"><strong>Paleta de Cores:</strong> A paleta vai de <span style="color:#4af">azul</span> (baixa atividade / baixo K) passando por <span style="color:#0f8">verde</span> até <span style="color:#f55">vermelho</span> (alta atividade / alto K). Em LASCA, <strong>cores frias = mais atividade biológica</strong> (menor contraste de speckle). Em MHI, <strong>cores quentes = maior movimento</strong>.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── 06 EXPORTAR ───────────────────────────────────────────────────────── -->
+  <section class="section" id="salvar">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div>
+        <div class="section-title-text">Arquivos</div>
+        <div class="section-title-sub">Abrir vídeo e download offline</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-badge">📁</div>
+        <div class="step-content">
+          <div class="step-title">Abrir Vídeo</div>
+          <div class="step-desc">Vá em <strong>Arquivo → Abrir Vídeo</strong>. Selecione um arquivo <code>.mp4</code> ou <code>.webm</code>. A aba muda para <strong>VÍDEO</strong> e todos os algoritmos e controles de Aquisição continuam funcionando normalmente.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">⬇️</div>
+        <div class="step-content">
+          <div class="step-title">Download do App (Uso Offline)</div>
+          <div class="step-desc">Vá em <strong>Arquivo → Download do App (Offline)</strong> para acessar o repositório no GitHub. Baixe os arquivos e abra <code>index.html</code> localmente — nenhuma instalação necessária.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip success">
+      <div class="tip-icon">✅</div>
+      <div class="tip-text"><strong>Dica de Workflow:</strong> Grave o experimento em vídeo primeiro. Depois carregue o arquivo, ajuste Contraste e Filtro de Ruído no painel Aquisição para obter a melhor imagem pré-processada, e salve o resultado completo com <strong>REC</strong> ou o frame atual com <strong>💾 Salvar Imagem</strong>.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── 07 SALVAR RESULTADO ─────────────────────────────────────────────────── -->
+  <section class="section" id="gravacao">
+    <div class="section-header">
+      <div class="section-num">07</div>
+      <div>
+        <div class="section-title-text">Salvar Resultado</div>
+        <div class="section-title-sub">Salvar imagem do frame ou gravar vídeo processado</div>
+      </div>
+    </div>
+
+    <div class="steps" style="margin-bottom:24px">
+      <div class="step-item">
+        <div class="step-badge">💾</div>
+        <div class="step-content">
+          <div class="step-title">Salvar Imagem</div>
+          <div class="step-desc">Clique no botão <strong>💾 Salvar Imagem</strong> na barra de abas (ao lado do botão REC). Salva o frame atual do canvas de processamento como <code>.png</code>. O nome do arquivo inclui o algoritmo ativo e um timestamp.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎥 Como funciona a gravação de vídeo</div>
+      <p>O botão <strong>REC</strong> na barra de abas captura diretamente o canvas de processamento — exatamente o que aparece na tela, incluindo os efeitos de LASCA, MHI, Regiões, Contraste e Filtro de Ruído. O resultado é salvo como arquivo <code>.webm</code>.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-badge">1</div>
+        <div class="step-content">
+          <div class="step-title">Iniciar a Gravação</div>
+          <div class="step-desc">Com a câmera ligada, clique no botão <strong>REC</strong> (com tom avermelhado) na barra de abas. O botão muda para <strong>PARAR</strong>, o ponto vermelho começa a piscar e o cronômetro inicia a contagem <code>00:00</code>, <code>00:01</code>...</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">2</div>
+        <div class="step-content">
+          <div class="step-title">Parar e Salvar</div>
+          <div class="step-desc">Clique em <strong>PARAR</strong>. O arquivo é gerado automaticamente e o download inicia no navegador. O nome segue o padrão <code>speckle_[algoritmo]_[timestamp].webm</code>.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">3</div>
+        <div class="step-content">
+          <div class="step-title">Parada Automática</div>
+          <div class="step-desc">Se a câmera for desligada durante a gravação, a gravação para automaticamente e o arquivo é salvo — sem perda dos dados já capturados.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip">
+      <div class="tip-icon">💡</div>
+      <div class="tip-text"><strong>Indicador na aba:</strong> Enquanto a câmera está ativa a aba exibe <strong>AO VIVO</strong>. Ao carregar um arquivo de vídeo, exibe <strong>VÍDEO</strong>. Quando a câmera está desligada, a aba fica vazia.</div>
+    </div>
+
+    <div class="tip warn">
+      <div class="tip-icon">⚠️</div>
+      <div class="tip-text"><strong>Codec:</strong> O arquivo é gravado em <strong>WebM</strong> (VP9 ou VP8 conforme o suporte do navegador). Para converter para MP4, use o VLC ou ffmpeg: <code>ffmpeg -i arquivo.webm saída.mp4</code></div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── 08 MOBILE ─────────────────────────────────────────────────────────── -->
+  <section class="section" id="mobile">
+    <div class="section-header">
+      <div class="section-num">08</div>
+      <div>
+        <div class="section-title-text">Uso no Celular</div>
+        <div class="section-title-sub">Orientação, câmera traseira e resolução HD</div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step-item">
+        <div class="step-badge">📱</div>
+        <div class="step-content">
+          <div class="step-title">Use na Orientação Horizontal</div>
+          <div class="step-desc">No celular, o aplicativo <strong>deve ser usado na horizontal (paisagem)</strong>. Em orientação vertical aparece um aviso pedindo para girar o dispositivo.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">📷</div>
+        <div class="step-content">
+          <div class="step-title">Câmera Traseira em HD</div>
+          <div class="step-desc">Ao ligar a câmera no celular, o app ativa automaticamente a <strong>câmera traseira</strong> e negocia a <strong>maior resolução suportada</strong> (tentando 1920×1080 → 1280×720). A resolução real aparece na barra de status com o badge HD ou FHD.</div>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">⬇️</div>
+        <div class="step-content">
+          <div class="step-title">Usar Offline</div>
+          <div class="step-desc">Acesse <strong>Arquivo → Download do App (Offline)</strong> e baixe os arquivos do repositório GitHub. Abra <code>index.html</code> localmente — sem instalação necessária.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip warn">
+      <div class="tip-icon">⚠️</div>
+      <div class="tip-text"><strong>Desempenho no celular:</strong> Com câmera em FHD e Filtro Gaussiano 7×7, o processamento pode ser intenso. Se aparecer <code>⚠ SOBRECARGA</code>, reduza o FPS para 5–8 ou use kernel 3×3.</div>
+    </div>
+
+    <div class="tip success">
+      <div class="tip-icon">🌐</div>
+      <div class="tip-text"><strong>Navegador Recomendado para Celular:</strong> O app foi testado com <strong>Opera GX</strong> (Android/iOS). Se tiver problemas de câmera no Chrome ou Safari, experimente o Opera GX — disponível gratuitamente nas lojas de aplicativos.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ── 08 FAQ ─────────────────────────────────────────────────────────────── -->
+  <section class="section" id="faq">
+    <div class="section-header">
+      <div class="section-num">09</div>
+      <div>
+        <div class="section-title-text">Perguntas Frequentes</div>
+        <div class="section-title-sub">Dúvidas comuns e solução de problemas</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">A câmera liga mas a resolução mostrada é baixa (640×480). O que fazer?<span class="faq-icon">+</span></div>
+      <div class="faq-a">O app tenta 1920×1080 e 1280×720 antes de 640×480. Se ficar em SD, significa que o navegador ou o dispositivo não suportam resoluções maiores naquele contexto. Tente no Chrome mais recente, verifique se outra aba está usando a câmera com resolução bloqueada, ou teste em outro dispositivo.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Qual filtro devo usar para biospeckle?<span class="faq-icon">+</span></div>
+      <div class="faq-a"><strong>Gaussiano 3×3</strong> é o ponto de partida recomendado — remove o ruído eletrônico do sensor sem borrar o padrão granular do speckle que os algoritmos precisam analisar. Se a câmera produz pixels isolados muito brilhantes ou escuros (ruído impulsivo), prefira <strong>Mediana 3×3</strong>. O filtro <strong>Box</strong> é mais rápido mas suaviza de forma menos uniforme.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">O que faz o controle de Contraste no painel Aquisição?<span class="faq-icon">+</span></div>
+      <div class="faq-a">O contraste aplica um <strong>esticamento linear do histograma</strong> a cada frame. Valores positivos identificam o pixel mais escuro e o mais claro do frame e remapeiam esses extremos para 0 e 255 — aumentando a diferença visual entre regiões ativas e inativas. Isso é especialmente útil com câmeras de baixa sensibilidade ou em ambientes com pouca iluminação. Valores negativos comprimem o contraste em direção ao cinza médio, útil para câmeras muito sensíveis.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">A câmera não aparece ou o navegador não pede permissão. O que fazer?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Verifique se o site está em <strong>HTTPS</strong> (obrigatório). Se rodando localmente, use um servidor local (como o Live Server do VS Code) ou o GitHub Pages. Verifique também se outra aba ou programa está usando a câmera.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Qual a diferença entre LASCA e MHI?<span class="faq-icon">+</span></div>
+      <div class="faq-a"><strong>LASCA</strong> analisa o contraste espacial dentro de um único frame — mede a variação local de intensidade causada pelo padrão de speckle. <strong>MHI</strong> compara frames ao longo do tempo — acumula o histórico de diferenças temporais. LASCA é melhor para medir nível de atividade biológica pontual; MHI é melhor para visualizar a evolução e dinâmica do movimento ao longo do tempo.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Os dados são enviados para algum servidor?<span class="faq-icon">+</span></div>
+      <div class="faq-a"><strong>Não.</strong> Todo o processamento ocorre localmente no seu navegador via API Canvas do HTML5. Nenhuma imagem, vídeo ou dado é transmitido para servidores externos. A aplicação funciona completamente offline após o carregamento inicial da página.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">O arquivo gravado pelo REC abre em qualquer player?<span class="faq-icon">+</span></div>
+      <div class="faq-a">O arquivo <code>.webm</code> abre diretamente no <strong>Chrome</strong>, <strong>Firefox</strong>, <strong>Edge</strong> e <strong>VLC</strong>. Para convertê-lo para MP4 (mais compatível com Windows Media Player, WhatsApp etc.), use o VLC (<em>Converter/Salvar</em>) ou o comando: <code>ffmpeg -i arquivo.webm saída.mp4</code></div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Posso gravar enquanto analiso um vídeo carregado?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Sim. O botão REC funciona tanto com a câmera ao vivo quanto com um arquivo de vídeo carregado via <strong>Arquivo → Abrir Vídeo</strong>. O que é gravado é sempre o canvas de processamento — o resultado visual com o algoritmo aplicado.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">O botão de tela cheia funciona em celular?<span class="faq-icon">+</span></div>
+      <div class="faq-a">Sim, mas com uma ressalva: no celular o botão aparece normalmente, porém alguns navegadores móveis (especialmente Safari no iOS) restringem o fullscreen de elementos <code>&lt;canvas&gt;</code> individualmente. Se não funcionar, tente pelo <strong>Chrome para Android</strong> ou <strong>Opera GX</strong>, que oferecem suporte completo à API Fullscreen.</div>
+    </div>
+
+  </section>
+
+</div>
+
+<footer>
+  <p><a href="index.html">Voltar ao Aplicativo</a></p>
+</footer>
+
+
+<script>
+
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+  if (!isOpen) { el.classList.add('open'); answer.classList.add('open'); }
+}
+
+</script>
+<div class="color-strip"><div class="csr"></div><div class="csy"></div><div class="csg"></div><div class="csb1"></div><div class="csb2"></div><div class="csp"></div></div>
+</body>
+</html>

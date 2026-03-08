@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MU e MUV — eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:#e02020; --yellow:#d4890a; --green:#4a9c2f;
+    --blue1:#1a9fd4; --blue2:#2563a8; --purple:#6b3f9a;
+    --bg:#f0f2f7; --surface:#fff; --card:#fff; --card2:#f7f9fc;
+    --text:#1e2130; --muted:#5a6078;
+    --border:rgba(0,0,0,0.09); --shadow:0 2px 16px rgba(0,0,0,0.08);
+    --accent:#4a9c2f; --accent2:#d4890a; --accent3:#e02020;
+    --ifsc-green:#4a9c2f;
+    --panel:#fff; --panel2:#f7f9fc;
+    --em-chrome:56px;
+  }
+  *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Nunito',sans-serif;
+    background:var(--bg); color:var(--text);
+    min-height:100vh; overflow-x:hidden;
+    padding-top:var(--em-chrome) !important;
+  }
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:#e8eaf0}
+  ::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
+
+  /* ROTATE OVERLAY */
+  #rotate-overlay {
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:#1e2130;
+    flex-direction:column; align-items:center; justify-content:center;
+    gap:1.5rem; text-align:center; padding:2rem;
+  }
+  #rotate-overlay.show { display:flex; }
+  .rotate-icon { font-size:5rem; animation:rotateHint 1.5s ease-in-out infinite; }
+  @keyframes rotateHint{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
+  #rotate-overlay h2 { font-size:1.5rem; font-weight:900; color:var(--green); }
+  #rotate-overlay p  { color:rgba(255,255,255,.6); font-size:.95rem; max-width:260px; }
+
+  /* HEADER */
+  .em-strip { display:flex; height:4px; position:fixed; top:0; left:0; right:0; z-index:10000; }
+  .cs1{flex:1;background:#e02020}.cs2{flex:1;background:#d4890a}
+  .cs3{flex:1;background:#4a9c2f}.cs4{flex:1;background:#1a9fd4}
+  .cs5{flex:1;background:#2563a8}.cs6{flex:1;background:#6b3f9a}
+  .em-header {
+    position:fixed; top:4px; left:0; right:0; z-index:9999;
+    display:flex; align-items:center; gap:.9rem;
+    padding:0 1.4rem; height:52px;
+    background:rgba(255,255,255,0.97);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(12px);
+    box-shadow:0 1px 8px rgba(0,0,0,.07);
+  }
+  .em-logo { display:flex; align-items:center; text-decoration:none; flex-shrink:0; }
+  .em-keys { display:flex; gap:3px; }
+  .em-key {
+    width:24px; height:24px; border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:.7rem;
+    color:#fff; box-shadow:0 2px 4px rgba(0,0,0,.18);
+  }
+  .em-red{background:#e02020}.em-yellow{background:#d4890a}.em-green{background:#4a9c2f}
+  .em-blue1{background:#1a9fd4}.em-blue2{background:#2563a8}.em-purple{background:#6b3f9a}
+  .em-nav { display:flex; gap:2px; flex:1; justify-content:center; }
+  .em-nav a {
+    color:var(--muted); text-decoration:none;
+    padding:.3rem .75rem; border-radius:8px;
+    font-family:'Nunito',sans-serif; font-weight:700; font-size:.82rem;
+    transition:color .2s,background .2s; white-space:nowrap;
+  }
+  .em-nav a:hover { color:var(--text); background:var(--bg); }
+  .em-nav a.em-act { color:var(--green); background:rgba(74,156,47,.09); }
+  .em-proj { font-family:'Nunito',sans-serif; font-size:.76rem; font-weight:700;
+    color:var(--muted); white-space:nowrap; flex-shrink:0; }
+  @media(max-width:640px){ .em-nav{display:none} .em-proj{display:none} }
+
+  /* PAGE TITLE */
+  .page-title-bar {
+    padding:1.5rem 2rem 1.2rem;
+    background:linear-gradient(135deg,#f0fff4 0%,#fff 55%,var(--bg) 100%);
+    border-bottom:1px solid var(--border);
+    text-align:center;
+  }
+  .page-title-bar h1 {
+    font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900;
+    line-height:1.1; margin-bottom:.5rem;
+  }
+  .page-title-bar p { color:var(--muted); font-size:.9rem; }
+
+  /* LAYOUT */
+  .app {
+    display:grid; grid-template-columns:300px 1fr;
+    gap:1.25rem; max-width:1300px;
+    margin:1.5rem auto; padding:0 1.5rem 2.5rem;
+  }
+  @media(max-width:900px){ .app{grid-template-columns:1fr} }
+
+  /* PANEL */
+  .panel {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:1.5rem;
+    box-shadow:var(--shadow); height:fit-content;
+    position:relative; overflow:hidden;
+  }
+  .panel::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--green),var(--blue1),var(--green));
+  }
+  .panel-title {
+    font-size:.72rem; font-weight:800; letter-spacing:2px;
+    text-transform:uppercase; color:var(--green);
+    margin-bottom:1.25rem; padding-bottom:.65rem;
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .panel-title::before {
+    content:''; width:7px; height:7px; background:var(--green);
+    border-radius:50%; animation:pulse 1.6s infinite; flex-shrink:0;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+  /* MODE BUTTONS */
+  .mode-btns { display:flex; gap:.6rem; margin-bottom:1.25rem; }
+  .mode-btn {
+    flex:1; padding:.7rem; border-radius:10px; border:2px solid var(--border);
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:1rem;
+    cursor:pointer; background:var(--card2); color:var(--muted);
+    transition:all .2s;
+  }
+  .mode-btn.active {
+    background:var(--green); color:#fff;
+    border-color:var(--green); box-shadow:0 4px 14px rgba(74,156,47,.35);
+  }
+  .mode-btn:hover:not(.active) { border-color:var(--green); color:var(--green); background:#f0fff4; }
+
+  /* FORMULA */
+  .formula-card {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:10px; padding:.9rem; margin-bottom:1.25rem;
+    font-size:.78rem; line-height:1.9; color:var(--muted);
+    font-family:'Fira Code',monospace;
+  }
+  .formula-card .f-line { display:flex; gap:.4rem; align-items:baseline; }
+  .formula-card .sym { color:var(--green); font-weight:700; min-width:88px; }
+
+  /* READOUTS */
+  .readout-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; }
+  @media(max-width:600px){ .readout-grid{grid-template-columns:repeat(2,1fr)} }
+  .readout-card {
+    background:var(--card); border:2px solid var(--border);
+    border-radius:12px; padding:.8rem 1rem; text-align:center;
+    box-shadow:var(--shadow); transition:all .3s; cursor:pointer;
+    position:relative; overflow:hidden;
+  }
+  .readout-card::after {
+    content:''; position:absolute; inset:0;
+    background:rgba(74,156,47,0); transition:background .2s;
+  }
+  .readout-card:hover::after { background:rgba(74,156,47,.04); }
+  .readout-card.selected { border-color:var(--yellow); box-shadow:0 0 18px rgba(212,137,10,.25); background:#fffdf5; }
+  .readout-card.hidden-val { border-color:var(--red); background:#fff8f8; }
+  .readout-card .rc-label {
+    font-size:.65rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.3rem; font-weight:700;
+  }
+  .readout-card .rc-val {
+    font-size:1.05rem; font-weight:900; color:var(--green);
+    font-family:'Fira Code',monospace;
+  }
+  .readout-card .rc-val.unknown { color:var(--red); font-size:1.4rem; }
+  .readout-card .rc-hint {
+    font-size:.6rem; color:var(--yellow); font-weight:700;
+    text-transform:uppercase; letter-spacing:.08em; margin-top:.2rem;
+  }
+
+  /* BUTTONS */
+  .btn-row { display:flex; gap:.75rem; flex-wrap:wrap; align-items:center; }
+  button {
+    font-family:'Nunito',sans-serif; font-weight:800; font-size:.9rem;
+    border:none; border-radius:10px; cursor:pointer;
+    padding:.7rem 1.25rem; transition:transform .15s,box-shadow .15s;
+    letter-spacing:.02em;
+  }
+  button:hover:not(:disabled) { transform:translateY(-2px); }
+  button:active:not(:disabled) { transform:translateY(0); }
+
+  .btn-start {
+    background:var(--green); color:#fff;
+    box-shadow:0 4px 14px rgba(74,156,47,.35);
+  }
+  .btn-start:hover:not(:disabled) { box-shadow:0 6px 22px rgba(74,156,47,.5); }
+  .btn-start.running { background:var(--red); box-shadow:0 4px 14px rgba(224,32,32,.35); }
+  .btn-start:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-reset {
+    background:transparent; color:var(--green);
+    border:2px solid rgba(74,156,47,.4);
+  }
+  .btn-reset:hover { background:rgba(74,156,47,.08); border-color:var(--green); }
+
+  .btn-pdf-row { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.4rem; }
+  .btn-pdf {
+    flex:1; min-width:100px; padding:.5rem .75rem;
+    border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800;
+    font-size:.82rem; cursor:pointer; border:none;
+    display:flex; align-items:center; justify-content:center; gap:.4rem;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn-pdf:hover { transform:translateY(-2px); }
+  .btn-pdf-roteiro {
+    background:var(--blue2); color:#fff;
+    box-shadow:0 4px 12px rgba(37,99,168,.3);
+  }
+  .btn-pdf-roteiro:hover { box-shadow:0 6px 18px rgba(37,99,168,.45); }
+  .btn-pdf-relatorio {
+    background:var(--purple); color:#fff;
+    box-shadow:0 4px 12px rgba(107,63,154,.3);
+  }
+  .btn-pdf-relatorio:hover { box-shadow:0 6px 18px rgba(107,63,154,.45); }
+
+  /* CANVAS */
+  .canvas-wrap { display:flex; flex-direction:column; gap:1rem; }
+  .canvas-container {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:14px; overflow:hidden;
+    box-shadow:var(--shadow); position:relative;
+  }
+  canvas { display:block; width:100%; height:auto; }
+
+  /* ANSWER BOX */
+  .answer-section {
+    display:none; background:var(--card);
+    border:2px solid var(--yellow); border-radius:14px;
+    padding:1.2rem 1.4rem;
+    box-shadow:0 4px 20px rgba(212,137,10,.15);
+    animation:slideIn .3s ease;
+  }
+  .answer-section.show { display:block; }
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .answer-label {
+    font-size:.72rem; font-weight:800; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--yellow); margin-bottom:.7rem;
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .answer-input-row { display:flex; gap:.6rem; align-items:center; }
+  .answer-input {
+    flex:1; padding:.65rem 1rem; border-radius:8px;
+    border:2px solid var(--border); background:var(--card2);
+    font-family:'Fira Code',monospace; font-size:1rem; font-weight:700;
+    color:var(--text); outline:none; transition:border-color .2s;
+  }
+  .answer-input:focus { border-color:var(--yellow); }
+  .answer-unit {
+    font-size:.85rem; color:var(--muted); font-weight:700;
+    font-family:'Fira Code',monospace; white-space:nowrap;
+  }
+  .btn-submit {
+    background:var(--yellow); color:#fff;
+    box-shadow:0 4px 14px rgba(212,137,10,.35);
+    padding:.65rem 1.4rem;
+  }
+  .btn-submit:hover { box-shadow:0 6px 22px rgba(212,137,10,.5); }
+
+  /* RESULT BOX */
+  .result-box {
+    border-radius:12px; padding:1rem 1.1rem;
+    display:none; border:1px solid rgba(74,156,47,.3);
+    background:rgba(74,156,47,.06);
+  }
+  .result-box.show { display:block; }
+  .result-box.miss { border-color:rgba(224,32,32,.3); background:rgba(224,32,32,.05); }
+  .result-box .r-title {
+    font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.4rem; font-weight:700;
+  }
+  .result-box .r-val { font-size:1.1rem; font-weight:900; margin-bottom:.2rem; }
+  .result-box .r-val.hit { color:var(--green); }
+  .result-box .r-val.miss { color:var(--red); }
+
+  /* TOAST */
+  #toast {
+    position:fixed; bottom:2rem; left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:var(--card); border:2px solid var(--border);
+    border-radius:50px; padding:.7rem 2rem;
+    font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800;
+    z-index:100; transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s;
+    opacity:0; pointer-events:none; white-space:nowrap;
+    box-shadow:var(--shadow);
+  }
+  #toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+  #toast.hit  { color:var(--green); border-color:var(--green); box-shadow:0 4px 20px rgba(74,156,47,.25); }
+  #toast.miss { color:var(--red);   border-color:var(--red);   box-shadow:0 4px 20px rgba(224,32,32,.2); }
+  #toast.info { color:var(--yellow);border-color:var(--yellow);box-shadow:0 4px 20px rgba(212,137,10,.2); }
+
+  /* QUESTION BTNS */
+  .question-label {
+    font-size:.7rem; font-weight:800; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--muted); margin-bottom:.6rem;
+  }
+  .question-btns { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+  .q-btn {
+    flex:1; min-width:80px; padding:.55rem .8rem; border-radius:8px;
+    border:2px solid var(--border); font-family:'Nunito',sans-serif;
+    font-weight:800; font-size:.8rem; cursor:pointer;
+    background:var(--card2); color:var(--muted);
+    transition:all .2s;
+  }
+  .q-btn.selected { background:var(--yellow); color:#fff; border-color:var(--yellow); box-shadow:0 3px 10px rgba(212,137,10,.3); }
+  .q-btn:hover:not(.selected) { border-color:var(--yellow); color:var(--yellow); }
+
+  /* color strip bottom */
+  .color-strip{display:flex;height:3px}
+  .color-strip .cs1{flex:1;background:#e02020}.color-strip .cs2{flex:1;background:#d4890a}
+  .color-strip .cs3{flex:1;background:#4a9c2f}.color-strip .cs4{flex:1;background:#1a9fd4}
+  .color-strip .cs5{flex:1;background:#2563a8}.color-strip .cs6{flex:1;background:#6b3f9a}
+
+  /* MUV coming soon */
+  .coming-soon {
+    text-align:center; padding:3rem 2rem;
+    color:var(--muted); font-weight:700; font-size:1.1rem;
+  }
+  .coming-soon span { display:block; font-size:3rem; margin-bottom:1rem; }
+</style>
+</head>
+<body>
+
+<div id="rotate-overlay">
+  <div class="rotate-icon">📱</div>
+  <h2>Gire o dispositivo!</h2>
+  <p>Para uma melhor experiência, use o celular na posição <strong style="color:#fff">horizontal</strong>.</p>
+</div>
+
+<div class="em-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<div class="em-header">
+  <a class="em-logo" href="index.html">
+    <div class="em-keys">
+      <div class="em-key em-red" style="font-size:.62rem">ei</div>
+      <div class="em-key em-yellow">M</div><div class="em-key em-green">A</div>
+      <div class="em-key em-blue1">K</div><div class="em-key em-blue2">E</div><div class="em-key em-purple">R</div>
+    </div>
+  </a>
+  <nav class="em-nav">
+    <a href="objetivos.html">Objetivos</a>
+    <a href="conteudos.html">Conteúdos</a>
+    <a href="metodologia.html">Metodologia</a>
+    <a href="ferramentas.html">Ferramentas</a>
+    <a href="bibliografia.html">Bibliografia</a>
+    <a href="projetos.html" class="em-act">Projetos</a>
+  </nav>
+  <span class="em-proj">🚗 MU e MUV</span>
+</div>
+
+<div class="page-title-bar">
+  <h1><span style="color:var(--green)">Movimento Uniforme</span> e <span style="color:var(--blue1)">Movimento Uniformemente Variado</span></h1>
+  <p>Simulador interativo — selecione a grandeza oculta, observe o movimento e descubra o valor correto!</p>
+</div>
+
+<div class="app">
+  <!-- PAINEL LATERAL -->
+  <aside class="panel">
+    <div class="panel-title">Modo de Simulação</div>
+
+    <div class="mode-btns">
+      <button class="mode-btn active" id="btnMU" onclick="setMode('MU')">🚗 MU</button>
+      <button class="mode-btn" id="btnMUV" onclick="setMode('MUV')">🏎️ MUV</button>
+    </div>
+
+    <!-- MU PANEL -->
+    <div id="muPanel">
+      <div class="question-label">Qual grandeza calcular?</div>
+      <div class="question-btns">
+        <button class="q-btn" id="qVel" onclick="selectQuestion('velocidade')">⚡ Velocidade</button>
+        <button class="q-btn" id="qTem" onclick="selectQuestion('tempo')">⏱ Tempo</button>
+        <button class="q-btn" id="qDes" onclick="selectQuestion('posfinal')">📍 Pos. Final</button>
+      </div>
+
+      <div class="formula-card">
+        <div class="f-line"><span class="sym">x =</span> x₀ + v · t</div>
+        <div class="f-line"><span class="sym">v =</span> (x − x₀) / t</div>
+        <div class="f-line"><span class="sym">t =</span> (x − x₀) / v</div>
+      </div>
+
+      <div style="background:rgba(26,159,212,.07);border:1px solid rgba(26,159,212,.2);border-radius:10px;padding:.9rem;font-size:.8rem;color:var(--muted);line-height:1.6;">
+        <strong style="color:var(--blue1)">🎮Como jogar</strong><br>
+        1. Escolha a grandeza a descobrir<br>
+        2. Clique em <strong>Iniciar</strong><br>
+        3. Observe o movimento<br>
+        4. Ao Parar, informe o valor!
+      </div>
+      <div class="btn-pdf-row" style="margin-top:.75rem">
+        <button class="btn-pdf btn-pdf-roteiro" onclick="downloadPDF('roteiro')">📋 Roteiro</button>
+        <button class="btn-pdf btn-pdf-relatorio" onclick="downloadPDF('relatorio')">📝 Relatório</button>
+      </div>
+    </div>
+
+    <!-- MUV PANEL -->
+    <div id="muvPanel" style="display:none">
+      <div class="question-label">Qual grandeza calcular?</div>
+      <div class="question-btns">
+        <button class="q-btn" id="qAce" onclick="selectQuestion('aceleracao')">⚡ Aceleração</button>
+        <button class="q-btn" id="qVf"  onclick="selectQuestion('vfinal')">🏁 Vel. Final</button>
+        <button class="q-btn" id="qDesM" onclick="selectQuestion('posfinal')">📍 Pos. Final</button>
+        <button class="q-btn" id="qTemM" onclick="selectQuestion('tempo')">⏱ Tempo</button>
+      </div>
+
+      <div class="formula-card">
+        <div class="f-line"><span class="sym">x =</span> x₀ + v₀·t + ½a·t²</div>
+        <div class="f-line"><span class="sym">v =</span> v₀ + a·t</div>
+        <div class="f-line"><span class="sym">v² =</span> v₀² + 2·a·(x−x₀)</div>
+      </div>
+
+      <div style="background:rgba(26,159,212,.07);border:1px solid rgba(26,159,212,.2);border-radius:10px;padding:.9rem;font-size:.8rem;color:var(--muted);line-height:1.6;">
+        <strong style="color:var(--blue1)">Como jogar:</strong><br>
+        1. Escolha a grandeza a descobrir<br>
+        2. Clique em <strong>Iniciar</strong><br>
+        3. Observe o movimento<br>
+        4. Ao Parar, informe o valor!
+      </div>
+      <div class="btn-pdf-row" style="margin-top:.75rem">
+        <button class="btn-pdf btn-pdf-roteiro" onclick="downloadPDF('roteiro')">📋 Roteiro</button>
+        <button class="btn-pdf btn-pdf-relatorio" onclick="downloadPDF('relatorio')">📝 Relatório</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- SIMULADOR -->
+  <div class="canvas-wrap">
+    <div class="canvas-container">
+      <canvas id="sim" width="900" height="340"></canvas>
+    </div>
+
+    <!-- READOUTS MU -->
+    <div class="readout-grid" id="readouts-mu">
+      <div class="readout-card" id="card-vel">
+        <div class="rc-label">Velocidade</div>
+        <div class="rc-val" id="disp-vel">— m/s</div>
+        <div class="rc-hint" id="hint-vel"></div>
+      </div>
+      <div class="readout-card" id="card-tem">
+        <div class="rc-label">Tempo</div>
+        <div class="rc-val" id="disp-tem">— s</div>
+        <div class="rc-hint" id="hint-tem"></div>
+      </div>
+      <div class="readout-card" id="card-des">
+        <div class="rc-label">Pos. Final (x)</div>
+        <div class="rc-val" id="disp-des">— m</div>
+        <div class="rc-hint" id="hint-des"></div>
+      </div>
+    </div>
+    <!-- READOUTS MUV -->
+    <div class="readout-grid" id="readouts-muv" style="display:none;grid-template-columns:repeat(4,1fr)">
+      <div class="readout-card" id="card-ace">
+        <div class="rc-label">Aceleração</div>
+        <div class="rc-val" id="disp-ace">— m/s²</div>
+        <div class="rc-hint" id="hint-ace"></div>
+      </div>
+      <div class="readout-card" id="card-vf">
+        <div class="rc-label">Vel. Final</div>
+        <div class="rc-val" id="disp-vf">— m/s</div>
+        <div class="rc-hint" id="hint-vf"></div>
+      </div>
+      <div class="readout-card" id="card-desm">
+        <div class="rc-label">Pos. Final (x)</div>
+        <div class="rc-val" id="disp-desm">— m</div>
+        <div class="rc-hint" id="hint-desm"></div>
+      </div>
+      <div class="readout-card" id="card-temm">
+        <div class="rc-label">Tempo</div>
+        <div class="rc-val" id="disp-temm">— s</div>
+        <div class="rc-hint" id="hint-temm"></div>
+      </div>
+    </div>
+
+    <!-- ANSWER INPUT -->
+    <div class="answer-section" id="answerSection">
+      <div class="answer-label">🎯 <span id="answerLabel">Qual foi a velocidade?</span></div>
+      <div class="answer-input-row">
+        <input class="answer-input" id="answerInput" type="number" step="any" placeholder="Digite o valor..." />
+        <span class="answer-unit" id="answerUnit">m/s</span>
+        <button class="btn-submit" onclick="submitAnswer()">Enviar ✓</button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-box" id="resultBox">
+      <div class="r-title">Resultado</div>
+      <div class="r-val" id="resultText">—</div>
+      <div style="font-size:0.76rem;color:var(--muted);margin-top:0.35rem" id="resultDetail"></div>
+    </div>
+
+    <!-- BOTÕES -->
+    <div class="btn-row">
+      <button class="btn-start" id="btnStart" onclick="toggleSim()" disabled>▶ Iniciar</button>
+      <button class="btn-reset" onclick="resetSim()">🔄 Nova Simulação</button>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+
+// ── MOBILE ─────────────────────────────────────────────
+function checkOrientation(){
+  const overlay=document.getElementById('rotate-overlay');
+  const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if(isMobile && window.innerHeight>window.innerWidth) overlay.classList.add('show');
+  else overlay.classList.remove('show');
+}
+window.addEventListener('resize',checkOrientation);
+window.addEventListener('orientationchange',checkOrientation);
+checkOrientation();
+
+// ── CONSTANTS ──────────────────────────────────────────
+const W=900, H=340;
+const GROUND_Y=H-60;
+const canvas=document.getElementById('sim');
+const ctx=canvas.getContext('2d');
+const M_TO_PX=9;
+const CAR_SCREEN_X=W/2;
+
+// ── STATE ──────────────────────────────────────────────
+let mode='MU';
+let question=null;
+
+// Physics (meters, seconds)
+let simVel=0;       // current velocity (m/s)  — for MU: constant; for MUV: changes
+let simV0=0;        // initial velocity (m/s)  — MUV only
+let simAcc=0;       // acceleration (m/s²)     — MUV only
+let simPos=0;       // current world x (m)
+let simStartPos=0;  // world x at Iniciar
+let simElapsed=0;
+let simLastTimestamp=null;
+let simRunning=false;
+let animId=null;
+
+let bgClouds=[], bgTrees=[];
+
+// ── RANDOM HELPERS ─────────────────────────────────────
+function rSign(){ return Math.random()<0.5?1:-1; }
+
+function randomMUVel(){
+  return parseFloat(((5+Math.random()*25)*rSign()).toFixed(1));
+}
+function randomStartPos(){
+  return parseFloat(((15+Math.random()*65)*rSign()).toFixed(0));
+}
+function randomV0(){
+  // v0 for MUV: 2–20 m/s, sign random
+  return parseFloat(((2+Math.random()*18)*rSign()).toFixed(1));
+}
+function randomAcc(){
+  // acceleration: 0.5–5 m/s², sign random (independent of v0 → accel or decel)
+  return parseFloat(((0.5+Math.random()*4.5)*rSign()).toFixed(1));
+}
+
+function initBgObjects(){
+  bgClouds=[];
+  for(let i=0;i<6;i++) bgClouds.push({
+    x:Math.random()*W, y:18+Math.random()*50,
+    w:65+Math.random()*85,
+    driftSpeed:(Math.random()<0.5?1:-1)*(0.04+Math.random()*0.06),
+    alpha:0.7+Math.random()*0.25
+  });
+  bgTrees=[];
+  for(let wx=-600;wx<=600;wx+=28+Math.floor(Math.random()*18)){
+    bgTrees.push({ worldX:wx, h:42+Math.random()*32, trunk:7+Math.random()*5 });
+  }
+}
+
+function worldToScreen(wx){ return CAR_SCREEN_X+(wx-simPos)*M_TO_PX; }
+
+// ── MODE ───────────────────────────────────────────────
+function setMode(m){
+  mode=m;
+  document.getElementById('btnMU').classList.toggle('active',m==='MU');
+  document.getElementById('btnMUV').classList.toggle('active',m==='MUV');
+  document.getElementById('muPanel').style.display=m==='MU'?'':'none';
+  document.getElementById('muvPanel').style.display=m==='MUV'?'':'none';
+  document.getElementById('readouts-mu').style.display=m==='MU'?'':'none';
+  document.getElementById('readouts-muv').style.display=m==='MUV'?'':'none';
+  resetSim();
+}
+
+// ── QUESTION SELECTION ─────────────────────────────────
+function selectQuestion(q){
+  question=q;
+  // Deselect all buttons for current mode
+  const muBtns=['qVel','qTem','qDes'];
+  const muvBtns=['qAce','qVf','qDesM','qTemM'];
+  [...muBtns,...muvBtns].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.remove('selected');
+  });
+  // Select the right one
+  const map={
+    velocidade:'qVel', tempo:'qTem', posfinal: mode==='MU'?'qDes':'qDesM',
+    aceleracao:'qAce', vfinal:'qVf'
+  };
+  // For MUV posfinal/tempo use different IDs
+  const muv_map={aceleracao:'qAce',vfinal:'qVf',posfinal:'qDesM',tempo:'qTemM'};
+  const mu_map={velocidade:'qVel',tempo:'qTem',posfinal:'qDes'};
+  const btnId = mode==='MUV' ? muv_map[q] : mu_map[q];
+  if(btnId) document.getElementById(btnId).classList.add('selected');
+
+  document.getElementById('btnStart').disabled=false;
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('answerSection').classList.remove('show');
+  updateCards(false);
+}
+
+// ── CARDS ──────────────────────────────────────────────
+function updateCards(running){
+  if(mode==='MU'){
+    ['vel','tem','des'].forEach(k=>{
+      const qmap={vel:'velocidade',tem:'tempo',des:'posfinal'};
+      const card=document.getElementById('card-'+k);
+      card.classList.toggle('hidden-val', running && question===qmap[k]);
+      card.classList.toggle('selected', question===qmap[k]);
+    });
+  } else {
+    ['ace','vf','desm','temm'].forEach(k=>{
+      const qmap={ace:'aceleracao',vf:'vfinal',desm:'posfinal',temm:'tempo'};
+      const card=document.getElementById('card-'+k);
+      card.classList.toggle('hidden-val', running && question===qmap[k]);
+      card.classList.toggle('selected', question===qmap[k]);
+    });
+  }
+}
+
+// ── START ──────────────────────────────────────────────
+function startSim(){
+  simStartPos = randomStartPos();
+  simPos      = simStartPos;
+  simElapsed  = 0;
+  simLastTimestamp = null;
+
+  if(mode==='MU'){
+    simVel = randomMUVel();
+    simV0  = simVel;
+    simAcc = 0;
+  } else {
+    simV0  = randomV0();
+    simAcc = randomAcc();
+    simVel = simV0;
+  }
+
+  updateCards(true);
+  refreshDisplays();
+
+  simRunning=true;
+  document.getElementById('btnStart').textContent='⏹ Parar';
+  document.getElementById('btnStart').classList.add('running');
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('answerSection').classList.remove('show');
+  animId=requestAnimationFrame(animStep);
+}
+
+// ── REFRESH DISPLAYS ───────────────────────────────────
+function refreshDisplays(){
+  const ds=simPos-simStartPos;
+
+  if(mode==='MU'){
+    const velEl=document.getElementById('disp-vel');
+    const temEl=document.getElementById('disp-tem');
+    const desEl=document.getElementById('disp-des');
+    const hVel=document.getElementById('hint-vel');
+    const hTem=document.getElementById('hint-tem');
+    const hDes=document.getElementById('hint-des');
+    if(simRunning||simElapsed>0){
+      velEl.textContent=question==='velocidade'?'?':simVel.toFixed(1)+' m/s';
+      velEl.className='rc-val'+(question==='velocidade'?' unknown':'');
+      temEl.textContent=question==='tempo'?'?':simElapsed.toFixed(1)+' s';
+      temEl.className='rc-val'+(question==='tempo'?' unknown':'');
+      desEl.textContent=question==='posfinal'?'?':(simPos>=0?'+':'')+simPos.toFixed(1)+' m';
+      desEl.className='rc-val'+(question==='posfinal'?' unknown':'');
+      hVel.textContent=question==='velocidade'?'Calcular!':'';
+      hTem.textContent=question==='tempo'?'Calcular!':'';
+      hDes.textContent=question==='posfinal'?'Calcular!':'';
+    } else {
+      velEl.textContent='— m/s'; velEl.className='rc-val'; hVel.textContent='';
+      temEl.textContent='— s';   temEl.className='rc-val'; hTem.textContent='';
+      desEl.textContent='— m';   desEl.className='rc-val'; hDes.textContent='';
+    }
+  } else {
+    // MUV: show v0, acceleration, vfinal, time, displacement
+    const aceEl=document.getElementById('disp-ace');
+    const vfEl =document.getElementById('disp-vf');
+    const desEl=document.getElementById('disp-desm');
+    const temEl=document.getElementById('disp-temm');
+    const hAce=document.getElementById('hint-ace');
+    const hVf =document.getElementById('hint-vf');
+    const hDes=document.getElementById('hint-desm');
+    const hTem=document.getElementById('hint-temm');
+    if(simRunning||simElapsed>0){
+      aceEl.textContent=question==='aceleracao'?'?':(simAcc>=0?'+':'')+simAcc.toFixed(1)+' m/s²';
+      aceEl.className='rc-val'+(question==='aceleracao'?' unknown':'');
+      vfEl.textContent =question==='vfinal'?'?':(simVel>=0?'+':'')+simVel.toFixed(1)+' m/s';
+      vfEl.className='rc-val'+(question==='vfinal'?' unknown':'');
+      desEl.textContent=question==='posfinal'?'?':(simPos>=0?'+':'')+simPos.toFixed(1)+' m';
+      desEl.className='rc-val'+(question==='posfinal'?' unknown':'');
+      temEl.textContent=question==='tempo'?'?':simElapsed.toFixed(1)+' s';
+      temEl.className='rc-val'+(question==='tempo'?' unknown':'');
+      hAce.textContent=question==='aceleracao'?'Calcular!':'';
+      hVf.textContent =question==='vfinal'?'Calcular!':'';
+      hDes.textContent=question==='posfinal'?'Calcular!':'';
+      hTem.textContent=question==='tempo'?'Calcular!':'';
+    } else {
+      aceEl.textContent='— m/s²'; aceEl.className='rc-val'; hAce.textContent='';
+      vfEl.textContent='— m/s';   vfEl.className='rc-val';  hVf.textContent='';
+      desEl.textContent='— m';    desEl.className='rc-val';  hDes.textContent='';
+      temEl.textContent='— s';    temEl.className='rc-val';  hTem.textContent='';
+    }
+  }
+}
+
+// ── STOP ───────────────────────────────────────────────
+function stopSim(){
+  cancelAnimationFrame(animId); animId=null;
+  simRunning=false;
+  document.getElementById('btnStart').textContent='▶ Iniciar';
+  document.getElementById('btnStart').classList.remove('running');
+
+  const ds=simPos-simStartPos;
+  if(mode==='MU'){
+    if(question!=='velocidade') document.getElementById('disp-vel').textContent=simVel.toFixed(2)+' m/s';
+    if(question!=='tempo')      document.getElementById('disp-tem').textContent=simElapsed.toFixed(2)+' s';
+    if(question!=='posfinal') document.getElementById('disp-des').textContent=(simPos>=0?'+':'')+simPos.toFixed(2)+' m';
+  } else {
+    if(question!=='aceleracao')   document.getElementById('disp-ace').textContent=(simAcc>=0?'+':'')+simAcc.toFixed(2)+' m/s²';
+    if(question!=='vfinal')       document.getElementById('disp-vf').textContent=(simVel>=0?'+':'')+simVel.toFixed(2)+' m/s';
+    if(question!=='posfinal') document.getElementById('disp-desm').textContent=(simPos>=0?'+':'')+simPos.toFixed(2)+' m';
+    if(question!=='tempo')        document.getElementById('disp-temm').textContent=simElapsed.toFixed(2)+' s';
+  }
+
+  updateCards(false);
+  showAnswerBox();
+  drawFrame();
+}
+
+function toggleSim(){
+  if(!question){ showToast('⚠️ Selecione uma grandeza primeiro!','info'); return; }
+  if(simRunning) stopSim();
+  else startSim();
+}
+
+// ── ANIMATION STEP ─────────────────────────────────────
+function animStep(timestamp){
+  if(!simLastTimestamp) simLastTimestamp=timestamp;
+  const dt=Math.min((timestamp-simLastTimestamp)/1000,0.05);
+  simLastTimestamp=timestamp;
+  simElapsed+=dt;
+
+  if(mode==='MU'){
+    simPos+=simVel*dt;
+  } else {
+    // MUV: v = v0 + a*t, x = x0 + v0*t + 0.5*a*t²
+    simVel = simV0 + simAcc*simElapsed;
+    simPos = simStartPos + simV0*simElapsed + 0.5*simAcc*simElapsed*simElapsed;
+  }
+
+  bgClouds.forEach(c=>{
+    c.x+=c.driftSpeed;
+    if(c.x>W+c.w) c.x=-c.w;
+    if(c.x<-c.w)  c.x=W+c.w;
+  });
+
+  refreshDisplays();
+  drawFrame();
+  if(simRunning) animId=requestAnimationFrame(animStep);
+}
+
+// ── DRAWING ────────────────────────────────────────────
+function drawFrame(){
+  ctx.clearRect(0,0,W,H);
+
+  // Sky
+  const sky=ctx.createLinearGradient(0,0,0,GROUND_Y);
+  sky.addColorStop(0,'#87ceeb'); sky.addColorStop(0.5,'#b8e0f7'); sky.addColorStop(1,'#d4eef8');
+  ctx.fillStyle=sky; ctx.fillRect(0,0,W,GROUND_Y);
+
+  bgClouds.forEach(c=>drawCloud(c.x,c.y,c.w,c.alpha));
+
+  // Ground
+  const grd=ctx.createLinearGradient(0,GROUND_Y,0,H);
+  grd.addColorStop(0,'#5aaa3a'); grd.addColorStop(0.3,'#4a9a2a'); grd.addColorStop(1,'#2d6622');
+  ctx.fillStyle=grd; ctx.fillRect(0,GROUND_Y,W,H-GROUND_Y);
+
+  const roadY=GROUND_Y+10, roadH=30;
+  const road=ctx.createLinearGradient(0,roadY,0,roadY+roadH);
+  road.addColorStop(0,'#555'); road.addColorStop(0.5,'#666'); road.addColorStop(1,'#444');
+  ctx.fillStyle=road; ctx.fillRect(0,roadY,W,roadH);
+
+  // Road dashes — move opposite to car
+  {
+    const dashLen=22, gapLen=18, period=dashLen+gapLen;
+    const scrollOffset=((simPos*M_TO_PX)%period+period)%period;
+    ctx.fillStyle='#ffee55';
+    for(let dx=-period+(period-scrollOffset);dx<W+period;dx+=period){
+      ctx.fillRect(dx,roadY+roadH/2-1,dashLen,2);
+    }
+  }
+
+  ctx.strokeStyle='rgba(255,255,255,0.6)'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(0,roadY); ctx.lineTo(W,roadY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0,roadY+roadH); ctx.lineTo(W,roadY+roadH); ctx.stroke();
+
+  bgTrees.forEach(t=>{
+    const sx=worldToScreen(t.worldX);
+    if(sx>-80&&sx<W+80) drawTree(sx,GROUND_Y,t.h,t.trunk);
+  });
+
+  drawReferencePole(worldToScreen(0));
+
+  // Start flag
+  const startSX=worldToScreen(simStartPos);
+  if(simElapsed>0&&startSX>-10&&startSX<W+10) drawStartFlag(startSX,simStartPos);
+
+  // x position marker (dashed line + label at car position)
+  if(simElapsed>0){
+    const xSX=CAR_SCREEN_X;
+    ctx.save();
+    ctx.strokeStyle='rgba(26,159,212,0.6)'; ctx.lineWidth=1.5; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(xSX,GROUND_Y); ctx.lineTo(xSX,GROUND_Y-52); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle='#1a9fd4';
+    ctx.beginPath(); ctx.moveTo(xSX,GROUND_Y-52); ctx.lineTo(xSX+22,GROUND_Y-42); ctx.lineTo(xSX,GROUND_Y-32); ctx.closePath(); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.font='bold 8px Nunito'; ctx.textAlign='left';
+    ctx.fillText('x='+(simPos>=0?'+':'')+simPos.toFixed(0)+' m', xSX+3, GROUND_Y-40);
+    ctx.restore();
+  }
+
+  const carDir=simVel>=0?1:-1;
+  drawCar(CAR_SCREEN_X,roadY+roadH/2-8,carDir);
+
+  // x₀ badge moved to info panel
+
+  // acceleration arrow removed
+
+  // Hidden quantity badge
+  if(simRunning&&question){
+    const labels={
+      velocidade:'v = ?', tempo:'t = ?', posfinal:'x = ?',
+      aceleracao:'a = ?', vfinal:'v = ?'
+    };
+    const txt=labels[question];
+    ctx.save();
+    ctx.fillStyle='rgba(212,137,10,0.92)';
+    ctx.font='bold 13px Nunito'; ctx.textAlign='center';
+    const tw=ctx.measureText(txt).width+18;
+    ctx.beginPath(); ctx.roundRect(CAR_SCREEN_X-tw/2,roadY-86,tw,24,5); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.fillText(txt,CAR_SCREEN_X,roadY-69);
+    ctx.restore();
+  }
+
+  // timer moved to info panel
+
+  // ── Unified info panel (top-left) ──
+  if(simRunning||simElapsed>0){
+    ctx.save();
+    const x0sign=simStartPos>=0?'+':'';
+    const panelLines=[];
+    if(mode==='MU'){
+      panelLines.push({text:'x₀ = '+x0sign+simStartPos.toFixed(1)+' m', color:'#fff'});
+      if(question!=='tempo')
+        panelLines.push({text:'⏱ '+simElapsed.toFixed(1)+' s', color:'#fff'});
+    } else {
+      const v0sign=simV0>=0?'+':'';
+      panelLines.push({text:'x₀ = '+x0sign+simStartPos.toFixed(1)+' m', color:'#fff'});
+      panelLines.push({text:'v₀ = '+v0sign+simV0.toFixed(1)+' m/s', color:'#fff'});
+      if(question!=='tempo')
+        panelLines.push({text:'⏱ '+simElapsed.toFixed(1)+' s', color:'#fff'});
+    }
+    const lineH=18, pad=10;
+    const panelH=panelLines.length*lineH+pad;
+    ctx.font='bold 12px "Fira Code",monospace';
+    const panelW=Math.max(...panelLines.map(l=>ctx.measureText(l.text).width))+pad*2;
+    ctx.fillStyle='rgba(20,24,40,0.85)';
+    ctx.beginPath(); ctx.roundRect(8,8,panelW,panelH,7); ctx.fill();
+    panelLines.forEach((line,i)=>{
+      ctx.fillStyle=line.color;
+      ctx.font='bold 12px "Fira Code",monospace';
+      ctx.textAlign='left';
+      ctx.fillText(line.text, 8+pad, 8+pad+4+i*lineH);
+    });
+    ctx.restore();
+  }
+
+  drawAxis();
+}
+
+// ── ACCELERATION ARROW ────────────────────────────────
+function drawAccArrow(cx, cy, acc){
+  if(Math.abs(acc)<0.01) return;
+  const dir=acc>0?1:-1;
+  const len=Math.min(50, Math.abs(acc)*12+20);
+  const y=cy+28;
+  const x1=cx+dir*20, x2=cx+dir*(20+len);
+  const color=acc>0?'#4ab832':'#e02020';
+  ctx.save();
+  ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.moveTo(x1,y); ctx.lineTo(x2,y); ctx.stroke();
+  const al=9;
+  ctx.beginPath();
+  ctx.moveTo(x2,y);
+  ctx.lineTo(x2-al*Math.cos(0.4)*dir, y-al*Math.sin(0.4));
+  ctx.lineTo(x2-al*Math.cos(0.4)*dir, y+al*Math.sin(0.4));
+  ctx.closePath(); ctx.fill();
+  // label removed — value shown only in info panel
+  ctx.restore();
+}
+
+// ── DRAWING HELPERS ────────────────────────────────────
+function drawCloud(x,y,w,alpha){
+  ctx.save(); ctx.globalAlpha=alpha*0.85; ctx.fillStyle='#fff';
+  const h=w*0.4;
+  ctx.beginPath(); ctx.ellipse(x,y,w/2,h/2,0,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(x-w*0.2,y+h*0.1,w*0.3,h*0.4,0,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(x+w*0.2,y+h*0.05,w*0.32,h*0.38,0,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawTree(sx,groundY,h,trunkW){
+  ctx.save();
+  ctx.fillStyle='#6b4226';
+  ctx.fillRect(sx-trunkW/2,groundY-h*0.35,trunkW,h*0.35);
+  const greens=['#2d8a1e','#3aaa26','#4ab832'];
+  for(let i=0;i<3;i++){
+    const ly=groundY-h*0.3-i*(h*0.28), lw=h*(0.5-i*0.12);
+    ctx.fillStyle=greens[i];
+    ctx.beginPath(); ctx.moveTo(sx,ly-h*0.3); ctx.lineTo(sx+lw,ly); ctx.lineTo(sx-lw,ly); ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawReferencePole(sx){
+  if(sx<-40||sx>W+40) return;
+  ctx.save();
+  ctx.strokeStyle='#333'; ctx.lineWidth=3;
+  ctx.beginPath(); ctx.moveTo(sx,GROUND_Y); ctx.lineTo(sx,GROUND_Y-58); ctx.stroke();
+  ctx.fillStyle='#e02020';
+  ctx.beginPath(); ctx.roundRect(sx-22,GROUND_Y-58,44,22,4); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='bold 10px Nunito'; ctx.textAlign='center';
+  ctx.fillText('x = 0',sx,GROUND_Y-43);
+  ctx.strokeStyle='rgba(224,32,32,0.35)'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(sx,GROUND_Y-36); ctx.lineTo(sx,GROUND_Y); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
+function drawStartFlag(sx,worldPos){
+  ctx.save();
+  ctx.strokeStyle='rgba(26,159,212,0.5)'; ctx.lineWidth=1.5; ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(sx,GROUND_Y); ctx.lineTo(sx,GROUND_Y-50); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#1a9fd4';
+  ctx.beginPath(); ctx.moveTo(sx,GROUND_Y-50); ctx.lineTo(sx+26,GROUND_Y-40); ctx.lineTo(sx,GROUND_Y-30); ctx.closePath(); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.font='bold 8px Nunito'; ctx.textAlign='left';
+  ctx.fillText('x\u2080='+(worldPos>=0?'+':'')+worldPos.toFixed(0),sx+3,GROUND_Y-38);
+  ctx.restore();
+}
+
+function drawArrow(x1,y1,x2,y2,color,lw){
+  if(Math.abs(x2-x1)<4) return;
+  ctx.save();
+  ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=lw;
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  const angle=Math.atan2(y2-y1,x2-x1), al=11;
+  ctx.beginPath();
+  ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-al*Math.cos(angle-0.38),y2-al*Math.sin(angle-0.38));
+  ctx.lineTo(x2-al*Math.cos(angle+0.38),y2-al*Math.sin(angle+0.38));
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+
+function drawAxis(){
+  const axisY=GROUND_Y-1;
+  ctx.save();
+  ctx.strokeStyle='rgba(0,0,0,0.2)'; ctx.lineWidth=1;
+  const startM=Math.floor((simPos-W/M_TO_PX/2)/10)*10;
+  for(let m=startM;m<=startM+W/M_TO_PX+10;m+=10){
+    const sx=worldToScreen(m);
+    ctx.beginPath(); ctx.moveTo(sx,axisY); ctx.lineTo(sx,axisY-6); ctx.stroke();
+    ctx.fillStyle='rgba(0,0,0,0.3)'; ctx.font='9px Nunito'; ctx.textAlign='center';
+    ctx.fillText(m+'m',sx,axisY-8);
+  }
+  ctx.restore();
+}
+
+function drawCar(cx,cy,dir){
+  ctx.save(); ctx.translate(cx,cy);
+  if(dir===-1) ctx.scale(-1,1);
+
+  ctx.fillStyle='rgba(0,0,0,0.13)';
+  ctx.beginPath(); ctx.ellipse(0,18,36,6,0,0,Math.PI*2); ctx.fill();
+
+  const bodyGrad=ctx.createLinearGradient(-38,-8,38,-8);
+  bodyGrad.addColorStop(0,'#1a7fd4'); bodyGrad.addColorStop(0.5,'#2a9ff4'); bodyGrad.addColorStop(1,'#1a7fd4');
+  ctx.fillStyle=bodyGrad;
+  ctx.beginPath(); ctx.roundRect(-38,-8,76,18,4); ctx.fill();
+
+  const topGrad=ctx.createLinearGradient(-22,-28,22,-8);
+  topGrad.addColorStop(0,'#1565c0'); topGrad.addColorStop(0.5,'#1976d2'); topGrad.addColorStop(1,'#0d47a1');
+  ctx.fillStyle=topGrad;
+  ctx.beginPath(); ctx.roundRect(-22,-26,44,18,6); ctx.fill();
+
+  ctx.fillStyle='rgba(180,230,255,0.85)';
+  ctx.beginPath(); ctx.roundRect(-18,-24,16,14,3); ctx.fill();
+  ctx.beginPath(); ctx.roundRect(2,-24,16,14,3); ctx.fill();
+
+  ctx.strokeStyle='rgba(255,255,255,0.4)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(-36,-6); ctx.lineTo(36,-6); ctx.stroke();
+
+  const wheelAngle=(simElapsed*Math.abs(simVel)*M_TO_PX/9)%(Math.PI*2);
+  [[-24,14],[24,14]].forEach(([wx,wy])=>{
+    ctx.fillStyle='#222';
+    ctx.beginPath(); ctx.arc(wx,wy,9,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle='#555'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.fillStyle='#888';
+    ctx.beginPath(); ctx.arc(wx,wy,4.5,0,Math.PI*2); ctx.fill();
+    for(let s=0;s<4;s++){
+      const sa=s*Math.PI/2+wheelAngle;
+      ctx.strokeStyle='#666'; ctx.lineWidth=1;
+      ctx.beginPath();
+      ctx.moveTo(wx+Math.cos(sa)*2,wy+Math.sin(sa)*2);
+      ctx.lineTo(wx+Math.cos(sa)*8,wy+Math.sin(sa)*8);
+      ctx.stroke();
+    }
+  });
+
+  ctx.fillStyle='#ffee88';
+  ctx.beginPath(); ctx.roundRect(34,-4,4,6,1); ctx.fill();
+  ctx.fillStyle='#ff4444';
+  ctx.beginPath(); ctx.roundRect(-38,-4,4,6,1); ctx.fill();
+
+  ctx.restore();
+}
+
+// ── ANSWER BOX ────────────────────────────────────────
+function showAnswerBox(){
+  const labels={
+    velocidade:'Qual foi a velocidade? (use sinal)',
+    tempo:'Qual foi o tempo de duração?',
+    posfinal:'Qual foi a posição final x? (use sinal)',
+    aceleracao:'Qual foi a aceleração? (use sinal)',
+    vfinal:'Qual foi a velocidade final? (use sinal)'
+  };
+  const units={velocidade:'m/s',tempo:'s',posfinal:'m',aceleracao:'m/s²',vfinal:'m/s'};
+  document.getElementById('answerLabel').textContent=labels[question]||'?';
+  document.getElementById('answerUnit').textContent=units[question]||'';
+  document.getElementById('answerInput').value='';
+  document.getElementById('answerSection').classList.add('show');
+  document.getElementById('answerInput').focus();
+}
+
+// ── SUBMIT ────────────────────────────────────────────
+function submitAnswer(){
+  const val=parseFloat(document.getElementById('answerInput').value);
+  if(isNaN(val)){ showToast('⚠️ Digite um valor numérico!','info'); return; }
+
+  const ds=simPos-simStartPos;
+  let correct=0;
+  if(mode==='MU'){
+    correct={velocidade:simVel,tempo:simElapsed,posfinal:simPos}[question];
+  } else {
+    correct={aceleracao:simAcc,vfinal:simVel,posfinal:simPos,tempo:simElapsed}[question];
+  }
+
+  const err=Math.abs(correct)>0.01
+    ? Math.abs(val-correct)/Math.abs(correct)*100
+    : Math.abs(val-correct)*100;
+
+  const rb=document.getElementById('resultBox');
+  const rt=document.getElementById('resultText');
+  const rd=document.getElementById('resultDetail');
+  const units={velocidade:'m/s',tempo:'s',posfinal:'m',aceleracao:'m/s²',vfinal:'m/s'};
+  const u=units[question]||'';
+
+  rb.classList.remove('miss'); rb.classList.add('show');
+  document.getElementById('answerSection').classList.remove('show');
+
+  if(err<=5){
+    rt.className='r-val hit'; rt.textContent='🎯 ACERTOU!';
+    rd.textContent=`Você disse ${val.toFixed(2)} ${u} — correto: ${correct.toFixed(2)} ${u} (erro ${err.toFixed(1)}%)`;
+    showToast('🎯 RESPOSTA CORRETA!','hit');
+  } else {
+    rt.className='r-val miss'; rt.textContent='❌ Resposta incorreta!';
+    rd.textContent=`Você disse ${val.toFixed(2)} ${u} — correto: ${correct.toFixed(2)} ${u} (erro ${err.toFixed(1)}%)`;
+    rb.classList.add('miss');
+    showToast('❌ RESPOSTA ERRADA!','miss');
+  }
+
+  // Reveal hidden card
+  if(mode==='MU'){
+    const elems={velocidade:'disp-vel',tempo:'disp-tem',posfinal:'disp-des'};
+    const cards={velocidade:'vel',tempo:'tem',posfinal:'des'};
+    document.getElementById(elems[question]).textContent=correct.toFixed(2)+' '+u;
+    document.getElementById(elems[question]).className='rc-val';
+    document.getElementById('card-'+cards[question]).classList.remove('hidden-val','selected');
+  } else {
+    const elems={aceleracao:'disp-ace',vfinal:'disp-vf',posfinal:'disp-desm',tempo:'disp-temm'};
+    const cards={aceleracao:'ace',vfinal:'vf',posfinal:'desm',tempo:'temm'};
+    document.getElementById(elems[question]).textContent=correct.toFixed(2)+' '+u;
+    document.getElementById(elems[question]).className='rc-val';
+    document.getElementById('card-'+cards[question]).classList.remove('hidden-val','selected');
+  }
+}
+
+// ── RESET ─────────────────────────────────────────────
+function resetSim(){
+  if(animId){ cancelAnimationFrame(animId); animId=null; }
+  simRunning=false; simElapsed=0; simLastTimestamp=null;
+
+  simVel=randomMUVel(); simV0=simVel; simAcc=0;
+  simStartPos=randomStartPos(); simPos=simStartPos;
+
+  question=null;
+  ['qVel','qTem','qDes','qAce','qVf','qDesM','qTemM'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.classList.remove('selected');
+  });
+  document.getElementById('btnStart').textContent='▶ Iniciar';
+  document.getElementById('btnStart').classList.remove('running');
+  document.getElementById('btnStart').disabled=true;
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('answerSection').classList.remove('show');
+  updateCards(false);
+  refreshDisplays();
+  initBgObjects();
+  drawFrame();
+}
+
+// ── TOAST ─────────────────────────────────────────────
+function showToast(msg,cls){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show '+cls;
+  setTimeout(()=>t.className='',3200);
+}
+
+// ── INIT ──────────────────────────────────────────────
+initBgObjects();
+resetSim();
+
+function idleLoop(){
+  if(!simRunning){
+    bgClouds.forEach(c=>{
+      c.x+=c.driftSpeed*0.6;
+      if(c.x>W+c.w) c.x=-c.w;
+      if(c.x<-c.w)  c.x=W+c.w;
+    });
+    drawFrame();
+  }
+  requestAnimationFrame(idleLoop);
+}
+requestAnimationFrame(idleLoop);
+
+// ── PDF DOWNLOAD ───────────────────────────────────────
+function downloadPDF(tipo){
+  const files = {
+    MU:  { roteiro:'roteiro-mu.docx',   relatorio:'relatorio-mu.docx'   },
+    MUV: { roteiro:'roteiro-muv.docx',  relatorio:'relatorio-muv.docx'  },
+  };
+  const filename = files[mode][tipo];
+  const a = document.createElement('a');
+  a.href = filename;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast(tipo==='roteiro'?'📋 Baixando roteiro...':'📝 Baixando relatório...','info');
+}
+</script>
+
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+</body>
+</html>

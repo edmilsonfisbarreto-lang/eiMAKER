@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Bibliografia – eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--red:#e02020;--yellow:#d4890a;--green:#4a9c2f;--blue1:#1a9fd4;--blue2:#2563a8;--purple:#6b3f9a;--bg:#f0f2f7;--surface:#fff;--card:#fff;--card2:#f7f9fc;--text:#1e2130;--muted:#5a6078;--border:rgba(0,0,0,0.09);--shadow:0 2px 16px rgba(0,0,0,0.08)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#e8eaf0}::-webkit-scrollbar-thumb{background:var(--blue2);border-radius:3px}
+.color-strip{display:flex;height:4px}.cs1{flex:1;background:var(--red)}.cs2{flex:1;background:var(--yellow)}.cs3{flex:1;background:var(--green)}.cs4{flex:1;background:var(--blue1)}.cs5{flex:1;background:var(--blue2)}.cs6{flex:1;background:var(--purple)}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;box-shadow:0 1px 8px rgba(0,0,0,0.07)}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-keys{display:flex;gap:4px}.key{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.key-red{background:var(--red)}.key-yellow{background:var(--yellow)}.key-green{background:var(--green)}.key-blue1{background:var(--blue1)}.key-blue2{background:var(--blue2)}.key-purple{background:var(--purple)}
+nav{display:flex;gap:.15rem}
+nav a{color:var(--muted);text-decoration:none;padding:.4rem .9rem;border-radius:8px;font-weight:700;font-size:.85rem;transition:color .2s,background .2s}
+nav a:hover{color:var(--text);background:var(--bg)}
+nav a.active{color:var(--blue2);background:rgba(37,99,168,.08)}
+.breadcrumb{padding:.7rem 2rem;background:var(--surface);border-bottom:1px solid var(--border);font-size:.8rem;color:var(--muted)}
+.breadcrumb a{color:var(--blue1);text-decoration:none}.breadcrumb span{margin:0 .4rem}
+.page-hero{padding:2.75rem 2rem 2.25rem;background:linear-gradient(135deg,#f0f5ff 0%,#fff 55%,#f0f2f7 100%);border-bottom:1px solid var(--border);text-align:center}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem 1rem;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:.9rem;background:rgba(37,99,168,.1);border:1px solid rgba(37,99,168,.2);color:var(--blue2)}
+.page-hero h1{font-size:clamp(1.75rem,4vw,2.6rem);font-weight:900;margin-bottom:.65rem}
+.page-hero p{max-width:540px;margin:0 auto;color:var(--muted);font-size:.96rem;line-height:1.75}
+.prog-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.prog-btn{padding:.4rem 1rem;border-radius:999px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;border:2px solid var(--border);background:var(--card2);color:var(--muted);transition:all .2s;text-decoration:none;display:inline-block}
+.prog-btn:hover,.prog-btn.act{border-color:var(--blue2);color:var(--blue2);background:rgba(37,99,168,.08)}
+section{padding:2.5rem 2rem}.container{max-width:960px;margin:0 auto}
+.section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:.4rem}
+h2{font-size:1.4rem;font-weight:900;margin-bottom:1.2rem}h3{font-size:.98rem;font-weight:800;margin-bottom:.5rem}
+/* BIB CARDS */
+.bib-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem;box-shadow:var(--shadow);display:flex;gap:1.25rem;margin-bottom:1.25rem;transition:box-shadow .2s}
+.bib-card:hover{box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.bib-num{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-weight:500;font-size:1rem;color:#fff}
+.bib-body h3{font-size:1rem;margin-bottom:.35rem}
+.bib-body .ref-text{font-size:.87rem;color:var(--muted);line-height:1.8;margin-bottom:.7rem}
+.bib-body .ref-text em{font-style:normal;font-weight:700;color:var(--text)}
+.bib-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.bib-tag{padding:.22rem .7rem;border-radius:6px;font-size:.73rem;font-weight:700}
+.tag-basica{background:rgba(224,32,32,.1);color:var(--red);border:1px solid rgba(224,32,32,.2)}
+.tag-comp{background:rgba(37,99,168,.1);color:var(--blue2);border:1px solid rgba(37,99,168,.2)}
+.tag-area{background:var(--bg);color:var(--muted);border:1px solid var(--border)}
+/* SCHEDULE */
+.schedule{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:.5rem}
+.sched-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;box-shadow:var(--shadow)}
+.sched-week{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--blue2);margin-bottom:.5rem}
+.sched-card h4{font-size:.9rem;font-weight:800;margin-bottom:.35rem}
+.sched-card p{font-size:.8rem;color:var(--muted);line-height:1.55}
+/* DIGITAL */
+.digital-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+.digital-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.2rem;box-shadow:var(--shadow);transition:border-color .2s,transform .2s}
+.digital-card:hover{border-color:var(--blue2);transform:translateY(-3px)}
+.dc-icon{font-size:1.5rem;margin-bottom:.5rem}
+.digital-card h4{font-size:.88rem;font-weight:800;margin-bottom:.3rem}
+.digital-card p{font-size:.78rem;color:var(--muted);line-height:1.55;margin-bottom:.5rem}
+.digital-card a{font-size:.78rem;color:var(--blue1);text-decoration:none;font-weight:700}
+/* VIDEO */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.video-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s}
+.video-card:hover{transform:translateY(-3px)}
+.video-thumb{position:relative;padding-bottom:56.25%;background:#111}
+.video-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-info{padding:1rem 1.1rem}
+.video-info h4{font-size:.9rem;font-weight:800;margin-bottom:.25rem}
+.video-info p{font-size:.78rem;color:var(--muted);line-height:1.55}
+/* ACTIVITY */
+.activity{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--blue2);border-radius:0 14px 14px 0;padding:1.6rem 1.75rem;box-shadow:var(--shadow);margin-top:1rem}
+.act-title{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem}
+.act-title h3{margin-bottom:0;color:var(--blue2);font-size:1rem}
+.activity ol{padding-left:1.3rem;color:var(--muted);font-size:.88rem;line-height:2.1}
+.act-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--border)}
+.act-badge{font-size:.75rem;font-weight:700;color:var(--muted)}
+/* QUIZ */
+.quiz-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;box-shadow:var(--shadow)}
+.quiz-q{margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
+.quiz-q:last-of-type{border-bottom:none;margin-bottom:1rem;padding-bottom:0}
+.quiz-q p{font-size:.93rem;font-weight:700;margin-bottom:.85rem}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem}
+.quiz-opt{display:flex;align-items:center;gap:.65rem;padding:.65rem 1rem;border-radius:10px;border:2px solid var(--border);cursor:pointer;transition:all .2s;font-size:.87rem;font-weight:600;color:var(--muted);background:var(--card2)}
+.quiz-opt:hover,.quiz-opt.selected{border-color:var(--blue2);color:var(--blue2);background:rgba(37,99,168,.07)}
+.quiz-opt.correct{border-color:var(--green)!important;color:var(--green)!important;background:rgba(74,156,47,.08)!important}
+.quiz-opt.wrong{border-color:#e53935!important;color:#e53935!important;background:rgba(229,57,53,.07)!important}
+.opt-letter{width:26px;height:26px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;border:1px solid var(--border)}
+.quiz-feedback{display:none;margin-top:.75rem;padding:.7rem 1rem;border-radius:8px;font-size:.83rem;font-weight:700;line-height:1.55}
+.quiz-btn-row{display:flex;gap:.75rem;margin-top:1.25rem}
+.btn{padding:.65rem 1.4rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;border:none;display:inline-block;transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-acc{background:var(--blue2);color:#fff;box-shadow:0 4px 14px rgba(37,99,168,.3)}
+.btn-out{background:transparent;border:2px solid var(--blue2);color:var(--blue2)}
+.btn-out:hover{background:rgba(37,99,168,.07)}
+.quiz-score{display:none;background:linear-gradient(135deg,rgba(74,156,47,.1),rgba(26,159,212,.07));border:1px solid rgba(74,156,47,.25);border-radius:12px;padding:1.25rem;text-align:center;margin-top:1.25rem}
+.quiz-score h3{font-size:1.3rem;color:var(--green);margin-bottom:.35rem}
+.quiz-score p{font-size:.88rem;color:var(--muted)}
+.page-nav{background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.page-nav a{text-decoration:none;font-weight:800;font-size:.88rem;color:var(--muted);transition:color .2s}
+.page-nav a:hover{color:var(--blue2)}
+footer{background:#1e2130;color:rgba(255,255,255,.5);padding:1.75rem 2rem;text-align:center;font-size:.8rem}
+footer strong{color:#fff}footer a{color:var(--blue1);text-decoration:none}
+.footer-keys{display:flex;justify-content:center;gap:4px;margin-bottom:.65rem}
+@media(max-width:600px){nav{display:none}.bib-card{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<header>
+  <a class="logo-wrap" href="index.html"><div class="logo-keys"><div class="key key-red" style="font-size:.68rem">ei</div><div class="key key-yellow">M</div><div class="key key-green">A</div><div class="key key-blue1">K</div><div class="key key-blue2">E</div><div class="key key-purple">R</div></div></a>
+  <nav>
+    <a href="objetivos.html">Objetivos</a><a href="conteudos.html">Conteúdos</a>
+    <a href="metodologia.html">Metodologia</a><a href="ferramentas.html">Ferramentas</a><a href="bibliografia.html" class="active">Bibliografia</a><a href="projetos.html">Projetos</a>
+  </nav>
+</header>
+<div class="page-hero">
+  <div class="badge">📖 Referências & Leituras</div>
+  <h1>Fontes que embasam <span style="color:var(--blue2)">esta disciplina</span></h1>
+  <p>Referências básicas e complementares, cronograma de leituras por semanas, recursos digitais gratuitos e quiz para fixar o que foi estudado.</p>
+</div>
+<div class="prog-nav">
+  <a class="prog-btn act" href="#basica">📕 Básica</a>
+  <a class="prog-btn" href="#complementar">📗 Complementar</a>
+  <a class="prog-btn" href="#cronograma">📅 Cronograma</a>
+  <a class="prog-btn" href="#digital">🌐 Digital</a>
+</div>
+
+<!-- BÁSICA -->
+<section id="basica">
+  <div class="container">
+    <div class="section-label" style="color:var(--red)">📕 Bibliografia Básica</div>
+    <h2>Leituras obrigatórias</h2>
+
+    <div class="bib-card">
+      <div class="bib-num" style="background:var(--red)">[1]</div>
+      <div class="bib-body">
+        <h3>Educação e novas tecnologias: um (re)pensar</h3>
+        <p class="ref-text">BRITO, Gláucia da Silva; PURIFICAÇÃO, Ivonélia da. <em>Educação e novas tecnologias: um (re)pensar.</em> 3. ed. Curitiba: InterSaberes, 2011.</p>
+        <div class="bib-tags">
+          <span class="bib-tag tag-basica">BÁSICA</span>
+          <span class="bib-tag tag-area">TICs na Educação</span>
+          <span class="bib-tag tag-area">Semanas 1–3 e 10–12</span>
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.65rem;line-height:1.65">Obra central da disciplina. Discute o (re)pensar das práticas pedagógicas diante das novas tecnologias, com foco na transição do professor transmissor para mediador. Aborda critérios de avaliação de software educacional e integração das TICs em todas as fases do ensino.</p>
+      </div>
+    </div>
+
+    <div class="bib-card">
+      <div class="bib-num" style="background:var(--red)">[2]</div>
+      <div class="bib-body">
+        <h3>Formação permanente e tecnologias educacionais</h3>
+        <p class="ref-text">DEMO, Pedro. <em>Formação permanente e tecnologias educacionais.</em> 2. ed. Petrópolis, RJ: Vozes, 2011.</p>
+        <div class="bib-tags">
+          <span class="bib-tag tag-basica">BÁSICA</span>
+          <span class="bib-tag tag-area">Formação Docente</span>
+          <span class="bib-tag tag-area">Semanas 10–12</span>
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.65rem;line-height:1.65">Pedro Demo discute como a formação docente contínua é essencial na era digital. O professor deve manter postura investigativa permanente diante das tecnologias — não apenas aprender a usá-las, mas refletir criticamente sobre seu impacto no processo de ensino-aprendizagem.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLEMENTAR -->
+<section id="complementar" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">📗 Bibliografia Complementar</div>
+    <h2>Leituras para aprofundamento</h2>
+
+    <div class="bib-card">
+      <div class="bib-num" style="background:var(--blue2)">[3]</div>
+      <div class="bib-body">
+        <h3>Ambientes Virtuais de Aprendizagem em Diferentes Contextos</h3>
+        <p class="ref-text">PEREIRA, Alice Cybis. <em>Ambientes Virtuais de Aprendizagem em Diferentes Contextos.</em> Rio de Janeiro: Ciência Moderna, 2007.</p>
+        <div class="bib-tags">
+          <span class="bib-tag tag-comp">COMPLEMENTAR</span>
+          <span class="bib-tag tag-area">AVAs · Moodle</span>
+          <span class="bib-tag tag-area">Semanas 5–7</span>
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.65rem;line-height:1.65">Referência sobre Ambientes Virtuais de Aprendizagem — desde a arquitetura pedagógica até estratégias de uso em diferentes contextos educativos. Essencial para compreender o Moodle e os demais AVAs dentro de uma perspectiva pedagógica fundamentada.</p>
+      </div>
+    </div>
+
+    <div class="bib-card">
+      <div class="bib-num" style="background:var(--blue2)">[4]</div>
+      <div class="bib-body">
+        <h3>A Sociedade Informática</h3>
+        <p class="ref-text">SCHAFF, Adam. <em>A Sociedade Informática.</em> 5. ed. São Paulo: Brasiliense/UNESP, 2007.</p>
+        <div class="bib-tags">
+          <span class="bib-tag tag-comp">COMPLEMENTAR</span>
+          <span class="bib-tag tag-area">Filosofia da Tecnologia</span>
+          <span class="bib-tag tag-area">Semanas 4–5</span>
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.65rem;line-height:1.65">Schaff antecipou em décadas as transformações sociais provocadas pela informatização. Obra essencial para contextualizar filosoficamente as TICs e compreender o ambiente social em que as práticas pedagógicas com tecnologia estão inseridas.</p>
+      </div>
+    </div>
+
+    <div class="bib-card">
+      <div class="bib-num" style="background:var(--blue2)">[5]</div>
+      <div class="bib-body">
+        <h3>O conceito de tecnologia</h3>
+        <p class="ref-text">PINTO, Álvaro Vieira. <em>O conceito de tecnologia.</em> Vol. 1. Rio de Janeiro: Contraponto, 2005.</p>
+        <div class="bib-tags">
+          <span class="bib-tag tag-comp">COMPLEMENTAR</span>
+          <span class="bib-tag tag-area">Filosofia da Tecnologia</span>
+          <span class="bib-tag tag-area">Semanas 4–5</span>
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin-top:.65rem;line-height:1.65">Obra filosófica fundamental sobre o conceito de tecnologia e sua relação com o ser humano e a sociedade. Base para uma postura crítica e humanista diante das ferramentas digitais — questiona quem são os sujeitos e os objetos da tecnologia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CRONOGRAMA -->
+<section id="cronograma">
+  <div class="container">
+    <div class="section-label" style="color:var(--green)">📅 Cronograma de Leituras</div>
+    <h2>Quando ler cada referência</h2>
+    <div class="schedule">
+      <div class="sched-card">
+        <div class="sched-week">Semanas 1–3</div>
+        <h4>📕 BRITO &amp; PURIFICAÇÃO</h4>
+        <p>Capítulos 1–2: fundamentos históricos e o novo papel do professor mediador.</p>
+      </div>
+      <div class="sched-card">
+        <div class="sched-week">Semanas 4–5</div>
+        <h4>📗 SCHAFF + PINTO</h4>
+        <p>Filosofia da tecnologia e o contexto social da informatização.</p>
+      </div>
+      <div class="sched-card">
+        <div class="sched-week">Semanas 5–7</div>
+        <h4>📗 PEREIRA</h4>
+        <p>Ambientes Virtuais de Aprendizagem: arquitetura pedagógica e Moodle.</p>
+      </div>
+      <div class="sched-card">
+        <div class="sched-week">Semanas 8–9</div>
+        <h4>📕 BRITO &amp; PURIFICAÇÃO</h4>
+        <p>Capítulos 3–5: ética digital, avaliação de software e integração das TICs.</p>
+      </div>
+      <div class="sched-card">
+        <div class="sched-week">Semanas 10–12</div>
+        <h4>📕 DEMO</h4>
+        <p>Formação permanente: como o professor deve se desenvolver continuamente diante das tecnologias.</p>
+      </div>
+      <div class="sched-card">
+        <div class="sched-week">Semanas 13–15</div>
+        <h4>🔄 Revisão geral</h4>
+        <p>Releitura seletiva, preparação do projeto final e apresentações da turma.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIGITAL -->
+<section id="digital" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue1)">🌐 Recursos Digitais Gratuitos</div>
+    <h2>Acesse agora, sem custo</h2>
+    <div class="digital-grid">
+      <div class="digital-card"><div class="dc-icon">🏛️</div><h4>Portal do Professor – MEC</h4><p>Recursos didáticos digitais com objetos de aprendizagem para Física e outras disciplinas.</p><a href="http://portaldoprofessor.mec.gov.br" target="_blank">→ portaldoprofessor.mec.gov.br</a></div>
+      <div class="digital-card"><div class="dc-icon">🔬</div><h4>RIVED – MEC</h4><p>Rede Interativa Virtual de Educação com objetos digitais para ensino de Ciências e Física.</p><a href="http://rived.mec.gov.br" target="_blank">→ rived.mec.gov.br</a></div>
+      <div class="digital-card"><div class="dc-icon">📚</div><h4>CAPES Periódicos</h4><p>Base de artigos científicos em português e inglês acessível pela rede institucional do IFSC.</p><a href="https://www.periodicos.capes.gov.br" target="_blank">→ periodicos.capes.gov.br</a></div>
+      <div class="digital-card"><div class="dc-icon">🌐</div><h4>Google Scholar</h4><p>Busca gratuita de artigos acadêmicos sobre TICs na Educação e Ensino de Física.</p><a href="https://scholar.google.com" target="_blank">→ scholar.google.com</a></div>
+      <div class="digital-card"><div class="dc-icon">📖</div><h4>SciELO Brasil</h4><p>Biblioteca eletrônica com artigos de revistas científicas brasileiras de acesso livre.</p><a href="https://www.scielo.br" target="_blank">→ scielo.br</a></div>
+      <div class="digital-card"><div class="dc-icon">🎓</div><h4>UNESCO ICT Framework</h4><p>Guia internacional de competências digitais para professores. Em inglês e espanhol.</p><a href="https://en.unesco.org/themes/ict-education" target="_blank">→ unesco.org/ict-education</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- VÍDEOS -->
+<div class="page-nav">
+  <a href="ferramentas.html">← Ferramentas</a>
+  <a href="index.html" style="color:var(--blue2)">Voltar ao Início →</a>
+</div>
+<footer>
+  <div class="footer-keys"><div class="key key-red" style="font-size:.6rem;width:24px;height:24px">ei</div><div class="key key-yellow" style="width:24px;height:24px;font-size:.75rem">M</div><div class="key key-green" style="width:24px;height:24px;font-size:.75rem">A</div><div class="key key-blue1" style="width:24px;height:24px;font-size:.75rem">K</div><div class="key key-blue2" style="width:24px;height:24px;font-size:.75rem">E</div><div class="key key-purple" style="width:24px;height:24px;font-size:.75rem">R</div></div>
+  <p><strong>eiMAKER</strong> · <a href="https://www.ifsc.edu.br" target="_blank">IFSC</a> · Tecnologias de Informação e Comunicação na Educação</p>
+</footer>
+<div class="color-strip" style="height:3px"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<script>
+document.querySelectorAll('.prog-btn').forEach(a => {
+  a.addEventListener('click', e => {
+    const h = a.getAttribute('href');
+    if (h && h.startsWith('#')) {
+      e.preventDefault();
+      document.querySelector(h)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelectorAll('.prog-btn').forEach(b => b.classList.remove('act'));
+    a.classList.add('act');
+  });
+});
+</script>
+</body>
+</html>

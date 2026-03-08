@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vetores — eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:#e02020; --yellow:#d4890a; --green:#4a9c2f;
+    --blue1:#1a9fd4; --blue2:#2563a8; --purple:#6b3f9a;
+    --bg:#f0f2f7; --surface:#fff; --card:#fff; --card2:#f7f9fc;
+    --text:#1e2130; --muted:#5a6078;
+    --border:rgba(0,0,0,0.09); --shadow:0 2px 16px rgba(0,0,0,0.08);
+    --accent:#4a9c2f; --accent2:#d4890a; --accent3:#e02020;
+    --ifsc-green:#4a9c2f;
+    --panel:#fff; --panel2:#f7f9fc;
+    --em-chrome:56px;
+  }
+  *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Nunito',sans-serif;
+    background:var(--bg); color:var(--text);
+    min-height:100vh; overflow-x:hidden;
+    padding-top:var(--em-chrome) !important;
+  }
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:#e8eaf0}
+  ::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
+
+  /* ROTATE OVERLAY */
+  #rotate-overlay {
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:#1e2130;
+    flex-direction:column; align-items:center; justify-content:center;
+    gap:1.5rem; text-align:center; padding:2rem;
+  }
+  #rotate-overlay.show { display:flex; }
+  .rotate-icon { font-size:5rem; animation:rotateHint 1.5s ease-in-out infinite; }
+  @keyframes rotateHint{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
+  #rotate-overlay h2 { font-size:1.5rem; font-weight:900; color:var(--green); }
+  #rotate-overlay p  { color:rgba(255,255,255,.6); font-size:.95rem; max-width:260px; }
+
+  /* HEADER */
+  .em-strip { display:flex; height:4px; position:fixed; top:0; left:0; right:0; z-index:10000; }
+  .cs1{flex:1;background:#e02020}.cs2{flex:1;background:#d4890a}
+  .cs3{flex:1;background:#4a9c2f}.cs4{flex:1;background:#1a9fd4}
+  .cs5{flex:1;background:#2563a8}.cs6{flex:1;background:#6b3f9a}
+  .em-header {
+    position:fixed; top:4px; left:0; right:0; z-index:9999;
+    display:flex; align-items:center; gap:.9rem;
+    padding:0 1.4rem; height:52px;
+    background:rgba(255,255,255,0.97);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(12px);
+    box-shadow:0 1px 8px rgba(0,0,0,.07);
+  }
+  .em-logo { display:flex; align-items:center; text-decoration:none; flex-shrink:0; }
+  .em-keys { display:flex; gap:3px; }
+  .em-key {
+    width:24px; height:24px; border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:.7rem;
+    color:#fff; box-shadow:0 2px 4px rgba(0,0,0,.18);
+  }
+  .em-red{background:#e02020}.em-yellow{background:#d4890a}.em-green{background:#4a9c2f}
+  .em-blue1{background:#1a9fd4}.em-blue2{background:#2563a8}.em-purple{background:#6b3f9a}
+  .em-nav { display:flex; gap:2px; flex:1; justify-content:center; }
+  .em-nav a {
+    color:var(--muted); text-decoration:none;
+    padding:.3rem .75rem; border-radius:8px;
+    font-family:'Nunito',sans-serif; font-weight:700; font-size:.82rem;
+    transition:color .2s,background .2s; white-space:nowrap;
+  }
+  .em-nav a:hover { color:var(--text); background:var(--bg); }
+  .em-nav a.em-act { color:var(--green); background:rgba(74,156,47,.09); }
+  .em-proj { font-family:'Nunito',sans-serif; font-size:.76rem; font-weight:700;
+    color:var(--muted); white-space:nowrap; flex-shrink:0; }
+  @media(max-width:640px){ .em-nav{display:none} .em-proj{display:none} }
+
+  /* PAGE TITLE */
+  .page-title-bar {
+    padding:1.5rem 2rem 1.2rem;
+    background:linear-gradient(135deg,#f0fff4 0%,#fff 55%,var(--bg) 100%);
+    border-bottom:1px solid var(--border);
+    text-align:center;
+  }
+  .page-title-bar h1 {
+    font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900;
+    line-height:1.1; margin-bottom:.5rem;
+  }
+  .page-title-bar p { color:var(--muted); font-size:.9rem; }
+
+  /* LAYOUT */
+  .app {
+    display:grid; grid-template-columns:300px 1fr;
+    gap:1.25rem; max-width:1300px;
+    margin:1.5rem auto; padding:0 1.5rem 2.5rem;
+  }
+  @media(max-width:900px){ .app{grid-template-columns:1fr} }
+
+  /* PANEL */
+  .panel {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:1.5rem;
+    box-shadow:var(--shadow); height:fit-content;
+    position:relative; overflow:hidden;
+  }
+  .panel::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--green),var(--blue1),var(--green));
+  }
+  .panel-title {
+    font-size:.72rem; font-weight:800; letter-spacing:2px;
+    text-transform:uppercase; color:var(--green);
+    margin-bottom:1.25rem; padding-bottom:.65rem;
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .panel-title::before {
+    content:''; width:7px; height:7px; background:var(--green);
+    border-radius:50%; animation:pulse 1.6s infinite; flex-shrink:0;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+  /* MODE BUTTONS */
+  .mode-btns { display:flex; gap:.6rem; margin-bottom:1.25rem; flex-wrap:wrap; }
+  .mode-btn {
+    flex:1; padding:.65rem .5rem; border-radius:10px; border:2px solid var(--border);
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:.88rem;
+    cursor:pointer; background:var(--card2); color:var(--muted);
+    transition:all .2s; white-space:nowrap;
+  }
+  .mode-btn.active {
+    background:var(--green); color:#fff;
+    border-color:var(--green); box-shadow:0 4px 14px rgba(74,156,47,.35);
+  }
+  .mode-btn:hover:not(.active) { border-color:var(--green); color:var(--green); background:#f0fff4; }
+
+  /* FORMULA */
+  .formula-card {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:10px; padding:.9rem; margin-bottom:1.25rem;
+    font-size:.78rem; line-height:1.9; color:var(--muted);
+    font-family:'Fira Code',monospace;
+  }
+  .formula-card .f-line { display:flex; gap:.4rem; align-items:baseline; }
+  .formula-card .sym { color:var(--green); font-weight:700; min-width:88px; }
+
+  /* BUTTONS */
+  .btn-row { display:flex; gap:.75rem; flex-wrap:wrap; align-items:center; }
+  button {
+    font-family:'Nunito',sans-serif; font-weight:800; font-size:.9rem;
+    border:none; border-radius:10px; cursor:pointer;
+    padding:.7rem 1.25rem; transition:transform .15s,box-shadow .15s;
+    letter-spacing:.02em;
+  }
+  button:hover:not(:disabled) { transform:translateY(-2px); }
+  button:active:not(:disabled) { transform:translateY(0); }
+
+  .btn-start {
+    background:var(--green); color:#fff;
+    box-shadow:0 4px 14px rgba(74,156,47,.35);
+  }
+  .btn-start:hover:not(:disabled) { box-shadow:0 6px 22px rgba(74,156,47,.5); }
+  .btn-start:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-reset {
+    background:transparent; color:var(--green);
+    border:2px solid rgba(74,156,47,.4);
+  }
+  .btn-reset:hover { background:rgba(74,156,47,.08); border-color:var(--green); }
+
+  .btn-pdf-row { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.4rem; }
+  .btn-pdf {
+    flex:1; min-width:100px; padding:.5rem .75rem;
+    border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800;
+    font-size:.82rem; cursor:pointer; border:none;
+    display:flex; align-items:center; justify-content:center; gap:.4rem;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn-pdf:hover { transform:translateY(-2px); }
+  .btn-pdf-roteiro {
+    background:var(--blue2); color:#fff;
+    box-shadow:0 4px 12px rgba(37,99,168,.3);
+  }
+  .btn-pdf-roteiro:hover { box-shadow:0 6px 18px rgba(37,99,168,.45); }
+  .btn-pdf-relatorio {
+    background:var(--purple); color:#fff;
+    box-shadow:0 4px 12px rgba(107,63,154,.3);
+  }
+  .btn-pdf-relatorio:hover { box-shadow:0 6px 18px rgba(107,63,154,.45); }
+
+  /* CANVAS */
+  .canvas-wrap { display:flex; flex-direction:column; gap:1rem; }
+  .canvas-container {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:14px; overflow:hidden;
+    box-shadow:var(--shadow); position:relative;
+    cursor:default;
+  }
+  .canvas-container.dragging { cursor:grabbing; }
+  canvas { display:block; width:100%; height:auto; }
+
+  /* RESULT BOX */
+  .result-box {
+    border-radius:12px; padding:1rem 1.1rem;
+    display:none; border:1px solid rgba(74,156,47,.3);
+    background:rgba(74,156,47,.06);
+  }
+  .result-box.show { display:block; }
+  .result-box.miss { border-color:rgba(224,32,32,.3); background:rgba(224,32,32,.05); }
+  .result-box .r-title {
+    font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.4rem; font-weight:700;
+  }
+  .result-box .r-val { font-size:1.1rem; font-weight:900; margin-bottom:.2rem; }
+  .result-box .r-val.hit { color:var(--green); }
+  .result-box .r-val.miss { color:var(--red); }
+
+  /* TOAST */
+  #toast {
+    position:fixed; bottom:2rem; left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:var(--card); border:2px solid var(--border);
+    border-radius:50px; padding:.7rem 2rem;
+    font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800;
+    z-index:100; transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s;
+    opacity:0; pointer-events:none; white-space:nowrap;
+    box-shadow:var(--shadow);
+  }
+  #toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+  #toast.hit  { color:var(--green); border-color:var(--green); box-shadow:0 4px 20px rgba(74,156,47,.25); }
+  #toast.miss { color:var(--red);   border-color:var(--red);   box-shadow:0 4px 20px rgba(224,32,32,.2); }
+  #toast.info { color:var(--yellow);border-color:var(--yellow);box-shadow:0 4px 20px rgba(212,137,10,.2); }
+
+  /* color strip bottom */
+  .color-strip{display:flex;height:3px}
+  .color-strip .cs1{flex:1;background:#e02020}.color-strip .cs2{flex:1;background:#d4890a}
+  .color-strip .cs3{flex:1;background:#4a9c2f}.color-strip .cs4{flex:1;background:#1a9fd4}
+  .color-strip .cs5{flex:1;background:#2563a8}.color-strip .cs6{flex:1;background:#6b3f9a}
+
+  /* VECTOR COUNT SELECTOR */
+  .vec-count-row {
+    display:flex; gap:.5rem; margin-bottom:1.25rem;
+  }
+  .vec-count-btn {
+    flex:1; padding:.55rem; border-radius:8px;
+    border:2px solid var(--border); font-family:'Nunito',sans-serif;
+    font-weight:900; font-size:.95rem; cursor:pointer;
+    background:var(--card2); color:var(--muted);
+    transition:all .2s;
+  }
+  .vec-count-btn.active {
+    background:var(--blue1); color:#fff; border-color:var(--blue1);
+    box-shadow:0 3px 10px rgba(26,159,212,.35);
+  }
+  .vec-count-btn:hover:not(.active) { border-color:var(--blue1); color:var(--blue1); }
+
+  /* VERIFY BUTTON */
+  .btn-verify {
+    background:var(--yellow); color:#fff;
+    box-shadow:0 4px 14px rgba(212,137,10,.35);
+  }
+  .btn-verify:hover:not(:disabled) { box-shadow:0 6px 22px rgba(212,137,10,.5); }
+  .btn-verify:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+  /* VECTOR INFO TABLE */
+  .vec-info-table {
+    width:100%; border-collapse:collapse; font-size:.78rem;
+    margin-bottom:1rem; font-family:'Fira Code',monospace;
+  }
+  .vec-info-table th {
+    background:var(--card2); color:var(--muted);
+    font-size:.65rem; letter-spacing:.08em; text-transform:uppercase;
+    padding:.4rem .5rem; border:1px solid var(--border); font-weight:700;
+  }
+  .vec-info-table td {
+    padding:.4rem .5rem; border:1px solid var(--border);
+    text-align:center; color:var(--text); font-weight:600;
+  }
+  .vec-info-table tr:nth-child(even) td { background:var(--card2); }
+
+  /* INFO BOX */
+  .info-box {
+    background:rgba(26,159,212,.07);border:1px solid rgba(26,159,212,.2);
+    border-radius:10px;padding:.9rem;font-size:.8rem;color:var(--muted);line-height:1.6;
+    margin-bottom:1rem;
+  }
+
+  /* VECTOR ARROW NOTATION */
+  .vec {
+    display:inline-block; position:relative;
+    font-style:italic; font-weight:700;
+    padding-top:4px;
+  }
+  .vec::after {
+    content:'→';
+    position:absolute; top:-5px; left:50%; transform:translateX(-50%);
+    font-size:.55em; line-height:1; font-style:normal; font-weight:900;
+    letter-spacing:0;
+  }
+
+  /* FULLSCREEN BUTTON */
+  .fullscreen-btn {
+    position:absolute; bottom:10px; right:10px; z-index:10;
+    background:rgba(255,255,255,0.85); border:1.5px solid var(--border);
+    border-radius:8px; padding:.35rem .55rem; cursor:pointer;
+    font-size:1rem; line-height:1; backdrop-filter:blur(4px);
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+    transition:background .2s, transform .15s;
+    color:var(--text);
+  }
+  .fullscreen-btn:hover { background:#fff; transform:scale(1.08); }
+
+  /* FULLSCREEN STATE */
+  .canvas-container:fullscreen,
+  .canvas-container:-webkit-full-screen,
+  .canvas-container:-moz-full-screen,
+  .canvas-container:-ms-fullscreen {
+    background:#f7faff; display:flex;
+    align-items:center; justify-content:center;
+    border-radius:0;
+  }
+  .canvas-container:fullscreen canvas,
+  .canvas-container:-webkit-full-screen canvas,
+  .canvas-container:-moz-full-screen canvas,
+  .canvas-container:-ms-fullscreen canvas {
+    width:auto !important; height:100% !important; max-width:100%;
+  }
+
+  /* ANSWER SECTION */
+  .answer-section {
+    display:none; background:var(--card);
+    border:2px solid var(--yellow); border-radius:14px;
+    padding:1.2rem 1.4rem;
+    box-shadow:0 4px 20px rgba(212,137,10,.15);
+    animation:slideIn .3s ease;
+    flex-direction:column; gap:.5rem;
+  }
+  .answer-section.show { display:flex; }
+  @keyframes slideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .answer-label {
+    font-size:.72rem; font-weight:800; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--yellow); margin-bottom:.7rem;
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .answer-input-row { display:flex; gap:.6rem; align-items:center; }
+  .answer-input {
+    flex:1; padding:.65rem 1rem; border-radius:8px;
+    border:2px solid var(--border); background:var(--card2);
+    font-family:'Fira Code',monospace; font-size:1rem; font-weight:700;
+    color:var(--text); outline:none; transition:border-color .2s;
+  }
+  .answer-input:focus { border-color:var(--yellow); }
+  .answer-unit {
+    font-size:.85rem; color:var(--muted); font-weight:700;
+    font-family:'Fira Code',monospace; white-space:nowrap;
+  }
+  .btn-submit {
+    background:var(--yellow); color:#fff;
+    box-shadow:0 4px 14px rgba(212,137,10,.35);
+    padding:.65rem 1.4rem;
+  }
+  .btn-submit:hover { box-shadow:0 6px 22px rgba(212,137,10,.5); }
+
+  /* COMING SOON */
+  .coming-soon {
+    text-align:center; padding:3rem 2rem;
+    color:var(--muted); font-weight:700; font-size:1.1rem;
+  }
+  .coming-soon span { display:block; font-size:3rem; margin-bottom:1rem; }
+</style>
+</head>
+<body>
+
+<div id="rotate-overlay">
+  <div class="rotate-icon">📱</div>
+  <h2>Gire o dispositivo!</h2>
+  <p>Para uma melhor experiência, use o celular na posição <strong style="color:#fff">horizontal</strong>.</p>
+</div>
+
+<div class="em-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<div class="em-header">
+  <a class="em-logo" href="index.html">
+    <div class="em-keys">
+      <div class="em-key em-red" style="font-size:.62rem">ei</div>
+      <div class="em-key em-yellow">M</div><div class="em-key em-green">A</div>
+      <div class="em-key em-blue1">K</div><div class="em-key em-blue2">E</div><div class="em-key em-purple">R</div>
+    </div>
+  </a>
+  <nav class="em-nav">
+    <a href="objetivos.html">Objetivos</a>
+    <a href="conteudos.html">Conteúdos</a>
+    <a href="metodologia.html">Metodologia</a>
+    <a href="ferramentas.html">Ferramentas</a>
+    <a href="bibliografia.html">Bibliografia</a>
+    <a href="projetos.html" class="em-act">Projetos</a>
+  </nav>
+  <span class="em-proj">📐 Vetores</span>
+</div>
+
+<div class="page-title-bar">
+  <h1><span style="color:var(--green)">Vetores</span> — <span style="color:var(--blue1)">Simulador Interativo</span></h1>
+  <p>Explore operações vetoriais: Regra do Polígono, Paralelogramo e Vetores Unitários</p>
+</div>
+
+<div class="app">
+  <!-- PAINEL LATERAL -->
+  <aside class="panel">
+    <div class="panel-title">Modo de Simulação</div>
+
+    <div class="mode-btns">
+      <button class="mode-btn active" id="btnPoligono" onclick="setMode('poligono')">🔷 Polígono</button>
+      <button class="mode-btn" id="btnParalelogramo" onclick="setMode('paralelogramo')">▱ Paralelogramo</button>
+      <button class="mode-btn" id="btnUnitario" onclick="setMode('unitario')">→ Vetor Unitário</button>
+    </div>
+
+    <!-- POLÍGONO PANEL -->
+    <div id="poligonoPanel">
+      <div class="panel-title" style="font-size:.68rem; margin-top:.25rem;">Número de Vetores</div>
+      <div class="vec-count-row" id="vecCountRow">
+        <button class="vec-count-btn" id="vn2" onclick="setVecCount(2)">2</button>
+        <button class="vec-count-btn" id="vn3" onclick="setVecCount(3)">3</button>
+        <button class="vec-count-btn" id="vn4" onclick="setVecCount(4)">4</button>
+        <button class="vec-count-btn" id="vn5" onclick="setVecCount(5)">5</button>
+      </div>
+
+      <div class="formula-card">
+        <div class="f-line"><span class="sym"><span class="vec">R</span> =</span> Σ <span class="vec">v</span><sub>i</sub></div>
+        <div class="f-line"><span class="sym">|<span class="vec">R</span>| =</span> √(Rx² + Ry²)</div>
+        <div class="f-line"><span class="sym">θ =</span> atan2(Ry, Rx)</div>
+      </div>
+
+      <div class="info-box">
+        <strong style="color:var(--blue1)">🎮 Como jogar</strong><br>
+        1. Escolha a quantidade de vetores<br>
+        2. <strong>Arraste</strong> os vetores para encadear ponta a cauda<br>
+        3. O resultado aparecerá automaticamente<br>
+        4. Clique em <strong>Verificar</strong> para checar a soma
+      </div>
+
+      <!-- Table of current vectors -->
+      <div id="vecTableWrap" style="display:none;">
+        <div style="font-size:.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Vetores Gerados</div>
+        <table class="vec-info-table" id="vecTable">
+          <thead>
+            <tr><th>Vetor</th><th>|<span class="vec" style="font-size:.85em">v</span>| (u)</th><th>𝛼 (°)</th></tr>
+          </thead>
+          <tbody id="vecTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="btn-pdf-row" style="margin-top:.75rem">
+        <button class="btn-pdf btn-pdf-roteiro" onclick="downloadDoc('roteiro')">📋 Roteiro</button>
+        <button class="btn-pdf btn-pdf-relatorio" onclick="downloadDoc('relatorio')">📝 Relatório</button>
+      </div>
+    </div>
+
+    <!-- PARALELOGRAMO PANEL -->
+    <div id="paralelogramoPanel" style="display:none;">
+
+      <div class="formula-card">
+        <div class="f-line"><span class="sym">|<span class="vec" style="font-size:.85em">R</span>|² =</span> A²+B²+2AB·cos θ</div>
+        <div class="f-line"><span class="sym">Rx =</span> Ax+Bx</div>
+        <div class="f-line"><span class="sym">Ry =</span> Ay+By</div>
+      </div>
+
+      <div class="info-box">
+        <strong style="color:var(--blue1)">🎮 Como jogar</strong><br>
+        1. Clique em <strong>Nova Simulação</strong> para gerar 2 vetores<br>
+        2. <strong>Arraste</strong> as caudas dos vetores até que coincidam (mesma origem)<br>
+        3. Observe o paralelogramo formado<br>
+        4. Calcule |<span class="vec" style="font-size:.9em;color:var(--blue1)">R</span>| e insira o valor abaixo<br>
+        5. Clique em <strong>Enviar</strong> para verificar
+      </div>
+
+      <!-- Table of current vectors -->
+      <div id="parTableWrap" style="display:none;">
+        <div style="font-size:.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Vetores Gerados</div>
+        <table class="vec-info-table" id="parTable">
+          <thead>
+            <tr><th>Vetor</th><th>|<span class="vec" style="font-size:.85em">v</span>| (u)</th><th>𝛼 (°)</th></tr>
+          </thead>
+          <tbody id="parTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="btn-pdf-row" style="margin-top:.75rem">
+        <button class="btn-pdf btn-pdf-roteiro" onclick="downloadDoc('roteiro-par')">📋 Roteiro</button>
+        <button class="btn-pdf btn-pdf-relatorio" onclick="downloadDoc('relatorio-par')">📝 Relatório</button>
+      </div>
+    </div>
+
+    <!-- VETOR UNITÁRIO PANEL -->
+    <div id="unitarioPanel" style="display:none;">
+
+      <!-- Sub-mode: Vetor / Soma -->
+      <div class="mode-btns" style="margin-bottom:1rem;">
+        <button class="mode-btn active" id="btnUniVetor" onclick="setUniMode('vetor')">→ Vetor</button>
+        <button class="mode-btn" id="btnUniSoma"  onclick="setUniMode('soma')">⊕ Soma</button>
+      </div>
+
+      <!-- VETOR sub-panel -->
+      <div id="uniVetorPanel">
+        <div class="formula-card">
+          <div class="f-line"><span class="sym">vx =</span> |<span class="vec" style="font-size:.85em">v</span>|·cos 𝛼</div>
+          <div class="f-line"><span class="sym">vy =</span> |<span class="vec" style="font-size:.85em">v</span>|·sen 𝛼</div>
+          <div class="f-line"><span class="sym">|<span class="vec" style="font-size:.85em">v</span>| =</span> √(vx²+vy²)</div>
+          <div class="f-line"><span class="sym">𝛼 =</span> arctan(vy/vx)</div>
+        </div>
+
+        <!-- Módulo / Componentes sub-buttons -->
+        <div class="vec-count-row" style="margin-bottom:1rem;">
+          <button class="vec-count-btn active" id="btnUniModulo"     onclick="setUniCalc('modulo')">Módulo</button>
+          <button class="vec-count-btn"        id="btnUniComponentes" onclick="setUniCalc('componentes')">Componentes</button>
+        </div>
+
+        <div class="info-box">
+          <strong style="color:var(--blue1)">🎮 Como jogar</strong><br>
+          1. Clique em <strong>Nova Simulação</strong> para gerar um vetor<br>
+          2. <strong>Arraste</strong> o vetor até a origem (0,0)<br>
+          3. As componentes e o ângulo aparecem no gráfico<br>
+          4. <span id="uniCalcHint">Calcule o <strong>módulo</strong> e informe o valor</span><br>
+          5. Clique em <strong>Enviar</strong> para verificar
+        </div>
+      </div>
+
+      <!-- SOMA sub-panel -->
+      <div id="uniSomaPanel" style="display:none;">
+        <div class="formula-card">
+          <div class="f-line"><span class="sym">Rx =</span> Ax+Bx</div>
+          <div class="f-line"><span class="sym">Ry =</span> Ay+By</div>
+          <div class="f-line"><span class="sym">|<span class="vec" style="font-size:.85em">R</span>| =</span> √(Rx²+Ry²)</div>
+        </div>
+
+        <div class="info-box">
+          <strong style="color:var(--blue1)">🎮 Como jogar</strong><br>
+          1. Clique em <strong>Nova Simulação</strong> para gerar 2 vetores<br>
+          2. <strong>Arraste</strong> as caudas de A e B para a origem (0,0)<br>
+          3. O vetor resultante e as projeções aparecem<br>
+          4. Calcule Rx e Ry e insira os valores<br>
+          5. Clique em <strong>Enviar</strong> para verificar
+        </div>
+
+        <div id="uniSomaTableWrap" style="display:none;">
+          <div style="font-size:.68rem;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem;">Vetores Gerados</div>
+          <table class="vec-info-table">
+            <thead><tr><th>Vetor</th><th>|<span class="vec" style="font-size:.85em">v</span>| (u)</th><th>𝛼 (°)</th></tr></thead>
+            <tbody id="uniSomaTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="btn-pdf-row" style="margin-top:.75rem">
+        <button class="btn-pdf btn-pdf-roteiro"   onclick="downloadDoc('roteiro-uni')">📋 Roteiro</button>
+        <button class="btn-pdf btn-pdf-relatorio" onclick="downloadDoc('relatorio-uni')">📝 Relatório</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- SIMULADOR -->
+  <div class="canvas-wrap">
+    <div class="canvas-container" id="canvasContainer">
+      <canvas id="sim" width="900" height="520"></canvas>
+      <button class="fullscreen-btn" id="btnFullscreen" onclick="toggleFullscreen()" title="Tela inteira">⛶</button>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-box" id="resultBox">
+      <div class="r-title">Resultante</div>
+      <div class="r-val" id="resultText">—</div>
+      <div style="font-size:0.76rem;color:var(--muted);margin-top:0.35rem" id="resultDetail"></div>
+    </div>
+
+    <!-- ANSWER INPUT (Paralelogramo / Unitário Vetor) -->
+    <div class="answer-section" id="answerSection">
+      <div class="answer-label">🎯 <span id="answerLabel">Qual é o módulo da resultante?</span></div>
+      <div class="answer-input-row">
+        <input class="answer-input" id="answerInput" type="number" step="any" placeholder="Digite o valor..." />
+        <span class="answer-unit" id="answerUnit">u</span>
+        <button class="btn-submit" onclick="submitSingleAnswer()">Enviar ✓</button>
+      </div>
+    </div>
+
+    <!-- ANSWER INPUT (Unitário Soma — Rx e Ry) -->
+    <div class="answer-section" id="answerSomaSection">
+      <div class="answer-label">🎯 Informe as componentes e o módulo da resultante</div>
+      <div class="answer-input-row" style="margin-bottom:.5rem;">
+        <span class="answer-unit" style="min-width:32px;text-align:right;">Rx =</span>
+        <input class="answer-input" id="answerRx" type="number" step="any" placeholder="valor em u" />
+        <span class="answer-unit">u</span>
+      </div>
+      <div class="answer-input-row" style="margin-bottom:.5rem;">
+        <span class="answer-unit" style="min-width:32px;text-align:right;">Ry =</span>
+        <input class="answer-input" id="answerRy" type="number" step="any" placeholder="valor em u" />
+        <span class="answer-unit">u</span>
+      </div>
+      <div class="answer-input-row">
+        <span class="answer-unit" style="min-width:32px;text-align:right;">|R| =</span>
+        <input class="answer-input" id="answerRmag" type="number" step="any" placeholder="valor em u" />
+        <span class="answer-unit">u</span>
+        <button class="btn-submit" onclick="submitSomaAnswer()">Enviar ✓</button>
+      </div>
+    </div>
+
+    <!-- BOTÕES -->
+    <div class="btn-row">
+      <button class="btn-start btn-verify" id="btnVerify" onclick="verifyPolygon()" disabled>✓ Verificar Soma</button>
+      <button class="btn-reset" onclick="resetSim()">🔄 Nova Simulação</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ── MOBILE ─────────────────────────────────────────────
+function checkOrientation(){
+  const overlay=document.getElementById('rotate-overlay');
+  const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if(isMobile && window.innerHeight>window.innerWidth) overlay.classList.add('show');
+  else overlay.classList.remove('show');
+}
+window.addEventListener('resize',checkOrientation);
+window.addEventListener('orientationchange',checkOrientation);
+checkOrientation();
+
+// ── CONSTANTS ──────────────────────────────────────────
+const W=900, H=520;
+const canvas=document.getElementById('sim');
+const ctx=canvas.getContext('2d');
+
+// Vector colors
+const VEC_COLORS=['#e02020','#2563a8','#4a9c2f','#d4890a','#6b3f9a'];
+const VEC_LABELS=['A','B','C','D','E'];
+
+// ── STATE ──────────────────────────────────────────────
+let mode='poligono';
+let vecCount=0;
+let vectors=[];       // {x, y, angle, mag, color, label, tailX, tailY}
+let resultVector=null;
+let verifiedOnce=false;
+
+// Grid/view
+const GRID_SIZE=40; // px per unit
+const originX=W/2, originY=H/2;
+
+// Dragging state
+let dragging=null; // {idx, offsetX, offsetY}
+
+// ── HELPERS ────────────────────────────────────────────
+function rSign(){ return Math.random()<0.5?1:-1; }
+function toRad(d){ return d*Math.PI/180; }
+function toDeg(r){ return r*180/Math.PI; }
+
+function randomVectors(n){
+  const vecs=[];
+  // Generate mags with max 90% difference constraint
+  let mags=[];
+  const baseMin=2.5, baseMax=7.0;
+  const firstMag=baseMin+Math.random()*(baseMax-baseMin);
+  mags.push(firstMag);
+  for(let i=1;i<n;i++){
+    const lo=firstMag*0.1; const hi=firstMag*1.9;
+    const clamped=Math.max(baseMin,Math.min(baseMax,lo+Math.random()*(hi-lo)));
+    mags.push(parseFloat(clamped.toFixed(1)));
+  }
+
+  // Distribute starting positions
+  for(let i=0;i<n;i++){
+    const angle=parseFloat((Math.random()*360).toFixed(1));
+    const mag=parseFloat(mags[i].toFixed(1));
+    // Random tail position spread across canvas (not too close to edges)
+    const margin=100;
+    const tx=margin+Math.random()*(W-margin*2);
+    const ty=margin+Math.random()*(H-margin*2);
+    vecs.push({
+      mag, angle,
+      color:VEC_COLORS[i], label:VEC_LABELS[i],
+      tailX:tx, tailY:ty
+    });
+  }
+  return vecs;
+}
+
+function vecHead(v){
+  const dx=Math.cos(toRad(v.angle))*v.mag*GRID_SIZE;
+  const dy=-Math.sin(toRad(v.angle))*v.mag*GRID_SIZE;
+  return { x:v.tailX+dx, y:v.tailY+dy };
+}
+
+// ── DRAW ───────────────────────────────────────────────
+function drawGrid(){
+  ctx.save();
+  ctx.strokeStyle='rgba(0,0,0,0.06)'; ctx.lineWidth=1;
+  for(let x=0;x<W;x+=GRID_SIZE){
+    ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,H); ctx.stroke();
+  }
+  for(let y=0;y<H;y+=GRID_SIZE){
+    ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(W,y); ctx.stroke();
+  }
+  // Axes
+  ctx.strokeStyle='rgba(0,0,0,0.12)'; ctx.lineWidth=1.5;
+  ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(0,originY); ctx.lineTo(W,originY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(originX,0); ctx.lineTo(originX,H); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+}
+
+function drawArrow(x1,y1,x2,y2,color,lw,alpha,label,dashed){
+  ctx.save();
+  ctx.globalAlpha=alpha||1;
+  const dx=x2-x1,dy=y2-y1;
+  const len=Math.sqrt(dx*dx+dy*dy);
+  if(len<2){ctx.restore();return;}
+  const ux=dx/len,uy=dy/len;
+  const headLen=Math.max(14,len*0.18);
+  const headAngle=0.38;
+
+  if(dashed) ctx.setLineDash([8,5]);
+  ctx.strokeStyle=color; ctx.lineWidth=lw||3;
+  ctx.lineCap='round';
+  ctx.beginPath();
+  ctx.moveTo(x1,y1);
+  ctx.lineTo(x2-ux*headLen*0.6,y2-uy*headLen*0.6);
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // arrowhead
+  ctx.fillStyle=color;
+  ctx.beginPath();
+  ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-headLen*Math.cos(Math.atan2(dy,dx)-headAngle),
+             y2-headLen*Math.sin(Math.atan2(dy,dx)-headAngle));
+  ctx.lineTo(x2-headLen*Math.cos(Math.atan2(dy,dx)+headAngle),
+             y2-headLen*Math.sin(Math.atan2(dy,dx)+headAngle));
+  ctx.closePath(); ctx.fill();
+
+  // label near midpoint
+  if(label){
+    const mx=(x1+x2)/2, my=(y1+y2)/2;
+    const nx=-uy, ny=ux;
+    const lx=mx+nx*18, ly=my+ny*18;
+    ctx.globalAlpha=1;
+    ctx.font='bold 14px Nunito,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    // White outline
+    ctx.fillStyle='#fff';
+    ctx.strokeStyle='#fff'; ctx.lineWidth=4;
+    ctx.strokeText(label,lx,ly+3);
+    // Colored letter
+    ctx.fillStyle=color;
+    ctx.fillText(label,lx,ly+3);
+    // Small arrow above letter
+    ctx.font='bold 9px Nunito,sans-serif';
+    ctx.fillStyle=color;
+    ctx.fillText('→',lx,ly-6);
+  }
+  ctx.restore();
+}
+
+// ── CHAIN DETECTION (order-independent) ───────────────
+// Finds a valid chain: a sequence of all vectors where
+// head(vecs[i]) ≈ tail(vecs[i+1]), in ANY order.
+// Returns the ordered array of vector indices if found, or null.
+const CHAIN_THRESHOLD = 28;
+
+function findChain(){
+  const n = vectors.length;
+  if(n < 2) return null;
+
+  // Build adjacency: head of i snaps to tail of j?
+  function connects(i, j){
+    const h = vecHead(vectors[i]);
+    const t = vectors[j];
+    return Math.hypot(h.x - t.tailX, h.y - t.tailY) < CHAIN_THRESHOLD;
+  }
+
+  // Try every vector as the starting point; do DFS to find a Hamiltonian path
+  function dfs(path, used){
+    if(path.length === n) return path;
+    const last = path[path.length - 1];
+    for(let j = 0; j < n; j++){
+      if(!used[j] && connects(last, j)){
+        used[j] = true;
+        const result = dfs([...path, j], used);
+        if(result) return result;
+        used[j] = false;
+      }
+    }
+    return null;
+  }
+
+  for(let start = 0; start < n; start++){
+    const used = new Array(n).fill(false);
+    used[start] = true;
+    const result = dfs([start], used);
+    if(result) return result;
+  }
+  return null;
+}
+
+function isChained(){
+  return findChain() !== null;
+}
+
+function computeResultant(){
+  let rx=0,ry=0;
+  for(const v of vectors){
+    rx+=v.mag*Math.cos(toRad(v.angle));
+    ry+=v.mag*Math.sin(toRad(v.angle));
+  }
+  return {mag:Math.sqrt(rx*rx+ry*ry), angle:toDeg(Math.atan2(ry,rx)), rx, ry};
+}
+
+function drawChainHighlight(){
+  // Highlight every valid head→tail connection currently on canvas
+  for(let i=0;i<vectors.length;i++){
+    const hi=vecHead(vectors[i]);
+    for(let j=0;j<vectors.length;j++){
+      if(i===j) continue;
+      const dist=Math.hypot(hi.x-vectors[j].tailX,hi.y-vectors[j].tailY);
+      if(dist<CHAIN_THRESHOLD){
+        ctx.save();
+        ctx.strokeStyle='rgba(74,156,47,0.6)';
+        ctx.lineWidth=2.5; ctx.setLineDash([3,3]);
+        ctx.beginPath(); ctx.arc(hi.x,hi.y,11,0,Math.PI*2); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+      }
+    }
+  }
+}
+
+function drawResultant(){
+  if(vectors.length<2) return;
+  const chain = findChain();
+  if(!chain) return;
+
+  // Resultant: from tail of first in chain to head of last in chain
+  const firstVec = vectors[chain[0]];
+  const lastVec  = vectors[chain[chain.length-1]];
+  const lastHead = vecHead(lastVec);
+
+  drawArrow(firstVec.tailX, firstVec.tailY, lastHead.x, lastHead.y,
+    '#222', 3.5, 0.80, 'R', true);
+}
+
+function drawFrame(){
+  // Background
+  const grad=ctx.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,'#eef4fb');
+  grad.addColorStop(1,'#f7faff');
+  ctx.fillStyle=grad;
+  ctx.fillRect(0,0,W,H);
+
+  drawGrid();
+
+  if(mode==='poligono' && vectors.length>0){
+    drawChainHighlight();
+    // Draw all vectors
+    for(let i=0;i<vectors.length;i++){
+      const v=vectors[i];
+      const h=vecHead(v);
+      drawArrow(v.tailX,v.tailY,h.x,h.y,v.color,3.5,1,v.label);
+
+      // Draw tail dot
+      ctx.save();
+      ctx.fillStyle=v.color;
+      ctx.beginPath(); ctx.arc(v.tailX,v.tailY,5,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+    // Draw resultant if chained
+    drawResultant();
+
+    // Draw snap guides
+    drawSnapGuides();
+  } else if(mode==='poligono' && vectors.length===0){
+    // Placeholder
+    ctx.save();
+    ctx.fillStyle='rgba(90,96,120,0.25)';
+    ctx.font='700 18px Nunito,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('Selecione o número de vetores no painel lateral →',W/2,H/2);
+    ctx.restore();
+  } else if(mode==='paralelogramo'){
+    drawParalelogramo();
+  } else if(mode==='unitario'){
+    drawUnitario();
+  } else {
+    ctx.save();
+    ctx.fillStyle='rgba(90,96,120,0.25)';
+    ctx.font='700 18px Nunito,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('Selecione um modo no painel lateral →',W/2,H/2);
+    ctx.restore();
+  }
+}
+
+// ── PARALELOGRAMO ──────────────────────────────────────
+let parVecs = [];      // always 2 vectors
+let parAnswered = false;
+
+function randomParVectors(){
+  const colors = [VEC_COLORS[0], VEC_COLORS[1]];
+  const labels = ['A','B'];
+  const mags = [];
+  const base = 3 + Math.random()*4;
+  mags.push(parseFloat(base.toFixed(1)));
+  const ratio = 0.1 + Math.random()*1.8;
+  mags.push(parseFloat((base*ratio).toFixed(1)));
+
+  // Start with tails near center but separated, so students need to drag them together
+  const cx=W/2, cy=H/2;
+  return [
+    { mag:mags[0], angle:parseFloat((10+Math.random()*60).toFixed(1)),
+      color:colors[0], label:labels[0], tailX:cx-130, tailY:cy+60 },
+    { mag:mags[1], angle:parseFloat((100+Math.random()*80).toFixed(1)),
+      color:colors[1], label:labels[1], tailX:cx+80,  tailY:cy-60 },
+  ];
+}
+
+function parResultant(){
+  let rx=0,ry=0;
+  for(const v of parVecs){
+    rx += v.mag*Math.cos(toRad(v.angle));
+    ry += v.mag*Math.sin(toRad(v.angle));
+  }
+  return { rx, ry, mag:Math.sqrt(rx*rx+ry*ry), angle:toDeg(Math.atan2(ry,rx)) };
+}
+
+function parSharedOrigin(){
+  if(parVecs.length<2) return false;
+  const a=parVecs[0], b=parVecs[1];
+  return Math.hypot(a.tailX-b.tailX, a.tailY-b.tailY) < 28;
+}
+
+function drawParalelogramo(){
+  if(parVecs.length===0){
+    ctx.save();
+    ctx.fillStyle='rgba(90,96,120,0.25)';
+    ctx.font='700 18px Nunito,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='middle';
+    ctx.fillText('Clique em Nova Simulação para gerar os vetores →',W/2,H/2);
+    ctx.restore();
+    return;
+  }
+
+  const a=parVecs[0], b=parVecs[1];
+  const ha=vecHead(a), hb=vecHead(b);
+  const shared = parSharedOrigin();
+
+  // If shared origin: draw parallelogram ghost
+  if(shared){
+    // Snap b tail to a tail visually
+    const ox=a.tailX, oy=a.tailY;
+    const ax=ha.x-ox, ay=ha.y-oy;  // a direction
+    const bx=hb.x-b.tailX, by=hb.y-b.tailY; // b direction (use original mag)
+
+    // Parallelogram corners: O, O+A, O+A+B, O+B
+    const p0x=ox,        p0y=oy;
+    const p1x=ox+ax,     p1y=oy+ay;
+    const p2x=ox+ax+bx,  p2y=oy+ay+by;
+    const p3x=ox+bx,     p3y=oy+by;
+
+    // Fill parallelogram
+    ctx.save();
+    ctx.fillStyle='rgba(100,120,200,0.07)';
+    ctx.beginPath();
+    ctx.moveTo(p0x,p0y); ctx.lineTo(p1x,p1y);
+    ctx.lineTo(p2x,p2y); ctx.lineTo(p3x,p3y);
+    ctx.closePath(); ctx.fill();
+
+    // Dashed ghost sides (the duplicate vectors)
+    ctx.strokeStyle='rgba(100,100,180,0.25)'; ctx.lineWidth=1.5;
+    ctx.setLineDash([5,4]);
+    ctx.beginPath(); ctx.moveTo(p3x,p3y); ctx.lineTo(p2x,p2y); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(p1x,p1y); ctx.lineTo(p2x,p2y); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+
+    // Draw resultant diagonal
+    const R=parResultant();
+    drawArrow(ox,oy, ox+R.rx*GRID_SIZE, oy-R.ry*GRID_SIZE, '#1e2130',3.5,0.82,'R',true);
+
+    // Origin snap indicator
+    ctx.save();
+    ctx.strokeStyle='rgba(74,156,47,0.7)'; ctx.lineWidth=2.5;
+    ctx.setLineDash([3,3]);
+    ctx.beginPath(); ctx.arc(ox,oy,10,0,Math.PI*2); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  } else {
+    // Show snap zone on each tail
+    for(const v of parVecs){
+      ctx.save();
+      ctx.fillStyle=v.color; ctx.globalAlpha=0.12;
+      ctx.beginPath(); ctx.arc(v.tailX,v.tailY,28,0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha=0.6;
+      ctx.beginPath(); ctx.arc(v.tailX,v.tailY,5,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // Draw the two main vectors (always on top)
+  for(const v of parVecs){
+    // If shared, draw b from a's tail
+    const tx = shared && v===b ? a.tailX : v.tailX;
+    const ty = shared && v===b ? a.tailY : v.tailY;
+    const dx = v.mag*Math.cos(toRad(v.angle))*GRID_SIZE;
+    const dy = -v.mag*Math.sin(toRad(v.angle))*GRID_SIZE;
+    drawArrow(tx,ty, tx+dx, ty+dy, v.color,3.5,1,v.label);
+    ctx.save();
+    ctx.fillStyle=v.color;
+    ctx.beginPath(); ctx.arc(tx,ty,5,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+}
+
+// ── VETOR UNITÁRIO ─────────────────────────────────────
+let uniMode   = 'vetor';   // 'vetor' | 'soma'
+let uniCalc   = 'modulo';  // 'modulo' | 'componentes'  (only for uniMode==='vetor')
+let uniVec    = null;      // single vector for 'vetor' mode
+let uniVecs   = [];        // 2 vectors for 'soma' mode
+let uniAnswered = false;
+
+const OX = W/2, OY = H/2;          // canvas origin coords
+const ORIGIN_SNAP = 30;             // px radius to snap to origin
+
+function setUniMode(m){
+  uniMode = m;
+  document.getElementById('btnUniVetor').classList.toggle('active', m==='vetor');
+  document.getElementById('btnUniSoma').classList.toggle('active',  m==='soma');
+  document.getElementById('uniVetorPanel').style.display = m==='vetor' ? '' : 'none';
+  document.getElementById('uniSomaPanel').style.display  = m==='soma'  ? '' : 'none';
+  resetUnitario();
+}
+
+function setUniCalc(c){
+  uniCalc = c;
+  document.getElementById('btnUniModulo').classList.toggle('active',      c==='modulo');
+  document.getElementById('btnUniComponentes').classList.toggle('active', c==='componentes');
+  const hint = document.getElementById('uniCalcHint');
+  if(hint) hint.innerHTML = c==='modulo'
+    ? 'Calcule o <strong>módulo</strong> e informe o valor'
+    : 'Calcule as <strong>componentes</strong> separadamente';
+  resetUnitario();
+}
+
+function randomUniVec(){
+  const mag   = parseFloat((2.5 + Math.random()*5.5).toFixed(1));
+  const angle = parseFloat((15  + Math.random()*330).toFixed(1));
+  const margin= 110;
+  // Place far from origin so student must drag it
+  let tx, ty;
+  do {
+    tx = margin + Math.random()*(W - margin*2);
+    ty = margin + Math.random()*(H - margin*2);
+  } while(Math.hypot(tx-OX, ty-OY) < 120);
+  return { mag, angle, color:VEC_COLORS[0], label:'A', tailX:tx, tailY:ty };
+}
+
+function randomUniSomaVecs(){
+  const base   = 2.5 + Math.random()*4.5;
+  const mags   = [parseFloat(base.toFixed(1)), parseFloat((base*(0.5+Math.random())).toFixed(1))];
+  const angles = [parseFloat((20+Math.random()*60).toFixed(1)), parseFloat((110+Math.random()*100).toFixed(1))];
+  const margin = 90;
+  return [0,1].map(i => {
+    let tx, ty;
+    do {
+      tx = margin + Math.random()*(W-margin*2);
+      ty = margin + Math.random()*(H-margin*2);
+    } while(Math.hypot(tx-OX,ty-OY) < 110);
+    return { mag:mags[i], angle:angles[i], color:VEC_COLORS[i], label:['A','B'][i], tailX:tx, tailY:ty };
+  });
+}
+
+function uniAtOrigin(v){ return Math.hypot(v.tailX-OX, v.tailY-OY) < ORIGIN_SNAP; }
+
+// Draw dashed projection lines + labels on canvas for a single vector at origin
+function drawProjections(v, ox, oy){
+  const dx =  v.mag * Math.cos(toRad(v.angle)) * GRID_SIZE;
+  const dy = -v.mag * Math.sin(toRad(v.angle)) * GRID_SIZE;
+  const hx = ox + dx, hy = oy + dy;
+  const vx = v.mag * Math.cos(toRad(v.angle));
+  const vy = v.mag * Math.sin(toRad(v.angle));
+
+  ctx.save();
+  ctx.strokeStyle='rgba(30,100,200,0.45)'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
+  // Horizontal projection (vx component)
+  ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(hx,oy); ctx.stroke();
+  // Vertical projection (vy component)
+  ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(ox,hy); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  // Labels for components
+  function labelAt(tx,ty,txt,col){
+    ctx.save();
+    ctx.font='bold 13px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    const pad=5; const tw=ctx.measureText(txt).width;
+    ctx.fillStyle='rgba(255,255,255,0.88)';
+    ctx.beginPath(); ctx.roundRect(tx-tw/2-pad, ty-10, tw+pad*2, 20, 4); ctx.fill();
+    ctx.fillStyle=col; ctx.fillText(txt,tx,ty);
+    ctx.restore();
+  }
+
+  // vx label (on x-axis level)
+  labelAt((ox+hx)/2, oy-14, `vx=${vx.toFixed(2)}`, '#2563a8');
+  // vy label (on y-axis level)
+  labelAt(ox-(vy>=0?30:-30), (oy+hy)/2, `vy=${vy.toFixed(2)}`, '#2563a8');
+
+  // angle arc
+  const angleRad = Math.abs(toRad(v.angle % 360));
+  ctx.save();
+  ctx.strokeStyle='rgba(212,137,10,0.7)'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.arc(ox, oy, 28, -toRad(v.angle), 0, v.angle<0); ctx.stroke();
+  ctx.restore();
+  labelAt(ox+36*Math.cos(toRad(v.angle/2)), oy-36*Math.sin(toRad(v.angle/2)),
+    `𝛼=${v.angle.toFixed(1)}°`, '#d4890a');
+}
+
+// Draw projections of the RESULTANT for soma mode
+function drawSomaProjections(ox, oy, R){
+  const hx = ox + R.rx*GRID_SIZE;
+  const hy = oy - R.ry*GRID_SIZE;
+
+  ctx.save();
+  ctx.strokeStyle='rgba(30,150,50,0.5)'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
+  ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(hx,oy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(ox,hy); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  function labelAt(tx,ty,txt,col){
+    ctx.save();
+    ctx.font='bold 13px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+    const pad=5; const tw=ctx.measureText(txt).width;
+    ctx.fillStyle='rgba(255,255,255,0.88)';
+    ctx.beginPath(); ctx.roundRect(tx-tw/2-pad, ty-10, tw+pad*2, 20, 4); ctx.fill();
+    ctx.fillStyle=col; ctx.fillText(txt,tx,ty);
+    ctx.restore();
+  }
+  labelAt((ox+hx)/2, oy-14, `Rx=?`, '#4a9c2f');
+  labelAt(ox-32, (oy+hy)/2, `Ry=?`, '#4a9c2f');
+}
+
+function drawUnitario(){
+  // Draw proper axes with arrows and labels
+  ctx.save();
+  ctx.strokeStyle='rgba(0,0,0,0.3)'; ctx.lineWidth=2;
+  // x axis
+  ctx.beginPath(); ctx.moveTo(20,OY); ctx.lineTo(W-20,OY); ctx.stroke();
+  // y axis
+  ctx.beginPath(); ctx.moveTo(OX,H-20); ctx.lineTo(OX,20); ctx.stroke();
+  // arrowheads
+  ctx.fillStyle='rgba(0,0,0,0.3)';
+  ctx.beginPath(); ctx.moveTo(W-18,OY); ctx.lineTo(W-28,OY-5); ctx.lineTo(W-28,OY+5); ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(OX,18); ctx.lineTo(OX-5,28); ctx.lineTo(OX+5,28); ctx.closePath(); ctx.fill();
+  // axis labels
+  ctx.font='bold 13px Nunito,sans-serif'; ctx.fillStyle='rgba(0,0,0,0.4)';
+  ctx.textAlign='left'; ctx.fillText('x', W-16, OY-8);
+  ctx.textAlign='center'; ctx.fillText('y', OX+10, 14);
+  // origin label
+  ctx.fillText('O', OX+8, OY+14);
+  // origin dot
+  ctx.fillStyle='rgba(0,0,0,0.5)';
+  ctx.beginPath(); ctx.arc(OX,OY,4,0,Math.PI*2); ctx.fill();
+  // grid tick marks
+  ctx.strokeStyle='rgba(0,0,0,0.1)'; ctx.lineWidth=1;
+  for(let x=OX+GRID_SIZE; x<W-20; x+=GRID_SIZE){ ctx.beginPath(); ctx.moveTo(x,OY-4); ctx.lineTo(x,OY+4); ctx.stroke(); }
+  for(let x=OX-GRID_SIZE; x>20;  x-=GRID_SIZE){ ctx.beginPath(); ctx.moveTo(x,OY-4); ctx.lineTo(x,OY+4); ctx.stroke(); }
+  for(let y=OY+GRID_SIZE; y<H-20; y+=GRID_SIZE){ ctx.beginPath(); ctx.moveTo(OX-4,y); ctx.lineTo(OX+4,y); ctx.stroke(); }
+  for(let y=OY-GRID_SIZE; y>20;  y-=GRID_SIZE){ ctx.beginPath(); ctx.moveTo(OX-4,y); ctx.lineTo(OX+4,y); ctx.stroke(); }
+  ctx.restore();
+
+  // Origin snap zone
+  ctx.save();
+  ctx.strokeStyle='rgba(74,156,47,0.3)'; ctx.lineWidth=1.5; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.arc(OX,OY,ORIGIN_SNAP,0,Math.PI*2); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  if(uniMode==='vetor'){
+    if(!uniVec){
+      ctx.save(); ctx.fillStyle='rgba(90,96,120,0.25)';
+      ctx.font='700 16px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText('Clique em Nova Simulação para gerar o vetor →',W/2,H/2); ctx.restore();
+      return;
+    }
+    const atOrigin = uniAtOrigin(uniVec);
+    const drawTx = atOrigin ? OX : uniVec.tailX;
+    const drawTy = atOrigin ? OY : uniVec.tailY;
+    const hdx = uniVec.mag*Math.cos(toRad(uniVec.angle))*GRID_SIZE;
+    const hdy = -uniVec.mag*Math.sin(toRad(uniVec.angle))*GRID_SIZE;
+
+    if(atOrigin){
+      // Show projections only when at origin
+      if(uniCalc==='modulo'){
+        // Show components, hide module (student calculates it)
+        drawProjections(uniVec, OX, OY);
+      } else {
+        // Label angle
+        ctx.save();
+        ctx.strokeStyle='rgba(212,137,10,0.7)'; ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.arc(OX,OY,28,-toRad(uniVec.angle),0,uniVec.angle<0); ctx.stroke();
+        ctx.restore();
+        function labelAtComp(tx,ty,txt,col){
+          ctx.save();
+          ctx.font='bold 13px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+          const pad=5; const tw=ctx.measureText(txt).width;
+          ctx.fillStyle='rgba(255,255,255,0.85)';
+          ctx.beginPath(); ctx.roundRect(tx-tw/2-pad, ty-10, tw+pad*2, 20, 4); ctx.fill();
+          ctx.fillStyle=col; ctx.fillText(txt,tx,ty);
+          ctx.restore();
+        }
+        // angle label
+        labelAtComp(OX+54*Math.cos(toRad(uniVec.angle/2)), OY-54*Math.sin(toRad(uniVec.angle/2)),
+          `𝛼=${uniVec.angle.toFixed(1)}°`, '#d4890a');
+        // module label on vector body (perpendicular offset)
+        const midX = OX + hdx*0.5, midY = OY + hdy*0.5;
+        const len2 = Math.sqrt(hdx*hdx+hdy*hdy)||1;
+        const perpX = -hdy/len2*18, perpY = hdx/len2*18;
+        labelAtComp(midX+perpX, midY+perpY, `A = ${uniVec.mag.toFixed(2)} u`, uniVec.color);
+      }
+    } else {
+      // Show snap hint
+      ctx.save(); ctx.fillStyle='rgba(74,156,47,0.5)';
+      ctx.globalAlpha=0.15; ctx.beginPath(); ctx.arc(uniVec.tailX,uniVec.tailY,ORIGIN_SNAP,0,Math.PI*2); ctx.fill();
+      ctx.globalAlpha=1; ctx.restore();
+    }
+    // In componentes mode draw arrow WITHOUT the auto label (we drew it manually above)
+    drawArrow(drawTx, drawTy, drawTx+hdx, drawTy+hdy, uniVec.color, 3.5, 1,
+      (atOrigin && uniCalc==='componentes') ? null : uniVec.label);
+    ctx.save(); ctx.fillStyle=uniVec.color;
+    ctx.beginPath(); ctx.arc(drawTx,drawTy,5,0,Math.PI*2); ctx.fill(); ctx.restore();
+
+  } else {
+    // SOMA mode
+    if(uniVecs.length===0){
+      ctx.save(); ctx.fillStyle='rgba(90,96,120,0.25)';
+      ctx.font='700 16px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
+      ctx.fillText('Clique em Nova Simulação para gerar os vetores →',W/2,H/2); ctx.restore();
+      return;
+    }
+    const bothAtOrigin = uniVecs.every(v=>uniAtOrigin(v));
+
+    if(bothAtOrigin){
+      // Compute resultant
+      let rx=0, ry=0;
+      for(const v of uniVecs){ rx+=v.mag*Math.cos(toRad(v.angle)); ry+=v.mag*Math.sin(toRad(v.angle)); }
+      const R={ rx, ry, mag:Math.sqrt(rx*rx+ry*ry), angle:toDeg(Math.atan2(ry,rx)) };
+      // Draw resultant
+      drawArrow(OX, OY, OX+rx*GRID_SIZE, OY-ry*GRID_SIZE, '#1e2130', 3.5, 0.85, 'R', true);
+      // Draw projections (with ? labels)
+      drawSomaProjections(OX, OY, R);
+    }
+    // Draw the two vectors from origin or their current position
+    for(const v of uniVecs){
+      const atO = uniAtOrigin(v);
+      const tx = atO ? OX : v.tailX;
+      const ty = atO ? OY : v.tailY;
+      const dx = v.mag*Math.cos(toRad(v.angle))*GRID_SIZE;
+      const dy = -v.mag*Math.sin(toRad(v.angle))*GRID_SIZE;
+      if(!atO){
+        ctx.save(); ctx.fillStyle=v.color; ctx.globalAlpha=0.12;
+        ctx.beginPath(); ctx.arc(v.tailX,v.tailY,ORIGIN_SNAP,0,Math.PI*2); ctx.fill();
+        ctx.globalAlpha=1; ctx.restore();
+      }
+      drawArrow(tx, ty, tx+dx, ty+dy, v.color, 3.5, 1, v.label);
+      ctx.save(); ctx.fillStyle=v.color;
+      ctx.beginPath(); ctx.arc(tx,ty,5,0,Math.PI*2); ctx.fill(); ctx.restore();
+    }
+  }
+}
+
+function resetUnitario(){
+  uniAnswered = false;
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('answerSection').classList.remove('show');
+  document.getElementById('answerSomaSection').classList.remove('show');
+  if(document.getElementById('answerInput'))   document.getElementById('answerInput').value='';
+  if(document.getElementById('answerRx'))      document.getElementById('answerRx').value='';
+  if(document.getElementById('answerRy'))      document.getElementById('answerRy').value='';
+  if(document.getElementById('answerRmag'))    document.getElementById('answerRmag').value='';
+  if(uniMode==='vetor'){
+    uniVec  = randomUniVec();
+    uniVecs = [];
+    document.getElementById('uniSomaTableWrap').style.display='none';
+  } else {
+    uniVec  = null;
+    uniVecs = randomUniSomaVecs();
+    populateUniSomaTable();
+    document.getElementById('uniSomaTableWrap').style.display='';
+  }
+}
+
+function populateUniSomaTable(){
+  const tbody = document.getElementById('uniSomaTableBody');
+  tbody.innerHTML='';
+  uniVecs.forEach(v=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${v.label}</td><td>${v.mag.toFixed(1)}</td><td>${v.angle.toFixed(1)}°</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Submit for single-value modes (paralelogramo + unitario vetor)
+function submitSingleAnswer(){
+  const val = parseFloat(document.getElementById('answerInput').value);
+  if(isNaN(val)){ showToast('⚠️ Digite um valor numérico!','info'); return; }
+
+  if(mode==='paralelogramo'){
+    if(!parSharedOrigin()){ showToast('⚠️ Junte as origens dos vetores primeiro!','miss'); return; }
+    const R = parResultant();
+    judgeAnswer(val, R.mag, `|R| = ${R.mag.toFixed(2)} u`, `θ = ${R.angle.toFixed(1)}°`);
+    parAnswered=true;
+  } else if(mode==='unitario' && uniMode==='vetor'){
+    if(!uniVec || !uniAtOrigin(uniVec)){ showToast('⚠️ Arraste o vetor até a origem!','miss'); return; }
+    if(uniCalc==='modulo'){
+      const correct = uniVec.mag;
+      judgeAnswer(val, correct, `|A| = ${correct.toFixed(2)} u`, `vx=${(uniVec.mag*Math.cos(toRad(uniVec.angle))).toFixed(2)}, vy=${(uniVec.mag*Math.sin(toRad(uniVec.angle))).toFixed(2)}`);
+    }
+    uniAnswered=true;
+  }
+  document.getElementById('answerSection').classList.remove('show');
+}
+
+function submitSomaAnswer(){
+  const rxInput   = parseFloat(document.getElementById('answerRx').value);
+  const ryInput   = parseFloat(document.getElementById('answerRy').value);
+  const rmagInput = parseFloat(document.getElementById('answerRmag') ? document.getElementById('answerRmag').value : 'NaN');
+  if(isNaN(rxInput)||isNaN(ryInput)){ showToast('⚠️ Preencha os campos!','info'); return; }
+
+  // Unitário vetor + componentes mode: student answers Ax and Ay
+  if(mode==='unitario' && uniMode==='vetor' && uniCalc==='componentes'){
+    if(!uniVec||!uniAtOrigin(uniVec)){ showToast('⚠️ Arraste o vetor até a origem!','miss'); return; }
+    const trx = uniVec.mag*Math.cos(toRad(uniVec.angle));
+    const try_ = uniVec.mag*Math.sin(toRad(uniVec.angle));
+    const errX = Math.abs(trx)>0.01 ? Math.abs(rxInput-trx)/Math.abs(trx)*100 : Math.abs(rxInput-trx)*100;
+    const errY = Math.abs(try_)>0.01? Math.abs(ryInput-try_)/Math.abs(try_)*100 : Math.abs(ryInput-try_)*100;
+    const rb=document.getElementById('resultBox'); const rt=document.getElementById('resultText'); const rd=document.getElementById('resultDetail');
+    document.getElementById('answerSomaSection').classList.remove('show');
+    rb.classList.remove('miss'); rb.classList.add('show'); uniAnswered=true;
+    if(errX<=5&&errY<=5){
+      rt.className='r-val hit'; rt.textContent='🎯 ACERTOU!';
+      rd.textContent=`Ax: ${rxInput.toFixed(2)} ≈ ${trx.toFixed(2)} (erro ${errX.toFixed(1)}%) | Ay: ${ryInput.toFixed(2)} ≈ ${try_.toFixed(2)} (erro ${errY.toFixed(1)}%)`;
+      showToast('🎯 COMPONENTES CORRETAS!','hit');
+    } else {
+      rt.className='r-val miss'; rt.textContent='❌ Resposta incorreta!';
+      rd.textContent=`Correto: Ax=${trx.toFixed(2)}, Ay=${try_.toFixed(2)} | Você: Ax=${rxInput.toFixed(2)}, Ay=${ryInput.toFixed(2)}`;
+      rb.classList.add('miss'); showToast('❌ COMPONENTES ERRADAS!','miss');
+    }
+    return;
+  }
+
+  // Unitário soma mode: student answers Rx, Ry AND |R|
+  if(isNaN(rmagInput)){ showToast('⚠️ Preencha todos os campos incluindo |R|!','info'); return; }
+  if(!uniVecs.every(v=>uniAtOrigin(v))){ showToast('⚠️ Coloque os dois vetores na origem!','miss'); return; }
+  let trx=0, try_=0;
+  for(const v of uniVecs){ trx+=v.mag*Math.cos(toRad(v.angle)); try_+=v.mag*Math.sin(toRad(v.angle)); }
+  const R = Math.sqrt(trx*trx+try_*try_);
+  const errX    = Math.abs(trx)>0.01 ? Math.abs(rxInput-trx)/Math.abs(trx)*100     : Math.abs(rxInput-trx)*100;
+  const errY    = Math.abs(try_)>0.01? Math.abs(ryInput-try_)/Math.abs(try_)*100    : Math.abs(ryInput-try_)*100;
+  const errRmag = Math.abs(R)>0.01   ? Math.abs(rmagInput-R)/Math.abs(R)*100        : Math.abs(rmagInput-R)*100;
+  const rb=document.getElementById('resultBox'); const rt=document.getElementById('resultText'); const rd=document.getElementById('resultDetail');
+  document.getElementById('answerSomaSection').classList.remove('show');
+  rb.classList.remove('miss'); rb.classList.add('show'); uniAnswered=true;
+  if(errX<=5 && errY<=5 && errRmag<=5){
+    rt.className='r-val hit'; rt.textContent='🎯 ACERTOU!';
+    rd.textContent=`Rx: ${rxInput.toFixed(2)} ≈ ${trx.toFixed(2)} u (${errX.toFixed(1)}%) | Ry: ${ryInput.toFixed(2)} ≈ ${try_.toFixed(2)} u (${errY.toFixed(1)}%) | |R|: ${rmagInput.toFixed(2)} ≈ ${R.toFixed(2)} u (${errRmag.toFixed(1)}%)`;
+    showToast('🎯 RESPOSTAS CORRETAS!','hit');
+  } else {
+    rt.className='r-val miss'; rt.textContent='❌ Resposta incorreta!';
+    rd.textContent=`Correto: Rx=${trx.toFixed(2)}, Ry=${try_.toFixed(2)}, |R|=${R.toFixed(2)} u | Você: Rx=${rxInput.toFixed(2)}, Ry=${ryInput.toFixed(2)}, |R|=${rmagInput.toFixed(2)}`;
+    rb.classList.add('miss'); showToast('❌ RESPOSTA ERRADA!','miss');
+  }
+}
+
+function judgeAnswer(val, correct, label, detail){
+  const err = Math.abs(correct)>0.01 ? Math.abs(val-correct)/Math.abs(correct)*100 : Math.abs(val-correct)*100;
+  const rb=document.getElementById('resultBox');
+  const rt=document.getElementById('resultText');
+  const rd=document.getElementById('resultDetail');
+  rb.classList.remove('miss'); rb.classList.add('show');
+  if(err<=5){
+    rt.className='r-val hit'; rt.textContent=`🎯 ACERTOU! ${label}`;
+    rd.textContent=`Você disse ${val.toFixed(2)} — correto: ${correct.toFixed(2)} (erro ${err.toFixed(1)}%) | ${detail}`;
+    showToast('🎯 RESPOSTA CORRETA!','hit');
+  } else {
+    rt.className='r-val miss'; rt.textContent=`❌ Resposta incorreta!`;
+    rd.textContent=`Você disse ${val.toFixed(2)} — correto: ${correct.toFixed(2)} (erro ${err.toFixed(1)}%) | ${detail}`;
+    rb.classList.add('miss');
+    showToast('❌ RESPOSTA ERRADA!','miss');
+  }
+}
+
+function drawSnapGuides(){
+  // Show snap dots near heads for easier chaining
+  const SNAP=30;
+  for(let i=0;i<vectors.length;i++){
+    const hi=vecHead(vectors[i]);
+    ctx.save();
+    ctx.fillStyle=vectors[i].color;
+    ctx.globalAlpha=0.2;
+    ctx.beginPath(); ctx.arc(hi.x,hi.y,SNAP,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha=0.7;
+    ctx.beginPath(); ctx.arc(hi.x,hi.y,4,0,Math.PI*2); ctx.fill();
+    ctx.restore();
+  }
+}
+
+// ── DRAGGING ───────────────────────────────────────────
+const SNAP_THRESHOLD=25;
+
+function getCanvasPos(e){
+  const rect=canvas.getBoundingClientRect();
+  const scaleX=W/rect.width, scaleY=H/rect.height;
+  const clientX=e.touches?e.touches[0].clientX:e.clientX;
+  const clientY=e.touches?e.touches[0].clientY:e.clientY;
+  return {x:(clientX-rect.left)*scaleX, y:(clientY-rect.top)*scaleY};
+}
+
+function hitTest(pos){
+  if(mode==='unitario'){
+    const vlist = uniMode==='soma' ? uniVecs : (uniVec ? [uniVec] : []);
+    for(let i=vlist.length-1;i>=0;i--){
+      const v=vlist[i];
+      const atO=uniAtOrigin(v); const tx=atO?OX:v.tailX; const ty=atO?OY:v.tailY;
+      if(Math.sqrt((pos.x-tx)**2+(pos.y-ty)**2)<22) return {idx:i,offsetX:pos.x-tx,offsetY:pos.y-ty};
+      const h=vecHead({...v,tailX:tx,tailY:ty});
+      const mx=(tx+h.x)/2, my=(ty+h.y)/2;
+      if(Math.sqrt((pos.x-mx)**2+(pos.y-my)**2)<18) return {idx:i,offsetX:pos.x-tx,offsetY:pos.y-ty};
+    }
+    return null;
+  }
+  const vlist = mode==='paralelogramo' ? parVecs : vectors;
+  for(let i=vlist.length-1;i>=0;i--){
+    const v=vlist[i];
+    const dx=pos.x-v.tailX, dy=pos.y-v.tailY;
+    if(Math.sqrt(dx*dx+dy*dy)<22) return {idx:i,offsetX:dx,offsetY:dy};
+    const h=vecHead(v);
+    const mx=(v.tailX+h.x)/2, my=(v.tailY+h.y)/2;
+    if(Math.sqrt((pos.x-mx)**2+(pos.y-my)**2)<18) return {idx:i,offsetX:pos.x-v.tailX,offsetY:pos.y-v.tailY};
+  }
+  return null;
+}
+
+canvas.addEventListener('mousedown',e=>{
+  const pos=getCanvasPos(e);
+  const hit=hitTest(pos);
+  if(hit){ dragging=hit; document.getElementById('canvasContainer').classList.add('dragging'); }
+});
+canvas.addEventListener('touchstart',e=>{
+  e.preventDefault();
+  const pos=getCanvasPos(e);
+  const hit=hitTest(pos);
+  if(hit){ dragging=hit; }
+},{passive:false});
+
+canvas.addEventListener('mousemove',e=>{
+  if(!dragging) return;
+  const pos=getCanvasPos(e);
+  moveDragging(pos);
+});
+canvas.addEventListener('touchmove',e=>{
+  if(!dragging) return;
+  e.preventDefault();
+  const pos=getCanvasPos(e);
+  moveDragging(pos);
+},{passive:false});
+
+function moveDragging(pos){
+  if(mode==='unitario'){
+    const vlist = uniMode==='soma' ? uniVecs : (uniVec ? [uniVec] : []);
+    if(!vlist[dragging.idx]) return;
+    const v = vlist[dragging.idx];
+    v.tailX = pos.x - dragging.offsetX;
+    v.tailY = pos.y - dragging.offsetY;
+    // Snap to origin
+    if(Math.hypot(v.tailX-OX, v.tailY-OY) < ORIGIN_SNAP){
+      v.tailX = OX; v.tailY = OY;
+    }
+    // Reveal answer input when condition met
+    if(!uniAnswered){
+      if(uniMode==='vetor' && uniVec && uniAtOrigin(uniVec)){
+        if(uniCalc==='modulo'){
+          document.getElementById('answerLabel').textContent = 'Qual é o módulo do vetor A?';
+          document.getElementById('answerUnit').textContent = 'u';
+          document.getElementById('answerSection').classList.add('show');
+        } else {
+          // componentes — open soma answer section repurposed for vx/vy
+          document.getElementById('answerSomaSection').classList.add('show');
+        }
+      } else if(uniMode==='soma' && uniVecs.every(v=>uniAtOrigin(v))){
+        document.getElementById('answerSomaSection').classList.add('show');
+      }
+    }
+    drawFrame(); return;
+  }
+  if(mode==='paralelogramo'){
+    const v=parVecs[dragging.idx];
+    v.tailX=pos.x-dragging.offsetX;
+    v.tailY=pos.y-dragging.offsetY;
+    const other=parVecs[1-dragging.idx];
+    if(Math.hypot(v.tailX-other.tailX,v.tailY-other.tailY)<SNAP_THRESHOLD){
+      v.tailX=other.tailX; v.tailY=other.tailY;
+    }
+    if(parSharedOrigin() && !parAnswered){
+      document.getElementById('answerLabel').textContent='Qual é o módulo da resultante?';
+      document.getElementById('answerUnit').textContent='u';
+      document.getElementById('answerSection').classList.add('show');
+      document.getElementById('answerInput').focus();
+    }
+    drawFrame(); return;
+  }
+  const v=vectors[dragging.idx];
+  v.tailX=pos.x-dragging.offsetX;
+  v.tailY=pos.y-dragging.offsetY;
+  for(let i=0;i<vectors.length;i++){
+    if(i===dragging.idx) continue;
+    const h=vecHead(vectors[i]);
+    if(Math.hypot(v.tailX-h.x,v.tailY-h.y)<SNAP_THRESHOLD){
+      v.tailX=h.x; v.tailY=h.y;
+    }
+  }
+  drawFrame();
+}
+
+canvas.addEventListener('mouseup',()=>{ dragging=null; document.getElementById('canvasContainer').classList.remove('dragging'); });
+canvas.addEventListener('touchend',()=>{ dragging=null; });
+canvas.addEventListener('mouseleave',()=>{ if(dragging){ dragging=null; document.getElementById('canvasContainer').classList.remove('dragging'); } });
+
+// ── MODE ───────────────────────────────────────────────
+function setMode(m){
+  mode=m;
+  ['poligono','paralelogramo','unitario'].forEach(id=>{
+    document.getElementById('btn'+id.charAt(0).toUpperCase()+id.slice(1)).classList.toggle('active',id===m);
+    document.getElementById(id+'Panel').style.display=id===m?'':'none';
+  });
+  vectors=[]; vecCount=0;
+  parVecs=[]; parAnswered=false;
+  uniVec=null; uniVecs=[]; uniAnswered=false;
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('answerSection').classList.remove('show');
+  document.getElementById('answerSomaSection').classList.remove('show');
+  document.getElementById('btnVerify').style.display = (m==='paralelogramo'||m==='unitario') ? 'none' : '';
+  document.getElementById('btnVerify').disabled = true;
+  document.getElementById('vecTableWrap').style.display='none';
+  if(document.getElementById('answerInput')) document.getElementById('answerInput').value='';
+  if(document.getElementById('answerRx'))   document.getElementById('answerRx').value='';
+  if(document.getElementById('answerRy'))   document.getElementById('answerRy').value='';
+  if(document.getElementById('answerRmag')) document.getElementById('answerRmag').value='';
+  if(m==='paralelogramo'){
+    parVecs=randomParVectors(); parAnswered=false;
+    populateParTable(); document.getElementById('parTableWrap').style.display='';
+  } else if(m==='unitario'){
+    // Reset sub-mode to vetor
+    uniMode='vetor'; uniCalc='modulo';
+    document.getElementById('btnUniVetor').classList.add('active');
+    document.getElementById('btnUniSoma').classList.remove('active');
+    document.getElementById('uniVetorPanel').style.display='';
+    document.getElementById('uniSomaPanel').style.display='none';
+    document.getElementById('btnUniModulo').classList.add('active');
+    document.getElementById('btnUniComponentes').classList.remove('active');
+    uniVec = randomUniVec();
+    document.getElementById('uniSomaTableWrap').style.display='none';
+  }
+  [2,3,4,5].forEach(n=>document.getElementById('vn'+n).classList.remove('active'));
+  drawFrame();
+}
+
+// ── VECTOR COUNT ───────────────────────────────────────
+function setVecCount(n){
+  vecCount=n;
+  [2,3,4,5].forEach(i=>document.getElementById('vn'+i).classList.toggle('active',i===n));
+  vectors=randomVectors(n);
+  verifiedOnce=false;
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('btnVerify').disabled=false;
+
+  // Populate table
+  const tbody=document.getElementById('vecTableBody');
+  tbody.innerHTML='';
+  vectors.forEach((v,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${VEC_LABELS[i]}</td><td>${v.mag.toFixed(1)}</td><td>${v.angle.toFixed(1)}°</td>`;
+    tbody.appendChild(tr);
+  });
+  document.getElementById('vecTableWrap').style.display='';
+  drawFrame();
+  showToast(`🎲 ${n} vetores gerados! Arraste para encadear ponta a cauda.`,'info');
+}
+
+// ── VERIFY ─────────────────────────────────────────────
+function verifyPolygon(){
+  const chain = findChain();
+  if(!chain){
+    showToast('⚠️ Encadeie os vetores ponta a cauda antes de verificar!','miss');
+    return;
+  }
+  const R=computeResultant();
+  const rb=document.getElementById('resultBox');
+  const rt=document.getElementById('resultText');
+  const rd=document.getElementById('resultDetail');
+
+  const chainStr = chain.map(i=>VEC_LABELS[i]).join(' + ');
+
+  rb.classList.remove('miss'); rb.classList.add('show');
+  rt.className='r-val hit';
+  rt.textContent=`🎯 |R| = ${R.mag.toFixed(2)} u`;
+  rd.textContent=`Ordem: ${chainStr} | θ = ${R.angle.toFixed(1)}° | Rx = ${R.rx.toFixed(2)} u, Ry = ${R.ry.toFixed(2)} u`;
+  showToast('✅ Resultante calculada com sucesso!','hit');
+  verifiedOnce=true;
+}
+
+// ── RESET ──────────────────────────────────────────────
+function resetSim(){
+  if(mode==='unitario'){
+    resetUnitario();
+    drawFrame();
+    showToast('🎲 Novo vetor gerado!','info');
+    return;
+  }
+  if(mode==='paralelogramo'){
+    parVecs=randomParVectors();
+    parAnswered=false;
+    document.getElementById('resultBox').classList.remove('show','miss');
+    document.getElementById('answerSection').classList.remove('show');
+    document.getElementById('answerInput').value='';
+    populateParTable();
+    document.getElementById('parTableWrap').style.display='';
+    drawFrame();
+    showToast('🎲 Novos vetores gerados! Junte as origens.','info');
+    return;
+  }
+  vectors=[]; vecCount=0; verifiedOnce=false;
+  [2,3,4,5].forEach(n=>document.getElementById('vn'+n).classList.remove('active'));
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('btnVerify').disabled=true;
+  document.getElementById('vecTableWrap').style.display='none';
+  drawFrame();
+  showToast('🔄 Simulação reiniciada!','info');
+}
+
+function populateParTable(){
+  const tbody=document.getElementById('parTableBody');
+  tbody.innerHTML='';
+  parVecs.forEach((v)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${v.label}</td><td>${v.mag.toFixed(1)}</td><td>${v.angle.toFixed(1)}°</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// ── TOAST ──────────────────────────────────────────────
+function showToast(msg,cls){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show '+cls;
+  setTimeout(()=>t.className='',3200);
+}
+
+// ── PDF DOWNLOAD ───────────────────────────────────────
+function downloadDoc(tipo){
+  const map = {
+    'roteiro':       'roteiro-vetor.docx',
+    'relatorio':     'relatorio-vetor.docx',
+    'roteiro-par':   'roteiro-paralelogramo.docx',
+    'relatorio-par': 'relatorio-paralelogramo.docx',
+    'roteiro-uni':   'roteiro-unitario.docx',
+    'relatorio-uni': 'relatorio-unitario.docx',
+  };
+  const filename = map[tipo] || (tipo+'.docx');
+  const a=document.createElement('a');
+  a.href=filename; a.download=filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  showToast(tipo.includes('roteiro')?'📋 Baixando roteiro...':'📝 Baixando relatório...','info');
+}
+
+// ── FULLSCREEN ─────────────────────────────────────────
+function toggleFullscreen(){
+  const el=document.getElementById('canvasContainer');
+  const btn=document.getElementById('btnFullscreen');
+  if(!document.fullscreenElement && !document.webkitFullscreenElement){
+    const req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+    if(req) req.call(el);
+  } else {
+    const ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
+    if(ex) ex.call(document);
+  }
+}
+document.addEventListener('fullscreenchange', updateFullscreenBtn);
+document.addEventListener('webkitfullscreenchange', updateFullscreenBtn);
+function updateFullscreenBtn(){
+  const btn=document.getElementById('btnFullscreen');
+  const isFs=!!(document.fullscreenElement||document.webkitFullscreenElement);
+  btn.textContent=isFs?'✕':'⛶';
+  btn.title=isFs?'Sair da tela inteira':'Tela inteira';
+}
+
+// ── INIT ───────────────────────────────────────────────
+drawFrame();
+
+// Animate idle (subtle redraw for snap guides)
+function idleLoop(){
+  if(!dragging) drawFrame();
+  requestAnimationFrame(idleLoop);
+}
+requestAnimationFrame(idleLoop);
+</script>
+
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+</body>
+</html>

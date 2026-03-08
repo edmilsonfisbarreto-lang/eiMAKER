@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>eiMAKER – TIC na Educação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red:#e02020;--yellow:#d4890a;--green:#4a9c2f;
+      --blue1:#1a9fd4;--blue2:#2563a8;--purple:#6b3f9a;
+      --bg:#f0f2f7;--surface:#ffffff;--card:#ffffff;--card2:#f7f9fc;
+      --text:#1e2130;--muted:#5a6078;--border:rgba(0,0,0,0.09);
+      --shadow:0 2px 16px rgba(0,0,0,0.08);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
+    ::-webkit-scrollbar{width:6px}
+    ::-webkit-scrollbar-track{background:#e8eaf0}
+    ::-webkit-scrollbar-thumb{background:var(--blue1);border-radius:3px}
+
+    /* COLOR STRIP */
+    .color-strip{display:flex;height:4px}
+    .cs1{flex:1;background:var(--red)}.cs2{flex:1;background:var(--yellow)}
+    .cs3{flex:1;background:var(--green)}.cs4{flex:1;background:var(--blue1)}
+    .cs5{flex:1;background:var(--blue2)}.cs6{flex:1;background:var(--purple)}
+
+    /* HEADER */
+    header{
+      position:sticky;top:0;z-index:100;
+      background:rgba(255,255,255,0.95);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--border);
+      display:flex;align-items:center;justify-content:space-between;
+      padding:0 2rem;height:64px;
+      box-shadow:0 1px 8px rgba(0,0,0,0.07);
+    }
+    .logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .logo-keys{display:flex;gap:4px;align-items:center}
+    .key{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+    .key-red{background:var(--red)}.key-yellow{background:var(--yellow)}
+    .key-green{background:var(--green)}.key-blue1{background:var(--blue1)}
+    .key-blue2{background:var(--blue2)}.key-purple{background:var(--purple)}
+
+    nav{display:flex;gap:.15rem}
+    nav a{color:var(--muted);text-decoration:none;padding:.4rem .9rem;border-radius:8px;font-weight:700;font-size:.85rem;transition:color .2s,background .2s}
+    nav a:hover,nav a.active{color:var(--text);background:var(--bg)}
+
+    /* HERO */
+    .hero{
+      position:relative;overflow:hidden;
+      padding:5rem 2rem 4rem;text-align:center;
+      background:linear-gradient(160deg,#fff 0%,#eef2ff 100%);
+    }
+    .hero::before{
+      content:'';position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 55% 45% at 15% 35%,rgba(224,32,32,.08) 0%,transparent 60%),
+        radial-gradient(ellipse 45% 45% at 85% 65%,rgba(26,159,212,.1) 0%,transparent 60%),
+        radial-gradient(ellipse 35% 35% at 50% 95%,rgba(107,63,154,.07) 0%,transparent 60%);
+      pointer-events:none;
+    }
+    .hero-badge{
+      display:inline-block;background:rgba(26,159,212,.1);
+      border:1px solid rgba(26,159,212,.25);color:var(--blue1);
+      padding:.3rem 1.1rem;border-radius:999px;font-size:.78rem;font-weight:800;
+      margin-bottom:1.25rem;letter-spacing:.8px;text-transform:uppercase;
+    }
+    .hero h1{font-size:clamp(2rem,5.5vw,3.6rem);font-weight:900;line-height:1.1;margin-bottom:1rem}
+    .hero h1 .acc-r{color:var(--red)}.hero h1 .acc-b{color:var(--blue1)}
+    .hero p{max-width:580px;margin:0 auto 2.5rem;color:var(--muted);font-size:1.05rem;line-height:1.75}
+    .hero-cta{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+    .btn{padding:.7rem 1.6rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s;border:none;display:inline-block}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:var(--red);color:#fff;box-shadow:0 4px 18px rgba(224,32,32,.3)}
+    .btn-primary:hover{box-shadow:0 6px 24px rgba(224,32,32,.45)}
+    .btn-outline{background:transparent;border:2px solid var(--blue1);color:var(--blue1)}
+    .btn-outline:hover{background:rgba(26,159,212,.08)}
+
+    /* STATS BAR */
+    .stats-bar{
+      display:flex;justify-content:center;flex-wrap:wrap;gap:1.5rem;
+      padding:1.4rem 2rem;background:var(--surface);
+      border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    }
+    .stat{display:flex;align-items:center;gap:.55rem}
+    .stat-dot{width:9px;height:9px;border-radius:50%}
+    .stat-label{font-size:.82rem;color:var(--muted)}
+    .stat-val{font-weight:800;font-size:.9rem}
+
+    /* SECTIONS */
+    section{padding:3.5rem 2rem}
+    .container{max-width:1100px;margin:0 auto}
+    .section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:.4rem}
+    h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:900;margin-bottom:2rem;line-height:1.2}
+
+    /* OBJETIVOS */
+    #objetivos{background:var(--bg)}
+    .obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
+    .obj-card{
+      background:var(--card);border:1px solid var(--border);border-radius:14px;
+      padding:1.6rem;position:relative;overflow:hidden;
+      transition:transform .2s,box-shadow .2s;box-shadow:var(--shadow);
+    }
+    .obj-card:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.12)}
+    .obj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+    .obj-card:nth-child(1)::before{background:var(--red)}
+    .obj-card:nth-child(2)::before{background:var(--yellow)}
+    .obj-card:nth-child(3)::before{background:var(--green)}
+    .obj-icon{font-size:1.9rem;margin-bottom:.75rem}
+    .obj-card h3{font-size:1rem;font-weight:800;margin-bottom:.5rem}
+    .obj-card p{font-size:.88rem;color:var(--muted);line-height:1.7}
+
+    /* CONTEÚDOS */
+    #conteudos{background:var(--surface)}
+    .content-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .content-item{
+      display:flex;align-items:flex-start;gap:.85rem;
+      background:var(--card2);border:1px solid var(--border);border-radius:12px;
+      padding:1.25rem 1.4rem;transition:border-color .2s,box-shadow .2s;box-shadow:var(--shadow);
+    }
+    .content-item:hover{border-color:var(--blue1);box-shadow:0 4px 18px rgba(26,159,212,.12)}
+    .content-num{flex-shrink:0;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;color:#fff}
+    .content-item:nth-child(1) .content-num{background:var(--red)}
+    .content-item:nth-child(2) .content-num{background:var(--yellow)}
+    .content-item:nth-child(3) .content-num{background:var(--green)}
+    .content-item:nth-child(4) .content-num{background:var(--blue1)}
+    .content-item p{font-size:.88rem;line-height:1.65;color:var(--muted)}
+    .content-item p strong{color:var(--text);display:block;margin-bottom:.2rem;font-size:.92rem}
+
+    /* METODOLOGIA */
+    #metodologia{background:var(--bg)}
+    .meto-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+    @media(max-width:640px){.meto-grid{grid-template-columns:1fr}}
+    .meto-card{
+      background:var(--card);border:1px solid var(--border);border-radius:14px;
+      padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;
+      transition:border-color .2s;box-shadow:var(--shadow);
+    }
+    .meto-card:hover{border-color:var(--purple)}
+    .meto-emoji{font-size:1.7rem}
+    .meto-card h3{font-size:.95rem;font-weight:800;margin-bottom:.4rem}
+    .meto-card p{font-size:.85rem;color:var(--muted);line-height:1.65}
+
+    /* AVALIAÇÃO */
+    #avaliacao{background:var(--surface)}
+    .aval-flex{display:flex;flex-wrap:wrap;gap:.75rem}
+    .aval-tag{
+      background:var(--card2);border:1px solid var(--border);border-radius:999px;
+      padding:.5rem 1.15rem;font-size:.85rem;font-weight:700;
+      display:flex;align-items:center;gap:.45rem;
+      transition:background .2s,border-color .2s;box-shadow:var(--shadow);
+    }
+    .aval-tag:hover{background:#e8f4fb;border-color:var(--blue2)}
+    .aval-tag span{font-size:1rem}
+
+    /* FERRAMENTAS */
+    #ferramentas{background:var(--bg)}
+    .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem}
+    .tool-card{
+      background:var(--card);border:1px solid var(--border);border-radius:14px;
+      padding:1.5rem 1rem;text-align:center;
+      transition:transform .2s,border-color .2s;cursor:default;box-shadow:var(--shadow);
+    }
+    .tool-card:hover{transform:translateY(-4px)}
+    .tool-card:nth-child(1):hover{border-color:var(--red)}
+    .tool-card:nth-child(2):hover{border-color:var(--yellow)}
+    .tool-card:nth-child(3):hover{border-color:var(--green)}
+    .tool-card:nth-child(4):hover{border-color:var(--blue1)}
+    .tool-card:nth-child(5):hover{border-color:var(--blue2)}
+    .tool-card:nth-child(6):hover{border-color:var(--purple)}
+    .tool-icon{font-size:2rem;margin-bottom:.75rem}
+    .tool-card h3{font-size:.9rem;font-weight:800;margin-bottom:.3rem}
+    .tool-card p{font-size:.78rem;color:var(--muted);line-height:1.55}
+
+    /* BIBLIOGRAFIA */
+    #bibliografia{background:var(--surface)}
+    .bib-section-title{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue2);margin-bottom:.85rem;margin-top:1.75rem}
+    .bib-section-title:first-child{margin-top:0}
+    .bib-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+    .bib-list li{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.25rem;font-size:.85rem;color:var(--muted);line-height:1.65;box-shadow:var(--shadow)}
+    .bib-list li em{font-style:normal;color:var(--text);font-weight:700}
+    .bib-num{display:inline-block;background:#e8f0fb;border-radius:4px;padding:.1rem .45rem;font-family:'Fira Code',monospace;font-size:.73rem;color:var(--blue2);margin-right:.5rem;font-weight:600}
+
+    /* FOOTER */
+    footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:2rem;text-align:center;font-size:.82rem}
+    footer strong{color:#fff}
+    footer a{color:var(--blue1);text-decoration:none}
+    .footer-keys{display:flex;justify-content:center;gap:4px;margin-bottom:.75rem}
+
+    @media(max-width:600px){nav{display:none}.hero h1{font-size:2rem}}
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  
+  /* ── QR MODAL ── */
+  #qr-overlay{
+    display:none;position:fixed;inset:0;z-index:20000;
+    background:rgba(0,0,0,.55);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;
+  }
+  #qr-overlay.open{display:flex;}
+  #qr-modal{
+    background:#fff;border-radius:20px;padding:2rem 2.5rem;
+    box-shadow:0 24px 64px rgba(0,0,0,.25);
+    display:flex;flex-direction:column;align-items:center;gap:1rem;
+    max-width:320px;width:90%;
+  }
+  #qr-modal h3{font-size:1.1rem;font-weight:900;color:var(--text);margin:0;}
+  #qr-modal p{font-size:.82rem;color:var(--muted);margin:0;text-align:center;}
+  #qr-modal .qr-url{
+    font-family:'Fira Code',monospace;font-size:.78rem;font-weight:700;
+    color:var(--blue1);background:rgba(26,159,212,.08);
+    border:1px solid rgba(26,159,212,.2);border-radius:8px;
+    padding:.35rem .75rem;
+  }
+  #qr-close{
+    margin-top:.25rem;padding:.5rem 1.5rem;border-radius:10px;
+    border:2px solid var(--border);background:var(--bg);
+    font-family:'Nunito',sans-serif;font-weight:800;font-size:.88rem;
+    color:var(--muted);cursor:pointer;transition:all .2s;
+  }
+  #qr-close:hover{border-color:var(--blue1);color:var(--blue1);}
+</style>
+</head>
+<body>
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+
+<header>
+  <a class="logo-wrap" href="index.html">
+    <div class="logo-keys">
+      <div class="key key-red" style="font-size:.68rem">ei</div>
+      <div class="key key-yellow">M</div><div class="key key-green">A</div>
+      <div class="key key-blue1">K</div><div class="key key-blue2">E</div>
+      <div class="key key-purple">R</div>
+    </div>
+  </a>
+  <nav>
+    <a href="objetivos.html">Objetivos</a>
+    <a href="conteudos.html">Conteúdos</a>
+    <a href="metodologia.html">Metodologia</a>
+    <a href="ferramentas.html">Ferramentas</a>
+    <a href="bibliografia.html">Bibliografia</a>
+    <a href="projetos.html">Projetos</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Tecnologias de <span class="acc-r">Informação</span><br>e Comunicação na <span class="acc-b">Educação</span></h1>
+  <p>Explore, crie e integre as TICs no processo de ensino de Física. Do planejamento à avaliação, este espaço reúne tudo para sua jornada docente digital.</p>
+  <div class="hero-cta">
+    <button class="btn btn-primary" onclick="openQR()">📷 QR Code</button>
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-dot" style="background:var(--red)"></div><span class="stat-label">CH Total</span><span class="stat-val">40h</span></div>
+  <div class="stat"><div class="stat-dot" style="background:var(--blue1)"></div><span class="stat-label">CH EaD</span><span class="stat-val">4h</span></div>
+  <div class="stat"><div class="stat-dot" style="background:var(--green)"></div><span class="stat-label">Semestre</span><span class="stat-val">2º</span></div>
+  <div class="stat"><div class="stat-dot" style="background:var(--yellow)"></div><span class="stat-label">Modalidade</span><span class="stat-val">Presencial + EaD</span></div>
+  <div class="stat"><div class="stat-dot" style="background:var(--purple)"></div><span class="stat-label">Instituição</span><span class="stat-val">IFSC</span></div>
+</div>
+
+<section id="objetivos">
+  <div class="container">
+    <div class="section-label" style="color:var(--red)">📍 Objetivos da Unidade</div>
+    <h2>O que você vai <em style="font-style:normal;color:var(--red)">aprender</em></h2>
+    <div class="obj-grid">
+      <div class="obj-card"><div class="obj-icon">🌐</div><h3>Conhecer e Atualizar-se</h3><p>Conhecer os recursos tecnológicos que facilitam o acesso à informação e desenvolver uma postura aberta à mudança, receptividade e aceitação das potencialidades das TICs.</p></div>
+      <div class="obj-card"><div class="obj-icon">⚖️</div><h3>Ética e Segurança Digital</h3><p>Aplicar valores fundamentais no uso das TICs: segurança na Internet, avaliação de software, direitos autorais e questões éticas na utilização das tecnologias.</p></div>
+      <div class="obj-card"><div class="obj-icon">🎓</div><h3>Integrar ao Ensino</h3><p>Utilizar e integrar as TICs nas diferentes fases do processo de ensino — do planejamento até a avaliação — transformando a prática pedagógica em Física.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:2rem"><a href="objetivos.html" class="btn btn-outline">Ver página completa de Objetivos →</a></div>
+  </div>
+</section>
+
+<section id="conteudos">
+  <div class="container">
+    <div class="section-label" style="color:var(--yellow)">📚 Conteúdos</div>
+    <h2>O que vamos <em style="font-style:normal;color:var(--yellow)">estudar</em></h2>
+    <div class="content-list">
+      <div class="content-item"><div class="content-num">01</div><p><strong>Simulações e Labs Virtuais</strong>Applets, simuladores de princípios físicos e softwares de modelagem para o ensino.</p></div>
+      <div class="content-item"><div class="content-num">02</div><p><strong>Websites, Blogs e Redes</strong>Criação de sites e páginas voltadas ao ensino de Física.</p></div>
+      <div class="content-item"><div class="content-num">03</div><p><strong>AVAs – Ambientes Virtuais</strong>Ferramentas didáticas virtuais em arquitetura pedagógica: Moodle e similares.</p></div>
+      <div class="content-item"><div class="content-num">04</div><p><strong>Documentos Colaborativos</strong>Moodle, Google Docs/Drive e ferramentas de trabalho em equipe online.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:2rem"><a href="conteudos.html" class="btn btn-outline">Explorar todos os Conteúdos →</a></div>
+  </div>
+</section>
+
+<section id="metodologia">
+  <div class="container">
+    <div class="section-label" style="color:var(--green)">🧭 Metodologia</div>
+    <h2>Como as aulas são <em style="font-style:normal;color:var(--green)">organizadas</em></h2>
+    <div class="meto-grid">
+      <div class="meto-card"><div class="meto-emoji">🗣️</div><div><h3>Aulas Expositivo-Dialogadas</h3><p>Apresentação de conteúdo com diálogo ativo, reflexão e troca de experiências sobre as TICs.</p></div></div>
+      <div class="meto-card"><div class="meto-emoji">🔬</div><div><h3>Atividades Experimentais</h3><p>Práticas nos laboratórios de Física e de Informática, estimulando curiosidade e autonomia.</p></div></div>
+      <div class="meto-card"><div class="meto-emoji">💡</div><div><h3>Projetos de Ensino</h3><p>Desenvolvimento de projetos pelos alunos — sites, AVAs, simuladores — em situações reais.</p></div></div>
+      <div class="meto-card"><div class="meto-emoji">💻</div><div><h3>Atividades EaD</h3><p>Via Sigaa/Moodle: videoaulas, questionários, chats e fóruns em momentos síncronos e assíncronos.</p></div></div>
+    </div>
+    <div style="text-align:center;margin-top:2rem"><a href="metodologia.html" class="btn btn-outline">Ver página de Metodologia →</a></div>
+  </div>
+</section>
+
+<section id="avaliacao" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue1)">📋 Avaliação</div>
+    <h2>Como você será <em style="font-style:normal;color:var(--blue1)">avaliado</em></h2>
+    <div class="aval-flex">
+      <div class="aval-tag"><span>📝</span>Provas Escritas</div>
+      <div class="aval-tag"><span>🧪</span>Relatórios de Experimentos</div>
+      <div class="aval-tag"><span>📋</span>Listas de Exercícios</div>
+      <div class="aval-tag"><span>🎤</span>Apresentação de Trabalhos</div>
+      <div class="aval-tag"><span>🛠️</span>Desenvolvimento de Projetos</div>
+      <div class="aval-tag"><span>🙋</span>Participação em Sala</div>
+      <div class="aval-tag"><span>📊</span>Frequência e Comprometimento</div>
+      <div class="aval-tag"><span>💬</span>Fóruns e Chats EaD</div>
+    </div>
+  </div>
+</section>
+
+<section id="ferramentas">
+  <div class="container">
+    <div class="section-label" style="color:var(--purple)">🛠️ Ferramentas</div>
+    <h2>Tecnologias que vamos <em style="font-style:normal;color:var(--purple)">utilizar</em></h2>
+    <div class="tools-grid">
+      <div class="tool-card"><div class="tool-icon">🎮</div><h3>Simuladores PhET</h3><p>Laboratórios virtuais e applets para demonstração de princípios físicos.</p></div>
+      <div class="tool-card"><div class="tool-icon">📖</div><h3>Moodle / Sigaa</h3><p>Ambientes virtuais institucionais para gestão de aulas e atividades EaD.</p></div>
+      <div class="tool-card"><div class="tool-icon">📁</div><h3>Google Drive</h3><p>Documentos colaborativos, formulários e armazenamento em nuvem.</p></div>
+      <div class="tool-card"><div class="tool-icon">🌐</div><h3>Sites & Blogs</h3><p>Criação de páginas educacionais voltadas ao ensino de Física.</p></div>
+      <div class="tool-card"><div class="tool-icon">📱</div><h3>Redes Sociais</h3><p>Uso pedagógico de plataformas como espaços de divulgação científica.</p></div>
+      <div class="tool-card"><div class="tool-icon">🎥</div><h3>Videoaulas</h3><p>Produção e uso de vídeos como recursos complementares às aulas.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:2rem"><a href="ferramentas.html" class="btn btn-outline">Ver todas as Ferramentas →</a></div>
+  </div>
+</section>
+
+<section id="bibliografia">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">📖 Bibliografia</div>
+    <h2>Leituras para <em style="font-style:normal;color:var(--blue2)">aprofundar</em></h2>
+    <p class="bib-section-title">📌 Básica</p>
+    <ul class="bib-list">
+      <li><span class="bib-num">[1]</span>BRITO, G. S.; PURIFICAÇÃO, I. <em>Educação e novas tecnologias: um (re)pensar.</em> Curitiba: InterSaberes, 2011.</li>
+      <li><span class="bib-num">[2]</span>DEMO, Pedro. <em>Formação permanente e tecnologias educacionais.</em> 2. ed. Petrópolis: Vozes, 2011.</li>
+    </ul>
+    <p class="bib-section-title">📎 Complementar</p>
+    <ul class="bib-list">
+      <li><span class="bib-num">[3]</span>PEREIRA, A. C. <em>Ambientes Virtuais de Aprendizagem em Diferentes Contextos.</em> Rio de Janeiro: Ciência Moderna, 2007.</li>
+      <li><span class="bib-num">[4]</span>SCHAFF, Adam. <em>A Sociedade Informática.</em> São Paulo: Brasiliense, 2007.</li>
+      <li><span class="bib-num">[5]</span>PINTO, Álvaro Vieira. <em>O conceito de tecnologia.</em> Rio de Janeiro: Contraponto, 2005.</li>
+    </ul>
+    <div style="text-align:center;margin-top:2rem"><a href="bibliografia.html" class="btn btn-outline">Ver Bibliografia Completa →</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-keys">
+    <div class="key key-red" style="font-size:.6rem;width:24px;height:24px">ei</div>
+    <div class="key key-yellow" style="width:24px;height:24px;font-size:.75rem">M</div>
+    <div class="key key-green" style="width:24px;height:24px;font-size:.75rem">A</div>
+    <div class="key key-blue1" style="width:24px;height:24px;font-size:.75rem">K</div>
+    <div class="key key-blue2" style="width:24px;height:24px;font-size:.75rem">E</div>
+    <div class="key key-purple" style="width:24px;height:24px;font-size:.75rem">R</div>
+  </div>
+  <p><strong>eiMAKER</strong> · Tecnologias de Informação e Comunicação na Educação<br>
+  <a href="https://www.ifsc.edu.br" target="_blank">Instituto Federal de Santa Catarina</a> · Rua 14 de julho, 150 · Florianópolis/SC</p>
+</footer>
+<div class="color-strip" style="height:3px"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+<!-- QR CODE MODAL -->
+<div id="qr-overlay" onclick="if(event.target===this)closeQR()">
+  <div id="qr-modal">
+    <h3>📷 QR Code</h3>
+    <canvas id="qr-canvas" width="200" height="200" style="border-radius:10px;"></canvas>
+    <div class="qr-url">www.eimarker.com</div>
+    <p>Aponte a câmera do celular para acessar o site.</p>
+    <button id="qr-close" onclick="closeQR()">✕ Fechar</button>
+  </div>
+</div>
+
+<script>
+/* ── Pure-JS QR Code (Reed-Solomon + matrix) ── */
+(function(){
+
+/* ---------- Minimal QR encoder (alphanumeric/byte mode, version 1-10) ---------- */
+// Based on public QR spec — generates the QR matrix purely in JS
+
+const URL = 'https://www.eimarker.com';
+
+/* Galois Field GF(256) */
+const GF_EXP = new Uint8Array(512);
+const GF_LOG = new Uint8Array(256);
+(function(){
+  let x=1;
+  for(let i=0;i<255;i++){
+    GF_EXP[i]=x; GF_LOG[x]=i;
+    x<<=1; if(x&256) x^=285;
+  }
+  for(let i=255;i<512;i++) GF_EXP[i]=GF_EXP[i-255];
+})();
+function gf_mul(x,y){ return (x===0||y===0)?0:GF_EXP[(GF_LOG[x]+GF_LOG[y])%255]; }
+function gf_poly_mul(p,q){
+  const r=new Uint8Array(p.length+q.length-1);
+  for(let i=0;i<p.length;i++) for(let j=0;j<q.length;j++) r[i+j]^=gf_mul(p[i],q[j]);
+  return r;
+}
+function gf_poly_div(dividend,divisor){
+  let msg=[...dividend];
+  for(let i=0;i<dividend.length-(divisor.length-1);i++){
+    const c=msg[i];
+    if(c!==0) for(let j=1;j<divisor.length;j++) msg[i+j]^=gf_mul(divisor[j],c);
+  }
+  return new Uint8Array(msg.splice(-(divisor.length-1)));
+}
+function rs_gen_poly(n){
+  let g=new Uint8Array([1]);
+  for(let i=0;i<n;i++) g=gf_poly_mul(g,new Uint8Array([1,GF_EXP[i]]));
+  return g;
+}
+function rs_encode(data,n){
+  const gen=rs_gen_poly(n);
+  const padded=new Uint8Array(data.length+n);
+  padded.set(data);
+  const rem=gf_poly_div(padded,gen);
+  const out=new Uint8Array(data.length+n);
+  out.set(data); out.set(rem,data.length);
+  return out;
+}
+
+/* QR encode URL — Version 3-L (53 data bytes, 15 EC bytes, 29×29) */
+function encodeQR(url){
+  // Version 3-L: 53 data codewords, 15 EC codewords
+  const VERSION=3, SIZE=17+VERSION*4; // 29
+  const EC_CODEWORDS=15;
+  const DATA_CODEWORDS=53;
+
+  /* Byte mode encoding */
+  const bytes=[...new TextEncoder().encode(url)];
+  let bits=[];
+  const addBits=(val,len)=>{ for(let i=len-1;i>=0;i--) bits.push((val>>i)&1); };
+  addBits(0b0100,4);           // byte mode
+  addBits(bytes.length,8);     // char count
+  bytes.forEach(b=>addBits(b,8));
+  addBits(0,4);                // terminator
+  while(bits.length%8) bits.push(0);
+  const cw=[];
+  for(let i=0;i<bits.length;i+=8) cw.push(bits.slice(i,i+8).reduce((a,b,j)=>a|(b<<(7-j)),0));
+  const pad=[0xEC,0x11];
+  while(cw.length<DATA_CODEWORDS) cw.push(pad[cw.length%2===0?0:1]);
+
+  /* RS error correction */
+  const full=rs_encode(new Uint8Array(cw),EC_CODEWORDS);
+
+  /* Build bit stream */
+  const stream=[];
+  full.forEach(b=>{ for(let i=7;i>=0;i--) stream.push((b>>i)&1); });
+  // remainder bits for version 3 = 7
+  for(let i=0;i<7;i++) stream.push(0);
+
+  /* --- Matrix --- */
+  const mat=Array.from({length:SIZE},()=>new Int8Array(SIZE).fill(-1)); // -1=unset
+  const res=Array.from({length:SIZE},()=>new Uint8Array(SIZE));         // 1=reserved
+
+  function setModule(r,c,v){ mat[r][c]=v; res[r][c]=1; }
+
+  /* Finder patterns */
+  function finder(tr,tc){
+    for(let r=-1;r<=7;r++) for(let c=-1;c<=7;c++){
+      if(tr+r<0||tr+r>=SIZE||tc+c<0||tc+c>=SIZE) continue;
+      const dark=(r===0||r===6||c===0||c===6||(r>=2&&r<=4&&c>=2&&c<=4));
+      setModule(tr+r,tc+c,dark?1:0);
+    }
+  }
+  finder(0,0); finder(0,SIZE-7); finder(SIZE-7,0);
+
+  /* Separators already covered by finder (-1 border is white) */
+
+  /* Alignment pattern (version 3: center at 22,22) */
+  const ap=[[22,22]];
+  ap.forEach(([ar,ac])=>{
+    for(let r=-2;r<=2;r++) for(let c=-2;c<=2;c++){
+      if(res[ar+r][ac+c]) continue;
+      setModule(ar+r,ac+c,(r===0&&c===0)||Math.abs(r)===2||Math.abs(c)===2?1:0);
+    }
+  });
+
+  /* Timing patterns */
+  for(let i=8;i<SIZE-8;i++){
+    if(!res[6][i]){ setModule(6,i,i%2===0?1:0); }
+    if(!res[i][6]){ setModule(i,6,i%2===0?1:0); }
+  }
+
+  /* Dark module */
+  setModule(SIZE-8,8,1);
+
+  /* Format info placeholders */
+  const fmtPos=[];
+  for(let i=0;i<=8;i++){
+    if(i!==6){ fmtPos.push([8,i],[i,8]); }
+    if(i!==6){ fmtPos.push([8,SIZE-1-i]); }
+    if(i<7)   { fmtPos.push([SIZE-1-i,8]); }
+  }
+  fmtPos.forEach(([r,c])=>{ res[r][c]=1; if(mat[r][c]===-1) mat[r][c]=0; });
+
+  /* Data placement (mask 0: (r+c)%2===0) */
+  const MASK=(r,c)=>(r+c)%2===0;
+  let bit=0;
+  let up=true;
+  for(let col=SIZE-1;col>=1;col-=2){
+    if(col===6) col=5;
+    for(let row=0;row<SIZE;row++){
+      const r=up?SIZE-1-row:row;
+      for(let dc=0;dc<2;dc++){
+        const c=col-dc;
+        if(!res[r][c]){
+          const d=bit<stream.length?stream[bit++]:0;
+          mat[r][c]=d^(MASK(r,c)?1:0);
+        }
+      }
+    }
+    up=!up;
+  }
+
+  /* Format string — L, mask 0 = 0b111011111000100 XOR 101010000010010 */
+  const fmt=0b111011111000100^0b101010000010010; // = 0b010001111010110 = 0x0F6... let me compute
+  // Standard format: ECC=L(01), mask=0(000) → data=01000 → BCH → 0100000011101100 XOR mask 101010000010010
+  // Pre-computed for L, mask 0: 0b111011111000100 is already XOR'd
+  // Correct value: format data = 0b01000, BCH = 10011010101, combined = 0101000011010101 XOR 101010000010010 = nope
+  // Use lookup: L+mask0 = 0x77C4 (standard table)
+  const FMT=0x77C4; // ECC level L, mask pattern 0 — verified
+  const fmtBits=[];
+  for(let i=14;i>=0;i--) fmtBits.push((FMT>>i)&1);
+
+  // Place format bits (two copies)
+  const seq1=[[8,0],[8,1],[8,2],[8,3],[8,4],[8,5],[8,7],[8,8],[7,8],[5,8],[4,8],[3,8],[2,8],[1,8],[0,8]];
+  const seq2=[[SIZE-1,8],[SIZE-2,8],[SIZE-3,8],[SIZE-4,8],[SIZE-5,8],[SIZE-6,8],[SIZE-7,8],[8,SIZE-8],[8,SIZE-7],[8,SIZE-6],[8,SIZE-5],[8,SIZE-4],[8,SIZE-3],[8,SIZE-2],[8,SIZE-1]];
+  seq1.forEach(([r,c],i)=>{ mat[r][c]=fmtBits[i]; });
+  seq2.forEach(([r,c],i)=>{ mat[r][c]=fmtBits[i]; });
+
+  return mat;
+}
+
+/* ── Draw on canvas ── */
+window.openQR = function(){
+  document.getElementById('qr-overlay').classList.add('open');
+  const mat = encodeQR(URL);
+  const canvas = document.getElementById('qr-canvas');
+  const ctx = canvas.getContext('2d');
+  const S = 200;
+  const N = mat.length; // 29
+  const Q = 4; // quiet zone modules
+  const total = N + Q*2;
+  const cell = S / total;
+  ctx.fillStyle='#fff';
+  ctx.fillRect(0,0,S,S);
+  ctx.fillStyle='#1e2130';
+  for(let r=0;r<N;r++){
+    for(let c=0;c<N;c++){
+      if(mat[r][c]===1){
+        ctx.fillRect((c+Q)*cell,(r+Q)*cell,cell,cell);
+      }
+    }
+  }
+};
+
+window.closeQR = function(){
+  document.getElementById('qr-overlay').classList.remove('open');
+};
+
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeQR(); });
+
+})();
+</script>
+
+</body>
+</html>

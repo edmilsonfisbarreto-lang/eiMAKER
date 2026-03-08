@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Objetivos – eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--red:#e02020;--yellow:#d4890a;--green:#4a9c2f;--blue1:#1a9fd4;--blue2:#2563a8;--purple:#6b3f9a;--bg:#f0f2f7;--surface:#fff;--card:#fff;--card2:#f7f9fc;--text:#1e2130;--muted:#5a6078;--border:rgba(0,0,0,0.09);--shadow:0 2px 16px rgba(0,0,0,0.08)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#e8eaf0}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+.color-strip{display:flex;height:4px}.cs1{flex:1;background:var(--red)}.cs2{flex:1;background:var(--yellow)}.cs3{flex:1;background:var(--green)}.cs4{flex:1;background:var(--blue1)}.cs5{flex:1;background:var(--blue2)}.cs6{flex:1;background:var(--purple)}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;box-shadow:0 1px 8px rgba(0,0,0,0.07)}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-keys{display:flex;gap:4px;align-items:center}
+.key{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.key-red{background:var(--red)}.key-yellow{background:var(--yellow)}.key-green{background:var(--green)}.key-blue1{background:var(--blue1)}.key-blue2{background:var(--blue2)}.key-purple{background:var(--purple)}
+nav{display:flex;gap:.15rem}
+nav a{color:var(--muted);text-decoration:none;padding:.4rem .9rem;border-radius:8px;font-weight:700;font-size:.85rem;transition:color .2s,background .2s}
+nav a:hover{color:var(--text);background:var(--bg)}
+nav a.active{color:var(--red);background:rgba(224,32,32,.08)}
+.breadcrumb{padding:.7rem 2rem;background:var(--surface);border-bottom:1px solid var(--border);font-size:.8rem;color:var(--muted)}
+.breadcrumb a{color:var(--blue1);text-decoration:none}.breadcrumb span{margin:0 .4rem}
+.page-hero{padding:2.75rem 2rem 2.25rem;background:linear-gradient(135deg,#fff5f5 0%,#fff 55%,#f0f2f7 100%);border-bottom:1px solid var(--border);text-align:center}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem 1rem;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:.9rem;background:rgba(224,32,32,.1);border:1px solid rgba(224,32,32,.2);color:var(--red)}
+.page-hero h1{font-size:clamp(1.75rem,4vw,2.6rem);font-weight:900;margin-bottom:.65rem;line-height:1.15}
+.page-hero p{max-width:540px;margin:0 auto;color:var(--muted);font-size:.96rem;line-height:1.75}
+.prog-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.prog-btn{padding:.4rem 1rem;border-radius:999px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;border:2px solid var(--border);background:var(--card2);color:var(--muted);transition:all .2s;text-decoration:none;display:inline-block}
+.prog-btn:hover,.prog-btn.act{border-color:var(--red);color:var(--red);background:rgba(224,32,32,.07)}
+section{padding:2.5rem 2rem}
+.container{max-width:960px;margin:0 auto}
+.section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:.4rem}
+h2{font-size:1.4rem;font-weight:900;margin-bottom:1.2rem;line-height:1.2}
+h3{font-size:.98rem;font-weight:800;margin-bottom:.5rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+@media(max-width:680px){.two-col{grid-template-columns:1fr}}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;box-shadow:var(--shadow)}
+.info-card ul{padding-left:1.2rem;color:var(--muted);font-size:.87rem;line-height:1.95}
+.obj-block{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem;box-shadow:var(--shadow);display:flex;gap:1.25rem;margin-bottom:1.25rem;transition:box-shadow .2s}
+.obj-block:hover{box-shadow:0 8px 28px rgba(0,0,0,.1)}
+.obj-num{flex-shrink:0;width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;color:#fff}
+.obj-body p{font-size:.88rem;color:var(--muted);line-height:1.75}
+.chip-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+.chip{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.22rem .7rem;font-size:.74rem;font-weight:700;color:var(--muted)}
+/* VIDEO */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.video-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s}
+.video-card:hover{transform:translateY(-3px)}
+.video-thumb{position:relative;padding-bottom:56.25%;background:#111}
+.video-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-info{padding:1rem 1.1rem}
+.video-info h4{font-size:.9rem;font-weight:800;margin-bottom:.25rem}
+.video-info p{font-size:.78rem;color:var(--muted);line-height:1.55}
+/* READING */
+.reading-list{display:flex;flex-direction:column;gap:.75rem}
+.reading-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;box-shadow:var(--shadow);transition:border-color .2s}
+.reading-item:hover{border-color:var(--red)}
+.r-icon{font-size:1.5rem;flex-shrink:0}
+.r-body strong{display:block;font-size:.9rem;margin-bottom:.2rem}
+.r-body p{font-size:.8rem;color:var(--muted);line-height:1.55}
+.r-tag{display:inline-block;background:rgba(224,32,32,.1);color:var(--red);border-radius:4px;padding:.1rem .5rem;font-size:.7rem;font-weight:800;margin-top:.35rem}
+
+
+.r-link-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:.7rem}
+.r-btn-alt{background:rgba(26,159,212,.07)!important;color:var(--blue1)!important;border-color:rgba(26,159,212,.3)!important}
+.r-btn-alt:hover{background:rgba(26,159,212,.14)!important;border-color:var(--blue1)!important}
+.r-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:.1rem;padding:.35rem .9rem;border-radius:8px;font-size:.8rem;font-weight:800;color:var(--red);border:2px solid rgba(224,32,32,.3);background:rgba(224,32,32,.06);text-decoration:none;transition:all .2s}
+.r-btn:hover{background:rgba(224,32,32,.13);border-color:var(--red);transform:translateY(-1px)}
+/* TOOLS */
+.tools-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.9rem}
+.tool-mini{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.tool-mini:hover{transform:translateY(-3px);border-color:var(--red)}
+.tm-icon{font-size:1.6rem;margin-bottom:.5rem}
+.tool-mini h4{font-size:.85rem;font-weight:800;margin-bottom:.25rem}
+.tool-mini p{font-size:.75rem;color:var(--muted);line-height:1.5;margin-bottom:.4rem}
+.tool-mini a{font-size:.73rem;color:var(--blue1);text-decoration:none;font-weight:700}
+/* ACTIVITY */
+.activity{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--red);border-radius:0 14px 14px 0;padding:1.6rem 1.75rem;box-shadow:var(--shadow);margin-top:1rem}
+.act-title{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem}
+.act-title h3{margin-bottom:0;color:var(--red);font-size:1rem}
+.activity ol{padding-left:1.3rem;color:var(--muted);font-size:.88rem;line-height:2.1}
+.act-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--border)}
+.act-badge{font-size:.75rem;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:.35rem}
+/* QUIZ */
+.quiz-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;box-shadow:var(--shadow)}
+.quiz-q{margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
+.quiz-q:last-of-type{border-bottom:none;margin-bottom:1rem;padding-bottom:0}
+.quiz-q p{font-size:.93rem;font-weight:700;margin-bottom:.85rem;color:var(--text)}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem}
+.quiz-opt{display:flex;align-items:center;gap:.65rem;padding:.65rem 1rem;border-radius:10px;border:2px solid var(--border);cursor:pointer;transition:all .2s;font-size:.87rem;font-weight:600;color:var(--muted);background:var(--card2)}
+.quiz-opt:hover{border-color:var(--red);color:var(--text);background:rgba(224,32,32,.05)}
+.quiz-opt.selected{border-color:var(--red);color:var(--red);background:rgba(224,32,32,.07)}
+.quiz-opt.correct{border-color:var(--green)!important;color:var(--green)!important;background:rgba(74,156,47,.08)!important}
+.quiz-opt.wrong{border-color:#e53935!important;color:#e53935!important;background:rgba(229,57,53,.07)!important}
+.opt-letter{width:26px;height:26px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;border:1px solid var(--border)}
+.quiz-feedback{display:none;margin-top:.75rem;padding:.7rem 1rem;border-radius:8px;font-size:.83rem;font-weight:700;line-height:1.55}
+.quiz-btn-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem}
+.btn{padding:.65rem 1.4rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;border:none;display:inline-block;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 4px 14px rgba(224,32,32,.3)}
+.btn-outline-red{background:transparent;border:2px solid var(--red);color:var(--red)}
+.btn-outline-red:hover{background:rgba(224,32,32,.07)}
+.quiz-score{display:none;background:linear-gradient(135deg,rgba(74,156,47,.1),rgba(26,159,212,.07));border:1px solid rgba(74,156,47,.25);border-radius:12px;padding:1.25rem;text-align:center;margin-top:1.25rem}
+.quiz-score h3{font-size:1.3rem;color:var(--green);margin-bottom:.35rem}
+.quiz-score p{font-size:.88rem;color:var(--muted)}
+/* BIB */
+.bib-mini{display:flex;flex-direction:column;gap:.7rem}
+.bib-mini-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;display:flex;gap:.9rem;align-items:flex-start;box-shadow:var(--shadow)}
+.bib-badge{flex-shrink:0;width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-size:.72rem;font-weight:500}
+.bib-mini-item p{font-size:.83rem;color:var(--muted);line-height:1.65}
+.bib-mini-item em{font-style:normal;font-weight:700;color:var(--text)}
+/* PAGE NAV */
+.page-nav{background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.page-nav a{text-decoration:none;display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:.88rem;color:var(--muted);transition:color .2s}
+.page-nav a:hover,.page-nav .pg-next{color:var(--red)}
+footer{background:#1e2130;color:rgba(255,255,255,0.5);padding:1.75rem 2rem;text-align:center;font-size:.8rem}
+footer strong{color:#fff}
+footer a{color:var(--blue1);text-decoration:none}
+.footer-keys{display:flex;justify-content:center;gap:4px;margin-bottom:.65rem}
+@media(max-width:600px){nav{display:none}.obj-block{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<header>
+  <a class="logo-wrap" href="index.html"><div class="logo-keys"><div class="key key-red" style="font-size:.68rem">ei</div><div class="key key-yellow">M</div><div class="key key-green">A</div><div class="key key-blue1">K</div><div class="key key-blue2">E</div><div class="key key-purple">R</div></div></a>
+  <nav>
+    <a href="objetivos.html" class="active">Objetivos</a><a href="conteudos.html">Conteúdos</a>
+    <a href="metodologia.html">Metodologia</a><a href="ferramentas.html">Ferramentas</a><a href="bibliografia.html">Bibliografia</a>
+    <a href="projetos.html">Projetos</a>
+  </nav>
+</header>
+<div class="page-hero">
+  <div class="badge">📍 Objetivos da Unidade</div>
+  <h1>O que você vai <span style="color:var(--red)">aprender</span></h1>
+  <p>Competências, habilidades e valores desenvolvidos ao longo desta unidade sobre TICs na Educação — IFSC, Semestre 2.</p>
+</div>
+<div class="prog-nav">
+  <a class="prog-btn act" href="#teoria">📖 Teoria</a>
+  <a class="prog-btn" href="#videos">🎥 Vídeos</a>
+  <a class="prog-btn" href="#leituras">📚 Leituras</a>
+  <a class="prog-btn" href="#ferramentas-sec">🛠️ Ferramentas</a>
+  <a class="prog-btn" href="#atividade">✏️ Atividade</a>
+  <a class="prog-btn" href="#quiz">🧠 Quiz</a>
+  <a class="prog-btn" href="#referencias">📖 Refs.</a>
+</div>
+
+<section id="teoria">
+  <div class="container">
+    <div class="section-label" style="color:var(--red)">📖 Teoria</div>
+    <h2>Os três objetivos centrais desta unidade</h2>
+    <div class="obj-block">
+      <div class="obj-num" style="background:var(--red)">01</div>
+      <div class="obj-body">
+        <h3>🌐 Conhecer e adaptar-se às TICs</h3>
+        <p>Conhecer os recursos tecnológicos que facilitam o acesso à informação. Desenvolver atitudes positivas de abertura à mudança e receptividade às potencialidades das TICs. O professor do século XXI precisa adaptar-se ao <strong>novo papel de mediador e orientador</strong> do conhecimento, deixando de ser o único detentor da informação.</p>
+        <div class="chip-row"><span class="chip">🔍 Pesquisa digital</span><span class="chip">📡 Literacia informacional</span><span class="chip">🤝 Mediação pedagógica</span><span class="chip">🔄 Adaptabilidade</span></div>
+      </div>
+    </div>
+    <div class="obj-block">
+      <div class="obj-num" style="background:var(--yellow)">02</div>
+      <div class="obj-body">
+        <h3>⚖️ Ética e segurança digital</h3>
+        <p>Aplicar valores fundamentais no uso das TICs: atenção às questões de <strong>segurança e vigilância</strong> sobre a informação na Internet, avaliação crítica de software, respeito aos <strong>direitos de autor</strong> e postura ética. Inclui discutir privacidade, fake news, plágio digital e uso responsável de dados pessoais.</p>
+        <div class="chip-row"><span class="chip">🔒 Segurança digital</span><span class="chip">📜 Direitos autorais</span><span class="chip">🧠 Pensamento crítico</span><span class="chip">✅ Avaliação de software</span></div>
+      </div>
+    </div>
+    <div class="obj-block">
+      <div class="obj-num" style="background:var(--green)">03</div>
+      <div class="obj-body">
+        <h3>🎓 Integrar as TICs ao ensino de Física</h3>
+        <p>Utilizar e integrar as TICs nas diferentes fases do processo de ensino, do <strong>planejamento</strong> até a <strong>avaliação</strong>. Usar simuladores, AVAs, blogs e ferramentas colaborativas de forma pedagogicamente fundamentada. A tecnologia deve servir ao aprendizado — não o contrário.</p>
+        <div class="chip-row"><span class="chip">📐 Planejamento</span><span class="chip">🔬 Simuladores</span><span class="chip">📊 Avaliação digital</span><span class="chip">🏗️ AVAs</span></div>
+      </div>
+    </div>
+    <div class="two-col" style="margin-top:1.25rem">
+      <div class="info-card">
+        <h3>💡 Por que as TICs importam na Educação?</h3>
+        <ul>
+          <li>Ampliam o acesso ao conhecimento além da sala de aula</li>
+          <li>Permitem personalizar o ritmo de aprendizagem</li>
+          <li>Facilitam a colaboração entre alunos e professores</li>
+          <li>Preparam os estudantes para o mundo digital</li>
+          <li>Tornam conteúdos abstratos de Física mais visuais</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>⚠️ Desafios do uso das TICs</h3>
+        <ul>
+          <li>Desigualdade no acesso a dispositivos e internet</li>
+          <li>Formação docente insuficiente para uso pedagógico</li>
+          <li>Risco de uso acrítico e superficial da tecnologia</li>
+          <li>Questões de privacidade e proteção de dados</li>
+          <li>Sobrecarga de informações e desinformação digital</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="videos" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">🎥 Vídeos de Apoio</div>
+    <h2>Assista antes ou depois da aula</h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/LsxRaFNropw" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>TICs na Educação – Introdução</h4><p>Visão geral sobre o papel das tecnologias no processo de ensino-aprendizagem contemporâneo.</p></div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/4mAlFxXF-wE" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>O Professor como Mediador</h4><p>Como o papel do professor se transforma na era digital — o que significa ser mediador do conhecimento.</p></div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/GEmuEWjHr5c" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>Ética e Segurança Digital</h4><p>Direitos autorais, privacidade e responsabilidade no uso de tecnologias educacionais.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="leituras">
+  <div class="container">
+    <div class="section-label" style="color:var(--green)">📚 Leituras Recomendadas</div>
+    <h2>Textos para aprofundar o tema</h2>
+    <div class="reading-list">
+
+      <!-- 1 -->
+      <div class="reading-item">
+        <div class="r-icon">🔬</div>
+        <div class="r-body">
+          <strong>TIC e a Formação de Professores de Ciências: Tendências de Pesquisa — CAVICHIA ATANAZIO &amp; LEITE (2018)</strong>
+          <p>Revisão integrativa de 34 artigos sobre TIC na formação de professores de Ciências da Natureza publicados em periódicos Qualis A1/A2. Aborda TIC na licenciatura, formação continuada e desafios da docência digital. Disponível gratuitamente na revista <em>Investigações em Ensino de Ciências</em> (UFRGS).</p>
+          <span class="r-tag">Artigo científico · IENCI / UFRGS · 2018</span>
+          <div class="r-link-row">
+            <a href="https://ienci.if.ufrgs.br/index.php/ienci/article/view/947" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="reading-item">
+        <div class="r-icon">💡</div>
+        <div class="r-body">
+          <strong>Tecnologia e Educação: Perspectivas e Desafios para a Ação Docente — CONJECTURAS (2021)</strong>
+          <p>Artigo que discute a importância das TICs na educação como recursos indissociáveis da prática docente, analisando perspectivas e desafios enfrentados por professores em escolas públicas. Disponível gratuitamente na revista <em>Conjecturas</em>.</p>
+          <span class="r-tag">Artigo científico · Conjecturas · 2021</span>
+          <div class="r-link-row">
+            <a href="http://conjecturas.org/index.php/edicoes/article/view/91/" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="reading-item">
+        <div class="r-icon">🌐</div>
+        <div class="r-body">
+          <strong>BNCC — Competência 5: Cultura Digital (MEC, 2018)</strong>
+          <p>Documento oficial do Ministério da Educação que define as competências digitais esperadas para a educação básica. Inclui o caderno de práticas sobre Tecnologias Digitais da Informação e Comunicação no contexto escolar.</p>
+          <span class="r-tag">Documento oficial · MEC · 2018</span>
+          <div class="r-link-row">
+            <a href="https://basenacionalcomum.mec.gov.br/" class="r-btn" target="_blank">🌐 Portal BNCC — MEC</a>
+            <a href="https://basenacionalcomum.mec.gov.br/implementacao/praticas/caderno-de-praticas/aprofundamentos/193-tecnologias-digitais-da-informacao-e-comunicacao-no-contexto-escolar-possibilidades" class="r-btn r-btn-alt" target="_blank">📄 TDICs no contexto escolar</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="reading-item">
+        <div class="r-icon">🧑‍🔬</div>
+        <div class="r-body">
+          <strong>Concepções de Tecnologia na Formação Inicial de Professores de Física — RICARDO (2020)</strong>
+          <p>Artigo que analisa como licenciandos em Física compreendem o conceito de tecnologia e suas implicações para o ensino. Publicado na revista <em>Investigações em Ensino de Ciências</em> (IENCI/UFRGS), de acesso aberto.</p>
+          <span class="r-tag">Artigo científico · IENCI / UFRGS · 2020</span>
+          <div class="r-link-row">
+            <a href="https://ienci.if.ufrgs.br/index.php/ienci/article/view/1876" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </div>
+</section>
+
+<section id="ferramentas-sec" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--purple)">🛠️ Ferramentas desta Aula</div>
+    <h2>Recursos digitais para explorar</h2>
+    <div class="tools-mini">
+      <div class="tool-mini"><div class="tm-icon">🌐</div><h4>Google Scholar</h4><p>Busque artigos acadêmicos sobre TICs na Educação e Ensino de Física.</p><a href="https://scholar.google.com" target="_blank">→ scholar.google.com</a></div>
+      <div class="tool-mini"><div class="tm-icon">📚</div><h4>CAPES Periódicos</h4><p>Acesso a artigos científicos via rede institucional do IFSC.</p><a href="https://www.periodicos.capes.gov.br" target="_blank">→ periodicos.capes.gov.br</a></div>
+      <div class="tool-mini"><div class="tm-icon">🏛️</div><h4>Portal do Professor MEC</h4><p>Recursos didáticos digitais do Ministério da Educação.</p><a href="http://portaldoprofessor.mec.gov.br" target="_blank">→ portaldoprofessor.mec.gov.br</a></div>
+      <div class="tool-mini"><div class="tm-icon">🎓</div><h4>RIVED</h4><p>Rede Interativa Virtual de Educação — objetos digitais de aprendizagem.</p><a href="http://rived.mec.gov.br" target="_blank">→ rived.mec.gov.br</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="atividade">
+  <div class="container">
+    <div class="section-label" style="color:var(--red)">✏️ Atividade Prática</div>
+    <h2>Reflexão e mapeamento pessoal</h2>
+    <p style="color:var(--muted);font-size:.9rem;line-height:1.75;max-width:680px;margin-bottom:1rem">Esta atividade é ponto de partida para sua aprendizagem. Não há respostas certas ou erradas — o objetivo é mapear sua relação atual com as TICs no contexto educacional.</p>
+    <div class="activity">
+      <div class="act-title"><span style="font-size:1.3rem">📝</span><h3>Atividade 1 — Mapeamento Pessoal com TICs</h3></div>
+      <ol>
+        <li>Liste <strong>3 tecnologias digitais</strong> que você já utiliza no cotidiano. Para cada uma, descreva como poderia usá-la em uma aula de Física.</li>
+        <li>Pesquise o conceito de <strong>"professor mediador"</strong> e elabore um parágrafo com suas palavras. Como isso muda a prática de ensino?</li>
+        <li>Relembre uma situação em que a falta de <strong>ética digital</strong> causou algum problema. O que poderia ter sido feito diferente?</li>
+        <li>Escolha um conteúdo de Física do Ensino Médio e <strong>esboce como as TICs podem estar presentes</strong> em cada fase: planejamento, aula e avaliação.</li>
+        <li>Compartilhe suas respostas no <strong>fórum do Moodle/Sigaa</strong> e comente a resposta de pelo menos um colega.</li>
+      </ol>
+      <div class="act-meta">
+        <span class="act-badge">⏱️ 50 min</span>
+        <span class="act-badge">👤 Individual</span>
+        <span class="act-badge">📍 Presencial + Fórum EaD</span>
+        <span class="act-badge">📊 Avaliado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">🧠 Quiz de Fixação</div>
+    <h2>Teste seus conhecimentos sobre os Objetivos</h2>
+    <div class="quiz-wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:.2rem .7rem;font-size:.73rem;font-weight:700;color:var(--muted)">5 perguntas</span>
+          <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:.2rem .7rem;font-size:.73rem;font-weight:700;color:var(--muted)">🎲 Seleção aleatória</span>
+        </div>
+      </div>
+      <div id="oq_container"></div>
+      <div class="quiz-btn-row">
+        <button class="btn btn-red" onclick="oq_check()">✔ Verificar</button>
+        <button class="btn" style="background:var(--yellow);color:#fff;box-shadow:0 4px 14px rgba(212,137,10,.3)" onclick="oq_build()">🎲 Novas perguntas</button>
+        <button class="btn btn-outline-red" onclick="oq_reset()">↺ Limpar</button>
+      </div>
+      <div class="quiz-score" id="quiz-score"></div>
+    </div>
+  </div>
+</section>
+
+<section id="referencias">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">📖 Referências desta Aula</div>
+    <h2>Fontes utilizadas</h2>
+    <div class="bib-mini">
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(224,32,32,.1);color:var(--red)">[1]</div><p>BRITO, G. S.; PURIFICAÇÃO, I. <em>Educação e novas tecnologias: um (re)pensar.</em> Curitiba: InterSaberes, 2011. <strong style="color:var(--red)">[BÁSICA]</strong></p></div>
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(224,32,32,.1);color:var(--red)">[2]</div><p>DEMO, Pedro. <em>Formação permanente e tecnologias educacionais.</em> 2. ed. Petrópolis: Vozes, 2011. <strong style="color:var(--red)">[BÁSICA]</strong></p></div>
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(37,99,168,.1);color:var(--blue2)">[3]</div><p>SCHAFF, Adam. <em>A Sociedade Informática.</em> São Paulo: Brasiliense, 2007. <strong style="color:var(--blue2)">[COMPLEMENTAR]</strong></p></div>
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(37,99,168,.1);color:var(--blue2)">[4]</div><p>PINTO, Álvaro Vieira. <em>O conceito de tecnologia.</em> Rio de Janeiro: Contraponto, 2005. <strong style="color:var(--blue2)">[COMPLEMENTAR]</strong></p></div>
+    </div>
+  </div>
+</section>
+
+<div class="page-nav">
+  <a href="index.html">← Página Inicial</a>
+  <a href="conteudos.html" class="pg-next">Próximo: Conteúdos →</a>
+</div>
+<footer>
+  <div class="footer-keys"><div class="key key-red" style="font-size:.6rem;width:24px;height:24px">ei</div><div class="key key-yellow" style="width:24px;height:24px;font-size:.75rem">M</div><div class="key key-green" style="width:24px;height:24px;font-size:.75rem">A</div><div class="key key-blue1" style="width:24px;height:24px;font-size:.75rem">K</div><div class="key key-blue2" style="width:24px;height:24px;font-size:.75rem">E</div><div class="key key-purple" style="width:24px;height:24px;font-size:.75rem">R</div></div>
+  <p><strong>eiMAKER</strong> · <a href="https://www.ifsc.edu.br" target="_blank">IFSC</a> · Tecnologias de Informação e Comunicação na Educação</p>
+</footer>
+<div class="color-strip" style="height:3px"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<script>
+const oq_banco = [
+  // ── Papel do Professor ──
+  {topic:'👨‍🏫 Papel do Professor', tc:'rgba(224,32,32,.1)', tt:'#b01010',
+   q:'Na era das TICs, o novo papel central do professor é:',
+   opts:['Único detentor e transmissor do conhecimento','Mediador e orientador do processo de aprendizagem','Substituído completamente pelas tecnologias digitais','Responsável apenas pela avaliação final'],
+   correct:1,
+   fb:['Incorreto. O modelo transmissivo cede espaço ao papel de mediador.','Correto! O professor mediador orienta e facilita, deixando de ser a única fonte de informação.','Incorreto. A tecnologia complementa, não substitui o professor.','Incorreto. O professor atua em todo o processo de ensino.']},
+  {topic:'👨‍🏫 Papel do Professor', tc:'rgba(224,32,32,.1)', tt:'#b01010',
+   q:'O que significa o professor ser "mediador do conhecimento"?',
+   opts:['Ele apenas apresenta slides e vídeos nas aulas','Ele facilita o acesso ao saber, orienta pesquisas e estimula reflexão crítica','Ele proíbe o uso de smartphones em sala de aula','Ele avalia somente com provas tradicionais escritas'],
+   correct:1,
+   fb:['Incorreto. Apresentar mídia é apenas um recurso, não define a mediação.','Correto! O mediador cria condições para que o aluno construa o conhecimento com autonomia e senso crítico.','Incorreto. A proibição não é característica da mediação.','Incorreto. A mediação inclui processos avaliativos diversificados.']},
+  {topic:'👨‍🏫 Papel do Professor', tc:'rgba(224,32,32,.1)', tt:'#b01010',
+   q:'Segundo BRITO & PURIFICAÇÃO, a transição mais importante no papel docente com as TICs é:',
+   opts:['De avaliador para monitor','De transmissor de conteúdo para mediador/orientador','De presencial para exclusivamente EaD','De generalista para especialista em programação'],
+   correct:1,
+   fb:['Incorreto. Essa não é a transição central abordada.','Correto! A obra destaca exatamente essa mudança: do professor que detém o conhecimento para o que orienta e acompanha.','Incorreto. A modalidade não define essa transição.','Incorreto. O foco é pedagógico, não técnico-computacional.']},
+  {topic:'👨‍🏫 Papel do Professor', tc:'rgba(224,32,32,.1)', tt:'#b01010',
+   q:'Qual atitude o professor precisa desenvolver diante das TICs?',
+   opts:['Resistência às mudanças tecnológicas para preservar o ensino tradicional','Abertura, receptividade e adaptabilidade às novas possibilidades','Dependência total das ferramentas digitais para toda atividade','Delegação de todas as explicações aos vídeos online'],
+   correct:1,
+   fb:['Incorreto. A resistência impede o aproveitamento das potencialidades das TICs.','Correto! Desenvolver atitudes positivas de abertura e adaptação é um dos objetivos centrais da unidade.','Incorreto. A tecnologia é um meio, não um fim em si mesma.','Incorreto. O professor continua indispensável na condução pedagógica.']},
+
+  // ── Ética e Segurança Digital ──
+  {topic:'🔒 Ética Digital', tc:'rgba(37,99,168,.1)', tt:'#1a3a7a',
+   q:'Qual prática representa uso ÉTICO das TICs na educação?',
+   opts:['Copiar textos da internet sem citar a fonte','Compartilhar dados pessoais de alunos sem consentimento','Usar recursos com licença Creative Commons e citar autores','Instalar qualquer software sem avaliar segurança'],
+   correct:2,
+   fb:['Incorreto. Copiar sem citar é plágio — violação ética grave.','Incorreto. Compartilhar dados sem consentimento viola a LGPD.','Correto! Respeitar licenças e citar autores é prática ética fundamental no ambiente digital.','Incorreto. Software deve ser avaliado quanto à segurança e pertinência pedagógica.']},
+  {topic:'🔒 Ética Digital', tc:'rgba(37,99,168,.1)', tt:'#1a3a7a',
+   q:'O que são "fake news" no contexto educacional?',
+   opts:['Vídeos em alta velocidade publicados no YouTube','Informações falsas ou distorcidas que se propagam rapidamente nas redes sociais','Notícias sobre ficção científica em sites educacionais','Traduções automáticas imprecisas de artigos estrangeiros'],
+   correct:1,
+   fb:['Incorreto. Velocidade de vídeo não define fake news.','Correto! Fake news são informações falsas que se espalham rapidamente, exigindo do professor e do aluno pensamento crítico para identificá-las.','Incorreto. Ficção científica é conteúdo legítimo e identificado como tal.','Incorreto. Tradução imprecisa é problema técnico diferente.']},
+  {topic:'🔒 Ética Digital', tc:'rgba(37,99,168,.1)', tt:'#1a3a7a',
+   q:'A LGPD (Lei Geral de Proteção de Dados) no contexto educacional:',
+   opts:['Permite ao professor publicar dados de alunos livremente','Restringe a coleta e uso de dados pessoais, exigindo consentimento e finalidade clara','É aplicável apenas a empresas privadas, não a escolas','Proíbe qualquer uso de sistemas digitais em escolas públicas'],
+   correct:1,
+   fb:['Incorreto. A LGPD exige consentimento e finalidade específica para uso de dados.','Correto! A LGPD se aplica a instituições de ensino e protege dados de alunos, professores e famílias.','Incorreto. A LGPD se aplica a todos os setores, incluindo educação pública e privada.','Incorreto. A lei regula o uso de dados, não proíbe sistemas digitais.']},
+  {topic:'🔒 Ética Digital', tc:'rgba(37,99,168,.1)', tt:'#1a3a7a',
+   q:'Avaliar criticamente um software educacional significa verificar:',
+   opts:['Se tem boa aparência visual e cores atraentes','Alinhamento pedagógico, acessibilidade, privacidade e custo','Se é popular entre alunos de outras escolas','Se funciona exclusivamente em iOS ou Android'],
+   correct:1,
+   fb:['Incorreto. Aparência não garante qualidade pedagógica.','Correto! A avaliação crítica considera propósito pedagógico, acesso equitativo, proteção de dados e sustentabilidade financeira.','Incorreto. Popularidade não é critério de avaliação pedagógica.','Incorreto. Compatibilidade é um critério técnico secundário.']},
+
+  // ── TICs na Educação ──
+  {topic:'💡 TICs na Educação', tc:'rgba(74,156,47,.1)', tt:'#2a6010',
+   q:'A sigla TIC significa:',
+   opts:['Teoria do Impacto Curricular','Tecnologia da Informação e Comunicação','Técnicas de Instrução e Conhecimento','Treinamento de Inteligência Computacional'],
+   correct:1,
+   fb:['Incorreto. Reveja a sigla.','Correto! TIC = Tecnologia da Informação e Comunicação — conjunto de recursos digitais usados para acessar, produzir e compartilhar informação.','Incorreto.','Incorreto.']},
+  {topic:'💡 TICs na Educação', tc:'rgba(74,156,47,.1)', tt:'#2a6010',
+   q:'Integrar TICs ao ensino de Física significa principalmente:',
+   opts:['Substituir todas as aulas presenciais por videoaulas','Usar tecnologias de forma planejada em todas as fases do ensino — do planejamento à avaliação','Ensinar programação nas aulas de Física','Proibir o uso de livros didáticos impressos'],
+   correct:1,
+   fb:['Incorreto. Integrar TICs não significa eliminar o presencial.','Correto! A integração pedagogicamente fundamentada perpassa todo o ciclo: planejar, ensinar, avaliar.','Incorreto. O foco é o ensino de Física com apoio de tecnologias, não programação em si.','Incorreto. Recursos impressos continuam válidos e complementares.']},
+  {topic:'💡 TICs na Educação', tc:'rgba(74,156,47,.1)', tt:'#2a6010',
+   q:'Qual dos seguintes é um BENEFÍCIO das TICs no ensino de Física?',
+   opts:['Eliminam a necessidade de raciocínio matemático','Tornam conceitos abstratos mais visuais e interativos','Garantem automaticamente boas notas aos alunos','Dispensam a presença do professor nas aulas'],
+   correct:1,
+   fb:['Incorreto. As TICs complementam o raciocínio, não o substituem.','Correto! Simuladores e applets permitem visualizar fenômenos abstratos de Física, facilitando a compreensão.','Incorreto. As TICs facilitam o aprendizado, mas não garantem resultados.','Incorreto. O professor é fundamental para orientar o uso das tecnologias.']},
+  {topic:'💡 TICs na Educação', tc:'rgba(74,156,47,.1)', tt:'#2a6010',
+   q:'Qual é um DESAFIO real do uso das TICs na educação?',
+   opts:['As TICs tornam o aprendizado mais interativo','As TICs permitem que alunos acessem mais fontes','Desigualdade no acesso a dispositivos e internet','As TICs possibilitam aprendizagem personalizada'],
+   correct:2,
+   fb:['Incorreto. Isso é um benefício das TICs.','Incorreto. Isso também é um benefício.','Correto! A falta de equidade no acesso a dispositivos e internet é um dos maiores desafios educacionais do uso de TICs no Brasil.','Incorreto. Personalização é um benefício das TICs.']},
+  {topic:'💡 TICs na Educação', tc:'rgba(74,156,47,.1)', tt:'#2a6010',
+   q:'Segundo SCHAFF, qual é o impacto central das tecnologias da informação na sociedade?',
+   opts:['Simplificar a vida das pessoas reduzindo o trabalho cognitivo','Transformar radicalmente as relações sociais, econômicas e culturais','Garantir emprego para todos por meio da automação','Eliminar as diferenças sociais existentes'],
+   correct:1,
+   fb:['Incorreto. SCHAFF analisa transformações profundas, não apenas simplificação.','Correto! A obra "A Sociedade Informática" analisa como a informatização redefine as estruturas sociais e econômicas, criando novos desafios e possibilidades.','Incorreto. A automação pode reduzir postos de trabalho.','Incorreto. SCHAFF alerta justamente para o aprofundamento de desigualdades.']},
+
+  // ── Fundamentos e Conceitos ──
+  {topic:'📚 Fundamentos', tc:'rgba(107,63,154,.1)', tt:'#5a1f9a',
+   q:'O Portal do Professor do MEC é um recurso:',
+   opts:['Pago, acessível apenas para professores com pós-graduação','Gratuito do Ministério da Educação com materiais didáticos digitais','Exclusivo para docentes de escolas particulares','Voltado apenas para o ensino superior'],
+   correct:1,
+   fb:['Incorreto. O portal é gratuito e aberto a todos os professores.','Correto! O portal disponibiliza gratuitamente recursos didáticos digitais alinhados à BNCC para docentes da educação básica.','Incorreto. Atende escolas públicas e privadas de todos os níveis.','Incorreto. É voltado principalmente para a educação básica.']},
+  {topic:'📚 Fundamentos', tc:'rgba(107,63,154,.1)', tt:'#5a1f9a',
+   q:'A BNCC — Base Nacional Comum Curricular — no que se refere às TICs:',
+   opts:['Ignora competências digitais no currículo nacional','Inclui o desenvolvimento de competências digitais como parte da formação integral dos estudantes','Exige que todas as aulas sejam ministradas online','Proíbe o uso de redes sociais por professores'],
+   correct:1,
+   fb:['Incorreto. A BNCC contempla explicitamente competências digitais.','Correto! A BNCC inclui, entre as competências gerais, o uso crítico e ético das tecnologias digitais como parte da formação dos estudantes.','Incorreto. A BNCC não determina modalidade de aula.','Incorreto. Não há essa proibição na BNCC.']},
+  {topic:'📚 Fundamentos', tc:'rgba(107,63,154,.1)', tt:'#5a1f9a',
+   q:'Pedro DEMO destaca, em "Formação permanente e tecnologias educacionais", a importância de:',
+   opts:['O professor se especializar apenas em uma ferramenta digital','A formação docente contínua e postura investigativa diante das tecnologias','Substituir a formação pedagógica por cursos de informática','Evitar o uso de tecnologias em turmas do Ensino Médio'],
+   correct:1,
+   fb:['Incorreto. DEMO defende uma visão ampla e crítica das tecnologias.','Correto! A obra enfatiza que o professor deve ser um pesquisador permanente, atualizando-se e refletindo criticamente sobre o uso das tecnologias.','Incorreto. A formação pedagógica é central e não deve ser substituída.','Incorreto. DEMO defende o uso consciente e crítico, não a restrição.']},
+  {topic:'📚 Fundamentos', tc:'rgba(107,63,154,.1)', tt:'#5a1f9a',
+   q:'Uma atitude de "literacia informacional" no professor significa:',
+   opts:['Saber digitar rapidamente em um teclado','Ser capaz de buscar, avaliar criticamente e usar informações digitais com discernimento','Usar exclusivamente Wikipedia como fonte de pesquisa','Proibir os alunos de pesquisar na internet durante as aulas'],
+   correct:1,
+   fb:['Incorreto. Digitação é habilidade técnica básica.','Correto! Literacia informacional é a competência de encontrar, avaliar a credibilidade e usar informações digitais de forma crítica e ética.','Incorreto. Wikipedia pode ser ponto de partida, mas requer verificação em fontes primárias.','Incorreto. Proibir pesquisa não desenvolve literacia.']},
+  {topic:'📚 Fundamentos', tc:'rgba(107,63,154,.1)', tt:'#5a1f9a',
+   q:'O RIVED (Rede Interativa Virtual de Educação) oferece:',
+   opts:['Cursos de graduação EaD para professores','Objetos digitais de aprendizagem gratuitos para educação básica','Plataforma de gestão de notas e frequência','Rede social exclusiva para professores do MEC'],
+   correct:1,
+   fb:['Incorreto. RIVED não é uma plataforma de graduação.','Correto! O RIVED disponibiliza objetos digitais de aprendizagem — animações e simulações interativas — gratuitamente para a educação básica.','Incorreto. Gestão de notas é função de sistemas como o Sigaa.','Incorreto. O RIVED é um repositório de recursos educacionais.']},
+  {topic:'📚 Fundamentos', tc:'rgba(107,63,154,.1)', tt:'#5a1f9a',
+   q:'Qual das alternativas representa o uso das TICs em TODAS as fases do ensino?',
+   opts:['Usar vídeo só na introdução da aula','Planejar com pesquisa digital, ensinar com simulador e avaliar com questionário online','Usar projetor somente para apresentar slides','Disponibilizar o livro didático em PDF'],
+   correct:1,
+   fb:['Incorreto. Usar apenas na introdução é parcial.','Correto! A integração plena das TICs perpassa planejamento, execução da aula e avaliação — três fases do processo pedagógico.','Incorreto. Usar só projetor é uso limitado e não integrado.','Incorreto. Digitalizar o livro é apenas um passo, não uma integração pedagógica.']},
+];
+
+const oq_N = 5;
+let oq_sel = [];
+const oq_ans = {};
+
+function oq_shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+function oq_build(){
+  Object.keys(oq_ans).forEach(k=>delete oq_ans[k]);
+  document.getElementById('quiz-score').style.display='none';
+  const topics=[...new Set(oq_banco.map(q=>q.topic))];
+  let pool=[];
+  topics.forEach(t=>{const tqs=oq_shuffle(oq_banco.filter(q=>q.topic===t));pool.push(...tqs.slice(0,2));});
+  oq_sel=oq_shuffle(pool).slice(0,oq_N);
+  document.getElementById('oq_container').innerHTML=oq_sel.map((q,i)=>`
+    <div class="quiz-q" data-idx="${i}">
+      <div style="background:${q.tc};color:${q.tt};display:inline-block;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:.15rem .55rem;border-radius:4px;margin-bottom:.6rem">${q.topic}</div>
+      <p>${i+1}. ${q.q}</p>
+      <div class="quiz-opts">
+        ${q.opts.map((o,oi)=>`<div class="quiz-opt" onclick="oq_sel_opt(this,${i},${oi})"><span class="opt-letter">${'ABCD'[oi]}</span>${o}</div>`).join('')}
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>`).join('');
+}
+
+function oq_sel_opt(el,qi,oi){
+  el.closest('.quiz-q').querySelectorAll('.quiz-opt').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  oq_ans[qi]=oi;
+}
+
+function oq_check(){
+  let s=0;
+  oq_sel.forEach((q,i)=>{
+    const qEl=document.querySelector('.quiz-q[data-idx="'+i+'"]');
+    const opts=qEl.querySelectorAll('.quiz-opt');
+    const fb=qEl.querySelector('.quiz-feedback');
+    opts.forEach(o=>{o.classList.remove('correct','wrong');o.style.pointerEvents='none';});
+    if(oq_ans[i]!==undefined){
+      opts[q.correct].classList.add('correct');
+      if(oq_ans[i]!==q.correct)opts[oq_ans[i]].classList.add('wrong');
+      else s++;
+      fb.textContent=q.fb[oq_ans[i]];
+      fb.style.display='block';
+      const ok=oq_ans[i]===q.correct;
+      fb.style.background=ok?'rgba(74,156,47,.1)':'rgba(224,32,32,.08)';
+      fb.style.color=ok?'var(--green)':'#c62828';
+      fb.style.border='1px solid '+(ok?'rgba(74,156,47,.25)':'rgba(224,32,32,.2)');
+    }
+  });
+  const sc=document.getElementById('quiz-score');sc.style.display='block';
+  const p=Math.round(s/oq_N*100);
+  sc.innerHTML='<h3>'+s+'/'+oq_N+' acertos ('+p+'%)</h3><p>'+(p>=80?'🎉 Excelente! Você dominou os objetivos desta unidade.':p>=60?'👍 Bom resultado! Revise os itens que errou.':'📚 Releia a teoria e tente novamente.')+'</p>';
+}
+
+function oq_reset(){
+  Object.keys(oq_ans).forEach(k=>delete oq_ans[k]);
+  document.querySelectorAll('#oq_container .quiz-opt').forEach(o=>{o.classList.remove('selected','correct','wrong');o.style.pointerEvents='';});
+  document.querySelectorAll('#oq_container .quiz-feedback').forEach(f=>f.style.display='none');
+  document.getElementById('quiz-score').style.display='none';
+}
+
+oq_build();
+
+document.querySelectorAll('.prog-btn').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const href=a.getAttribute('href');
+    if(href&&href.startsWith('#')){e.preventDefault();const t=document.querySelector(href);if(t)t.scrollIntoView({behavior:'smooth',block:'start'});}
+    document.querySelectorAll('.prog-btn').forEach(b=>b.classList.remove('act'));
+    a.classList.add('act');
+  });
+});
+</script>
+</body>
+</html>

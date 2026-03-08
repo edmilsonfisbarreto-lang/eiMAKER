@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Conteúdos – eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{--red:#e02020;--yellow:#d4890a;--green:#4a9c2f;--blue1:#1a9fd4;--blue2:#2563a8;--purple:#6b3f9a;--bg:#f0f2f7;--surface:#fff;--card:#fff;--card2:#f7f9fc;--text:#1e2130;--muted:#5a6078;--border:rgba(0,0,0,0.09);--shadow:0 2px 16px rgba(0,0,0,0.08);--accent:var(--yellow);--accent-bg:rgba(212,137,10,.09);--badge-border:rgba(212,137,10,.25)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#e8eaf0}::-webkit-scrollbar-thumb{background:var(--yellow);border-radius:3px}
+.color-strip{display:flex;height:4px}.cs1{flex:1;background:var(--red)}.cs2{flex:1;background:var(--yellow)}.cs3{flex:1;background:var(--green)}.cs4{flex:1;background:var(--blue1)}.cs5{flex:1;background:var(--blue2)}.cs6{flex:1;background:var(--purple)}
+header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:64px;box-shadow:0 1px 8px rgba(0,0,0,0.07)}
+.logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-keys{display:flex;gap:4px;align-items:center}
+.key{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.key-red{background:var(--red)}.key-yellow{background:var(--yellow)}.key-green{background:var(--green)}.key-blue1{background:var(--blue1)}.key-blue2{background:var(--blue2)}.key-purple{background:var(--purple)}
+nav{display:flex;gap:.15rem}
+nav a{color:var(--muted);text-decoration:none;padding:.4rem .9rem;border-radius:8px;font-weight:700;font-size:.85rem;transition:color .2s,background .2s}
+nav a:hover{color:var(--text);background:var(--bg)}
+nav a.active{color:var(--yellow);background:rgba(212,137,10,.09)}
+.breadcrumb{padding:.7rem 2rem;background:var(--surface);border-bottom:1px solid var(--border);font-size:.8rem;color:var(--muted)}
+.breadcrumb a{color:var(--blue1);text-decoration:none}.breadcrumb span{margin:0 .4rem}
+.page-hero{padding:2.75rem 2rem 2.25rem;background:linear-gradient(135deg,#fffbf0 0%,#fff 55%,#f0f2f7 100%);border-bottom:1px solid var(--border);text-align:center}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.3rem 1rem;border-radius:999px;font-size:.75rem;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:.9rem;background:rgba(212,137,10,.1);border:1px solid rgba(212,137,10,.25);color:var(--yellow)}
+.page-hero h1{font-size:clamp(1.75rem,4vw,2.6rem);font-weight:900;margin-bottom:.65rem;line-height:1.15}
+.page-hero p{max-width:540px;margin:0 auto;color:var(--muted);font-size:.96rem;line-height:1.75}
+.prog-nav{background:var(--surface);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center}
+.prog-btn{padding:.4rem 1rem;border-radius:999px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;border:2px solid var(--border);background:var(--card2);color:var(--muted);transition:all .2s;text-decoration:none;display:inline-block}
+.prog-btn:hover,.prog-btn.act{border-color:var(--yellow);color:var(--yellow);background:rgba(212,137,10,.09)}
+section{padding:2.5rem 2rem}
+.container{max-width:960px;margin:0 auto}
+.section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:.4rem}
+h2{font-size:1.4rem;font-weight:900;margin-bottom:1.2rem;line-height:1.2}
+h3{font-size:.98rem;font-weight:800;margin-bottom:.5rem}
+/* TABS */
+.topic-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;background:var(--card2);padding:.6rem;border-radius:12px;border:1px solid var(--border)}
+.tab-btn{flex:1;min-width:120px;padding:.55rem 1rem;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;border:none;background:transparent;color:var(--muted);transition:all .2s;text-align:center}
+.tab-btn.active{background:var(--card);color:var(--yellow);box-shadow:var(--shadow)}
+.topic{display:none}.topic.visible{display:block}
+.topic-header{display:flex;align-items:center;gap:1.25rem;margin-bottom:1.5rem;padding:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:var(--shadow)}
+.topic-num{flex-shrink:0;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.2rem;color:#fff}
+.topic-header h2{margin-bottom:.25rem;font-size:1.35rem}
+.topic-header p{font-size:.85rem;color:var(--muted);margin:0}
+/* INFO */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+@media(max-width:680px){.two-col{grid-template-columns:1fr}}
+.info-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.5rem;box-shadow:var(--shadow)}
+.info-card ul{padding-left:1.2rem;color:var(--muted);font-size:.87rem;line-height:1.95}
+.info-card p{color:var(--muted);font-size:.87rem;line-height:1.75}
+.example-box{background:var(--card2);border-left:4px solid var(--yellow);border-radius:0 12px 12px 0;padding:1.2rem 1.5rem;margin:1rem 0}
+.example-box strong{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:1px;color:var(--yellow);margin-bottom:.4rem}
+.example-box p{color:var(--muted);font-size:.87rem;line-height:1.7}
+/* VIDEO */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+.video-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .2s}
+.video-card:hover{transform:translateY(-3px)}
+.video-thumb{position:relative;padding-bottom:56.25%;background:#111}
+.video-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-info{padding:1rem 1.1rem}
+.video-info h4{font-size:.9rem;font-weight:800;margin-bottom:.25rem}
+.video-info p{font-size:.78rem;color:var(--muted);line-height:1.55}
+/* READING */
+.reading-list{display:flex;flex-direction:column;gap:.75rem}
+.reading-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem 1.3rem;display:flex;gap:1rem;align-items:flex-start;box-shadow:var(--shadow);transition:border-color .2s}
+.reading-item:hover{border-color:var(--yellow)}
+.r-icon{font-size:1.5rem;flex-shrink:0}
+.r-body strong{display:block;font-size:.9rem;margin-bottom:.2rem}
+.r-body p{font-size:.8rem;color:var(--muted);line-height:1.55}
+.r-tag{display:inline-block;background:rgba(212,137,10,.1);color:var(--yellow);border-radius:4px;padding:.1rem .5rem;font-size:.7rem;font-weight:800;margin-top:.35rem}
+
+.r-link-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:.7rem}
+.r-btn{display:inline-flex;align-items:center;gap:.4rem;margin-top:.1rem;padding:.35rem .9rem;border-radius:8px;font-size:.8rem;font-weight:800;color:var(--yellow);border:2px solid rgba(212,137,10,.3);background:rgba(212,137,10,.07);text-decoration:none;transition:all .2s}
+.r-btn:hover{background:rgba(212,137,10,.15);border-color:var(--yellow);transform:translateY(-1px)}
+/* TOOLS */
+.tools-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:.9rem}
+.tool-mini{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.1rem;text-align:center;box-shadow:var(--shadow);transition:transform .2s,border-color .2s}
+.tool-mini:hover{transform:translateY(-3px);border-color:var(--yellow)}
+.tm-icon{font-size:1.6rem;margin-bottom:.5rem}
+.tool-mini h4{font-size:.85rem;font-weight:800;margin-bottom:.25rem}
+.tool-mini p{font-size:.75rem;color:var(--muted);line-height:1.5;margin-bottom:.4rem}
+.tool-mini a{font-size:.73rem;color:var(--blue1);text-decoration:none;font-weight:700}
+/* ACTIVITY */
+.activity{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--yellow);border-radius:0 14px 14px 0;padding:1.6rem 1.75rem;box-shadow:var(--shadow);margin-top:1rem}
+.act-title{display:flex;align-items:center;gap:.6rem;margin-bottom:.85rem}
+.act-title h3{margin-bottom:0;color:var(--yellow);font-size:1rem}
+.activity ol{padding-left:1.3rem;color:var(--muted);font-size:.88rem;line-height:2.1}
+.act-meta{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;padding-top:.85rem;border-top:1px solid var(--border)}
+.act-badge{font-size:.75rem;font-weight:700;color:var(--muted);display:flex;align-items:center;gap:.35rem}
+/* QUIZ */
+.quiz-wrap{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;box-shadow:var(--shadow)}
+.quiz-q{margin-bottom:1.75rem;padding-bottom:1.75rem;border-bottom:1px solid var(--border)}
+.quiz-q:last-of-type{border-bottom:none;margin-bottom:1rem;padding-bottom:0}
+.quiz-q p{font-size:.93rem;font-weight:700;margin-bottom:.85rem;color:var(--text)}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem}
+.quiz-opt{display:flex;align-items:center;gap:.65rem;padding:.65rem 1rem;border-radius:10px;border:2px solid var(--border);cursor:pointer;transition:all .2s;font-size:.87rem;font-weight:600;color:var(--muted);background:var(--card2)}
+.quiz-opt:hover,.quiz-opt.selected{border-color:var(--yellow);color:var(--yellow);background:rgba(212,137,10,.07)}
+.quiz-opt.correct{border-color:var(--green)!important;color:var(--green)!important;background:rgba(74,156,47,.08)!important}
+.quiz-opt.wrong{border-color:#e53935!important;color:#e53935!important;background:rgba(229,57,53,.07)!important}
+.opt-letter{width:26px;height:26px;border-radius:6px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;border:1px solid var(--border)}
+.quiz-feedback{display:none;margin-top:.75rem;padding:.7rem 1rem;border-radius:8px;font-size:.83rem;font-weight:700;line-height:1.55}
+.quiz-btn-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem}
+.btn{padding:.65rem 1.4rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.9rem;cursor:pointer;text-decoration:none;border:none;display:inline-block;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-acc{background:var(--yellow);color:#fff;box-shadow:0 4px 14px rgba(212,137,10,.3)}
+.btn-out{background:transparent;border:2px solid var(--yellow);color:var(--yellow)}
+.btn-out:hover{background:rgba(212,137,10,.07)}
+.quiz-score{display:none;background:linear-gradient(135deg,rgba(74,156,47,.1),rgba(26,159,212,.07));border:1px solid rgba(74,156,47,.25);border-radius:12px;padding:1.25rem;text-align:center;margin-top:1.25rem}
+.quiz-score h3{font-size:1.3rem;color:var(--green);margin-bottom:.35rem}
+.quiz-score p{font-size:.88rem;color:var(--muted)}
+/* BIB */
+.bib-mini{display:flex;flex-direction:column;gap:.7rem}
+.bib-mini-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;display:flex;gap:.9rem;align-items:flex-start;box-shadow:var(--shadow)}
+.bib-badge{flex-shrink:0;width:32px;height:32px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:'Fira Code',monospace;font-size:.72rem;font-weight:500}
+.bib-mini-item p{font-size:.83rem;color:var(--muted);line-height:1.65}
+.bib-mini-item em{font-style:normal;font-weight:700;color:var(--text)}
+.page-nav{background:var(--surface);border-top:1px solid var(--border);padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.page-nav a{text-decoration:none;display:flex;align-items:center;gap:.5rem;font-weight:800;font-size:.88rem;color:var(--muted);transition:color .2s}
+.page-nav a:hover,.page-nav .pg-next{color:var(--yellow)}
+footer{background:#1e2130;color:rgba(255,255,255,0.5);padding:1.75rem 2rem;text-align:center;font-size:.8rem}
+footer strong{color:#fff}
+footer a{color:var(--blue1);text-decoration:none}
+.footer-keys{display:flex;justify-content:center;gap:4px;margin-bottom:.65rem}
+.chip-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+.chip{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.22rem .7rem;font-size:.74rem;font-weight:700;color:var(--muted)}
+@media(max-width:600px){nav{display:none}}
+</style>
+</head>
+<body>
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<header>
+  <a class="logo-wrap" href="index.html"><div class="logo-keys"><div class="key key-red" style="font-size:.68rem">ei</div><div class="key key-yellow">M</div><div class="key key-green">A</div><div class="key key-blue1">K</div><div class="key key-blue2">E</div><div class="key key-purple">R</div></div></a>
+  <nav>
+    <a href="objetivos.html">Objetivos</a><a href="conteudos.html" class="active">Conteúdos</a>
+    <a href="metodologia.html">Metodologia</a><a href="ferramentas.html">Ferramentas</a><a href="bibliografia.html">Bibliografia</a>
+    <a href="projetos.html">Projetos</a>
+  </nav>
+</header>
+<div class="page-hero">
+  <div class="badge">📚 Conteúdos Programáticos</div>
+  <h1>O que vamos <span style="color:var(--yellow)">estudar</span></h1>
+  <p>Quatro tópicos — simuladores, sites/blogs, AVAs e colaboração digital — com teoria, vídeos, atividades práticas e quiz para cada um.</p>
+</div>
+<div class="prog-nav">
+  <a class="prog-btn act" href="#topicos">📖 Tópicos</a>
+  <a class="prog-btn" href="#videos">🎥 Vídeos</a>
+  <a class="prog-btn" href="#leituras">📚 Leituras</a>
+  <a class="prog-btn" href="#ferramentas-sec">🛠️ Ferramentas</a>
+  <a class="prog-btn" href="#atividade">✏️ Atividade</a>
+  <a class="prog-btn" href="#quiz">🧠 Quiz</a>
+  <a class="prog-btn" href="#referencias">📖 Refs.</a>
+</div>
+
+<!-- TÓPICOS -->
+<section id="topicos">
+  <div class="container">
+    <div class="section-label" style="color:var(--yellow)">📖 Teoria</div>
+    <h2>Selecione o tópico para explorar</h2>
+    <div class="topic-tabs">
+      <button class="tab-btn active" onclick="showTopic(0,this)">🔬 01 · Simuladores</button>
+      <button class="tab-btn" onclick="showTopic(1,this)">🌐 02 · Sites & Blogs</button>
+      <button class="tab-btn" onclick="showTopic(2,this)">🏗️ 03 · AVAs</button>
+      <button class="tab-btn" onclick="showTopic(3,this)">🤝 04 · Colaboração</button>
+    </div>
+
+    <!-- TOPIC 01 -->
+    <div class="topic visible" id="topic-0">
+      <div class="topic-header">
+        <div class="topic-num" style="background:var(--red)">01</div>
+        <div><h2>Simuladores e Laboratórios Virtuais</h2><p>Applets e programas interativos que demonstram princípios físicos de forma visual e segura.</p></div>
+      </div>
+      <div class="two-col">
+        <div class="info-card">
+          <h3>🔬 O que são Laboratórios Virtuais?</h3>
+          <ul>
+            <li>Simulações interativas de fenômenos físicos</li>
+            <li>Exploração de variáveis em tempo real</li>
+            <li>Acessíveis por navegador ou dispositivo móvel</li>
+            <li>Complementam ou substituem experimentos reais</li>
+            <li>Usados antes, durante ou após a aula</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>🎯 Benefícios Pedagógicos</h3>
+          <ul>
+            <li>Visualização de fenômenos invisíveis a olho nu</li>
+            <li>Repetição sem custo de materiais</li>
+            <li>Segurança em experimentos de alto risco</li>
+            <li>Maior engajamento e motivação</li>
+            <li>Desenvolvimento do pensamento científico</li>
+          </ul>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>💡 Exemplo Prático</strong>
+        <p>O PhET Interactive Simulations (Universidade do Colorado) oferece simuladores gratuitos de eletromagnetismo, mecânica, óptica e ondas — todos disponíveis em português e funcionando diretamente no navegador.</p>
+      </div>
+      <div class="info-card" style="margin-top:1rem">
+        <h3>🌐 Ferramentas desta área</h3>
+        <div class="chip-row"><span class="chip">PhET Colorado</span><span class="chip">Algodoo</span><span class="chip">Falstad Circuit</span><span class="chip">GeoGebra</span><span class="chip">Tracker</span><span class="chip">Khan Academy Labs</span></div>
+      </div>
+    </div>
+
+    <!-- TOPIC 02 -->
+    <div class="topic" id="topic-1">
+      <div class="topic-header">
+        <div class="topic-num" style="background:var(--yellow)">02</div>
+        <div><h2>Websites, Blogs e Redes Sociais</h2><p>Espaços digitais próprios para organizar, publicar e compartilhar conteúdos de Física.</p></div>
+      </div>
+      <div class="two-col">
+        <div class="info-card">
+          <h3>🌐 Sites e Blogs Educacionais</h3>
+          <ul>
+            <li>Publicação de resumos e materiais de aulas</li>
+            <li>Incorporação de vídeos, simuladores e links</li>
+            <li>Interação com alunos via comentários</li>
+            <li>Portfólio digital das atividades da turma</li>
+            <li>Ferramentas: Blogger, WordPress, Google Sites, Wix</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>📱 Redes Sociais no Ensino</h3>
+          <ul>
+            <li>Divulgação científica em linguagem acessível</li>
+            <li>Grupos fechados para comunicação da turma</li>
+            <li>Canais do YouTube para videoaulas</li>
+            <li>Instagram para experimentos curtos (Reels)</li>
+            <li>Atenção: privacidade, netiqueta e moderação</li>
+          </ul>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>💡 Dica Metodológica</strong>
+        <p>Um blog de aula funciona como diário de bordo coletivo: cada semana um grupo registra o que foi estudado com imagens, links e reflexões. Isso desenvolve escrita científica e responsabilidade compartilhada.</p>
+      </div>
+    </div>
+
+    <!-- TOPIC 03 -->
+    <div class="topic" id="topic-2">
+      <div class="topic-header">
+        <div class="topic-num" style="background:var(--green)">03</div>
+        <div><h2>AVAs — Ambientes Virtuais de Aprendizagem</h2><p>Plataformas que reúnem recursos, comunicação, avaliação e gestão de turma em um único ambiente digital.</p></div>
+      </div>
+      <div class="two-col">
+        <div class="info-card">
+          <h3>🏗️ O que um AVA oferece?</h3>
+          <ul>
+            <li>Upload de materiais: PDFs, vídeos, apresentações</li>
+            <li>Fóruns de discussão e chats</li>
+            <li>Tarefas com entrega e feedback</li>
+            <li>Questionários e testes automáticos</li>
+            <li>Acompanhamento do progresso dos alunos</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>📐 Arquitetura Pedagógica em AVAs</h3>
+          <ul>
+            <li>Organizar por temas, semanas ou unidades</li>
+            <li>Sequência: leitura → atividade → discussão → avaliação</li>
+            <li>Usar rótulos e ícones para facilitar a navegação</li>
+            <li>Mesclar recursos síncronos e assíncronos</li>
+            <li>Feedback frequente e personalizado</li>
+          </ul>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>💡 Exemplo de Estrutura no Moodle</strong>
+        <p>Uma boa aula no Moodle pode seguir: 1) Contextualização em texto → 2) Link para simulador PhET → 3) Questionário reflexivo → 4) Fórum de dúvidas → 5) Tarefa de entrega. Cria um percurso guiado e autônomo.</p>
+      </div>
+    </div>
+
+    <!-- TOPIC 04 -->
+    <div class="topic" id="topic-3">
+      <div class="topic-header">
+        <div class="topic-num" style="background:var(--blue1)">04</div>
+        <div><h2>Documentos Colaborativos e Gerenciamento Digital</h2><p>Ferramentas que permitem produção conjunta de conhecimento, em tempo real ou assincronamente.</p></div>
+      </div>
+      <div class="two-col">
+        <div class="info-card">
+          <h3>📁 Google Workspace for Education</h3>
+          <ul>
+            <li><strong>Docs:</strong> textos colaborativos com histórico de versões</li>
+            <li><strong>Slides:</strong> apresentações compartilhadas em equipe</li>
+            <li><strong>Forms:</strong> questionários e pesquisas instantâneas</li>
+            <li><strong>Drive:</strong> armazenamento e organização em nuvem</li>
+            <li><strong>Classroom:</strong> gestão de turmas e entrega de tarefas</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>🤝 Benefícios da Colaboração Online</h3>
+          <ul>
+            <li>Trabalho em grupo sem necessidade presencial</li>
+            <li>Controle de versões e autoria de cada contribuição</li>
+            <li>Comentários e revisão em tempo real</li>
+            <li>Acesso a qualquer hora e dispositivo</li>
+            <li>Integração nativa com Moodle e outros sistemas</li>
+          </ul>
+        </div>
+      </div>
+      <div class="example-box">
+        <strong>💡 Prática Colaborativa</strong>
+        <p>Um relatório de experimento pode ser feito coletivamente no Google Docs: enquanto um grupo realiza o experimento no laboratório de Física, outro redige o relatório em tempo real, com o professor revisando e comentando simultaneamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VÍDEOS -->
+<section id="videos" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">🎥 Vídeos de Apoio</div>
+    <h2>Assista e aprofunde os conteúdos</h2>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/WSqBsKbXuLs" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>Laboratórios Virtuais no Ensino</h4><p>Como usar simuladores para tornar o ensino de Física mais dinâmico e investigativo.</p></div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/JjVQ6UYDMNY" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>Criando um Blog Educacional</h4><p>Tutorial prático: como criar e estruturar um blog para o ensino de Física com o Blogger.</p></div>
+      </div>
+      <div class="video-card">
+        <div class="video-thumb"><iframe src="https://www.youtube.com/embed/r2Ge7j2f-7s" allowfullscreen loading="lazy"></iframe></div>
+        <div class="video-info"><h4>Introdução ao Moodle</h4><p>Visão geral do Moodle para professores: como organizar uma disciplina, criar tarefas e fóruns.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEITURAS -->
+<section id="leituras">
+  <div class="container">
+    <div class="section-label" style="color:var(--green)">📚 Leituras Recomendadas</div>
+    <h2>Textos para aprofundar cada tópico</h2>
+    <div class="reading-list">
+
+      <div class="reading-item">
+        <div class="r-icon">🔬</div>
+        <div class="r-body">
+          <strong>Uso de simulações: potencialidades e desafios nas pesquisas de ensino de Física — JAIME &amp; LEONEL (2024)</strong>
+          <p>Revisão de literatura publicada na <em>Revista Brasileira de Ensino de Física</em> (RBEF/SBF) que analisa trabalhos do RBEF e CBEF sobre simulações computacionais no ensino de Física, mapeando potencialidades e desafios identificados pelas pesquisas da área.</p>
+          <span class="r-tag">🔬 Simuladores · RBEF / SciELO · 2024</span>
+          <div class="r-link-row">
+            <a href="https://www.scielo.br/j/rbef/a/PvcqYmVLssjYpggDb4Jmz8N/" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-item">
+        <div class="r-icon">🌐</div>
+        <div class="r-body">
+          <strong>Blogs como Ferramenta Pedagógica: possibilidades no ensino de Ciências — GOMES (2005)</strong>
+          <p>Artigo publicado no repositório da Universidade do Minho (Portugal) que analisa o uso de blogs como diário de aprendizagem e ferramenta de autoria digital em contextos educacionais. Acesso aberto.</p>
+          <span class="r-tag">🌐 Sites &amp; Blogs · Univ. Minho</span>
+          <div class="r-link-row">
+            <a href="https://repositorium.sdum.uminho.pt/handle/1822/4499" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-item">
+        <div class="r-icon">🏗️</div>
+        <div class="r-body">
+          <strong>Moodle como AVA: análise de recursos pedagógicos para o ensino de Física — SILVEIRA &amp; DÁVILA (2014)</strong>
+          <p>Artigo publicado na revista <em>Novas Tecnologias na Educação</em> (RENOTE/UFRGS) que investiga como o Moodle pode ser configurado para apoiar sequências didáticas de Física. Acesso aberto.</p>
+          <span class="r-tag">🏗️ AVAs · RENOTE / UFRGS</span>
+          <div class="r-link-row">
+            <a href="https://seer.ufrgs.br/index.php/renote/article/view/53541" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="reading-item">
+        <div class="r-icon">🤝</div>
+        <div class="r-body">
+          <strong>Ferramentas Colaborativas Online no Ensino: Google Workspace na prática docente — RENOTE (2021)</strong>
+          <p>Artigo da revista <em>RENOTE</em> (UFRGS) que analisa o uso do Google Workspace (Docs, Drive, Classroom) como suporte à aprendizagem colaborativa em escolas da educação básica. Acesso aberto.</p>
+          <span class="r-tag">🤝 Colaboração · RENOTE / UFRGS</span>
+          <div class="r-link-row">
+            <a href="https://seer.ufrgs.br/index.php/renote/article/view/121036" class="r-btn" target="_blank">📄 Acessar artigo completo</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FERRAMENTAS -->
+<section id="ferramentas-sec" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--purple)">🛠️ Ferramentas desta Aula</div>
+    <h2>Experimente agora</h2>
+    <div class="tools-mini">
+      <div class="tool-mini"><div class="tm-icon">🎮</div><h4>PhET Simulations</h4><p>Simuladores gratuitos de Física em português — eletricidade, mecânica, ondas e mais.</p><a href="https://phet.colorado.edu/pt_BR/" target="_blank">→ phet.colorado.edu</a></div>
+      <div class="tool-mini"><div class="tm-icon">✍️</div><h4>Blogger</h4><p>Crie um blog educacional em minutos, gratuitamente, com a sua conta Google.</p><a href="https://www.blogger.com" target="_blank">→ blogger.com</a></div>
+      <div class="tool-mini"><div class="tm-icon">🌐</div><h4>Google Sites</h4><p>Crie sites sem saber programar. Integrado com Drive e YouTube.</p><a href="https://sites.google.com" target="_blank">→ sites.google.com</a></div>
+      <div class="tool-mini"><div class="tm-icon">📖</div><h4>Moodle Demo</h4><p>Explore um ambiente Moodle de demonstração sem precisar se cadastrar.</p><a href="https://school.moodledemo.net" target="_blank">→ school.moodledemo.net</a></div>
+      <div class="tool-mini"><div class="tm-icon">📁</div><h4>Google Drive</h4><p>Armazenamento e documentos colaborativos — ideal para trabalhos em grupo.</p><a href="https://drive.google.com" target="_blank">→ drive.google.com</a></div>
+      <div class="tool-mini"><div class="tm-icon">📐</div><h4>GeoGebra</h4><p>Modelagem matemática e física com representações gráficas interativas.</p><a href="https://www.geogebra.org" target="_blank">→ geogebra.org</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ATIVIDADE -->
+<section id="atividade">
+  <div class="container">
+    <div class="section-label" style="color:var(--yellow)">✏️ Atividade Prática</div>
+    <h2>Explore, crie e compartilhe</h2>
+    <p style="color:var(--muted);font-size:.9rem;line-height:1.75;max-width:680px;margin-bottom:1rem">Esta atividade integra os quatro tópicos de conteúdo. Você vai usar um simulador, criar um espaço digital e compartilhar com a turma.</p>
+    <div class="activity">
+      <div class="act-title"><span style="font-size:1.3rem">🛠️</span><h3>Atividade 2 — Da Simulação ao Blog de Física</h3></div>
+      <ol>
+        <li><strong>Escolha um simulador PhET</strong> relacionado a um conteúdo de Física do Ensino Médio. Explore por 15 minutos e anote: quais variáveis o aluno controla? Quais feedbacks visuais ele recebe?</li>
+        <li><strong>Crie um blog no Blogger ou Google Sites</strong> com o título do conteúdo escolhido. Publique um post com: a) explicação teórica do conceito; b) link e breve descrição do simulador.</li>
+        <li><strong>Incorpore o simulador PhET</strong> diretamente no seu blog usando o código de incorporação (embed) disponível na plataforma.</li>
+        <li><strong>Esboce a arquitetura de um AVA</strong> no Moodle para ensinar este mesmo conteúdo: defina quais materiais, atividade, avaliação e espaços de interação você usaria.</li>
+        <li><strong>Compartilhe o link do blog</strong> em um documento Google Docs coletivo da turma. Comente o blog de pelo menos dois colegas com feedback pedagógico.</li>
+      </ol>
+      <div class="act-meta">
+        <span class="act-badge">⏱️ 2 aulas (100 min)</span>
+        <span class="act-badge">👥 Duplas</span>
+        <span class="act-badge">💻 Lab. Informática</span>
+        <span class="act-badge">📊 Avaliado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" style="background:var(--surface)">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">🧠 Quiz de Fixação</div>
+    <h2>Teste seus conhecimentos sobre os conteúdos</h2>
+    <div class="quiz-wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem">
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:.2rem .7rem;font-size:.73rem;font-weight:700;color:var(--muted)" id="cq_counter">5 perguntas</span>
+          <span style="background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:.2rem .7rem;font-size:.73rem;font-weight:700;color:var(--muted)">🎲 Seleção aleatória</span>
+        </div>
+      </div>
+      <div id="cq_container"></div>
+      <div class="quiz-btn-row">
+        <button class="btn btn-acc" onclick="cq_check()">✔ Verificar</button>
+        <button class="btn" style="background:var(--purple);color:#fff;box-shadow:0 4px 14px rgba(107,63,154,.3)" onclick="cq_build()">🎲 Novas perguntas</button>
+        <button class="btn btn-out" onclick="cq_reset()">↺ Limpar</button>
+      </div>
+      <div class="quiz-score" id="quiz-score"></div>
+    </div>
+  </div>
+</section>
+
+<!-- REFERÊNCIAS -->
+<section id="referencias">
+  <div class="container">
+    <div class="section-label" style="color:var(--blue2)">📖 Referências desta Aula</div>
+    <h2>Fontes utilizadas</h2>
+    <div class="bib-mini">
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(224,32,32,.1);color:var(--red)">[1]</div><p>BRITO, G. S.; PURIFICAÇÃO, I. <em>Educação e novas tecnologias: um (re)pensar.</em> Curitiba: InterSaberes, 2011. <strong style="color:var(--red)">[BÁSICA]</strong></p></div>
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(37,99,168,.1);color:var(--blue2)">[3]</div><p>PEREIRA, A. C. <em>Ambientes Virtuais de Aprendizagem em Diferentes Contextos.</em> Rio de Janeiro: Ciência Moderna, 2007. <strong style="color:var(--blue2)">[COMPLEMENTAR]</strong></p></div>
+      <div class="bib-mini-item"><div class="bib-badge" style="background:rgba(37,99,168,.1);color:var(--blue2)">[4]</div><p>SCHAFF, Adam. <em>A Sociedade Informática.</em> São Paulo: Brasiliense, 2007. <strong style="color:var(--blue2)">[COMPLEMENTAR]</strong></p></div>
+    </div>
+  </div>
+</section>
+
+<div class="page-nav">
+  <a href="objetivos.html">← Objetivos</a>
+  <a href="metodologia.html" class="pg-next">Próximo: Metodologia →</a>
+</div>
+<footer>
+  <div class="footer-keys"><div class="key key-red" style="font-size:.6rem;width:24px;height:24px">ei</div><div class="key key-yellow" style="width:24px;height:24px;font-size:.75rem">M</div><div class="key key-green" style="width:24px;height:24px;font-size:.75rem">A</div><div class="key key-blue1" style="width:24px;height:24px;font-size:.75rem">K</div><div class="key key-blue2" style="width:24px;height:24px;font-size:.75rem">E</div><div class="key key-purple" style="width:24px;height:24px;font-size:.75rem">R</div></div>
+  <p><strong>eiMAKER</strong> · <a href="https://www.ifsc.edu.br" target="_blank">IFSC</a> · Tecnologias de Informação e Comunicação na Educação</p>
+</footer>
+<div class="color-strip" style="height:3px"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<script>
+/* ── TOPIC TABS ── */
+const cq_topicNames = [
+  '🔬 01 · Simuladores',
+  '🌐 02 · Sites & Blogs',
+  '🏗️ 03 · AVAs',
+  '🤝 04 · Colaboração Digital'
+];
+let cq_activeTopicIdx = 0;
+
+function showTopic(idx, btn) {
+  document.querySelectorAll('.topic').forEach(t => t.classList.remove('visible'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('topic-' + idx).classList.add('visible');
+  btn.classList.add('active');
+  // sync quiz
+  cq_activeTopicIdx = idx;
+  const titleEl = document.getElementById('quiz-topic-title');
+  if (titleEl) titleEl.textContent = cq_topicNames[idx];
+  cq_build();
+}
+
+/* ── BANCO DE QUESTÕES (por tópico) ── */
+const cq_banco = {
+  0: [ // Simuladores
+    {q:'O PhET Interactive Simulations é desenvolvido pela:',
+     opts:['Universidade de Harvard','Universidade do Colorado','MIT OpenCourseWare','Khan Academy'],
+     correct:1,
+     fb:['Incorreto. Harvard não mantém o PhET.','Correto! PhET é criado gratuitamente pela Universidade do Colorado Boulder.','Incorreto. MIT OpenCourseWare é outra plataforma.','Incorreto. Khan Academy tem seus próprios recursos.']},
+    {q:'Qual vantagem dos laboratórios virtuais é mais relevante para o ensino de Física?',
+     opts:['Substituem completamente os laboratórios reais','Permitem experimentar fenômenos perigosos ou caros com segurança','São mais precisos que experimentos reais','Eliminam a necessidade de compreender equações'],
+     correct:1,
+     fb:['Incorreto. Complementam, não substituem.','Correto! Permitem explorar fenômenos de alto risco ou custo sem perigo físico.','Incorreto. Simuladores têm simplificações e limitações.','Incorreto. A compreensão matemática continua essencial.']},
+    {q:'O Algodoo é uma ferramenta ideal para simular:',
+     opts:['Ambientes virtuais de aprendizagem completos','Mecânica, fluidos e engrenagens de forma lúdica em 2D','Edição colaborativa de textos científicos','Criação de blogs e sites educacionais'],
+     correct:1,
+     fb:['Incorreto. AVAs são Moodle, Sigaa etc.','Correto! Algodoo simula forças, colisões, fluidos e mecanismos em 2D de forma interativa.','Incorreto. Para textos usa-se Google Docs.','Incorreto. Blogger e Google Sites são para criação de sites.']},
+    {q:'Qual benefício pedagógico de usar simuladores ANTES da aula expositiva?',
+     opts:['Dispensa a aula teórica','Ativa conhecimentos prévios e gera curiosidade investigativa','Garante boas notas aos alunos','Reduz o tempo de aula'],
+     correct:1,
+     fb:['Incorreto. A teoria continua importante para formalizar conceitos.','Correto! O simulador antes da teoria cria perguntas concretas que motivam o aprendizado.','Incorreto. Não há essa garantia.','Incorreto. O tempo de aprendizagem pode aumentar positivamente.']},
+    {q:'O GeoGebra é especialmente útil em Física para:',
+     opts:['Gravar videoaulas','Modelar graficamente situações físicas e plotar funções','Gerenciar frequência de alunos','Criar murais colaborativos'],
+     correct:1,
+     fb:['Incorreto. Para screencast usa-se Loom ou OBS.','Correto! GeoGebra permite plotar gráficos cinemáticos e modelar funções físicas interativamente.','Incorreto. Moodle/Sigaa gerenciam frequência.','Incorreto. Padlet cria murais colaborativos.']},
+    {q:'Segundo JAIME & LEONEL (2024), as simulações permitem ao aluno:',
+     opts:['Substituir a leitura do livro didático','Tornar-se agente ativo ao manipular parâmetros e observar fenômenos','Aprender física sem acompanhamento do professor','Memorizar fórmulas com mais facilidade'],
+     correct:1,
+     fb:['Incorreto. As simulações complementam, não substituem o livro.','Correto! A pesquisa destaca que o aluno se torna agente ativo, aumentando curiosidade e compreensão.','Incorreto. O professor continua essencial para orientar o uso.','Incorreto. O foco é compreensão conceitual, não memorização.']},
+  ],
+  1: [ // Sites & Blogs
+    {q:'Qual ferramenta do Google cria sites educacionais sem programar, integrado ao Drive?',
+     opts:['Google Forms','Google Sites','Google Meet','Google Scholar'],
+     correct:1,
+     fb:['Incorreto. Forms cria formulários e questionários.','Correto! Google Sites cria sites sem código, integrado ao Drive, Docs e YouTube.','Incorreto. Meet é para videoconferências.','Incorreto. Scholar é buscador de artigos científicos.']},
+    {q:'Usar um blog como "diário de bordo coletivo" na aula significa:',
+     opts:['Apenas o professor publica','Alunos registram semanalmente o que aprenderam, desenvolvendo escrita científica','Os alunos copiam o conteúdo do livro','O blog substitui o caderno'],
+     correct:1,
+     fb:['Incorreto. No diário coletivo os alunos também publicam.','Correto! Cada grupo registra o aprendizado com reflexões, desenvolvendo autoria e responsabilidade.','Incorreto. O objetivo é reflexão e autoria, não cópia.','Incorreto. São recursos complementares.']},
+    {q:'Ao usar redes sociais no ensino, qual cuidado é indispensável?',
+     opts:['Nunca usar imagens','Atenção à privacidade, netiqueta e moderação do conteúdo','Exigir que todos criem contas públicas','Postar apenas em inglês'],
+     correct:1,
+     fb:['Incorreto. Imagens são parte importante da comunicação científica.','Correto! Privacidade, netiqueta e moderação são cuidados essenciais.','Incorreto. Contas públicas expõem alunos a riscos.','Incorreto. O idioma deve ser adequado ao contexto da turma.']},
+    {q:'O Blogger é mantido por qual empresa?',
+     opts:['Microsoft','Apple','Meta','Google'],
+     correct:3,
+     fb:['Incorreto.','Incorreto.','Incorreto. Meta mantém Facebook e Instagram.','Correto! Blogger é uma plataforma de blogs gratuita do Google, ativa desde 2003.']},
+    {q:'Qual é a principal vantagem de um site de aula criado no Google Sites?',
+     opts:['Permite vender produtos online','Centraliza materiais, links e tarefas acessíveis a qualquer hora','Substitui o AVA institucional completamente','Gera automaticamente videoaulas'],
+     correct:1,
+     fb:['Incorreto. Google Sites é para fins educacionais, não comerciais.','Correto! Um site de aula organiza recursos, vídeos e tarefas que alunos acessam a qualquer momento.','Incorreto. Sites complementam o AVA, não o substituem.','Incorreto. Videoaulas requerem gravação própria.']},
+    {q:'O que é "netiqueta" no contexto educacional digital?',
+     opts:['Um plugin de segurança para navegadores','Conjunto de boas práticas de comportamento e comunicação na internet','Um software de bloqueio de redes sociais','Uma rede social exclusiva para professores'],
+     correct:1,
+     fb:['Incorreto.','Correto! Netiqueta é o conjunto de regras de etiqueta e respeito na comunicação online, essencial ao usar redes sociais com alunos.','Incorreto.','Incorreto.']},
+  ],
+  2: [ // AVAs
+    {q:'A sigla AVA significa:',
+     opts:['Aplicativo Virtual Avançado','Ambiente Virtual de Aprendizagem','Avaliação Virtual Autônoma','Acesso Virtual Aberto'],
+     correct:1,
+     fb:['Incorreto.','Correto! AVA = Ambiente Virtual de Aprendizagem — plataforma que reúne recursos, comunicação e gestão de turma.','Incorreto.','Incorreto.']},
+    {q:'Qual AVA é o sistema institucional oficial do IFSC?',
+     opts:['Blackboard','Sigaa / Moodle','Canvas LMS','Teams Education'],
+     correct:1,
+     fb:['Incorreto. Blackboard é usado em instituições privadas.','Correto! O IFSC usa Sigaa (gestão acadêmica) e Moodle (disciplinas EaD).','Incorreto. Canvas é usado em outras instituições.','Incorreto. Teams é da Microsoft, não é o sistema oficial do IFSC.']},
+    {q:'Uma boa sequência pedagógica em AVA seria:',
+     opts:['Avaliação → Leitura → Atividade → Vídeo','Contextualização → Recurso → Atividade → Fórum → Entrega','Tarefa → Fórum → Material → Prova','Vídeo → Prova → Material → Fórum'],
+     correct:1,
+     fb:['Incorreto. Avaliar antes do conteúdo não faz sentido.','Correto! Contextualizar primeiro, depois recurso, atividade reflexiva, interação e entrega garante percurso guiado.','Incorreto. Tarefa sem conteúdo prévio é problemático.','Incorreto. Prova após vídeo sem prática intermediária é ineficaz.']},
+    {q:'Fóruns de discussão em AVAs têm como principal função pedagógica:',
+     opts:['Substituir provas escritas','Promover interação e aprendizagem colaborativa assíncrona','Armazenar arquivos de videoaulas','Calcular médias automaticamente'],
+     correct:1,
+     fb:['Incorreto. Fóruns complementam, mas não substituem avaliações.','Correto! Fóruns permitem interação rica em diferentes horários, promovendo colaboração assíncrona.','Incorreto. Armazenamento é função do repositório.','Incorreto. Cálculo de médias é função do livro de notas.']},
+    {q:'O que diferencia um AVA de um simples site educacional?',
+     opts:['O AVA tem design mais elaborado','O AVA integra gestão de turma, tarefas, avaliação, comunicação e acompanhamento','O AVA funciona apenas offline','O AVA é exclusivo para ensino superior'],
+     correct:1,
+     fb:['Incorreto. Design não é o diferencial.','Correto! AVAs integram múltiplas funcionalidades pedagógicas: entregas, notas, fóruns, progresso — em um único ambiente.','Incorreto. AVAs funcionam online.','Incorreto. AVAs são usados em todos os níveis de ensino.']},
+    {q:'No Moodle, a ferramenta "Questionário" permite ao professor:',
+     opts:['Criar slides de apresentação','Elaborar questões com correção automática e feedback imediato','Gravar videoaulas diretamente','Gerenciar a frequência dos alunos'],
+     correct:1,
+     fb:['Incorreto. Slides são criados no PowerPoint ou Google Slides.','Correto! O Questionário do Moodle oferece múltiplos tipos de questão com correção automática e feedback personalizado.','Incorreto. Gravação de vídeo requer ferramentas externas.','Incorreto. Frequência é registrada na chamada, não no questionário.']},
+  ],
+  3: [ // Colaboração Digital
+    {q:'Qual funcionalidade do Google Docs facilita o trabalho em grupo a distância?',
+     opts:['Impressão automática','Edição simultânea com histórico de autoria e comentários em tempo real','Conversão automática para PDF','Tradução automática'],
+     correct:1,
+     fb:['Incorreto. Impressão não é diferencial colaborativo.','Correto! Múltiplos usuários editam ao mesmo tempo, com autoria registrada e comentários para revisão colaborativa.','Incorreto. Conversão é função básica, não exclusiva.','Incorreto. Tradução é recurso adicional.']},
+    {q:'O Google Classroom serve principalmente para:',
+     opts:['Criar simuladores físicos','Gestão de turmas: organizar tarefas, materiais e comunicação','Editar vídeos educacionais','Criar blogs e portfólios'],
+     correct:1,
+     fb:['Incorreto. Simuladores ficam no PhET ou GeoGebra.','Correto! Classroom organiza turmas, distribui tarefas, fornece feedback e centraliza a comunicação.','Incorreto. Para vídeos usa-se Loom, DaVinci ou similares.','Incorreto. Blogs ficam no Blogger ou Google Sites.']},
+    {q:'Principal vantagem de documentos na nuvem em relação a arquivos locais:',
+     opts:['São mais bonitos','Acesso de qualquer dispositivo com backup automático','Ocupam menos espaço no servidor','Só funcionam em iOS'],
+     correct:1,
+     fb:['Incorreto. Estética não é o diferencial.','Correto! Acesso ubíquo, backup automático e compartilhamento instantâneo são os principais diferenciais.','Incorreto. O espaço depende do plano.','Incorreto. Google Drive funciona em qualquer sistema com navegador.']},
+    {q:'O controle de versões do Google Docs permite:',
+     opts:['Bloquear edições de colaboradores','Ver quem alterou o quê e quando, podendo restaurar versões anteriores','Converter o documento em apresentação automaticamente','Compartilhar só com usuários pagantes'],
+     correct:1,
+     fb:['Incorreto. O objetivo é permitir edições simultâneas.','Correto! O histórico mostra cada alteração com autoria e data, permitindo restaurar versões anteriores.','Incorreto. Exportar para Slides é função separada.','Incorreto. Google Docs é gratuito para todos com conta Google.']},
+    {q:'O que é "aprendizagem colaborativa" no contexto digital?',
+     opts:['Cada aluno trabalha de forma completamente independente','Construção coletiva do conhecimento com troca, debate e produção conjunta mediados por ferramentas digitais','O professor corrige todos os trabalhos online','Uso de inteligência artificial para fazer as tarefas'],
+     correct:1,
+     fb:['Incorreto. A colaboração pressupõe interdependência e troca.','Correto! Colaboração digital envolve co-criação, debate e responsabilidade compartilhada mediados por ferramentas como Docs, Padlet e Classroom.','Incorreto. Correção é avaliação, não colaboração.','Incorreto. IA pode apoiar, mas não substitui a colaboração entre pessoas.']},
+    {q:'Qual ferramenta é mais indicada para um mural colaborativo visual com imagens e textos?',
+     opts:['Google Forms','Padlet','Google Scholar','GeoGebra'],
+     correct:1,
+     fb:['Incorreto. Forms é para coleta de dados com formulários.','Correto! Padlet é uma ferramenta de mural digital onde alunos colam textos, imagens, vídeos e links de forma colaborativa.','Incorreto. Scholar é buscador de artigos.','Incorreto. GeoGebra é para matemática e modelagem física.']},
+  ],
+};
+
+const cq_N = 5;
+let cq_sel = [];
+const cq_ans = {};
+
+function cq_shuffle(a) {
+  const b = [...a];
+  for (let i = b.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [b[i], b[j]] = [b[j], b[i]];
+  }
+  return b;
+}
+
+function cq_build() {
+  Object.keys(cq_ans).forEach(k => delete cq_ans[k]);
+  document.getElementById('quiz-score').style.display = 'none';
+  const pool = cq_shuffle(cq_banco[cq_activeTopicIdx] || cq_banco[0]);
+  cq_sel = pool.slice(0, Math.min(cq_N, pool.length));
+  const topicLabel = cq_topicNames[cq_activeTopicIdx];
+  const colors = ['rgba(224,32,32,.12)','rgba(212,137,10,.12)','rgba(74,156,47,.12)','rgba(26,159,212,.12)'];
+  const textColors = ['#c0161b','#a06800','#2d7a0a','#0a6e9a'];
+  const tc = colors[cq_activeTopicIdx] || colors[0];
+  const tt = textColors[cq_activeTopicIdx] || textColors[0];
+  document.getElementById('cq_container').innerHTML = cq_sel.map((q, i) => `
+    <div class="quiz-q" data-idx="${i}">
+      <div style="background:${tc};color:${tt};display:inline-block;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:.15rem .55rem;border-radius:4px;margin-bottom:.6rem">${topicLabel}</div>
+      <p>${i + 1}. ${q.q}</p>
+      <div class="quiz-opts">
+        ${q.opts.map((o, oi) => `<div class="quiz-opt" onclick="cq_sel_opt(this,${i},${oi})"><span class="opt-letter">${'ABCD'[oi]}</span>${o}</div>`).join('')}
+      </div>
+      <div class="quiz-feedback"></div>
+    </div>`).join('');
+}
+
+function cq_sel_opt(el, qi, oi) {
+  el.closest('.quiz-q').querySelectorAll('.quiz-opt').forEach(x => x.classList.remove('selected'));
+  el.classList.add('selected');
+  cq_ans[qi] = oi;
+}
+
+function cq_check() {
+  let s = 0;
+  cq_sel.forEach((q, i) => {
+    const qEl = document.querySelector('.quiz-q[data-idx="' + i + '"]');
+    const opts = qEl.querySelectorAll('.quiz-opt');
+    const fb = qEl.querySelector('.quiz-feedback');
+    opts.forEach(o => { o.classList.remove('correct', 'wrong'); o.style.pointerEvents = 'none'; });
+    if (cq_ans[i] !== undefined) {
+      opts[q.correct].classList.add('correct');
+      if (cq_ans[i] !== q.correct) opts[cq_ans[i]].classList.add('wrong');
+      else s++;
+      fb.textContent = q.fb[cq_ans[i]];
+      fb.style.display = 'block';
+      const ok = cq_ans[i] === q.correct;
+      fb.style.background = ok ? 'rgba(74,156,47,.1)' : 'rgba(224,32,32,.08)';
+      fb.style.color = ok ? 'var(--green)' : '#c62828';
+      fb.style.border = '1px solid ' + (ok ? 'rgba(74,156,47,.25)' : 'rgba(224,32,32,.2)');
+    }
+  });
+  const sc = document.getElementById('quiz-score');
+  sc.style.display = 'block';
+  const p = Math.round(s / cq_sel.length * 100);
+  sc.innerHTML = '<h3>' + s + '/' + cq_sel.length + ' acertos (' + p + '%)</h3><p>' +
+    (p >= 80 ? '🎉 Excelente domínio deste tópico!' : p >= 60 ? '👍 Bom resultado! Revise os itens que errou.' : '📚 Releia o tópico e tente novamente.') + '</p>';
+}
+
+function cq_reset() {
+  Object.keys(cq_ans).forEach(k => delete cq_ans[k]);
+  document.querySelectorAll('#cq_container .quiz-opt').forEach(o => { o.classList.remove('selected', 'correct', 'wrong'); o.style.pointerEvents = ''; });
+  document.querySelectorAll('#cq_container .quiz-feedback').forEach(f => f.style.display = 'none');
+  document.getElementById('quiz-score').style.display = 'none';
+}
+
+/* ── PROG NAV ── */
+document.querySelectorAll('.prog-btn').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href && href.startsWith('#')) {
+      e.preventDefault();
+      const t = document.querySelector(href);
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelectorAll('.prog-btn').forEach(b => b.classList.remove('act'));
+    a.classList.add('act');
+  });
+});
+
+cq_build();
+</script>
+</body>
+</html>
