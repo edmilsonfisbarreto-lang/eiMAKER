@@ -1,354 +1,1173 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
-<link rel="shortcut icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>eiMAKER – TIC na Educação</title>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --red:#e02020;--yellow:#d4890a;--green:#4a9c2f;
-      --blue1:#1a9fd4;--blue2:#2563a8;--purple:#6b3f9a;
-      --bg:#f0f2f7;--surface:#ffffff;--card:#ffffff;--card2:#f7f9fc;
-      --text:#1e2130;--muted:#5a6078;--border:rgba(0,0,0,0.09);
-      --shadow:0 2px 16px rgba(0,0,0,0.08);
-    }
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-    ::-webkit-scrollbar{width:6px}
-    ::-webkit-scrollbar-track{background:#e8eaf0}
-    ::-webkit-scrollbar-thumb{background:var(--blue1);border-radius:3px}
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+CiAgPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iI2UwMjAyMCIvPgogIDx0ZXh0IHg9IjE2IiB5PSIyMyIgZm9udC1mYW1pbHk9Ik51bml0byxBcmlhbCBCbGFjayxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIgogICAgICAgIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkb21pbmFudC1iYXNlbGluZT0iYXV0byI+ZWk8L3RleHQ+Cjwvc3ZnPg=="/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Queda Livre — eiMAKER</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:#e02020; --yellow:#d4890a; --green:#4a9c2f;
+    --blue1:#1a9fd4; --blue2:#2563a8; --purple:#6b3f9a;
+    --bg:#f0f2f7; --surface:#fff; --card:#fff; --card2:#f7f9fc;
+    --text:#1e2130; --muted:#5a6078;
+    --border:rgba(0,0,0,0.09); --shadow:0 2px 16px rgba(0,0,0,0.08);
+    --accent:#4a9c2f; --accent2:#d4890a; --accent3:#e02020;
+    --ifsc-green:#4a9c2f;
+    --panel:#fff; --panel2:#f7f9fc;
+    --em-chrome:56px;
+  }
+  *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Nunito',sans-serif;
+    background:var(--bg); color:var(--text);
+    min-height:100vh; overflow-x:hidden;
+    padding-top:var(--em-chrome) !important;
+  }
+  ::-webkit-scrollbar{width:6px}
+  ::-webkit-scrollbar-track{background:#e8eaf0}
+  ::-webkit-scrollbar-thumb{background:var(--green);border-radius:3px}
 
-    /* COLOR STRIP */
-    .color-strip{display:flex;height:4px}
-    .cs1{flex:1;background:var(--red)}.cs2{flex:1;background:var(--yellow)}
-    .cs3{flex:1;background:var(--green)}.cs4{flex:1;background:var(--blue1)}
-    .cs5{flex:1;background:var(--blue2)}.cs6{flex:1;background:var(--purple)}
+  /* ROTATE OVERLAY */
+  #rotate-overlay {
+    display:none; position:fixed; inset:0; z-index:9999;
+    background:#1e2130;
+    flex-direction:column; align-items:center; justify-content:center;
+    gap:1.5rem; text-align:center; padding:2rem;
+  }
+  #rotate-overlay.show { display:flex; }
+  .rotate-icon { font-size:5rem; animation:rotateHint 1.5s ease-in-out infinite; }
+  @keyframes rotateHint{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}
+  #rotate-overlay h2 { font-size:1.5rem; font-weight:900; color:var(--green); }
+  #rotate-overlay p  { color:rgba(255,255,255,.6); font-size:.95rem; max-width:260px; }
 
-    /* HEADER */
-    header{
-      position:sticky;top:0;z-index:100;
-      background:rgba(255,255,255,0.95);
-      backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--border);
-      display:flex;align-items:center;justify-content:space-between;
-      padding:0 2rem;height:64px;
-      box-shadow:0 1px 8px rgba(0,0,0,0.07);
-    }
-    .logo-wrap{display:flex;align-items:center;gap:10px;text-decoration:none}
-    .logo-keys{display:flex;gap:4px;align-items:center}
-    .key{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.18)}
-    .key-red{background:var(--red)}.key-yellow{background:var(--yellow)}
-    .key-green{background:var(--green)}.key-blue1{background:var(--blue1)}
-    .key-blue2{background:var(--blue2)}.key-purple{background:var(--purple)}
+  /* HEADER */
+  .em-strip { display:flex; height:4px; position:fixed; top:0; left:0; right:0; z-index:10000; }
+  .cs1{flex:1;background:#e02020}.cs2{flex:1;background:#d4890a}
+  .cs3{flex:1;background:#4a9c2f}.cs4{flex:1;background:#1a9fd4}
+  .cs5{flex:1;background:#2563a8}.cs6{flex:1;background:#6b3f9a}
+  .em-header {
+    position:fixed; top:4px; left:0; right:0; z-index:9999;
+    display:flex; align-items:center; gap:.9rem;
+    padding:0 1.4rem; height:52px;
+    background:rgba(255,255,255,0.97);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(12px);
+    box-shadow:0 1px 8px rgba(0,0,0,.07);
+  }
+  .em-logo { display:flex; align-items:center; text-decoration:none; flex-shrink:0; }
+  .em-keys { display:flex; gap:3px; }
+  .em-key {
+    width:24px; height:24px; border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Nunito',sans-serif; font-weight:900; font-size:.7rem;
+    color:#fff; box-shadow:0 2px 4px rgba(0,0,0,.18);
+  }
+  .em-red{background:#e02020}.em-yellow{background:#d4890a}.em-green{background:#4a9c2f}
+  .em-blue1{background:#1a9fd4}.em-blue2{background:#2563a8}.em-purple{background:#6b3f9a}
+  .em-nav { display:flex; gap:2px; flex:1; justify-content:center; }
+  .em-nav a {
+    color:var(--muted); text-decoration:none;
+    padding:.3rem .75rem; border-radius:8px;
+    font-family:'Nunito',sans-serif; font-weight:700; font-size:.82rem;
+    transition:color .2s,background .2s; white-space:nowrap;
+  }
+  .em-nav a:hover { color:var(--text); background:var(--bg); }
+  .em-nav a.em-act { color:var(--green); background:rgba(74,156,47,.09); }
+  .em-proj { font-family:'Nunito',sans-serif; font-size:.76rem; font-weight:700;
+    color:var(--muted); white-space:nowrap; flex-shrink:0; }
+  @media(max-width:640px){ .em-nav{display:none} .em-proj{display:none} }
 
-    nav{display:flex;gap:.15rem}
-    nav a{color:var(--muted);text-decoration:none;padding:.4rem .9rem;border-radius:8px;font-weight:700;font-size:.85rem;transition:color .2s,background .2s}
-    nav a:hover,nav a.active{color:var(--text);background:var(--bg)}
+  /* PAGE TITLE */
+  .page-title-bar {
+    padding:1.5rem 2rem 1.2rem;
+    background:linear-gradient(135deg,#f0fff4 0%,#fff 55%,var(--bg) 100%);
+    border-bottom:1px solid var(--border);
+    text-align:center;
+  }
+  .page-title-bar h1 {
+    font-size:clamp(1.6rem,4vw,2.4rem); font-weight:900;
+    line-height:1.1; margin-bottom:.5rem;
+  }
+  .page-title-bar p { color:var(--muted); font-size:.9rem; }
 
-    /* HERO */
-    .hero{
-      position:relative;overflow:hidden;
-      padding:5rem 2rem 4rem;text-align:center;
-      background:linear-gradient(160deg,#fff 0%,#eef2ff 100%);
-    }
-    .hero::before{
-      content:'';position:absolute;inset:0;
-      background:
-        radial-gradient(ellipse 55% 45% at 15% 35%,rgba(224,32,32,.08) 0%,transparent 60%),
-        radial-gradient(ellipse 45% 45% at 85% 65%,rgba(26,159,212,.1) 0%,transparent 60%),
-        radial-gradient(ellipse 35% 35% at 50% 95%,rgba(107,63,154,.07) 0%,transparent 60%);
-      pointer-events:none;
-    }
-    .hero-badge{
-      display:inline-block;background:rgba(26,159,212,.1);
-      border:1px solid rgba(26,159,212,.25);color:var(--blue1);
-      padding:.3rem 1.1rem;border-radius:999px;font-size:.78rem;font-weight:800;
-      margin-bottom:1.25rem;letter-spacing:.8px;text-transform:uppercase;
-    }
-    .hero h1{font-size:clamp(2rem,5.5vw,3.6rem);font-weight:900;line-height:1.1;margin-bottom:1rem}
-    .hero h1 .acc-r{color:var(--red)}.hero h1 .acc-b{color:var(--blue1)}
-    .hero p{max-width:580px;margin:0 auto 2.5rem;color:var(--muted);font-size:1.05rem;line-height:1.75}
-    .hero-cta{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-    .btn{padding:.7rem 1.6rem;border-radius:10px;font-family:'Nunito',sans-serif;font-weight:800;font-size:.95rem;cursor:pointer;text-decoration:none;transition:transform .15s,box-shadow .15s;border:none;display:inline-block}
-    .btn:hover{transform:translateY(-2px)}
-    .btn-primary{background:var(--red);color:#fff;box-shadow:0 4px 18px rgba(224,32,32,.3)}
-    .btn-primary:hover{box-shadow:0 6px 24px rgba(224,32,32,.45)}
-    .btn-outline{background:transparent;border:2px solid var(--blue1);color:var(--blue1)}
-    .btn-outline:hover{background:rgba(26,159,212,.08)}
+  /* LAYOUT */
+  .app {
+    display:grid; grid-template-columns:300px 1fr;
+    gap:1.25rem; max-width:1300px;
+    margin:1.5rem auto; padding:0 1.5rem 2.5rem;
+  }
+  @media(max-width:900px){ .app{grid-template-columns:1fr} }
 
-    /* STATS BAR */
-    .stats-bar{
-      display:flex;justify-content:center;flex-wrap:wrap;gap:1.5rem;
-      padding:1.4rem 2rem;background:var(--surface);
-      border-top:1px solid var(--border);border-bottom:1px solid var(--border);
-    }
-    .stat{display:flex;align-items:center;gap:.55rem}
-    .stat-dot{width:9px;height:9px;border-radius:50%}
-    .stat-label{font-size:.82rem;color:var(--muted)}
-    .stat-val{font-weight:800;font-size:.9rem}
+  /* PANEL */
+  .panel {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:16px; padding:1.5rem;
+    box-shadow:var(--shadow); height:fit-content;
+    position:relative; overflow:hidden;
+  }
+  .panel::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg,var(--green),var(--blue1),var(--green));
+  }
+  .panel-title {
+    font-size:.72rem; font-weight:800; letter-spacing:2px;
+    text-transform:uppercase; color:var(--green);
+    margin-bottom:1.25rem; padding-bottom:.65rem;
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .panel-title::before {
+    content:''; width:7px; height:7px; background:var(--green);
+    border-radius:50%; animation:pulse 1.6s infinite; flex-shrink:0;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
 
-    /* SECTIONS */
-    section{padding:3.5rem 2rem}
-    .container{max-width:1100px;margin:0 auto}
-    .section-label{font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:.4rem}
-    h2{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:900;margin-bottom:2rem;line-height:1.2}
+  /* QUESTION BTNS */
+  .question-label {
+    font-size:.7rem; font-weight:800; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--muted); margin-bottom:.6rem;
+  }
+  .question-btns { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1rem; }
+  .q-btn {
+    flex:1; min-width:80px; padding:.55rem .8rem; border-radius:8px;
+    border:2px solid var(--border); font-family:'Nunito',sans-serif;
+    font-weight:800; font-size:.8rem; cursor:pointer;
+    background:var(--card2); color:var(--muted);
+    transition:all .2s;
+  }
+  .q-btn.selected { background:var(--yellow); color:#fff; border-color:var(--yellow); box-shadow:0 3px 10px rgba(212,137,10,.3); }
+  .q-btn:hover:not(.selected) { border-color:var(--yellow); color:var(--yellow); }
 
-    /* OBJETIVOS */
-    #objetivos{background:var(--bg)}
-    .obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem}
-    .obj-card{
-      background:var(--card);border:1px solid var(--border);border-radius:14px;
-      padding:1.6rem;position:relative;overflow:hidden;
-      transition:transform .2s,box-shadow .2s;box-shadow:var(--shadow);
-    }
-    .obj-card:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(0,0,0,.12)}
-    .obj-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
-    .obj-card:nth-child(1)::before{background:var(--red)}
-    .obj-card:nth-child(2)::before{background:var(--yellow)}
-    .obj-card:nth-child(3)::before{background:var(--green)}
-    .obj-icon{font-size:1.9rem;margin-bottom:.75rem}
-    .obj-card h3{font-size:1rem;font-weight:800;margin-bottom:.5rem}
-    .obj-card p{font-size:.88rem;color:var(--muted);line-height:1.7}
+  /* FORMULA */
+  .formula-card {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:10px; padding:.9rem; margin-bottom:1.25rem;
+    font-size:.78rem; line-height:1.9; color:var(--muted);
+    font-family:'Fira Code',monospace;
+  }
+  .formula-card .f-line { display:flex; gap:.4rem; align-items:baseline; }
+  .formula-card .sym { color:var(--green); font-weight:700; min-width:88px; }
 
-    /* CONTEÚDOS */
-    #conteudos{background:var(--surface)}
-    .content-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
-    .content-item{
-      display:flex;align-items:flex-start;gap:.85rem;
-      background:var(--card2);border:1px solid var(--border);border-radius:12px;
-      padding:1.25rem 1.4rem;transition:border-color .2s,box-shadow .2s;box-shadow:var(--shadow);
-    }
-    .content-item:hover{border-color:var(--blue1);box-shadow:0 4px 18px rgba(26,159,212,.12)}
-    .content-num{flex-shrink:0;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;color:#fff}
-    .content-item:nth-child(1) .content-num{background:var(--red)}
-    .content-item:nth-child(2) .content-num{background:var(--yellow)}
-    .content-item:nth-child(3) .content-num{background:var(--green)}
-    .content-item:nth-child(4) .content-num{background:var(--blue1)}
-    .content-item p{font-size:.88rem;line-height:1.65;color:var(--muted)}
-    .content-item p strong{color:var(--text);display:block;margin-bottom:.2rem;font-size:.92rem}
+  /* READOUTS */
+  .readout-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; }
+  @media(max-width:600px){ .readout-grid{grid-template-columns:repeat(2,1fr)} }
+  .readout-card {
+    background:var(--card); border:2px solid var(--border);
+    border-radius:12px; padding:.8rem 1rem; text-align:center;
+    box-shadow:var(--shadow); transition:all .3s; cursor:pointer;
+    position:relative; overflow:hidden;
+  }
+  .readout-card::after {
+    content:''; position:absolute; inset:0;
+    background:rgba(74,156,47,0); transition:background .2s;
+  }
+  .readout-card:hover::after { background:rgba(74,156,47,.04); }
+  .readout-card.selected { border-color:var(--yellow); box-shadow:0 0 18px rgba(212,137,10,.25); background:#fffdf5; }
+  .readout-card.hidden-val { border-color:var(--red); background:#fff8f8; }
+  .readout-card .rc-label {
+    font-size:.65rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.3rem; font-weight:700;
+  }
+  .readout-card .rc-val {
+    font-size:1.05rem; font-weight:900; color:var(--green);
+    font-family:'Fira Code',monospace;
+  }
+  .readout-card .rc-val.unknown { color:var(--red); font-size:1.4rem; }
+  .readout-card .rc-hint {
+    font-size:.6rem; color:var(--yellow); font-weight:700;
+    text-transform:uppercase; letter-spacing:.08em; margin-top:.2rem;
+  }
 
-    /* METODOLOGIA */
-    #metodologia{background:var(--bg)}
-    .meto-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
-    @media(max-width:640px){.meto-grid{grid-template-columns:1fr}}
-    .meto-card{
-      background:var(--card);border:1px solid var(--border);border-radius:14px;
-      padding:1.5rem;display:flex;gap:1rem;align-items:flex-start;
-      transition:border-color .2s;box-shadow:var(--shadow);
-    }
-    .meto-card:hover{border-color:var(--purple)}
-    .meto-emoji{font-size:1.7rem}
-    .meto-card h3{font-size:.95rem;font-weight:800;margin-bottom:.4rem}
-    .meto-card p{font-size:.85rem;color:var(--muted);line-height:1.65}
+  /* BUTTONS */
+  .btn-row { display:flex; gap:.75rem; flex-wrap:wrap; align-items:center; }
+  button {
+    font-family:'Nunito',sans-serif; font-weight:800; font-size:.9rem;
+    border:none; border-radius:10px; cursor:pointer;
+    padding:.7rem 1.25rem; transition:transform .15s,box-shadow .15s;
+    letter-spacing:.02em;
+  }
+  button:hover:not(:disabled) { transform:translateY(-2px); }
+  button:active:not(:disabled) { transform:translateY(0); }
 
-    /* AVALIAÇÃO */
-    #avaliacao{background:var(--surface)}
-    .aval-flex{display:flex;flex-wrap:wrap;gap:.75rem}
-    .aval-tag{
-      background:var(--card2);border:1px solid var(--border);border-radius:999px;
-      padding:.5rem 1.15rem;font-size:.85rem;font-weight:700;
-      display:flex;align-items:center;gap:.45rem;
-      transition:background .2s,border-color .2s;box-shadow:var(--shadow);
-    }
-    .aval-tag:hover{background:#e8f4fb;border-color:var(--blue2)}
-    .aval-tag span{font-size:1rem}
+  .btn-start {
+    background:var(--green); color:#fff;
+    box-shadow:0 4px 14px rgba(74,156,47,.35);
+  }
+  .btn-start:hover:not(:disabled) { box-shadow:0 6px 22px rgba(74,156,47,.5); }
+  .btn-start.running { background:var(--red); box-shadow:0 4px 14px rgba(224,32,32,.35); }
+  .btn-start:disabled { opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+  .btn-reset {
+    background:transparent; color:var(--green);
+    border:2px solid rgba(74,156,47,.4);
+  }
+  .btn-reset:hover { background:rgba(74,156,47,.08); border-color:var(--green); }
 
-    /* FERRAMENTAS */
-    #ferramentas{background:var(--bg)}
-    .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem}
-    .tool-card{
-      background:var(--card);border:1px solid var(--border);border-radius:14px;
-      padding:1.5rem 1rem;text-align:center;
-      transition:transform .2s,border-color .2s;cursor:default;box-shadow:var(--shadow);
-    }
-    .tool-card:hover{transform:translateY(-4px)}
-    .tool-card:nth-child(1):hover{border-color:var(--red)}
-    .tool-card:nth-child(2):hover{border-color:var(--yellow)}
-    .tool-card:nth-child(3):hover{border-color:var(--green)}
-    .tool-card:nth-child(4):hover{border-color:var(--blue1)}
-    .tool-card:nth-child(5):hover{border-color:var(--blue2)}
-    .tool-card:nth-child(6):hover{border-color:var(--purple)}
-    .tool-icon{font-size:2rem;margin-bottom:.75rem}
-    .tool-card h3{font-size:.9rem;font-weight:800;margin-bottom:.3rem}
-    .tool-card p{font-size:.78rem;color:var(--muted);line-height:1.55}
+  .btn-pdf-row { display:flex; gap:.6rem; flex-wrap:wrap; margin-top:.4rem; }
+  .btn-pdf {
+    flex:1; min-width:100px; padding:.5rem .75rem;
+    border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800;
+    font-size:.82rem; cursor:pointer; border:none;
+    display:flex; align-items:center; justify-content:center; gap:.4rem;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn-pdf:hover { transform:translateY(-2px); }
+  .btn-pdf-roteiro {
+    background:var(--blue2); color:#fff;
+    box-shadow:0 4px 12px rgba(37,99,168,.3);
+  }
+  .btn-pdf-roteiro:hover { box-shadow:0 6px 18px rgba(37,99,168,.45); }
+  .btn-pdf-relatorio {
+    background:var(--purple); color:#fff;
+    box-shadow:0 4px 12px rgba(107,63,154,.3);
+  }
+  .btn-pdf-relatorio:hover { box-shadow:0 6px 18px rgba(107,63,154,.45); }
 
-    /* BIBLIOGRAFIA */
-    #bibliografia{background:var(--surface)}
-    .bib-section-title{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue2);margin-bottom:.85rem;margin-top:1.75rem}
-    .bib-section-title:first-child{margin-top:0}
-    .bib-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-    .bib-list li{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.25rem;font-size:.85rem;color:var(--muted);line-height:1.65;box-shadow:var(--shadow)}
-    .bib-list li em{font-style:normal;color:var(--text);font-weight:700}
-    .bib-num{display:inline-block;background:#e8f0fb;border-radius:4px;padding:.1rem .45rem;font-family:'Fira Code',monospace;font-size:.73rem;color:var(--blue2);margin-right:.5rem;font-weight:600}
+  /* CANVAS */
+  .canvas-wrap { display:flex; flex-direction:column; gap:1rem; }
+  .canvas-container {
+    background:var(--card2); border:1px solid var(--border);
+    border-radius:14px; overflow:hidden;
+    box-shadow:var(--shadow); position:relative;
+  }
+  canvas { display:block; width:100%; height:auto; }
 
-    /* FOOTER */
-    footer{background:var(--dark);color:rgba(255,255,255,0.55);padding:2rem;text-align:center;font-size:.82rem}
-    footer strong{color:#fff}
-    footer a{color:var(--blue1);text-decoration:none}
-    .footer-keys{display:flex;justify-content:center;gap:4px;margin-bottom:.75rem}
+  /* ANSWER BOX */
+  .answer-section {
+    background:var(--card);
+    border:2px solid var(--yellow); border-radius:14px;
+    padding:1.2rem 1.4rem;
+    box-shadow:0 4px 20px rgba(212,137,10,.15);
+    visibility:hidden;
+  }
+  .answer-section.ready { visibility:visible; }
+  .answer-label {
+    font-size:.72rem; font-weight:800; letter-spacing:1.5px;
+    text-transform:uppercase; color:var(--yellow); margin-bottom:.7rem;
+    display:flex; align-items:center; gap:.5rem;
+  }
+  .answer-input-row { display:flex; gap:.6rem; align-items:center; }
+  .answer-input {
+    flex:1; padding:.65rem 1rem; border-radius:8px;
+    border:2px solid var(--border); background:var(--card2);
+    font-family:'Fira Code',monospace; font-size:1rem; font-weight:700;
+    color:var(--text); outline:none; transition:border-color .2s;
+  }
+  .answer-input:focus { border-color:var(--yellow); }
+  .answer-unit {
+    font-size:.85rem; color:var(--muted); font-weight:700;
+    font-family:'Fira Code',monospace; white-space:nowrap;
+  }
+  .btn-submit {
+    background:var(--yellow); color:#fff;
+    box-shadow:0 4px 14px rgba(212,137,10,.35);
+    padding:.65rem 1.4rem;
+  }
+  .btn-submit:hover { box-shadow:0 6px 22px rgba(212,137,10,.5); }
 
-    @media(max-width:600px){nav{display:none}.hero h1{font-size:2rem}}
-    @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-  </style>
+  /* RESULT BOX */
+  .result-box {
+    border-radius:12px; padding:1rem 1.1rem;
+    display:none; border:1px solid rgba(74,156,47,.3);
+    background:rgba(74,156,47,.06);
+  }
+  .result-box.show { display:block; }
+  .result-box.miss { border-color:rgba(224,32,32,.3); background:rgba(224,32,32,.05); }
+  .result-box .r-title {
+    font-size:.68rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); margin-bottom:.4rem; font-weight:700;
+  }
+  .result-box .r-val { font-size:1.1rem; font-weight:900; margin-bottom:.2rem; }
+  .result-box .r-val.hit { color:var(--green); }
+  .result-box .r-val.miss { color:var(--red); }
+
+  /* TOAST */
+  #toast {
+    position:fixed; bottom:2rem; left:50%;
+    transform:translateX(-50%) translateY(80px);
+    background:var(--card); border:2px solid var(--border);
+    border-radius:50px; padding:.7rem 2rem;
+    font-family:'Nunito',sans-serif; font-size:1rem; font-weight:800;
+    z-index:100; transition:transform .4s cubic-bezier(.34,1.56,.64,1),opacity .4s;
+    opacity:0; pointer-events:none; white-space:nowrap;
+    box-shadow:var(--shadow);
+  }
+  #toast.show { transform:translateX(-50%) translateY(0); opacity:1; }
+  #toast.hit  { color:var(--green); border-color:var(--green); box-shadow:0 4px 20px rgba(74,156,47,.25); }
+  #toast.miss { color:var(--red);   border-color:var(--red);   box-shadow:0 4px 20px rgba(224,32,32,.2); }
+  #toast.info { color:var(--yellow);border-color:var(--yellow);box-shadow:0 4px 20px rgba(212,137,10,.2); }
+
+  /* color strip bottom */
+  .color-strip{display:flex;height:3px}
+  .color-strip .cs1{flex:1;background:#e02020}.color-strip .cs2{flex:1;background:#d4890a}
+  .color-strip .cs3{flex:1;background:#4a9c2f}.color-strip .cs4{flex:1;background:#1a9fd4}
+  .color-strip .cs5{flex:1;background:#2563a8}.color-strip .cs6{flex:1;background:#6b3f9a}
+
+  /* PLANETAS */
+  .planets-section {
+    background:var(--card); border:1px solid var(--border);
+    border-radius:12px; padding:.9rem 1.1rem;
+    box-shadow:var(--shadow);
+  }
+  .planets-title {
+    font-size:.65rem; font-weight:800; letter-spacing:2px;
+    text-transform:uppercase; color:var(--green);
+    margin-bottom:.6rem; display:flex; align-items:center; gap:.5rem;
+  }
+  .planets-grid {
+    display:flex; gap:.45rem; flex-wrap:wrap;
+  }
+  .planet-chip {
+    padding:.3rem .75rem; border-radius:50px;
+    border:2px solid var(--border); background:var(--card2);
+    font-family:'Nunito',sans-serif; font-weight:800; font-size:.75rem;
+    color:var(--muted); transition:all .25s; cursor:default;
+    box-shadow:0 1px 4px rgba(0,0,0,.06); line-height:1.4; text-align:center;
+  }
+  .planet-chip small { display:block; font-size:.62rem; font-weight:600; opacity:.75; }
+  .planet-chip.active-planet {
+    border-color:var(--yellow); background:#fffdf0;
+    color:var(--yellow); box-shadow:0 0 14px rgba(212,137,10,.3);
+    transform:scale(1.06);
+  }
+</style>
 </head>
 <body>
-<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
 
-<header>
-  <a class="logo-wrap" href="index.html">
-    <div class="logo-keys">
-      <div class="key key-red" style="font-size:.68rem">ei</div>
-      <div class="key key-yellow">M</div><div class="key key-green">A</div>
-      <div class="key key-blue1">K</div><div class="key key-blue2">E</div>
-      <div class="key key-purple">R</div>
+<div id="rotate-overlay">
+  <div class="rotate-icon">📱</div>
+  <h2>Gire o dispositivo!</h2>
+  <p>Para uma melhor experiência, use o celular na posição <strong style="color:#fff">horizontal</strong>.</p>
+</div>
+
+<div class="em-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<div class="em-header">
+  <a class="em-logo" href="index.html">
+    <div class="em-keys">
+      <div class="em-key em-red" style="font-size:.62rem">ei</div>
+      <div class="em-key em-yellow">M</div><div class="em-key em-green">A</div>
+      <div class="em-key em-blue1">K</div><div class="em-key em-blue2">E</div><div class="em-key em-purple">R</div>
     </div>
   </a>
-  <nav>
+  <nav class="em-nav">
     <a href="objetivos.html">Objetivos</a>
     <a href="conteudos.html">Conteúdos</a>
     <a href="metodologia.html">Metodologia</a>
     <a href="ferramentas.html">Ferramentas</a>
     <a href="bibliografia.html">Bibliografia</a>
-    <a href="projetos.html">Projetos</a>
+    <a href="projetos.html" class="em-act">Projetos</a>
   </nav>
-</header>
+  <span class="em-proj">🍎 Queda Livre</span>
+</div>
 
-<div class="hero">
-  <div class="hero-badge">IFSC · Semestre 2 · 40h</div>
-  <h1>Tecnologias de <span class="acc-r">Informação</span><br>e Comunicação na <span class="acc-b">Educação</span></h1>
-  <p>Explore, crie e integre as TICs no processo de ensino de Física. Do planejamento à avaliação, este espaço reúne tudo para sua jornada docente digital.</p>
-  <div class="hero-cta">
-    <a href="conteudos.html" class="btn btn-primary">Explorar Conteúdos</a>
-    <a href="ferramentas.html" class="btn btn-outline">Ver Ferramentas</a>
+<div class="page-title-bar">
+  <h1><span style="color:var(--green)">Queda Livre</span> — <span style="color:var(--blue1)">Simulador Interativo</span></h1>
+  <p>Selecione a grandeza oculta, observe a maçã cair e descubra o valor correto!</p>
+</div>
+
+<div class="app">
+  <!-- PAINEL LATERAL -->
+  <aside class="panel">
+    <div class="panel-title">Grandeza a Calcular</div>
+
+    <div class="question-label">Qual grandeza calcular?</div>
+    <div class="question-btns">
+      <button class="q-btn" id="qAce" onclick="selectQuestion('aceleracao')">⚡ Aceleração</button>
+      <button class="q-btn" id="qVf"  onclick="selectQuestion('vfinal')">🏁 Vel. Final</button>
+      <button class="q-btn" id="qAlt" onclick="selectQuestion('altura')">📏 Altura</button>
+      <button class="q-btn" id="qTem" onclick="selectQuestion('tempo')">⏱ Tempo</button>
+    </div>
+
+    <div class="formula-card">
+      <div class="f-line"><span class="sym">h =</span> ½ · g · t²</div>
+      <div class="f-line"><span class="sym">v =</span> g · t</div>
+      <div class="f-line"><span class="sym">v² =</span> 2 · g · h</div>
+      <div class="f-line"><span class="sym">g =</span> v / t</div>
+    </div>
+
+    <div style="background:rgba(26,159,212,.07);border:1px solid rgba(26,159,212,.2);border-radius:10px;padding:.9rem;font-size:.8rem;color:var(--muted);line-height:1.6;">
+      <strong style="color:var(--blue1)">🎮 Como jogar</strong><br>
+      1. Escolha a grandeza a descobrir<br>
+      2. Clique em <strong>Iniciar</strong><br>
+      3. Observe a maçã cair<br>
+      4. Quando atingir o solo, calcule!
+    </div>
+    <div class="btn-pdf-row" style="margin-top:.75rem">
+      <button class="btn-pdf btn-pdf-roteiro" onclick="downloadDoc('roteiro')">📋 Roteiro</button>
+      <button class="btn-pdf btn-pdf-relatorio" onclick="downloadDoc('relatorio')">📝 Relatório</button>
+    </div>
+  </aside>
+
+  <!-- SIMULADOR -->
+  <div class="canvas-wrap">
+    <div class="canvas-container">
+      <canvas id="sim" width="900" height="460"></canvas>
+    </div>
+
+    <!-- BOTÕES -->
+    <div class="btn-row">
+      <button class="btn-start" id="btnStart" onclick="toggleSim()" disabled>▶ Iniciar</button>
+      <button class="btn-reset" onclick="resetSim()">🔄 Nova Simulação</button>
+    </div>
+
+    <!-- PLANETAS -->
+    <div class="planets-section">
+      <div class="planets-title">🪐 Corpo Celeste da Simulação</div>
+      <div class="planets-grid" id="planetsGrid">
+        <div class="planet-chip" id="chip-mercurio" data-g="3.7">☿ Mercúrio<small>3,7 m/s²</small></div>
+        <div class="planet-chip" id="chip-venus" data-g="8.87">♀ Vênus<small>8,87 m/s²</small></div>
+        <div class="planet-chip" id="chip-terra" data-g="9.8">🌍 Terra<small>9,8 m/s²</small></div>
+        <div class="planet-chip" id="chip-lua" data-g="1.62">🌙 Lua<small>1,62 m/s²</small></div>
+        <div class="planet-chip" id="chip-marte" data-g="3.72">♂ Marte<small>3,72 m/s²</small></div>
+        <div class="planet-chip" id="chip-jupiter" data-g="24.79">♃ Júpiter<small>24,79 m/s²</small></div>
+        <div class="planet-chip" id="chip-saturno" data-g="10.44">♄ Saturno<small>10,44 m/s²</small></div>
+        <div class="planet-chip" id="chip-urano" data-g="8.69">⛢ Urano<small>8,69 m/s²</small></div>
+        <div class="planet-chip" id="chip-netuno" data-g="11.15">♆ Netuno<small>11,15 m/s²</small></div>
+      </div>
+    </div>
+
+    <!-- READOUTS -->
+    <div class="readout-grid" id="readouts">
+      <div class="readout-card" id="card-ace">
+        <div class="rc-label">Aceleração (g)</div>
+        <div class="rc-val" id="disp-ace">— m/s²</div>
+        <div class="rc-hint" id="hint-ace"></div>
+      </div>
+      <div class="readout-card" id="card-vf">
+        <div class="rc-label">Vel. Final</div>
+        <div class="rc-val" id="disp-vf">— m/s</div>
+        <div class="rc-hint" id="hint-vf"></div>
+      </div>
+      <div class="readout-card" id="card-alt">
+        <div class="rc-label">Altura (h)</div>
+        <div class="rc-val" id="disp-alt">— m</div>
+        <div class="rc-hint" id="hint-alt"></div>
+      </div>
+      <div class="readout-card" id="card-tem">
+        <div class="rc-label">Tempo</div>
+        <div class="rc-val" id="disp-tem">— s</div>
+        <div class="rc-hint" id="hint-tem"></div>
+      </div>
+    </div>
+
+    <!-- ANSWER INPUT -->
+    <div class="answer-section" id="answerSection">
+      <div class="answer-label">🎯 <span id="answerLabel">Qual foi a aceleração?</span></div>
+      <div class="answer-input-row">
+        <input class="answer-input" id="answerInput" type="number" step="any" placeholder="Digite o valor..." />
+        <span class="answer-unit" id="answerUnit">m/s²</span>
+        <button class="btn-submit" onclick="submitAnswer()">Enviar ✓</button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="result-box" id="resultBox">
+      <div class="r-title">Resultado</div>
+      <div class="r-val" id="resultText">—</div>
+      <div style="font-size:0.76rem;color:var(--muted);margin-top:0.35rem" id="resultDetail"></div>
+    </div>
+
   </div>
 </div>
 
-<div class="stats-bar">
-  <div class="stat"><div class="stat-dot" style="background:var(--red)"></div><span class="stat-label">CH Total</span><span class="stat-val">40h</span></div>
-  <div class="stat"><div class="stat-dot" style="background:var(--blue1)"></div><span class="stat-label">CH EaD</span><span class="stat-val">4h</span></div>
-  <div class="stat"><div class="stat-dot" style="background:var(--green)"></div><span class="stat-label">Semestre</span><span class="stat-val">2º</span></div>
-  <div class="stat"><div class="stat-dot" style="background:var(--yellow)"></div><span class="stat-label">Modalidade</span><span class="stat-val">Presencial + EaD</span></div>
-  <div class="stat"><div class="stat-dot" style="background:var(--purple)"></div><span class="stat-label">Instituição</span><span class="stat-val">IFSC</span></div>
-</div>
-
-<section id="objetivos">
-  <div class="container">
-    <div class="section-label" style="color:var(--red)">📍 Objetivos da Unidade</div>
-    <h2>O que você vai <em style="font-style:normal;color:var(--red)">aprender</em></h2>
-    <div class="obj-grid">
-      <div class="obj-card"><div class="obj-icon">🌐</div><h3>Conhecer e Atualizar-se</h3><p>Conhecer os recursos tecnológicos que facilitam o acesso à informação e desenvolver uma postura aberta à mudança, receptividade e aceitação das potencialidades das TICs.</p></div>
-      <div class="obj-card"><div class="obj-icon">⚖️</div><h3>Ética e Segurança Digital</h3><p>Aplicar valores fundamentais no uso das TICs: segurança na Internet, avaliação de software, direitos autorais e questões éticas na utilização das tecnologias.</p></div>
-      <div class="obj-card"><div class="obj-icon">🎓</div><h3>Integrar ao Ensino</h3><p>Utilizar e integrar as TICs nas diferentes fases do processo de ensino — do planejamento até a avaliação — transformando a prática pedagógica em Física.</p></div>
-    </div>
-    <div style="text-align:center;margin-top:2rem"><a href="objetivos.html" class="btn btn-outline">Ver página completa de Objetivos →</a></div>
-  </div>
-</section>
-
-<section id="conteudos">
-  <div class="container">
-    <div class="section-label" style="color:var(--yellow)">📚 Conteúdos</div>
-    <h2>O que vamos <em style="font-style:normal;color:var(--yellow)">estudar</em></h2>
-    <div class="content-list">
-      <div class="content-item"><div class="content-num">01</div><p><strong>Simulações e Labs Virtuais</strong>Applets, simuladores de princípios físicos e softwares de modelagem para o ensino.</p></div>
-      <div class="content-item"><div class="content-num">02</div><p><strong>Websites, Blogs e Redes</strong>Criação de sites e páginas voltadas ao ensino de Física.</p></div>
-      <div class="content-item"><div class="content-num">03</div><p><strong>AVAs – Ambientes Virtuais</strong>Ferramentas didáticas virtuais em arquitetura pedagógica: Moodle e similares.</p></div>
-      <div class="content-item"><div class="content-num">04</div><p><strong>Documentos Colaborativos</strong>Moodle, Google Docs/Drive e ferramentas de trabalho em equipe online.</p></div>
-    </div>
-    <div style="text-align:center;margin-top:2rem"><a href="conteudos.html" class="btn btn-outline">Explorar todos os Conteúdos →</a></div>
-  </div>
-</section>
-
-<section id="metodologia">
-  <div class="container">
-    <div class="section-label" style="color:var(--green)">🧭 Metodologia</div>
-    <h2>Como as aulas são <em style="font-style:normal;color:var(--green)">organizadas</em></h2>
-    <div class="meto-grid">
-      <div class="meto-card"><div class="meto-emoji">🗣️</div><div><h3>Aulas Expositivo-Dialogadas</h3><p>Apresentação de conteúdo com diálogo ativo, reflexão e troca de experiências sobre as TICs.</p></div></div>
-      <div class="meto-card"><div class="meto-emoji">🔬</div><div><h3>Atividades Experimentais</h3><p>Práticas nos laboratórios de Física e de Informática, estimulando curiosidade e autonomia.</p></div></div>
-      <div class="meto-card"><div class="meto-emoji">💡</div><div><h3>Projetos de Ensino</h3><p>Desenvolvimento de projetos pelos alunos — sites, AVAs, simuladores — em situações reais.</p></div></div>
-      <div class="meto-card"><div class="meto-emoji">💻</div><div><h3>Atividades EaD</h3><p>Via Sigaa/Moodle: videoaulas, questionários, chats e fóruns em momentos síncronos e assíncronos.</p></div></div>
-    </div>
-    <div style="text-align:center;margin-top:2rem"><a href="metodologia.html" class="btn btn-outline">Ver página de Metodologia →</a></div>
-  </div>
-</section>
-
-<section id="avaliacao" style="background:var(--surface)">
-  <div class="container">
-    <div class="section-label" style="color:var(--blue1)">📋 Avaliação</div>
-    <h2>Como você será <em style="font-style:normal;color:var(--blue1)">avaliado</em></h2>
-    <div class="aval-flex">
-      <div class="aval-tag"><span>📝</span>Provas Escritas</div>
-      <div class="aval-tag"><span>🧪</span>Relatórios de Experimentos</div>
-      <div class="aval-tag"><span>📋</span>Listas de Exercícios</div>
-      <div class="aval-tag"><span>🎤</span>Apresentação de Trabalhos</div>
-      <div class="aval-tag"><span>🛠️</span>Desenvolvimento de Projetos</div>
-      <div class="aval-tag"><span>🙋</span>Participação em Sala</div>
-      <div class="aval-tag"><span>📊</span>Frequência e Comprometimento</div>
-      <div class="aval-tag"><span>💬</span>Fóruns e Chats EaD</div>
-    </div>
-  </div>
-</section>
-
-<section id="ferramentas">
-  <div class="container">
-    <div class="section-label" style="color:var(--purple)">🛠️ Ferramentas</div>
-    <h2>Tecnologias que vamos <em style="font-style:normal;color:var(--purple)">utilizar</em></h2>
-    <div class="tools-grid">
-      <div class="tool-card"><div class="tool-icon">🎮</div><h3>Simuladores PhET</h3><p>Laboratórios virtuais e applets para demonstração de princípios físicos.</p></div>
-      <div class="tool-card"><div class="tool-icon">📖</div><h3>Moodle / Sigaa</h3><p>Ambientes virtuais institucionais para gestão de aulas e atividades EaD.</p></div>
-      <div class="tool-card"><div class="tool-icon">📁</div><h3>Google Drive</h3><p>Documentos colaborativos, formulários e armazenamento em nuvem.</p></div>
-      <div class="tool-card"><div class="tool-icon">🌐</div><h3>Sites & Blogs</h3><p>Criação de páginas educacionais voltadas ao ensino de Física.</p></div>
-      <div class="tool-card"><div class="tool-icon">📱</div><h3>Redes Sociais</h3><p>Uso pedagógico de plataformas como espaços de divulgação científica.</p></div>
-      <div class="tool-card"><div class="tool-icon">🎥</div><h3>Videoaulas</h3><p>Produção e uso de vídeos como recursos complementares às aulas.</p></div>
-    </div>
-    <div style="text-align:center;margin-top:2rem"><a href="ferramentas.html" class="btn btn-outline">Ver todas as Ferramentas →</a></div>
-  </div>
-</section>
-
-<section id="bibliografia">
-  <div class="container">
-    <div class="section-label" style="color:var(--blue2)">📖 Bibliografia</div>
-    <h2>Leituras para <em style="font-style:normal;color:var(--blue2)">aprofundar</em></h2>
-    <p class="bib-section-title">📌 Básica</p>
-    <ul class="bib-list">
-      <li><span class="bib-num">[1]</span>BRITO, G. S.; PURIFICAÇÃO, I. <em>Educação e novas tecnologias: um (re)pensar.</em> Curitiba: InterSaberes, 2011.</li>
-      <li><span class="bib-num">[2]</span>DEMO, Pedro. <em>Formação permanente e tecnologias educacionais.</em> 2. ed. Petrópolis: Vozes, 2011.</li>
-    </ul>
-    <p class="bib-section-title">📎 Complementar</p>
-    <ul class="bib-list">
-      <li><span class="bib-num">[3]</span>PEREIRA, A. C. <em>Ambientes Virtuais de Aprendizagem em Diferentes Contextos.</em> Rio de Janeiro: Ciência Moderna, 2007.</li>
-      <li><span class="bib-num">[4]</span>SCHAFF, Adam. <em>A Sociedade Informática.</em> São Paulo: Brasiliense, 2007.</li>
-      <li><span class="bib-num">[5]</span>PINTO, Álvaro Vieira. <em>O conceito de tecnologia.</em> Rio de Janeiro: Contraponto, 2005.</li>
-    </ul>
-    <div style="text-align:center;margin-top:2rem"><a href="bibliografia.html" class="btn btn-outline">Ver Bibliografia Completa →</a></div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-keys">
-    <div class="key key-red" style="font-size:.6rem;width:24px;height:24px">ei</div>
-    <div class="key key-yellow" style="width:24px;height:24px;font-size:.75rem">M</div>
-    <div class="key key-green" style="width:24px;height:24px;font-size:.75rem">A</div>
-    <div class="key key-blue1" style="width:24px;height:24px;font-size:.75rem">K</div>
-    <div class="key key-blue2" style="width:24px;height:24px;font-size:.75rem">E</div>
-    <div class="key key-purple" style="width:24px;height:24px;font-size:.75rem">R</div>
-  </div>
-  <p><strong>eiMAKER</strong> · Tecnologias de Informação e Comunicação na Educação<br>
-  <a href="https://www.ifsc.edu.br" target="_blank">Instituto Federal de Santa Catarina</a> · Rua 14 de julho, 150 · Florianópolis/SC</p>
-</footer>
-<div class="color-strip" style="height:3px"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
+<div id="toast"></div>
 
 <script>
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    e.preventDefault();
-    const t=document.querySelector(a.getAttribute('href'));
-    if(t)t.scrollIntoView({behavior:'smooth',block:'start'});
+// ── MOBILE ─────────────────────────────────────────────
+function checkOrientation(){
+  const overlay=document.getElementById('rotate-overlay');
+  const isMobile=/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if(isMobile && window.innerHeight>window.innerWidth) overlay.classList.add('show');
+  else overlay.classList.remove('show');
+}
+window.addEventListener('resize',checkOrientation);
+window.addEventListener('orientationchange',checkOrientation);
+checkOrientation();
+
+// ── PLANETAS ───────────────────────────────────────────
+const PLANETS = {
+  mercurio:  { g:3.7,   name:'Mercúrio', color:'#b5b5b5', skyTop:'#2a2a3a', skyBot:'#1a1a2e', groundColor:'#7a6a5a', groundDark:'#3a2a1a' },
+  venus:     { g:8.87,  name:'Vênus',    color:'#e8c97a', skyTop:'#e8a040', skyBot:'#c06020', groundColor:'#a07040', groundDark:'#603010' },
+  terra:     { g:9.8,   name:'Terra',    color:'#4a9c2f', skyTop:'#87ceeb', skyBot:'#d4eef8', groundColor:'#4a9c2f', groundDark:'#1a3010' },
+  lua:       { g:1.62,  name:'Lua',      color:'#d0d0d0', skyTop:'#0a0a1a', skyBot:'#0d1030', groundColor:'#909090', groundDark:'#404040' },
+  marte:     { g:3.72,  name:'Marte',    color:'#c44a30', skyTop:'#b84020', skyBot:'#7a2010', groundColor:'#c05030', groundDark:'#5a1808' },
+  jupiter:   { g:24.79, name:'Júpiter',  color:'#c89060', skyTop:'#b07050', skyBot:'#806040', groundColor:'#b07060', groundDark:'#603020' },
+  saturno:   { g:10.44, name:'Saturno',  color:'#d4b870', skyTop:'#907050', skyBot:'#705040', groundColor:'#a09060', groundDark:'#504020' },
+  urano:     { g:8.69,  name:'Urano',    color:'#7acce0', skyTop:'#3090b0', skyBot:'#1a6080', groundColor:'#409090', groundDark:'#105050' },
+  netuno:    { g:11.15, name:'Netuno',   color:'#3a6adb', skyTop:'#1a2880', skyBot:'#0a1460', groundColor:'#304070', groundDark:'#0a1030' },
+};
+
+// ── HELPERS ────────────────────────────────────────────
+const fmt=(n,d=2)=>n.toFixed(d).replace('.',',');
+
+// ── CONSTANTS ──────────────────────────────────────────
+const W=900, H=460;
+const canvas=document.getElementById('sim');
+const ctx=canvas.getContext('2d');
+
+// ── STATE ──────────────────────────────────────────────
+let question=null;
+let simG=9.8;
+let simHeight=0;       // total fall height (m)
+let simElapsed=0;
+let simAppleY=0;       // apple screen Y (pixels from top of canvas)
+let simAppleStartY=0;  // starting screen Y
+let simGroundY=0;      // ground screen Y
+let simRunning=false;
+let simLastTimestamp=null;
+let animId=null;
+let simEnded=false;
+let currentPlanet='terra';
+
+// Scales
+const M_TO_PX_DEFAULT=18;
+let mToPx=M_TO_PX_DEFAULT;
+
+let bgClouds=[];
+
+// ── RANDOM HELPERS ─────────────────────────────────────
+function randomHeight(){
+  // height between 6 and 18m
+  return parseFloat((6+Math.random()*12).toFixed(1));
+}
+function pickRandomPlanet(){
+  const keys=Object.keys(PLANETS);
+  return keys[Math.floor(Math.random()*keys.length)];
+}
+
+function initBgObjects(){
+  bgClouds=[];
+  for(let i=0;i<5;i++) bgClouds.push({
+    x:Math.random()*W, y:20+Math.random()*60,
+    w:60+Math.random()*80,
+    driftSpeed:(Math.random()<0.5?1:-1)*(0.03+Math.random()*0.05),
+    alpha:0.7+Math.random()*0.25
   });
-});
+}
+
+// ── PLANET CHIPS ──────────────────────────────────────
+function updatePlanetChips(){
+  Object.keys(PLANETS).forEach(k=>{
+    const chip=document.getElementById('chip-'+k);
+    if(chip){
+      chip.classList.toggle('active-planet', k===currentPlanet && question!=='aceleracao');
+    }
+  });
+}
+
+// ── QUESTION SELECTION ─────────────────────────────────
+function selectQuestion(q){
+  question=q;
+  ['qAce','qVf','qAlt','qTem'].forEach(id=>{
+    document.getElementById(id).classList.remove('selected');
+  });
+  const map={aceleracao:'qAce',vfinal:'qVf',altura:'qAlt',tempo:'qTem'};
+  if(map[q]) document.getElementById(map[q]).classList.add('selected');
+
+  document.getElementById('btnStart').disabled=false;
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('answerSection').classList.remove('ready');
+  // Update answer box label immediately
+  const labels={aceleracao:'Qual foi a aceleração gravitacional? (g)',vfinal:'Qual foi a velocidade final ao tocar o solo?',altura:'Qual foi a altura de queda?',tempo:'Qual foi o tempo de queda?'};
+  const units={aceleracao:'m/s²',vfinal:'m/s',altura:'m',tempo:'s'};
+  document.getElementById('answerLabel').textContent=labels[q]||'?';
+  document.getElementById('answerUnit').textContent=units[q]||'';
+  document.getElementById('answerInput').value='';
+  updateCards(false);
+  updatePlanetChips();
+}
+
+// ── CARDS ──────────────────────────────────────────────
+function updateCards(running){
+  ['ace','vf','alt','tem'].forEach(k=>{
+    const qmap={ace:'aceleracao',vf:'vfinal',alt:'altura',tem:'tempo'};
+    const card=document.getElementById('card-'+k);
+    card.classList.toggle('hidden-val', running && question===qmap[k]);
+    card.classList.toggle('selected', question===qmap[k]);
+  });
+}
+
+// ── START ──────────────────────────────────────────────
+function startSim(){
+  // Pick planet (always random for aceleracao; keep earth if not aceleracao but random too)
+  if(question==='aceleracao'){
+    currentPlanet=pickRandomPlanet();
+  } else {
+    currentPlanet=pickRandomPlanet();
+  }
+  simG=PLANETS[currentPlanet].g;
+
+  simHeight=randomHeight();
+
+  simGroundY=H-50;
+  // Tree trunk height = simGroundY - 8. Top foliage cap at ~7% from top of trunk.
+  const trunkH = simGroundY - 8;
+  const appleReleaseY = trunkH * 0.07 + 8 - 14; // top foliage cap minus apple radius
+  // Scale: map simHeight meters to the full pixel distance from release to ground
+  const availPx = simGroundY - appleReleaseY - 14;
+  mToPx = availPx / simHeight;
+
+  simAppleStartY = appleReleaseY;
+  simAppleY = simAppleStartY;
+  simElapsed=0;
+  simLastTimestamp=null;
+  simEnded=false;
+
+  updateCards(true);
+  updatePlanetChips();
+  refreshDisplays();
+
+  simRunning=true;
+  document.getElementById('btnStart').textContent='⏹ Parar';
+  document.getElementById('btnStart').classList.add('running');
+  document.getElementById('resultBox').classList.remove('show','miss');
+  animId=requestAnimationFrame(animStep);
+}
+
+// ── REFRESH DISPLAYS ───────────────────────────────────
+function refreshDisplays(){
+  const vf = simG * simElapsed;
+
+  const aceEl=document.getElementById('disp-ace');
+  const vfEl =document.getElementById('disp-vf');
+  const altEl=document.getElementById('disp-alt');
+  const temEl=document.getElementById('disp-tem');
+  const hAce=document.getElementById('hint-ace');
+  const hVf =document.getElementById('hint-vf');
+  const hAlt=document.getElementById('hint-alt');
+  const hTem=document.getElementById('hint-tem');
+
+  if(simRunning||simEnded){
+    aceEl.textContent=question==='aceleracao'?'?':fmt(simG)+' m/s²';
+    aceEl.className='rc-val'+(question==='aceleracao'?' unknown':'');
+
+    // v: oculto apenas quando pergunta for vfinal
+    if(question==='vfinal'){
+      vfEl.textContent='?'; vfEl.className='rc-val unknown';
+    } else {
+      vfEl.textContent=fmt(vf)+' m/s'; vfEl.className='rc-val';
+    }
+
+    altEl.textContent=question==='altura'?'?':fmt(simHeight)+' m';
+    altEl.className='rc-val'+(question==='altura'?' unknown':'');
+    temEl.textContent=question==='tempo'?'?':fmt(simElapsed)+' s';
+    temEl.className='rc-val'+(question==='tempo'?' unknown':'');
+
+    hAce.textContent=question==='aceleracao'?'Calcular!':'';
+    hVf.textContent =question==='vfinal'?'Calcular!':'';
+    hAlt.textContent=question==='altura'?'Calcular!':'';
+    hTem.textContent=question==='tempo'?'Calcular!':'';
+  } else {
+    aceEl.textContent='— m/s²'; aceEl.className='rc-val'; hAce.textContent='';
+    vfEl.textContent='— m/s';   vfEl.className='rc-val';  hVf.textContent='';
+    altEl.textContent='— m';    altEl.className='rc-val';  hAlt.textContent='';
+    temEl.textContent='— s';    temEl.className='rc-val';  hTem.textContent='';
+  }
+}
+
+// ── STOP ───────────────────────────────────────────────
+function stopSim(byGround){
+  if(animId){ cancelAnimationFrame(animId); animId=null; }
+  simRunning=false;
+  simEnded=true;
+  document.getElementById('btnStart').textContent='▶ Iniciar';
+  document.getElementById('btnStart').classList.remove('running');
+
+  // Fix final elapsed if stopped by ground
+  if(byGround){
+    simElapsed=Math.sqrt(2*simHeight/simG);
+  }
+  const vf=simG*simElapsed;
+
+  if(question!=='aceleracao') document.getElementById('disp-ace').textContent=fmt(simG)+' m/s²';
+  if(question!=='vfinal')     document.getElementById('disp-vf').textContent=fmt(vf)+' m/s';
+  if(question!=='altura')     document.getElementById('disp-alt').textContent=fmt(simHeight)+' m';
+  if(question!=='tempo')      document.getElementById('disp-tem').textContent=fmt(simElapsed)+' s';
+
+  updateCards(false);
+  showAnswerBox();
+  drawFrame();
+}
+
+function toggleSim(){
+  if(!question){ showToast('⚠️ Selecione uma grandeza primeiro!','info'); return; }
+  if(simRunning) stopSim(false);
+  else startSim();
+}
+
+// ── ANIMATION STEP ─────────────────────────────────────
+const SIM_SPEED = 1.8; // speed multiplier — makes fall visually faster/more dramatic
+function animStep(timestamp){
+  if(!simLastTimestamp) simLastTimestamp=timestamp;
+  const dt=Math.min((timestamp-simLastTimestamp)/1000, 0.05) * SIM_SPEED;
+  simLastTimestamp=timestamp;
+  simElapsed+=dt;
+
+  // y = y0 + 0.5*g*t² (pixels) — clearly accelerated
+  const fallenPx=0.5*simG*simElapsed*simElapsed*mToPx;
+  simAppleY=simAppleStartY+fallenPx;
+
+  bgClouds.forEach(c=>{
+    c.x+=c.driftSpeed;
+    if(c.x>W+c.w) c.x=-c.w;
+    if(c.x<-c.w)  c.x=W+c.w;
+  });
+
+  refreshDisplays();
+  drawFrame();
+
+  // Hit the ground?
+  if(simAppleY>=simGroundY-8){
+    simAppleY=simGroundY-8;
+    simRunning=false;
+    stopSim(true);
+    return;
+  }
+
+  if(simRunning) animId=requestAnimationFrame(animStep);
+}
+
+// ── DRAWING ────────────────────────────────────────────
+function drawFrame(){
+  ctx.clearRect(0,0,W,H);
+  const planet=PLANETS[currentPlanet];
+
+  // Sky
+  const sky=ctx.createLinearGradient(0,0,0,simGroundY);
+  sky.addColorStop(0,planet.skyTop); sky.addColorStop(1,planet.skyBot);
+  ctx.fillStyle=sky; ctx.fillRect(0,0,W,simGroundY);
+
+  // clouds (only for terra-like planets)
+  if(currentPlanet==='terra'||currentPlanet==='venus'){
+    bgClouds.forEach(c=>drawCloud(c.x,c.y,c.w,c.alpha));
+  }
+  // stars for night/space planets
+  if(currentPlanet==='lua'||currentPlanet==='mercurio'||currentPlanet==='marte'){
+    drawStars();
+  }
+
+  // Ground
+  const grd=ctx.createLinearGradient(0,simGroundY,0,H);
+  grd.addColorStop(0,planet.groundColor);
+  grd.addColorStop(1,planet.groundDark||'#1a2208');
+  ctx.fillStyle=grd; ctx.fillRect(0,simGroundY,W,H-simGroundY);
+
+  // Grass fringe for earth-like planets
+  if(currentPlanet==='terra'){
+    ctx.fillStyle='#3aaa26';
+    for(let gx=0;gx<W;gx+=6){
+      const gh=3+Math.sin(gx*0.31)*2+Math.cos(gx*0.17)*1.5;
+      ctx.fillRect(gx, simGroundY-gh, 3, gh+1);
+    }
+  }
+
+  // Apple tree (fixed on the left side, apple release point)
+  const treeX=W/2;
+  drawAppleTree(treeX, simGroundY, simAppleStartY);
+
+  // Height line (dashed) — subtle visual reference, no text
+  if(simElapsed>0){
+    ctx.save();
+    ctx.strokeStyle='rgba(212,137,10,0.5)'; ctx.lineWidth=1.5; ctx.setLineDash([5,5]);
+    ctx.beginPath(); ctx.moveTo(treeX+62,simAppleStartY); ctx.lineTo(treeX+62,simGroundY); ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  // Apple
+  drawApple(treeX, simAppleY);
+
+  // Impact dust
+  if(simEnded && simAppleY>=simGroundY-10){
+    drawImpact(treeX, simGroundY);
+  }
+
+}
+
+function drawCloud(x,y,w,alpha){
+  ctx.save(); ctx.globalAlpha=alpha*0.85; ctx.fillStyle='#fff';
+  const h=w*0.4;
+  ctx.beginPath(); ctx.ellipse(x,y,w/2,h/2,0,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(x-w*0.2,y+h*0.1,w*0.3,h*0.4,0,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(x+w*0.2,y+h*0.05,w*0.32,h*0.38,0,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawStars(){
+  ctx.save();
+  ctx.fillStyle='rgba(255,255,255,0.8)';
+  // simple deterministic "random" stars
+  for(let i=0;i<60;i++){
+    const sx=(i*137.5)%W;
+    const sy=(i*97.3)%(simGroundY*0.85);
+    const r=0.5+(i%3)*0.4;
+    ctx.beginPath(); ctx.arc(sx,sy,r,0,Math.PI*2); ctx.fill();
+  }
+  ctx.restore();
+}
+
+function drawAppleTree(cx, groundY, appleStartY){
+  ctx.save();
+  const tH = groundY - 8; // total trunk height in pixels
+
+  // ── SURFACE ROOTS ──
+  const roots=[
+    {dx:-18,cy:groundY-18,ex:cx-38,ey:groundY-4},
+    {dx: 18,cy:groundY-18,ex:cx+40,ey:groundY-6},
+    {dx:-10,cy:groundY-12,ex:cx-28,ey:groundY+2},
+    {dx: 10,cy:groundY-12,ex:cx+30,ey:groundY+1},
+  ];
+  roots.forEach(r=>{
+    ctx.strokeStyle='#4a2c10'; ctx.lineWidth=5; ctx.lineCap='round';
+    ctx.beginPath();
+    ctx.moveTo(cx, groundY);
+    ctx.quadraticCurveTo(cx+r.dx, r.cy, r.ex, r.ey);
+    ctx.stroke();
+  });
+
+  // ── MAIN TRUNK — tapered, curved, bark gradient ──
+  // draw as a filled shape for thickness
+  function trunkSegment(x1,y1,x2,y2,w1,w2,col1,col2){
+    const dx=x2-x1, dy=y2-y1;
+    const len=Math.sqrt(dx*dx+dy*dy);
+    const nx=-dy/len, ny=dx/len; // normal
+    const grad=ctx.createLinearGradient(x1-nx*w1, y1, x1+nx*w1, y1);
+    grad.addColorStop(0,col1);
+    grad.addColorStop(0.25,'#8d5a2a');
+    grad.addColorStop(0.55,'#7a4820');
+    grad.addColorStop(0.8,'#6b3e18');
+    grad.addColorStop(1,col2);
+    ctx.fillStyle=grad;
+    ctx.beginPath();
+    ctx.moveTo(x1-nx*w1, y1+ny*w1);
+    ctx.quadraticCurveTo(x1-nx*w1*0.8+(x2-x1)*0.4, y1+(y2-y1)*0.4, x2-nx*w2, y2+ny*w2);
+    ctx.lineTo(x2+nx*w2, y2-ny*w2);
+    ctx.quadraticCurveTo(x1+nx*w1*0.8+(x2-x1)*0.4, y1+(y2-y1)*0.4, x1+nx*w1, y1-ny*w1);
+    ctx.closePath(); ctx.fill();
+  }
+
+  // Lower trunk (wide, straight-ish)
+  trunkSegment(cx, groundY, cx-3, groundY-tH*0.42, 11, 7, '#3e2008','#5a3518');
+  // Upper trunk (narrower, slight lean)
+  trunkSegment(cx-3, groundY-tH*0.42, cx-6, groundY-tH*0.72, 7, 4.5, '#4a2c10','#6b4226');
+  // Top narrow section
+  trunkSegment(cx-6, groundY-tH*0.72, cx-4, groundY-tH*0.88, 4.5, 2.5, '#5a3518','#7a4a22');
+
+  // ── BARK TEXTURE — horizontal fissures ──
+  ctx.save();
+  ctx.strokeStyle='rgba(30,12,2,0.22)'; ctx.lineCap='round';
+  const barkLines=[
+    {y:0.15,w:2,xo:-2,len:14},{y:0.22,w:1.5,xo:1,len:12},
+    {y:0.30,w:2,xo:-3,len:16},{y:0.38,w:1.5,xo:2,len:13},
+    {y:0.46,w:2,xo:-1,len:15},{y:0.54,w:1.5,xo:3,len:11},
+    {y:0.62,w:1.5,xo:-2,len:10},{y:0.70,w:1,xo:1,len:9},
+  ];
+  barkLines.forEach(b=>{
+    const yb=groundY-tH*b.y;
+    ctx.lineWidth=b.w;
+    ctx.beginPath();
+    ctx.moveTo(cx+b.xo-b.len/2, yb);
+    ctx.quadraticCurveTo(cx+b.xo, yb+b.w*1.5, cx+b.xo+b.len/2, yb+0.5);
+    ctx.stroke();
+  });
+  ctx.restore();
+
+  // ── BRANCHES — deterministic local rng, never touches Math.random ──
+  let _seed=42;
+  const rng=()=>{ _seed=(_seed*1664525+1013904223)&0xffffffff; return (_seed>>>0)/0xffffffff; };
+
+  function drawBranch(x, y, angle, len, width, depth){
+    if(depth<=0||len<6) return;
+    const ex=x+Math.cos(angle)*len;
+    const ey=y-Math.sin(angle)*len;
+    const cpx=x+Math.cos(angle-0.18)*len*0.55;
+    const cpy=y-Math.sin(angle-0.18)*len*0.55;
+    const bgrad=ctx.createLinearGradient(x,y,ex,ey);
+    bgrad.addColorStop(0,depth>2?'#5a3518':'#7a4a30');
+    bgrad.addColorStop(1,'#9a6040');
+    ctx.strokeStyle=bgrad; ctx.lineWidth=width; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(x,y);
+    ctx.quadraticCurveTo(cpx,cpy,ex,ey);
+    ctx.stroke();
+    if(depth>1){
+      drawBranch(ex, ey, angle-0.55-rng()*0.2, len*0.65, width*0.62, depth-1);
+      drawBranch(ex, ey, angle+0.45+rng()*0.2, len*0.60, width*0.58, depth-1);
+      if(depth>2) drawBranch(ex, ey, angle-0.1, len*0.72, width*0.55, depth-1);
+    }
+  }
+
+  // Main branch forks from trunk
+  const branchOrigins=[
+    {x:cx-3, y:groundY-tH*0.40, a:2.0,  l:70, w:4.5, d:4},
+    {x:cx-4, y:groundY-tH*0.52, a:1.15, l:65, w:4.0, d:4},
+    {x:cx-5, y:groundY-tH*0.62, a:1.95, l:58, w:3.5, d:3},
+    {x:cx-5, y:groundY-tH*0.68, a:1.25, l:55, w:3.2, d:3},
+    {x:cx-6, y:groundY-tH*0.78, a:1.85, l:44, w:2.5, d:3},
+    {x:cx-6, y:groundY-tH*0.82, a:1.30, l:42, w:2.2, d:3},
+    {x:cx-4, y:groundY-tH*0.88, a:1.57, l:34, w:1.8, d:2},
+  ];
+  branchOrigins.forEach(b=>drawBranch(b.x, b.y, b.a, b.l, b.w, b.d));
+
+  // ── FOLIAGE — organic, light-aware clusters ──
+  // Sorted back-to-front (darkest/bottom first)
+  const clusters=[
+    // [dx, yFrac, rx, ry, rotation, colorIdx]
+    // Outer/back shadow masses
+    {dx:-70,yf:0.78,rx:48,ry:42,rot:-0.2,c:0},{dx:68,yf:0.75,rx:46,ry:40,rot:0.15,c:0},
+    {dx: -5,yf:0.82,rx:55,ry:48,rot:0.05,c:0},
+    // Mid masses
+    {dx:-52,yf:0.63,rx:50,ry:44,rot:-0.15,c:1},{dx:55,yf:0.60,rx:48,ry:42,rot:0.2,c:1},
+    {dx:  0,yf:0.68,rx:58,ry:50,rot:0.0,c:1},
+    {dx:-35,yf:0.50,rx:52,ry:46,rot:-0.1,c:2},{dx:38,yf:0.47,rx:50,ry:44,rot:0.1,c:2},
+    {dx:  5,yf:0.54,rx:56,ry:50,rot:0.05,c:2},
+    // Upper lit masses
+    {dx:-22,yf:0.36,rx:50,ry:44,rot:-0.05,c:3},{dx:26,yf:0.33,rx:48,ry:42,rot:0.1,c:3},
+    {dx:  0,yf:0.40,rx:54,ry:48,rot:0.0,c:3},
+    {dx:-42,yf:0.26,rx:40,ry:36,rot:-0.2,c:2},{dx:44,yf:0.24,rx:38,ry:34,rot:0.2,c:2},
+    // Top highlight cap
+    {dx:-14,yf:0.18,rx:44,ry:40,rot:-0.1,c:4},{dx:16,yf:0.16,rx:42,ry:38,rot:0.1,c:4},
+    {dx:  0,yf:0.12,rx:46,ry:42,rot:0.0,c:4},
+    {dx: -8,yf:0.06,rx:34,ry:30,rot:-0.05,c:4},{dx:10,yf:0.07,rx:32,ry:28,rot:0.08,c:4},
+  ];
+
+  const leafPalette=[
+    ['#122808','#1a3e0a'],   // darkest shadow
+    ['#1a5010','#1e6012'],   // dark
+    ['#1e6b10','#257a14'],   // mid
+    ['#2d8a1e','#38a022'],   // bright
+    ['#3aaa26','#50c030'],   // highlight top
+  ];
+
+  clusters.forEach(cl=>{
+    const fy = tH * cl.yf + 8;
+    const [dark,light]=leafPalette[cl.c];
+
+    // Main foliage mass with radial gradient (lit from upper-left)
+    const cg=ctx.createRadialGradient(
+      cx+cl.dx - cl.rx*0.30, fy - cl.ry*0.35, cl.ry*0.08,
+      cx+cl.dx, fy, Math.max(cl.rx,cl.ry)
+    );
+    cg.addColorStop(0, light);
+    cg.addColorStop(0.55, dark);
+    cg.addColorStop(1, leafPalette[Math.max(cl.c-1,0)][0]);
+    ctx.fillStyle=cg;
+    ctx.beginPath();
+    ctx.ellipse(cx+cl.dx, fy, cl.rx, cl.ry, cl.rot, 0, Math.PI*2);
+    ctx.fill();
+  });
+
+  // Specular highlight sheen on lit surface
+  ctx.save();
+  ctx.globalAlpha=0.09;
+  ctx.fillStyle='#c8ff80';
+  [[0,0.10,28,22,-0.2],[-16,0.20,18,14,-0.1],[18,0.25,16,12,0.15],
+   [-5,0.38,22,16,-0.05],[10,0.50,18,14,0.1]].forEach(([dx,yf,rx,ry,rot])=>{
+    const fy=tH*yf+8;
+    ctx.beginPath(); ctx.ellipse(cx+dx-rx*0.3, fy-ry*0.4, rx*0.65, ry*0.55, rot, 0, Math.PI*2); ctx.fill();
+  });
+  ctx.restore();
+
+  // ── DECORATIVE APPLES on foliage ──
+  const dApples=[
+    [-62,0.72],[ 58,0.69],[-46,0.57],[ 44,0.54],
+    [-30,0.44],[ 28,0.41],[-48,0.32],[ 40,0.29],
+    [ -8,0.22],[-26,0.18],[ 20,0.14],[ 2,0.10],
+  ];
+  dApples.forEach(([dx,yf])=>{
+    drawSmallApple(cx+dx, tH*yf+8);
+  });
+
+  ctx.restore();
+}
+
+function drawSmallApple(x, y){
+  ctx.save();
+  // body with gradient
+  const ag=ctx.createRadialGradient(x-2,y-2,1,x,y,6);
+  ag.addColorStop(0,'#ff6666'); ag.addColorStop(0.5,'#cc2222'); ag.addColorStop(1,'#881111');
+  ctx.fillStyle=ag;
+  ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fill();
+  // highlight
+  ctx.fillStyle='rgba(255,255,255,0.45)';
+  ctx.beginPath(); ctx.ellipse(x-2,y-2,2.5,1.5,Math.PI/5,0,Math.PI*2); ctx.fill();
+  // leaf
+  ctx.fillStyle='#2d8a1e';
+  ctx.beginPath(); ctx.ellipse(x+4,y-7,5,2.5,Math.PI/5,0,Math.PI*2); ctx.fill();
+  // stem
+  ctx.strokeStyle='#6b4226'; ctx.lineWidth=1.2; ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(x,y-6); ctx.quadraticCurveTo(x+2,y-11,x+1,y-13); ctx.stroke();
+  ctx.restore();
+}
+
+function drawApple(cx, ay){
+  ctx.save();
+  // Apple body
+  const ag=ctx.createRadialGradient(cx-4,ay-4,2,cx,ay,14);
+  ag.addColorStop(0,'#ff5555'); ag.addColorStop(0.5,'#cc2222'); ag.addColorStop(1,'#881111');
+  ctx.fillStyle=ag;
+  ctx.beginPath(); ctx.arc(cx,ay,14,0,Math.PI*2); ctx.fill();
+
+  // Shine
+  ctx.fillStyle='rgba(255,255,255,0.4)';
+  ctx.beginPath(); ctx.ellipse(cx-4,ay-5,4,3,Math.PI/5,0,Math.PI*2); ctx.fill();
+
+  // Stem
+  ctx.strokeStyle='#6b4226'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(cx,ay-14); ctx.quadraticCurveTo(cx+4,ay-22,cx+2,ay-26); ctx.stroke();
+
+  // Leaf
+  ctx.fillStyle='#2d8a1e';
+  ctx.beginPath(); ctx.ellipse(cx+7,ay-21,7,3,Math.PI/6,0,Math.PI*2); ctx.fill();
+
+  ctx.restore();
+}
+
+function drawImpact(cx, groundY){
+  ctx.save();
+  // Splat lines
+  ctx.strokeStyle='rgba(180,20,20,0.6)'; ctx.lineWidth=2;
+  for(let a=0;a<8;a++){
+    const angle=a*Math.PI/4;
+    const len=10+Math.random()*8;
+    ctx.beginPath();
+    ctx.moveTo(cx+Math.cos(angle)*8, groundY+Math.sin(angle)*2);
+    ctx.lineTo(cx+Math.cos(angle)*(8+len), groundY+Math.sin(angle)*3);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
+// ── ANSWER BOX ────────────────────────────────────────
+function showAnswerBox(){
+  const labels={
+    aceleracao:'Qual foi a aceleração gravitacional? (g)',
+    vfinal:'Qual foi a velocidade final ao tocar o solo?',
+    altura:'Qual foi a altura de queda?',
+    tempo:'Qual foi o tempo de queda?'
+  };
+  const units={aceleracao:'m/s²',vfinal:'m/s',altura:'m',tempo:'s'};
+  document.getElementById('answerLabel').textContent=labels[question]||'?';
+  document.getElementById('answerUnit').textContent=units[question]||'';
+  document.getElementById('answerInput').value='';
+  document.getElementById('answerSection').classList.add('ready');
+  // no focus, no scroll — user keeps looking at simulation
+}
+
+// ── SUBMIT ────────────────────────────────────────────
+function submitAnswer(){
+  const val=parseFloat(document.getElementById('answerInput').value);
+  if(isNaN(val)){ showToast('⚠️ Digite um valor numérico!','info'); return; }
+
+  const tFinal=Math.sqrt(2*simHeight/simG);
+  const vFinal=simG*tFinal;
+  const correct={
+    aceleracao:simG,
+    vfinal:vFinal,
+    altura:simHeight,
+    tempo:tFinal
+  }[question];
+
+  const err=Math.abs(correct)>0.01
+    ? Math.abs(val-correct)/Math.abs(correct)*100
+    : Math.abs(val-correct)*100;
+
+  const rb=document.getElementById('resultBox');
+  const rt=document.getElementById('resultText');
+  const rd=document.getElementById('resultDetail');
+  const units={aceleracao:'m/s²',vfinal:'m/s',altura:'m',tempo:'s'};
+  const u=units[question]||'';
+
+  rb.classList.remove('miss'); rb.classList.add('show');
+
+  if(err<=5){
+    rt.className='r-val hit'; rt.textContent='🎯 ACERTOU!';
+    rd.textContent=`Você disse ${fmt(val)} ${u} — correto: ${fmt(correct)} ${u} (erro ${fmt(err,1)}%)`;
+    showToast('🎯 RESPOSTA CORRETA!','hit');
+  } else {
+    rt.className='r-val miss'; rt.textContent='❌ Resposta incorreta!';
+    rd.textContent=`Você disse ${fmt(val)} ${u} — correto: ${fmt(correct)} ${u} (erro ${fmt(err,1)}%)`;
+    rb.classList.add('miss');
+    showToast('❌ RESPOSTA ERRADA!','miss');
+  }
+
+  // Reveal hidden card
+  const elems={aceleracao:'disp-ace',vfinal:'disp-vf',altura:'disp-alt',tempo:'disp-tem'};
+  const cards={aceleracao:'ace',vfinal:'vf',altura:'alt',tempo:'tem'};
+  document.getElementById(elems[question]).textContent=fmt(correct)+' '+u;
+  document.getElementById(elems[question]).className='rc-val';
+  document.getElementById('card-'+cards[question]).classList.remove('hidden-val','selected');
+}
+
+// ── RESET ─────────────────────────────────────────────
+function resetSim(){
+  if(animId){ cancelAnimationFrame(animId); animId=null; }
+  simRunning=false; simEnded=false; simElapsed=0; simLastTimestamp=null;
+
+  currentPlanet='terra';
+  simG=9.8;
+  simHeight=randomHeight();
+  simGroundY=H-50;
+  const trunkH0 = simGroundY - 8;
+  const appleReleaseY0 = trunkH0 * 0.07 + 8 - 14;
+  const availPx0 = simGroundY - appleReleaseY0 - 14;
+  mToPx = availPx0 / simHeight;
+  simAppleStartY=appleReleaseY0;
+  simAppleY=simAppleStartY;
+
+  question=null;
+  ['qAce','qVf','qAlt','qTem'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.classList.remove('selected');
+  });
+  document.getElementById('btnStart').textContent='▶ Iniciar';
+  document.getElementById('btnStart').classList.remove('running');
+  document.getElementById('btnStart').disabled=true;
+  document.getElementById('resultBox').classList.remove('show','miss');
+  document.getElementById('answerSection').classList.remove('ready');
+  document.getElementById('answerLabel').textContent='Selecione uma grandeza e inicie a simulação';
+  document.getElementById('answerUnit').textContent='';
+  document.getElementById('answerInput').value='';
+  updateCards(false);
+  updatePlanetChips();
+  refreshDisplays();
+  initBgObjects();
+  drawFrame();
+}
+
+// ── TOAST ─────────────────────────────────────────────
+function showToast(msg,cls){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show '+cls;
+  setTimeout(()=>t.className='',3200);
+}
+
+// ── DOWNLOAD DOCS ─────────────────────────────────────
+function downloadDoc(tipo){
+  const filename = tipo==='roteiro' ? 'roteiro-queda-livre.docx' : 'relatorio-queda-livre.docx';
+  const a=document.createElement('a');
+  a.href=filename; a.download=filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  showToast(tipo==='roteiro'?'📋 Baixando roteiro...':'📝 Baixando relatório...','info');
+}
+
+// ── INIT ──────────────────────────────────────────────
+initBgObjects();
+resetSim();
+
+function idleLoop(){
+  if(!simRunning){
+    bgClouds.forEach(c=>{
+      c.x+=c.driftSpeed*0.5;
+      if(c.x>W+c.w) c.x=-c.w;
+      if(c.x<-c.w)  c.x=W+c.w;
+    });
+    drawFrame();
+  }
+  requestAnimationFrame(idleLoop);
+}
+requestAnimationFrame(idleLoop);
 </script>
+
+<div class="color-strip"><div class="cs1"></div><div class="cs2"></div><div class="cs3"></div><div class="cs4"></div><div class="cs5"></div><div class="cs6"></div></div>
 </body>
 </html>
