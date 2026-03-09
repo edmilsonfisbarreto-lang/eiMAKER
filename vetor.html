@@ -656,6 +656,7 @@ let dragging=null; // {idx, offsetX, offsetY}
 function rSign(){ return Math.random()<0.5?1:-1; }
 function toRad(d){ return d*Math.PI/180; }
 function toDeg(r){ return r*180/Math.PI; }
+function fmt(n,dec){ return n.toFixed(dec).replace('.',','); }
 
 function randomVectors(n){
   const vecs=[];
@@ -1124,12 +1125,12 @@ function drawProjections(v, ox, oy){
   // to avoid overlapping with the projection line itself
   const vxLx = (ox+hx)/2;
   const vxLy = oy + (vy >= 0 ? 18 : -18);  // below axis when vy≥0, above when vy<0
-  labelAt(vxLx, vxLy, `Ax=${vx.toFixed(2)}`, '#2563a8');
+  labelAt(vxLx, vxLy, `Ax=${fmt(vx,2)}`, '#2563a8');
 
   // vy label — midpoint of vertical projection, offset left or right of y-axis
   const vyLy = (oy+hy)/2;
   const vyLx = ox + (vx >= 0 ? -46 : 46);   // left of axis when vx≥0, right when vx<0
-  labelAt(vyLx, vyLy, `Ay=${vy.toFixed(2)}`, '#2563a8');
+  labelAt(vyLx, vyLy, `Ay=${fmt(vy,2)}`, '#2563a8');
 
   // angle arc and label — place at safe radius away from origin
   ctx.save();
@@ -1142,7 +1143,7 @@ function drawProjections(v, ox, oy){
   const bisector = aRad / 2;
   const aLx = ox + 60 * Math.cos(bisector);
   const aLy = oy - 60 * Math.sin(bisector);
-  labelAt(aLx, aLy, `𝛼=${v.angle.toFixed(1)}°`, '#d4890a');
+  labelAt(aLx, aLy, `𝛼=${fmt(v.angle,1)}°`, '#d4890a');
 }
 
 // Draw projections of the RESULTANT for soma mode
@@ -1245,12 +1246,12 @@ function drawUnitario(){
         }
         // angle label
         labelAtComp(OX+54*Math.cos(toRad(uniVec.angle/2)), OY-54*Math.sin(toRad(uniVec.angle/2)),
-          `𝛼=${uniVec.angle.toFixed(1)}°`, '#d4890a');
+          `𝛼=${fmt(uniVec.angle,1)}°`, '#d4890a');
         // module label on vector body (perpendicular offset)
         const midX = OX + hdx*0.5, midY = OY + hdy*0.5;
         const len2 = Math.sqrt(hdx*hdx+hdy*hdy)||1;
         const perpX = -hdy/len2*18, perpY = hdx/len2*18;
-        labelAtComp(midX+perpX, midY+perpY, `A = ${uniVec.mag.toFixed(2)} u`, uniVec.color);
+        labelAtComp(midX+perpX, midY+perpY, `A = ${fmt(uniVec.mag,2)} u`, uniVec.color);
       }
     } else {
       // Show snap hint
@@ -1329,7 +1330,7 @@ function populateUniSomaTable(){
   tbody.innerHTML='';
   uniVecs.forEach(v=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${v.label}</td><td>${v.mag.toFixed(1)}</td><td>${v.angle.toFixed(1)}°</td>`;
+    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${v.label}</td><td>${fmt(v.mag,1)}</td><td>${fmt(v.angle,1)}°</td>`;
     tbody.appendChild(tr);
   });
 }
@@ -1342,13 +1343,13 @@ function submitSingleAnswer(){
   if(mode==='paralelogramo'){
     if(!parSharedOrigin()){ showToast('⚠️ Junte as origens dos vetores primeiro!','miss'); return; }
     const R = parResultant();
-    judgeAnswer(val, R.mag, `|R| = ${R.mag.toFixed(2)} u`, `θ = ${R.angle.toFixed(1)}°`);
+    judgeAnswer(val, R.mag, `|R| = ${fmt(R.mag,2)} u`, `θ = ${fmt(R.angle,1)}°`);
     parAnswered=true;
   } else if(mode==='unitario' && uniMode==='vetor'){
     if(!uniVec || !uniAtOrigin(uniVec)){ showToast('⚠️ Arraste o vetor até a origem!','miss'); return; }
     if(uniCalc==='modulo'){
       const correct = uniVec.mag;
-      judgeAnswer(val, correct, `|A| = ${correct.toFixed(2)} u`, `Ax=${(uniVec.mag*Math.cos(toRad(uniVec.angle))).toFixed(2)}, Ay=${(uniVec.mag*Math.sin(toRad(uniVec.angle))).toFixed(2)}`);
+      judgeAnswer(val, correct, `|A| = ${fmt(correct,2)} u`, `Ax=${fmt(uniVec.mag*Math.cos(toRad(uniVec.angle)),2)}, Ay=${fmt(uniVec.mag*Math.sin(toRad(uniVec.angle)),2)}`);
     }
     uniAnswered=true;
   }
@@ -1373,11 +1374,11 @@ function submitSomaAnswer(){
     rb.classList.remove('miss'); rb.classList.add('show'); uniAnswered=true;
     if(errX<=5&&errY<=5){
       rt.className='r-val hit'; rt.textContent='🎯 ACERTOU!';
-      rd.textContent=`Ax: ${rxInput.toFixed(2)} ≈ ${trx.toFixed(2)} (erro ${errX.toFixed(1)}%) | Ay: ${ryInput.toFixed(2)} ≈ ${try_.toFixed(2)} (erro ${errY.toFixed(1)}%)`;
+      rd.textContent=`Ax: ${fmt(rxInput,2)} ≈ ${fmt(trx,2)} (erro ${fmt(errX,1)}%) | Ay: ${fmt(ryInput,2)} ≈ ${fmt(try_,2)} (erro ${fmt(errY,1)}%)`;
       showToast('🎯 COMPONENTES CORRETAS!','hit');
     } else {
       rt.className='r-val miss'; rt.textContent='❌ Resposta incorreta!';
-      rd.textContent=`Correto: Ax=${trx.toFixed(2)}, Ay=${try_.toFixed(2)} | Você: Ax=${rxInput.toFixed(2)}, Ay=${ryInput.toFixed(2)}`;
+      rd.textContent=`Correto: Ax=${fmt(trx,2)}, Ay=${fmt(try_,2)} | Você: Ax=${fmt(rxInput,2)}, Ay=${fmt(ryInput,2)}`;
       rb.classList.add('miss'); showToast('❌ COMPONENTES ERRADAS!','miss');
     }
     return;
@@ -1397,11 +1398,11 @@ function submitSomaAnswer(){
   rb.classList.remove('miss'); rb.classList.add('show'); uniAnswered=true;
   if(errX<=5 && errY<=5 && errRmag<=5){
     rt.className='r-val hit'; rt.textContent='🎯 ACERTOU!';
-    rd.textContent=`Rx: ${rxInput.toFixed(2)} ≈ ${trx.toFixed(2)} u (${errX.toFixed(1)}%) | Ry: ${ryInput.toFixed(2)} ≈ ${try_.toFixed(2)} u (${errY.toFixed(1)}%) | |R|: ${rmagInput.toFixed(2)} ≈ ${R.toFixed(2)} u (${errRmag.toFixed(1)}%)`;
+    rd.textContent=`Rx: ${fmt(rxInput,2)} ≈ ${fmt(trx,2)} u (${fmt(errX,1)}%) | Ry: ${fmt(ryInput,2)} ≈ ${fmt(try_,2)} u (${fmt(errY,1)}%) | |R|: ${fmt(rmagInput,2)} ≈ ${fmt(R,2)} u (${fmt(errRmag,1)}%)`;
     showToast('🎯 RESPOSTAS CORRETAS!','hit');
   } else {
     rt.className='r-val miss'; rt.textContent='❌ Resposta incorreta!';
-    rd.textContent=`Correto: Rx=${trx.toFixed(2)}, Ry=${try_.toFixed(2)}, |R|=${R.toFixed(2)} u | Você: Rx=${rxInput.toFixed(2)}, Ry=${ryInput.toFixed(2)}, |R|=${rmagInput.toFixed(2)}`;
+    rd.textContent=`Correto: Rx=${fmt(trx,2)}, Ry=${fmt(try_,2)}, |R|=${fmt(R,2)} u | Você: Rx=${fmt(rxInput,2)}, Ry=${fmt(ryInput,2)}, |R|=${fmt(rmagInput,2)}`;
     rb.classList.add('miss'); showToast('❌ RESPOSTA ERRADA!','miss');
   }
 }
@@ -1414,11 +1415,11 @@ function judgeAnswer(val, correct, label, detail){
   rb.classList.remove('miss'); rb.classList.add('show');
   if(err<=5){
     rt.className='r-val hit'; rt.textContent=`🎯 ACERTOU! ${label}`;
-    rd.textContent=`Você disse ${val.toFixed(2)} — correto: ${correct.toFixed(2)} (erro ${err.toFixed(1)}%) | ${detail}`;
+    rd.textContent=`Você disse ${fmt(val,2)} — correto: ${fmt(correct,2)} (erro ${fmt(err,1)}%) | ${detail}`;
     showToast('🎯 RESPOSTA CORRETA!','hit');
   } else {
     rt.className='r-val miss'; rt.textContent=`❌ Resposta incorreta!`;
-    rd.textContent=`Você disse ${val.toFixed(2)} — correto: ${correct.toFixed(2)} (erro ${err.toFixed(1)}%) | ${detail}`;
+    rd.textContent=`Você disse ${fmt(val,2)} — correto: ${fmt(correct,2)} (erro ${fmt(err,1)}%) | ${detail}`;
     rb.classList.add('miss');
     showToast('❌ RESPOSTA ERRADA!','miss');
   }
@@ -1623,7 +1624,7 @@ function setVecCount(n){
   tbody.innerHTML='';
   vectors.forEach((v,i)=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${VEC_LABELS[i]}</td><td>${v.mag.toFixed(1)}</td><td>${v.angle.toFixed(1)}°</td>`;
+    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${VEC_LABELS[i]}</td><td>${fmt(v.mag,1)}</td><td>${fmt(v.angle,1)}°</td>`;
     tbody.appendChild(tr);
   });
   document.getElementById('vecTableWrap').style.display='';
@@ -1647,8 +1648,8 @@ function verifyPolygon(){
 
   rb.classList.remove('miss'); rb.classList.add('show');
   rt.className='r-val hit';
-  rt.textContent=`🎯 |R| = ${R.mag.toFixed(2)} u`;
-  rd.textContent=`Ordem: ${chainStr} | θ = ${R.angle.toFixed(1)}° | Rx = ${R.rx.toFixed(2)} u, Ry = ${R.ry.toFixed(2)} u`;
+  rt.textContent=`🎯 |R| = ${fmt(R.mag,2)} u`;
+  rd.textContent=`Ordem: ${chainStr} | θ = ${fmt(R.angle,1)}° | Rx = ${fmt(R.rx,2)} u, Ry = ${fmt(R.ry,2)} u`;
   showToast('✅ Resultante calculada com sucesso!','hit');
   verifiedOnce=true;
 }
@@ -1687,7 +1688,7 @@ function populateParTable(){
   tbody.innerHTML='';
   parVecs.forEach((v)=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${v.label}</td><td>${v.mag.toFixed(1)}</td><td>${v.angle.toFixed(1)}°</td>`;
+    tr.innerHTML=`<td style="color:${v.color};font-weight:900">${v.label}</td><td>${fmt(v.mag,1)}</td><td>${fmt(v.angle,1)}°</td>`;
     tbody.appendChild(tr);
   });
 }
