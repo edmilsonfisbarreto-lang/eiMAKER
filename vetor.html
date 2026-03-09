@@ -413,7 +413,7 @@
     <div class="mode-btns">
       <button class="mode-btn active" id="btnPoligono" onclick="setMode('poligono')">🔷 Polígono</button>
       <button class="mode-btn" id="btnParalelogramo" onclick="setMode('paralelogramo')">▱ Paralelogramo</button>
-      <button class="mode-btn" id="btnUnitario" onclick="setMode('unitario')">→ Vetor Unitário</button>
+      <button class="mode-btn" id="btnUnitario" onclick="setMode('unitario')">→ Componentes</button>
     </div>
 
     <!-- POLÍGONO PANEL -->
@@ -504,9 +504,9 @@
       <!-- VETOR sub-panel -->
       <div id="uniVetorPanel">
         <div class="formula-card">
-          <div class="f-line"><span class="sym">vx =</span> |<span class="vec" style="font-size:.85em">v</span>|·cos 𝛼</div>
-          <div class="f-line"><span class="sym">vy =</span> |<span class="vec" style="font-size:.85em">v</span>|·sen 𝛼</div>
-          <div class="f-line"><span class="sym">|<span class="vec" style="font-size:.85em">v</span>| =</span> √(vx²+vy²)</div>
+          <div class="f-line"><span class="sym">Ax =</span> |<span class="vec" style="font-size:.85em">v</span>|·cos 𝛼</div>
+          <div class="f-line"><span class="sym">Ay =</span> |<span class="vec" style="font-size:.85em">v</span>|·sen 𝛼</div>
+          <div class="f-line"><span class="sym">|<span class="vec" style="font-size:.85em">v</span>| =</span> √(Ax²+Ay²)</div>
           <div class="f-line"><span class="sym">𝛼 =</span> arctan(vy/vx)</div>
         </div>
 
@@ -1105,37 +1105,44 @@ function drawProjections(v, ox, oy){
 
   ctx.save();
   ctx.strokeStyle='rgba(30,100,200,0.45)'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]);
-  // Horizontal projection (vx component)
-  ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(hx,oy); ctx.stroke();
-  // Vertical projection (vy component)
-  ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(ox,hy); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(hx,oy); ctx.stroke(); // vertical drop
+  ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(ox,hy); ctx.stroke(); // horizontal drop
   ctx.setLineDash([]);
   ctx.restore();
 
-  // Labels for components
   function labelAt(tx,ty,txt,col){
     ctx.save();
     ctx.font='bold 13px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
     const pad=5; const tw=ctx.measureText(txt).width;
-    ctx.fillStyle='rgba(255,255,255,0.88)';
+    ctx.fillStyle='rgba(255,255,255,0.92)';
     ctx.beginPath(); ctx.roundRect(tx-tw/2-pad, ty-10, tw+pad*2, 20, 4); ctx.fill();
     ctx.fillStyle=col; ctx.fillText(txt,tx,ty);
     ctx.restore();
   }
 
-  // vx label (on x-axis level)
-  labelAt((ox+hx)/2, oy-14, `vx=${vx.toFixed(2)}`, '#2563a8');
-  // vy label (on y-axis level)
-  labelAt(ox-(vy>=0?30:-30), (oy+hy)/2, `vy=${vy.toFixed(2)}`, '#2563a8');
+  // vx label — midpoint of horizontal projection, offset above or below axis
+  // to avoid overlapping with the projection line itself
+  const vxLx = (ox+hx)/2;
+  const vxLy = oy + (vy >= 0 ? 18 : -18);  // below axis when vy≥0, above when vy<0
+  labelAt(vxLx, vxLy, `Ax=${vx.toFixed(2)}`, '#2563a8');
 
-  // angle arc
-  const angleRad = Math.abs(toRad(v.angle % 360));
+  // vy label — midpoint of vertical projection, offset left or right of y-axis
+  const vyLy = (oy+hy)/2;
+  const vyLx = ox + (vx >= 0 ? -46 : 46);   // left of axis when vx≥0, right when vx<0
+  labelAt(vyLx, vyLy, `Ay=${vy.toFixed(2)}`, '#2563a8');
+
+  // angle arc and label — place at safe radius away from origin
   ctx.save();
   ctx.strokeStyle='rgba(212,137,10,0.7)'; ctx.lineWidth=1.5;
-  ctx.beginPath(); ctx.arc(ox, oy, 28, -toRad(v.angle), 0, v.angle<0); ctx.stroke();
+  const aRad = toRad(v.angle);
+  // arc from 0 to angle (canvas angles are inverted)
+  ctx.beginPath(); ctx.arc(ox, oy, 28, -aRad, 0, v.angle > 0); ctx.stroke();
   ctx.restore();
-  labelAt(ox+36*Math.cos(toRad(v.angle/2)), oy-36*Math.sin(toRad(v.angle/2)),
-    `𝛼=${v.angle.toFixed(1)}°`, '#d4890a');
+  // Place alpha label at 60px from origin along the bisector of the angle
+  const bisector = aRad / 2;
+  const aLx = ox + 60 * Math.cos(bisector);
+  const aLy = oy - 60 * Math.sin(bisector);
+  labelAt(aLx, aLy, `𝛼=${v.angle.toFixed(1)}°`, '#d4890a');
 }
 
 // Draw projections of the RESULTANT for soma mode
@@ -1154,13 +1161,17 @@ function drawSomaProjections(ox, oy, R){
     ctx.save();
     ctx.font='bold 13px Nunito,sans-serif'; ctx.textAlign='center'; ctx.textBaseline='middle';
     const pad=5; const tw=ctx.measureText(txt).width;
-    ctx.fillStyle='rgba(255,255,255,0.88)';
+    ctx.fillStyle='rgba(255,255,255,0.92)';
     ctx.beginPath(); ctx.roundRect(tx-tw/2-pad, ty-10, tw+pad*2, 20, 4); ctx.fill();
     ctx.fillStyle=col; ctx.fillText(txt,tx,ty);
     ctx.restore();
   }
-  labelAt((ox+hx)/2, oy-14, `Rx=?`, '#4a9c2f');
-  labelAt(ox-32, (oy+hy)/2, `Ry=?`, '#4a9c2f');
+  // Rx label: midpoint of horizontal segment, above or below axis
+  const rxLy = oy + (R.ry >= 0 ? 18 : -18);
+  labelAt((ox+hx)/2, rxLy, `Rx=?`, '#4a9c2f');
+  // Ry label: midpoint of vertical segment, left or right of y-axis
+  const ryLx = ox + (R.rx >= 0 ? -46 : 46);
+  labelAt(ryLx, (oy+hy)/2, `Ry=?`, '#4a9c2f');
 }
 
 function drawUnitario(){
@@ -1337,7 +1348,7 @@ function submitSingleAnswer(){
     if(!uniVec || !uniAtOrigin(uniVec)){ showToast('⚠️ Arraste o vetor até a origem!','miss'); return; }
     if(uniCalc==='modulo'){
       const correct = uniVec.mag;
-      judgeAnswer(val, correct, `|A| = ${correct.toFixed(2)} u`, `vx=${(uniVec.mag*Math.cos(toRad(uniVec.angle))).toFixed(2)}, vy=${(uniVec.mag*Math.sin(toRad(uniVec.angle))).toFixed(2)}`);
+      judgeAnswer(val, correct, `|A| = ${correct.toFixed(2)} u`, `Ax=${(uniVec.mag*Math.cos(toRad(uniVec.angle))).toFixed(2)}, Ay=${(uniVec.mag*Math.sin(toRad(uniVec.angle))).toFixed(2)}`);
     }
     uniAnswered=true;
   }
@@ -1434,10 +1445,16 @@ const SNAP_THRESHOLD=25;
 function getCanvasPos(e){
   const rect=canvas.getBoundingClientRect();
   const scaleX=W/rect.width, scaleY=H/rect.height;
-  const clientX=e.touches?e.touches[0].clientX:e.clientX;
-  const clientY=e.touches?e.touches[0].clientY:e.clientY;
-  return {x:(clientX-rect.left)*scaleX, y:(clientY-rect.top)*scaleY};
+  // Support both touches and changedTouches for reliability
+  const touch = e.touches && e.touches.length>0 ? e.touches[0]
+               : e.changedTouches && e.changedTouches.length>0 ? e.changedTouches[0]
+               : e;
+  return {x:(touch.clientX-rect.left)*scaleX, y:(touch.clientY-rect.top)*scaleY};
 }
+
+// Hit radius — larger on touch devices
+const HIT_TAIL = 38;  // px around tail
+const HIT_BODY = 32;  // px around body midpoint
 
 function hitTest(pos){
   if(mode==='unitario'){
@@ -1445,21 +1462,20 @@ function hitTest(pos){
     for(let i=vlist.length-1;i>=0;i--){
       const v=vlist[i];
       const atO=uniAtOrigin(v); const tx=atO?OX:v.tailX; const ty=atO?OY:v.tailY;
-      if(Math.sqrt((pos.x-tx)**2+(pos.y-ty)**2)<22) return {idx:i,offsetX:pos.x-tx,offsetY:pos.y-ty};
+      if(Math.hypot(pos.x-tx, pos.y-ty)<HIT_TAIL) return {idx:i,offsetX:pos.x-tx,offsetY:pos.y-ty};
       const h=vecHead({...v,tailX:tx,tailY:ty});
       const mx=(tx+h.x)/2, my=(ty+h.y)/2;
-      if(Math.sqrt((pos.x-mx)**2+(pos.y-my)**2)<18) return {idx:i,offsetX:pos.x-tx,offsetY:pos.y-ty};
+      if(Math.hypot(pos.x-mx, pos.y-my)<HIT_BODY) return {idx:i,offsetX:pos.x-tx,offsetY:pos.y-ty};
     }
     return null;
   }
   const vlist = mode==='paralelogramo' ? parVecs : vectors;
   for(let i=vlist.length-1;i>=0;i--){
     const v=vlist[i];
-    const dx=pos.x-v.tailX, dy=pos.y-v.tailY;
-    if(Math.sqrt(dx*dx+dy*dy)<22) return {idx:i,offsetX:dx,offsetY:dy};
+    if(Math.hypot(pos.x-v.tailX, pos.y-v.tailY)<HIT_TAIL) return {idx:i,offsetX:pos.x-v.tailX,offsetY:pos.y-v.tailY};
     const h=vecHead(v);
     const mx=(v.tailX+h.x)/2, my=(v.tailY+h.y)/2;
-    if(Math.sqrt((pos.x-mx)**2+(pos.y-my)**2)<18) return {idx:i,offsetX:pos.x-v.tailX,offsetY:pos.y-v.tailY};
+    if(Math.hypot(pos.x-mx, pos.y-my)<HIT_BODY) return {idx:i,offsetX:pos.x-v.tailX,offsetY:pos.y-v.tailY};
   }
   return null;
 }
@@ -1470,10 +1486,13 @@ canvas.addEventListener('mousedown',e=>{
   if(hit){ dragging=hit; document.getElementById('canvasContainer').classList.add('dragging'); }
 });
 canvas.addEventListener('touchstart',e=>{
-  e.preventDefault();
   const pos=getCanvasPos(e);
   const hit=hitTest(pos);
-  if(hit){ dragging=hit; }
+  if(hit){
+    e.preventDefault();
+    dragging=hit;
+    document.getElementById('canvasContainer').classList.add('dragging');
+  }
 },{passive:false});
 
 canvas.addEventListener('mousemove',e=>{
@@ -1546,7 +1565,8 @@ function moveDragging(pos){
 }
 
 canvas.addEventListener('mouseup',()=>{ dragging=null; document.getElementById('canvasContainer').classList.remove('dragging'); });
-canvas.addEventListener('touchend',()=>{ dragging=null; });
+canvas.addEventListener('touchend',()=>{ dragging=null; document.getElementById('canvasContainer').classList.remove('dragging'); });
+canvas.addEventListener('touchcancel',()=>{ dragging=null; document.getElementById('canvasContainer').classList.remove('dragging'); });
 canvas.addEventListener('mouseleave',()=>{ if(dragging){ dragging=null; document.getElementById('canvasContainer').classList.remove('dragging'); } });
 
 // ── MODE ───────────────────────────────────────────────
