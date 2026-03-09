@@ -239,9 +239,9 @@
     border:2px solid var(--yellow); border-radius:14px;
     padding:1.2rem 1.4rem;
     box-shadow:0 4px 20px rgba(212,137,10,.15);
-    visibility:hidden;
+    display:none;
   }
-  .answer-section.ready { visibility:visible; }
+  .answer-section.ready { display:block; }
   .answer-label {
     font-size:.72rem; font-weight:800; letter-spacing:1.5px;
     text-transform:uppercase; color:var(--yellow); margin-bottom:.7rem;
@@ -305,7 +305,7 @@
   .color-strip .cs5{flex:1;background:#2563a8}.color-strip .cs6{flex:1;background:#6b3f9a}
 
   /* PLANETAS */
-  .planets-section {
+  .planets-section { display:none; }
     background:var(--card); border:1px solid var(--border);
     border-radius:12px; padding:.9rem 1.1rem;
     box-shadow:var(--shadow);
@@ -405,12 +405,6 @@
       <canvas id="sim" width="900" height="460"></canvas>
     </div>
 
-    <!-- BOTÕES -->
-    <div class="btn-row">
-      <button class="btn-start" id="btnStart" onclick="toggleSim()" disabled>▶ Iniciar</button>
-      <button class="btn-reset" onclick="resetSim()">🔄 Nova Simulação</button>
-    </div>
-
     <!-- PLANETAS -->
     <div class="planets-section">
       <div class="planets-title">🪐 Corpo Celeste da Simulação</div>
@@ -424,6 +418,26 @@
         <div class="planet-chip" id="chip-saturno" data-g="10.44">♄ Saturno<small>10,44 m/s²</small></div>
         <div class="planet-chip" id="chip-urano" data-g="8.69">⛢ Urano<small>8,69 m/s²</small></div>
         <div class="planet-chip" id="chip-netuno" data-g="11.15">♆ Netuno<small>11,15 m/s²</small></div>
+      </div>
+    </div>
+
+    <!-- ANSWER / RESULT SLOT -->
+    <div id="answerResultSlot">
+      <!-- ANSWER INPUT -->
+      <div class="answer-section" id="answerSection">
+        <div class="answer-label">🎯 <span id="answerLabel">Selecione uma grandeza e inicie a simulação</span></div>
+        <div class="answer-input-row">
+          <input class="answer-input" id="answerInput" type="number" step="any" placeholder="Digite o valor..." />
+          <span class="answer-unit" id="answerUnit"></span>
+          <button class="btn-submit" onclick="submitAnswer()">Enviar ✓</button>
+        </div>
+      </div>
+
+      <!-- RESULT -->
+      <div class="result-box" id="resultBox">
+        <div class="r-title">Resultado</div>
+        <div class="r-val" id="resultText">—</div>
+        <div style="font-size:0.76rem;color:var(--muted);margin-top:0.35rem" id="resultDetail"></div>
       </div>
     </div>
 
@@ -451,21 +465,10 @@
       </div>
     </div>
 
-    <!-- ANSWER INPUT -->
-    <div class="answer-section" id="answerSection">
-      <div class="answer-label">🎯 <span id="answerLabel">Qual foi a aceleração?</span></div>
-      <div class="answer-input-row">
-        <input class="answer-input" id="answerInput" type="number" step="any" placeholder="Digite o valor..." />
-        <span class="answer-unit" id="answerUnit">m/s²</span>
-        <button class="btn-submit" onclick="submitAnswer()">Enviar ✓</button>
-      </div>
-    </div>
-
-    <!-- RESULT -->
-    <div class="result-box" id="resultBox">
-      <div class="r-title">Resultado</div>
-      <div class="r-val" id="resultText">—</div>
-      <div style="font-size:0.76rem;color:var(--muted);margin-top:0.35rem" id="resultDetail"></div>
+    <!-- BOTÕES -->
+    <div class="btn-row">
+      <button class="btn-start" id="btnStart" onclick="toggleSim()" disabled>▶ Iniciar</button>
+      <button class="btn-reset" onclick="resetSim()">🔄 Nova Simulação</button>
     </div>
 
   </div>
@@ -511,6 +514,13 @@ let question=null;
 let simG=9.8;
 let simHeight=0;       // total fall height (m)
 let simElapsed=0;
+// Apple spawn positions [dx from treeX, yFrac of tH] — mirrors decorative apples
+const APPLE_SPOTS=[
+  [-62,0.72],[ 58,0.69],[-46,0.57],[ 44,0.54],
+  [-30,0.44],[ 28,0.41],[-48,0.32],[ 40,0.29],
+  [ -8,0.22],[-26,0.18],[ 20,0.14],[  2,0.10],
+];
+let simAppleX=0;       // apple screen X
 let simAppleY=0;       // apple screen Y (pixels from top of canvas)
 let simAppleStartY=0;  // starting screen Y
 let simGroundY=0;      // ground screen Y
@@ -601,10 +611,15 @@ function startSim(){
   simHeight=randomHeight();
 
   simGroundY=H-50;
-  // Tree trunk height = simGroundY - 8. Top foliage cap at ~7% from top of trunk.
   const trunkH = simGroundY - 8;
-  const appleReleaseY = trunkH * 0.07 + 8 - 14; // top foliage cap minus apple radius
-  // Scale: map simHeight meters to the full pixel distance from release to ground
+  const treeX = W/2;
+
+  // Pick a random apple spawn point from the foliage spots
+  const spot = APPLE_SPOTS[Math.floor(Math.random()*APPLE_SPOTS.length)];
+  simAppleX = treeX + spot[0];
+  const appleReleaseY = trunkH * spot[1] + 8;
+
+  // Scale: map simHeight meters to the pixel distance from release to ground
   const availPx = simGroundY - appleReleaseY - 14;
   mToPx = availPx / simHeight;
 
@@ -762,7 +777,7 @@ function drawFrame(){
     }
   }
 
-  // Apple tree (fixed on the left side, apple release point)
+  // Apple tree
   const treeX=W/2;
   drawAppleTree(treeX, simGroundY, simAppleStartY);
 
@@ -770,19 +785,80 @@ function drawFrame(){
   if(simElapsed>0){
     ctx.save();
     ctx.strokeStyle='rgba(212,137,10,0.5)'; ctx.lineWidth=1.5; ctx.setLineDash([5,5]);
-    ctx.beginPath(); ctx.moveTo(treeX+62,simAppleStartY); ctx.lineTo(treeX+62,simGroundY); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(simAppleX+16,simAppleStartY); ctx.lineTo(simAppleX+16,simGroundY); ctx.stroke();
     ctx.setLineDash([]);
     ctx.restore();
   }
 
-  // Apple
-  drawApple(treeX, simAppleY);
+  // Apple falls from its random spot
+  drawApple(simAppleX, simAppleY);
 
-  // Impact dust
+  // Impact dust at apple X
   if(simEnded && simAppleY>=simGroundY-10){
-    drawImpact(treeX, simGroundY);
+    drawImpact(simAppleX, simGroundY);
   }
 
+  // ── PLANET PANEL inside canvas (bottom-right) ──
+  drawPlanetPanel();
+
+}
+
+// ── PLANET PANEL ───────────────────────────────────────
+function drawPlanetPanel(){
+  const planets=Object.keys(PLANETS);
+  const cols=3, rows=Math.ceil(planets.length/cols);
+  const chipW=88, chipH=28, gap=5;
+  const panelPad=10;
+  const panelW=cols*(chipW+gap)-gap+panelPad*2;
+  const panelH=rows*(chipH+gap)-gap+panelPad*2+22; // 22 for title
+  const px=W-panelW-10;
+  const py=10;
+
+  ctx.save();
+
+  // Panel background
+  ctx.fillStyle='rgba(15,20,35,0.82)';
+  ctx.beginPath(); ctx.roundRect(px,py,panelW,panelH,10); ctx.fill();
+
+  // Panel border
+  ctx.strokeStyle='rgba(255,255,255,0.12)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.roundRect(px,py,panelW,panelH,10); ctx.stroke();
+
+  // Title
+  ctx.fillStyle='rgba(255,255,255,0.55)';
+  ctx.font='bold 9px Nunito,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('🪐 CORPO CELESTE', px+panelW/2, py+panelPad+9);
+
+  // Chips
+  planets.forEach((key,i)=>{
+    const col=i%cols, row=Math.floor(i/cols);
+    const cx2=px+panelPad+col*(chipW+gap);
+    const cy2=py+panelPad+22+row*(chipH+gap);
+    const isActive=(key===currentPlanet && question!=='aceleracao');
+    const p=PLANETS[key];
+
+    // Chip bg
+    ctx.fillStyle=isActive?'rgba(212,137,10,0.9)':'rgba(255,255,255,0.08)';
+    ctx.beginPath(); ctx.roundRect(cx2,cy2,chipW,chipH,6); ctx.fill();
+    if(isActive){
+      ctx.strokeStyle='rgba(255,200,50,0.8)'; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.roundRect(cx2,cy2,chipW,chipH,6); ctx.stroke();
+    }
+
+    // Planet name
+    ctx.fillStyle=isActive?'#fff':'rgba(255,255,255,0.8)';
+    ctx.font=`${isActive?'bold ':''}10px Nunito,sans-serif`;
+    ctx.textAlign='left';
+    ctx.fillText(p.name, cx2+7, cy2+12);
+
+    // g value
+    ctx.fillStyle=isActive?'rgba(255,255,200,0.9)':'rgba(255,255,255,0.4)';
+    ctx.font='8px "Fira Code",monospace';
+    ctx.fillText(String(p.g).replace('.',',')+' m/s²', cx2+7, cy2+22);
+  });
+
+  ctx.restore();
 }
 
 function drawCloud(x,y,w,alpha){
@@ -1050,6 +1126,7 @@ function showAnswerBox(){
   document.getElementById('answerLabel').textContent=labels[question]||'?';
   document.getElementById('answerUnit').textContent=units[question]||'';
   document.getElementById('answerInput').value='';
+  document.getElementById('resultBox').classList.remove('show','miss');
   document.getElementById('answerSection').classList.add('ready');
   // no focus, no scroll — user keeps looking at simulation
 }
@@ -1079,6 +1156,8 @@ function submitAnswer(){
   const u=units[question]||'';
 
   rb.classList.remove('miss'); rb.classList.add('show');
+  // Swap: hide answer, show result in same slot
+  document.getElementById('answerSection').classList.remove('ready');
 
   if(err<=5){
     rt.className='r-val hit'; rt.textContent='🎯 ACERTOU!';
@@ -1109,7 +1188,9 @@ function resetSim(){
   simHeight=randomHeight();
   simGroundY=H-50;
   const trunkH0 = simGroundY - 8;
-  const appleReleaseY0 = trunkH0 * 0.07 + 8 - 14;
+  const spot0 = APPLE_SPOTS[Math.floor(Math.random()*APPLE_SPOTS.length)];
+  simAppleX = W/2 + spot0[0];
+  const appleReleaseY0 = trunkH0 * spot0[1] + 8;
   const availPx0 = simGroundY - appleReleaseY0 - 14;
   mToPx = availPx0 / simHeight;
   simAppleStartY=appleReleaseY0;
