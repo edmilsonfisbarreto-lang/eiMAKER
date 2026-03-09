@@ -386,7 +386,7 @@
       </div>
 
       <div style="background:rgba(26,159,212,.07);border:1px solid rgba(26,159,212,.2);border-radius:10px;padding:.9rem;font-size:.8rem;color:var(--muted);line-height:1.6;">
-        <strong style="color:var(--blue1)">🎮Como jogar</strong><br>
+        <strong style="color:var(--blue1)">Como jogar:</strong><br>
         1. Escolha a grandeza a descobrir<br>
         2. Clique em <strong>Iniciar</strong><br>
         3. Observe o movimento<br>
@@ -576,6 +576,9 @@ function initBgObjects(){
 
 function worldToScreen(wx){ return CAR_SCREEN_X+(wx-simPos)*M_TO_PX; }
 
+// Format number: replace decimal point with comma
+function fmt(n, dec){ return n.toFixed(dec).replace('.',','); }
+
 // ── MODE ───────────────────────────────────────────────
 function setMode(m){
   mode=m;
@@ -674,11 +677,11 @@ function refreshDisplays(){
     const hTem=document.getElementById('hint-tem');
     const hDes=document.getElementById('hint-des');
     if(simRunning||simElapsed>0){
-      velEl.textContent=question==='velocidade'?'?':simVel.toFixed(1)+' m/s';
+      velEl.textContent=question==='velocidade'?'?':fmt(simVel,1)+' m/s';
       velEl.className='rc-val'+(question==='velocidade'?' unknown':'');
-      temEl.textContent=question==='tempo'?'?':simElapsed.toFixed(1)+' s';
+      temEl.textContent=question==='tempo'?'?':fmt(simElapsed,1)+' s';
       temEl.className='rc-val'+(question==='tempo'?' unknown':'');
-      desEl.textContent=question==='posfinal'?'?':(simPos>=0?'+':'')+simPos.toFixed(1)+' m';
+      desEl.textContent=question==='posfinal'?'?':(simPos>=0?'+':'')+fmt(simPos,1)+' m';
       desEl.className='rc-val'+(question==='posfinal'?' unknown':'');
       hVel.textContent=question==='velocidade'?'Calcular!':'';
       hTem.textContent=question==='tempo'?'Calcular!':'';
@@ -699,13 +702,13 @@ function refreshDisplays(){
     const hDes=document.getElementById('hint-desm');
     const hTem=document.getElementById('hint-temm');
     if(simRunning||simElapsed>0){
-      aceEl.textContent=question==='aceleracao'?'?':(simAcc>=0?'+':'')+simAcc.toFixed(1)+' m/s²';
+      aceEl.textContent=question==='aceleracao'?'?':(simAcc>=0?'+':'')+fmt(simAcc,1)+' m/s²';
       aceEl.className='rc-val'+(question==='aceleracao'?' unknown':'');
-      vfEl.textContent =question==='vfinal'?'?':(simVel>=0?'+':'')+simVel.toFixed(1)+' m/s';
+      vfEl.textContent =question==='vfinal'?'?':(simVel>=0?'+':'')+fmt(simVel,1)+' m/s';
       vfEl.className='rc-val'+(question==='vfinal'?' unknown':'');
-      desEl.textContent=question==='posfinal'?'?':(simPos>=0?'+':'')+simPos.toFixed(1)+' m';
+      desEl.textContent=question==='posfinal'?'?':(simPos>=0?'+':'')+fmt(simPos,1)+' m';
       desEl.className='rc-val'+(question==='posfinal'?' unknown':'');
-      temEl.textContent=question==='tempo'?'?':simElapsed.toFixed(1)+' s';
+      temEl.textContent=question==='tempo'?'?':fmt(simElapsed,1)+' s';
       temEl.className='rc-val'+(question==='tempo'?' unknown':'');
       hAce.textContent=question==='aceleracao'?'Calcular!':'';
       hVf.textContent =question==='vfinal'?'Calcular!':'';
@@ -729,14 +732,14 @@ function stopSim(){
 
   const ds=simPos-simStartPos;
   if(mode==='MU'){
-    if(question!=='velocidade') document.getElementById('disp-vel').textContent=simVel.toFixed(2)+' m/s';
-    if(question!=='tempo')      document.getElementById('disp-tem').textContent=simElapsed.toFixed(2)+' s';
-    if(question!=='posfinal') document.getElementById('disp-des').textContent=(simPos>=0?'+':'')+simPos.toFixed(2)+' m';
+    if(question!=='velocidade') document.getElementById('disp-vel').textContent=fmt(simVel,2)+' m/s';
+    if(question!=='tempo')      document.getElementById('disp-tem').textContent=fmt(simElapsed,2)+' s';
+    if(question!=='posfinal') document.getElementById('disp-des').textContent=(simPos>=0?'+':'')+fmt(simPos,2)+' m';
   } else {
-    if(question!=='aceleracao')   document.getElementById('disp-ace').textContent=(simAcc>=0?'+':'')+simAcc.toFixed(2)+' m/s²';
-    if(question!=='vfinal')       document.getElementById('disp-vf').textContent=(simVel>=0?'+':'')+simVel.toFixed(2)+' m/s';
-    if(question!=='posfinal') document.getElementById('disp-desm').textContent=(simPos>=0?'+':'')+simPos.toFixed(2)+' m';
-    if(question!=='tempo')        document.getElementById('disp-temm').textContent=simElapsed.toFixed(2)+' s';
+    if(question!=='aceleracao')   document.getElementById('disp-ace').textContent=(simAcc>=0?'+':'')+fmt(simAcc,2)+' m/s²';
+    if(question!=='vfinal')       document.getElementById('disp-vf').textContent=(simVel>=0?'+':'')+fmt(simVel,2)+' m/s';
+    if(question!=='posfinal') document.getElementById('disp-desm').textContent=(simPos>=0?'+':'')+fmt(simPos,2)+' m';
+    if(question!=='tempo')        document.getElementById('disp-temm').textContent=fmt(simElapsed,2)+' s';
   }
 
   updateCards(false);
@@ -832,7 +835,7 @@ function drawFrame(){
     ctx.fillStyle='#1a9fd4';
     ctx.beginPath(); ctx.moveTo(xSX,GROUND_Y-52); ctx.lineTo(xSX+22,GROUND_Y-42); ctx.lineTo(xSX,GROUND_Y-32); ctx.closePath(); ctx.fill();
     ctx.fillStyle='#fff'; ctx.font='bold 8px Nunito'; ctx.textAlign='left';
-    ctx.fillText('x='+(simPos>=0?'+':'')+simPos.toFixed(0)+' m', xSX+3, GROUND_Y-40);
+    ctx.fillText('x='+(simPos>=0?'+':'')+fmt(simPos,0)+' m', xSX+3, GROUND_Y-40);
     ctx.restore();
   }
 
@@ -867,15 +870,15 @@ function drawFrame(){
     const x0sign=simStartPos>=0?'+':'';
     const panelLines=[];
     if(mode==='MU'){
-      panelLines.push({text:'x₀ = '+x0sign+simStartPos.toFixed(1)+' m', color:'#fff'});
+      panelLines.push({text:'x₀ = '+x0sign+fmt(simStartPos,1)+' m', color:'#fff'});
       if(question!=='tempo')
-        panelLines.push({text:'⏱ '+simElapsed.toFixed(1)+' s', color:'#fff'});
+        panelLines.push({text:'⏱ '+fmt(simElapsed,1)+' s', color:'#fff'});
     } else {
       const v0sign=simV0>=0?'+':'';
-      panelLines.push({text:'x₀ = '+x0sign+simStartPos.toFixed(1)+' m', color:'#fff'});
-      panelLines.push({text:'v₀ = '+v0sign+simV0.toFixed(1)+' m/s', color:'#fff'});
+      panelLines.push({text:'x₀ = '+x0sign+fmt(simStartPos,1)+' m', color:'#fff'});
+      panelLines.push({text:'v₀ = '+v0sign+fmt(simV0,1)+' m/s', color:'#fff'});
       if(question!=='tempo')
-        panelLines.push({text:'⏱ '+simElapsed.toFixed(1)+' s', color:'#fff'});
+        panelLines.push({text:'⏱ '+fmt(simElapsed,1)+' s', color:'#fff'});
     }
     const lineH=18, pad=10;
     const panelH=panelLines.length*lineH+pad;
@@ -962,7 +965,7 @@ function drawStartFlag(sx,worldPos){
   ctx.fillStyle='#1a9fd4';
   ctx.beginPath(); ctx.moveTo(sx,GROUND_Y-50); ctx.lineTo(sx+26,GROUND_Y-40); ctx.lineTo(sx,GROUND_Y-30); ctx.closePath(); ctx.fill();
   ctx.fillStyle='#fff'; ctx.font='bold 8px Nunito'; ctx.textAlign='left';
-  ctx.fillText('x\u2080='+(worldPos>=0?'+':'')+worldPos.toFixed(0),sx+3,GROUND_Y-38);
+  ctx.fillText('x\u2080='+(worldPos>=0?'+':'')+fmt(worldPos,0),sx+3,GROUND_Y-38);
   ctx.restore();
 }
 
@@ -1088,11 +1091,11 @@ function submitAnswer(){
 
   if(err<=5){
     rt.className='r-val hit'; rt.textContent='🎯 ACERTOU!';
-    rd.textContent=`Você disse ${val.toFixed(2)} ${u} — correto: ${correct.toFixed(2)} ${u} (erro ${err.toFixed(1)}%)`;
+    rd.textContent=`Você disse ${fmt(val,2)} ${u} — correto: ${fmt(correct,2)} ${u} (erro ${fmt(err,1)}%)`;
     showToast('🎯 RESPOSTA CORRETA!','hit');
   } else {
     rt.className='r-val miss'; rt.textContent='❌ Resposta incorreta!';
-    rd.textContent=`Você disse ${val.toFixed(2)} ${u} — correto: ${correct.toFixed(2)} ${u} (erro ${err.toFixed(1)}%)`;
+    rd.textContent=`Você disse ${fmt(val,2)} ${u} — correto: ${fmt(correct,2)} ${u} (erro ${fmt(err,1)}%)`;
     rb.classList.add('miss');
     showToast('❌ RESPOSTA ERRADA!','miss');
   }
@@ -1101,13 +1104,13 @@ function submitAnswer(){
   if(mode==='MU'){
     const elems={velocidade:'disp-vel',tempo:'disp-tem',posfinal:'disp-des'};
     const cards={velocidade:'vel',tempo:'tem',posfinal:'des'};
-    document.getElementById(elems[question]).textContent=correct.toFixed(2)+' '+u;
+    document.getElementById(elems[question]).textContent=fmt(correct,2)+' '+u;
     document.getElementById(elems[question]).className='rc-val';
     document.getElementById('card-'+cards[question]).classList.remove('hidden-val','selected');
   } else {
     const elems={aceleracao:'disp-ace',vfinal:'disp-vf',posfinal:'disp-desm',tempo:'disp-temm'};
     const cards={aceleracao:'ace',vfinal:'vf',posfinal:'desm',tempo:'temm'};
-    document.getElementById(elems[question]).textContent=correct.toFixed(2)+' '+u;
+    document.getElementById(elems[question]).textContent=fmt(correct,2)+' '+u;
     document.getElementById(elems[question]).className='rc-val';
     document.getElementById('card-'+cards[question]).classList.remove('hidden-val','selected');
   }
