@@ -1,0 +1,3813 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atividades Computacionais para o Ensino de Física — IFSC</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCIgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0Ij4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iYmciIGN4PSI1MCUiIGN5PSI1MCUiIHI9IjUwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwZDFiMmEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMTEyMjQwIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogIDwvZGVmcz4KICA8Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSIzMiIgZmlsbD0idXJsKCNiZykiLz4KICA8IS0tIEF0b20gbnVjbGV1cyAtLT4KICA8Y2lyY2xlIGN4PSIzMiIgY3k9IjMyIiByPSI0IiBmaWxsPSIjNjRmZmRhIi8+CiAgPCEtLSBPcmJpdCBlbGxpcHNlcyAtLT4KICA8ZWxsaXBzZSBjeD0iMzIiIGN5PSIzMiIgcng9IjIwIiByeT0iNyIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNjRmZmRhIiBzdHJva2Utd2lkdGg9IjEuNSIgb3BhY2l0eT0iMC45Ii8+CiAgPGVsbGlwc2UgY3g9IjMyIiBjeT0iMzIiIHJ4PSIyMCIgcnk9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzY0ZmZkYSIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9IjAuNiIgdHJhbnNmb3JtPSJyb3RhdGUoNjAgMzIgMzIpIi8+CiAgPGVsbGlwc2UgY3g9IjMyIiBjeT0iMzIiIHJ4PSIyMCIgcnk9IjciIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzY0ZmZkYSIgc3Ryb2tlLXdpZHRoPSIxLjUiIG9wYWNpdHk9IjAuNiIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDMyIDMyKSIvPgogIDwhLS0gRWxlY3Ryb25zIC0tPgogIDxjaXJjbGUgY3g9IjUyIiBjeT0iMzIiIHI9IjIuNSIgZmlsbD0iI2NjZDZmNiIvPgogIDxjaXJjbGUgY3g9IjIyIiBjeT0iMjUuNSIgcj0iMi41IiBmaWxsPSIjY2NkNmY2IiB0cmFuc2Zvcm09InJvdGF0ZSg2MCAzMiAzMikiLz4KICA8Y2lyY2xlIGN4PSIyMiIgY3k9IjM4LjUiIHI9IjIuNSIgZmlsbD0iI2NjZDZmNiIgdHJhbnNmb3JtPSJyb3RhdGUoMTIwIDMyIDMyKSIvPgogIDwhLS0gRGF0YSBsaW5lIGhpbnQgLS0+CiAgPHBhdGggZD0iTTggNTAgUTE2IDQyIDI0IDQ4IFEzMiA1NCA0MCA0NCBRNDggMzQgNTYgMzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2Y2YzkwZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgb3BhY2l0eT0iMC44Ii8+Cjwvc3ZnPgo=" />
+  <style>
+/* ============================================================
+   ATIVIDADES COMPUTACIONAIS PARA O ENSINO DE FÍSICA
+   Produto Educacional — IFSC Licenciatura em Física
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
+
+/* ─── VARIABLES ─── */
+:root {
+  --bg-dark:     #0a0e1a;
+  --bg-card:     #0f1629;
+  --bg-surface:  #141e35;
+  --accent-cyan: #64ffda;
+  --accent-gold: #f6c90e;
+  --accent-pink: #ff6b9d;
+  --accent-blue: #4fc3f7;
+  --text-primary:#ccd6f6;
+  --text-dim:    #8892b0;
+  --border:      rgba(100,255,218,0.15);
+  --shadow-glow: 0 0 30px rgba(100,255,218,0.15);
+  --font-display:'Syne', sans-serif;
+  --font-mono:   'Space Mono', monospace;
+  --font-body:   'IBM Plex Sans', sans-serif;
+  --radius:      12px;
+  --transition:  0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET & BASE ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ─── NOISE TEXTURE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--accent-cyan); border-radius: 3px; }
+
+/* ─── SELECTION ─── */
+::selection { background: var(--accent-cyan); color: var(--bg-dark); }
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(10,14,26,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.1em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-icon {
+  width: 32px; height: 32px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  transition: color var(--transition);
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--accent-cyan);
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+
+.nav-links a:hover { color: var(--accent-cyan); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 64px;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 40%, rgba(100,255,218,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 60% at 80% 60%, rgba(79,195,247,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 50% 80%, rgba(246,201,14,0.04) 0%, transparent 70%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(100,255,218,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100,255,218,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  padding: 2rem;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border: 1px solid var(--border);
+  padding: 6px 16px;
+  border-radius: 50px;
+  margin-bottom: 2rem;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s 0.15s ease both;
+}
+
+.hero-title span.highlight {
+  color: var(--accent-cyan);
+  position: relative;
+}
+
+.hero-title span.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 0; right: 0;
+  height: 3px;
+  background: var(--accent-cyan);
+  opacity: 0.4;
+  border-radius: 2px;
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  animation: fadeInUp 0.8s 0.3s ease both;
+}
+
+.hero-author {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-bottom: 3rem;
+  animation: fadeInUp 0.8s 0.4s ease both;
+}
+
+.hero-author span { color: var(--accent-gold); }
+
+/* ─── INTERACTIVE DEMO BUTTONS BAR ─── */
+.demo-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.8s 0.5s ease both;
+}
+
+/* ─── BUTTONS ─── */
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  padding: 10px 22px;
+  border-radius: 6px;
+  border: 1px solid;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.btn:hover::before { opacity: 0.08; }
+
+.btn-cyan {
+  color: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  background: transparent;
+}
+.btn-cyan:hover {
+  background: rgba(100,255,218,0.1);
+  box-shadow: 0 0 20px rgba(100,255,218,0.2);
+  transform: translateY(-2px);
+}
+
+.btn-gold {
+  color: var(--accent-gold);
+  border-color: var(--accent-gold);
+  background: transparent;
+}
+.btn-gold:hover {
+  background: rgba(246,201,14,0.1);
+  box-shadow: 0 0 20px rgba(246,201,14,0.2);
+  transform: translateY(-2px);
+}
+
+.btn-pink {
+  color: var(--accent-pink);
+  border-color: var(--accent-pink);
+  background: transparent;
+}
+.btn-pink:hover {
+  background: rgba(255,107,157,0.1);
+  box-shadow: 0 0 20px rgba(255,107,157,0.2);
+  transform: translateY(-2px);
+}
+
+.btn-blue {
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  background: transparent;
+}
+.btn-blue:hover {
+  background: rgba(79,195,247,0.1);
+  box-shadow: 0 0 20px rgba(79,195,247,0.2);
+  transform: translateY(-2px);
+}
+
+.btn-solid {
+  background: var(--accent-cyan);
+  color: var(--bg-dark);
+  border-color: var(--accent-cyan);
+  font-weight: 700;
+}
+.btn-solid:hover {
+  background: #4de8c0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(100,255,218,0.3);
+}
+
+.btn:active { transform: translateY(0) scale(0.97); }
+
+/* ─── MESSAGE TOAST ─── */
+#toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+
+.toast {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border-left: 3px solid;
+  backdrop-filter: blur(20px);
+  background: rgba(15,22,41,0.95);
+  color: var(--text-primary);
+  max-width: 320px;
+  animation: slideInRight 0.4s ease, fadeOut 0.4s 2.6s ease forwards;
+  pointer-events: auto;
+}
+
+.toast.cyan  { border-color: var(--accent-cyan);  color: var(--accent-cyan); }
+.toast.gold  { border-color: var(--accent-gold);  color: var(--accent-gold); }
+.toast.pink  { border-color: var(--accent-pink);  color: var(--accent-pink); }
+.toast.blue  { border-color: var(--accent-blue);  color: var(--accent-blue); }
+
+/* ─── COLOR THEME SWITCH ─── */
+body.theme-nebula {
+  --bg-dark: #12001a;
+  --bg-card: #1a0028;
+  --bg-surface: #200033;
+  --accent-cyan: #c084fc;
+  --border: rgba(192,132,252,0.15);
+}
+
+body.theme-solar {
+  --bg-dark: #1a1000;
+  --bg-card: #231500;
+  --bg-surface: #2a1a00;
+  --accent-cyan: #f6c90e;
+  --border: rgba(246,201,14,0.15);
+}
+
+body.theme-ocean {
+  --bg-dark: #00101a;
+  --bg-card: #00182a;
+  --bg-surface: #001e33;
+  --accent-cyan: #4fc3f7;
+  --border: rgba(79,195,247,0.15);
+}
+
+body.theme-matrix {
+  --bg-dark: #000a00;
+  --bg-card: #001000;
+  --bg-surface: #001500;
+  --accent-cyan: #00ff41;
+  --border: rgba(0,255,65,0.15);
+}
+
+/* ─── COUNTER WIDGET ─── */
+.counter-widget {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  padding: 8px 20px;
+  animation: fadeInUp 0.8s 0.6s ease both;
+}
+
+.counter-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.counter-display {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  color: var(--accent-cyan);
+  min-width: 3ch;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.counter-display.bump {
+  transform: scale(1.3);
+  color: var(--accent-gold);
+}
+
+/* ─── COLOR PICKER ROW ─── */
+.color-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+  animation: fadeInUp 0.8s 0.65s ease both;
+}
+
+.swatch {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.swatch:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px currentColor;
+}
+
+/* ─── TYPING EFFECT BOX ─── */
+.type-box {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent-cyan);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 20px;
+  background: var(--bg-surface);
+  text-align: left;
+  min-height: 48px;
+  max-width: 500px;
+  margin: 0 auto 1rem;
+  position: relative;
+  animation: fadeInUp 0.8s 0.7s ease both;
+}
+
+.type-box::after {
+  content: '|';
+  animation: blink 1s step-end infinite;
+  color: var(--accent-gold);
+}
+
+/* ─── PARTICLE CANVAS ─── */
+#particle-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ─── SECTIONS ─── */
+section {
+  padding: 6rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.section-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.2em;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.section-title em {
+  font-style: normal;
+  color: var(--accent-cyan);
+}
+
+.section-desc {
+  font-size: 1rem;
+  color: var(--text-dim);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), transparent);
+  margin: 2rem auto;
+}
+
+/* ─── FULL WIDTH SECTION WRAPPER ─── */
+.section-full {
+  padding: 6rem 2rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ─── DATA ACQUISITION SYSTEM ─── */
+.daq-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.daq-panel {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.daq-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue), transparent);
+}
+
+.daq-title {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot-live {
+  width: 8px; height: 8px;
+  background: var(--accent-pink);
+  border-radius: 50%;
+  animation: pulse-live 1.5s ease-in-out infinite;
+}
+
+.daq-canvas-wrap {
+  background: var(--bg-dark);
+  border: 1px solid rgba(100,255,218,0.08);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+#daq-canvas {
+  display: block;
+  width: 100%;
+  height: 180px;
+}
+
+.sensor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sensor-card {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.sensor-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sensor-value {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  transition: color 0.3s;
+}
+
+.sensor-unit {
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  margin-left: 2px;
+}
+
+.daq-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* ─── DATA TABLE ─── */
+.data-table-wrap {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background: var(--bg-surface);
+  z-index: 1;
+}
+
+th {
+  padding: 10px 14px;
+  text-align: left;
+  color: var(--accent-cyan);
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 8px 14px;
+  color: var(--text-dim);
+  border-bottom: 1px solid rgba(100,255,218,0.04);
+}
+
+tr:hover td {
+  background: rgba(100,255,218,0.03);
+  color: var(--text-primary);
+}
+
+tr.new-row td {
+  animation: rowFadeIn 0.4s ease;
+}
+
+/* Analysis box */
+.analysis-box {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.analysis-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(100,255,218,0.05);
+}
+
+.analysis-stat:last-child { border-bottom: none; }
+
+.analysis-stat span:last-child { color: var(--accent-gold); }
+
+/* INPUT AREAS */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  letter-spacing: 0.08em;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 8px 12px;
+  transition: border-color var(--transition);
+  outline: none;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 2px rgba(100,255,218,0.1);
+}
+
+.input-group input::placeholder { color: var(--text-dim); opacity: 0.5; }
+
+/* ─── SIMULATOR ─── */
+.sim-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.sim-canvas-wrap {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+}
+
+#sim-canvas {
+  display: block;
+  width: 100%;
+}
+
+.sim-controls {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.sim-controls::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-pink), transparent);
+}
+
+.param-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.param-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.param-label span:last-child { color: var(--accent-gold); }
+
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  background: var(--bg-dark);
+  border-radius: 2px;
+  outline: none;
+  border: 1px solid var(--border);
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(100,255,218,0.4);
+  transition: transform var(--transition);
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}
+
+.sim-data-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.sim-metric {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.sim-metric-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.sim-metric-value {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  color: var(--accent-cyan);
+  font-weight: 700;
+}
+
+.response-area {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.response-area label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.response-area textarea {
+  width: 100%;
+  min-height: 70px;
+  resize: vertical;
+}
+
+.response-feedback {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  margin-top: 8px;
+  min-height: 24px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: none;
+}
+
+.response-feedback.correct {
+  display: block;
+  background: rgba(100,255,218,0.08);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(100,255,218,0.2);
+}
+
+.response-feedback.incorrect {
+  display: block;
+  background: rgba(255,107,157,0.08);
+  color: var(--accent-pink);
+  border: 1px solid rgba(255,107,157,0.2);
+}
+
+.sim-chart-wrap {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+
+#sim-chart {
+  display: block;
+  width: 100%;
+  height: 140px;
+}
+
+/* ─── QUIZ ─── */
+.quiz-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.quiz-progress-bar {
+  background: var(--bg-surface);
+  border-radius: 50px;
+  height: 6px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+  border-radius: 50px;
+  transition: width 0.5s ease;
+}
+
+.quiz-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.4s ease;
+}
+
+.quiz-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+}
+
+.quiz-number {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+
+.quiz-question {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.quiz-option {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+}
+
+.quiz-option-letter {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+  min-width: 20px;
+}
+
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--accent-cyan);
+  color: var(--text-primary);
+  background: rgba(100,255,218,0.05);
+  transform: translateX(4px);
+}
+
+.quiz-option.selected {
+  border-color: var(--accent-blue);
+  background: rgba(79,195,247,0.08);
+  color: var(--text-primary);
+}
+
+.quiz-option.correct {
+  border-color: var(--accent-cyan);
+  background: rgba(100,255,218,0.1);
+  color: var(--accent-cyan);
+}
+
+.quiz-option.wrong {
+  border-color: var(--accent-pink);
+  background: rgba(255,107,157,0.08);
+  color: var(--accent-pink);
+}
+
+.quiz-option:disabled { cursor: default; }
+
+.quiz-explanation {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-top: 1rem;
+  display: none;
+  animation: fadeInUp 0.3s ease;
+}
+
+.quiz-explanation.show { display: block; }
+
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.quiz-score-badge {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-gold);
+}
+
+.quiz-result {
+  text-align: center;
+  padding: 3rem;
+  display: none;
+}
+
+.quiz-result.show { display: block; }
+
+.quiz-result-score {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  line-height: 1;
+  margin: 1rem 0;
+}
+
+.quiz-result-msg {
+  color: var(--text-dim);
+  margin-bottom: 2rem;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.footer-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.15em;
+  margin-bottom: 1rem;
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+.footer-text a {
+  color: var(--accent-cyan);
+  text-decoration: none;
+}
+
+/* ─── INFO CARDS ─── */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+  transform: scaleX(0);
+  transition: transform var(--transition);
+}
+
+.info-card:hover {
+  border-color: rgba(100,255,218,0.3);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-glow);
+}
+
+.info-card:hover::after { transform: scaleX(1); }
+
+.info-card-icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.info-card-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.info-card-text {
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ─── REVEAL BLOCK ─── */
+.reveal-block {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 1rem 0;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.6s ease, opacity 0.4s ease, padding 0.4s ease;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.reveal-block.open {
+  max-height: 500px;
+  opacity: 1;
+  padding: 1.5rem;
+}
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  z-index: 8000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 480px;
+  width: 90%;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s;
+}
+
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color var(--transition);
+}
+
+.modal-close:hover { color: var(--accent-pink); }
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--accent-cyan);
+}
+
+.modal-body {
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  line-height: 1.7;
+}
+
+/* ─── PARALLAX SECTION DIVIDER ─── */
+.parallax-divider {
+  height: 120px;
+  background:
+    linear-gradient(135deg, rgba(100,255,218,0.03) 25%, transparent 25%) -10px 0,
+    linear-gradient(225deg, rgba(100,255,218,0.03) 25%, transparent 25%) -10px 0,
+    linear-gradient(315deg, rgba(100,255,218,0.03) 25%, transparent 25%),
+    linear-gradient(45deg, rgba(100,255,218,0.03) 25%, transparent 25%);
+  background-size: 20px 20px;
+  background-color: var(--bg-dark);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.parallax-divider-text {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  background: var(--bg-dark);
+  padding: 6px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateX(20px); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.5); }
+}
+
+@keyframes rowFadeIn {
+  from { background: rgba(100,255,218,0.1); }
+  to   { background: transparent; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Scroll reveal */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .daq-layout,
+  .sim-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sim-layout { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+
+  .sim-data-panel { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+  .demo-bar { gap: 0.5rem; }
+  .btn { font-size: 0.7rem; padding: 8px 14px; }
+  .sensor-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ─── TABLE ROW SELECTION ─── */
+tr.row-selected td {
+  background: rgba(100,255,218,0.08) !important;
+  color: var(--text-primary) !important;
+}
+tr.row-selected {
+  outline: 1px solid rgba(100,255,218,0.3);
+}
+tr.row-checked td {
+  background: rgba(255,107,157,0.06) !important;
+}
+tr.row-checked {
+  outline: 1px solid rgba(255,107,157,0.25);
+}
+
+/* ─── EXPAND / FULLSCREEN OVERLAY ─── */
+.expand-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 7500;
+  background: rgba(5, 8, 18, 0.96);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.expand-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.expand-inner {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(100,255,218,0.1);
+}
+
+.expand-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-cyan);
+}
+
+.expand-close {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-dim);
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  font-family: var(--font-mono);
+  transition: all 0.2s;
+}
+
+.expand-close:hover {
+  color: var(--accent-pink);
+  border-color: var(--accent-pink);
+}
+
+.expand-body {
+  padding: 1rem;
+}
+
+/* Camera toggle button states */
+.btn-cam-active {
+  color: var(--accent-pink) !important;
+  border-color: var(--accent-pink) !important;
+  background: rgba(255,107,157,0.08) !important;
+}
+
+.btn-cam-active:hover {
+  background: rgba(255,107,157,0.15) !important;
+  box-shadow: 0 0 20px rgba(255,107,157,0.2) !important;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav>
+  <div class="nav-logo">
+    <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="4" fill="#64ffda"/>
+      <ellipse cx="20" cy="20" rx="14" ry="5" stroke="#64ffda" stroke-width="1.2" fill="none"/>
+      <ellipse cx="20" cy="20" rx="14" ry="5" stroke="#64ffda" stroke-width="1.2" fill="none" transform="rotate(60 20 20)" opacity="0.5"/>
+      <ellipse cx="20" cy="20" rx="14" ry="5" stroke="#64ffda" stroke-width="1.2" fill="none" transform="rotate(120 20 20)" opacity="0.5"/>
+    </svg>
+    ACEF // IFSC
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero">Início</a></li>
+    <li><a href="#interativo">Interativo</a></li>
+    <li><a href="#daq">Aquisição</a></li>
+    <li><a href="#simulador">Simulador</a></li>
+    <li><a href="#quiz">Quiz</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ TOAST CONTAINER ═══ -->
+<div id="toast-container"></div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero" style="padding-top:0; max-width:none; margin:0;">
+  <canvas id="particle-canvas" style="position:absolute;inset:0;z-index:0;width:100%;height:100%;"></canvas>
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <span class="hero-tag">⚛ Produto Educacional · IFSC · Licenciatura em Física</span>
+
+    <h1 class="hero-title">
+      Atividades <span class="highlight">Computacionais</span><br>
+      para o Ensino de Física
+    </h1>
+
+    <p class="hero-sub">
+      Explore simulações interativas, aquisição de dados experimental e ferramentas didáticas desenvolvidas como produto educacional da disciplina <em>Atividades Computacionais para o Ensino de Física</em>.
+    </p>
+
+    <p class="hero-author">
+      Desenvolvido por <span>Estudante — Turma 2024</span> · Orientação: <span>Prof. IFSC</span>
+    </p>
+
+    <!-- Typing effect -->
+    <div class="type-box" id="type-display"></div>
+
+    <!-- Demo buttons -->
+    <div class="demo-bar">
+      <button class="btn btn-cyan" onclick="showRandomToast()">⚡ Mensagem Física</button>
+      <button class="btn btn-gold" onclick="cycleTheme()">🎨 Mudar Tema</button>
+      <button class="btn btn-pink" onclick="confettiBurst()">🎉 Comemorar!</button>
+      <button class="btn btn-blue" onclick="openModal('modal-about')">ℹ Sobre este Projeto</button>
+      <button class="btn btn-cyan" onclick="toggleReveal('reveal-ementa')">📋 Ver Ementa</button>
+    </div>
+
+    <!-- Color swatches -->
+    <div class="color-row">
+      <div class="swatch" data-color="#64ffda" style="background:#64ffda;" title="Ciano"></div>
+      <div class="swatch" data-color="#f6c90e" style="background:#f6c90e;" title="Dourado"></div>
+      <div class="swatch" data-color="#ff6b9d" style="background:#ff6b9d;" title="Rosa"></div>
+      <div class="swatch" data-color="#4fc3f7" style="background:#4fc3f7;" title="Azul"></div>
+      <div class="swatch" data-color="#c084fc" style="background:#c084fc;" title="Roxo"></div>
+      <div class="swatch" data-color="#00ff41" style="background:#00ff41;" title="Matrix"></div>
+      <div class="swatch" data-color="#fb923c" style="background:#fb923c;" title="Laranja"></div>
+    </div>
+
+    <!-- Counter widget -->
+    <div style="display:flex;justify-content:center;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+      <div class="counter-widget">
+        <span class="counter-label">Cliques:</span>
+        <span class="counter-display" id="counter-display">0</span>
+        <button class="btn btn-cyan" onclick="counterUp()" style="padding:6px 14px;font-size:0.7rem;">＋</button>
+        <button class="btn btn-pink" onclick="counterDown()" style="padding:6px 14px;font-size:0.7rem;">－</button>
+        <button class="btn btn-blue" onclick="counterReset()" style="padding:6px 14px;font-size:0.7rem;">↺</button>
+      </div>
+    </div>
+
+    <!-- Reveal block - ementa -->
+    <div class="reveal-block" id="reveal-ementa">
+      <p style="font-family:var(--font-mono);font-size:0.78rem;color:var(--accent-cyan);margin-bottom:0.75rem;">📘 EMENTA DA DISCIPLINA</p>
+      <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.8;">
+        <strong style="color:var(--text-primary);">CH Total:</strong> 80h · <strong style="color:var(--text-primary);">CH EaD:</strong> 8h · <strong style="color:var(--text-primary);">Semestre:</strong> Optativa<br><br>
+        Computador e internet · Mídias digitais · Ferramentas de integração entre atividades computacionais e experimentais ·
+        Sistemas de aquisição automática e análise de dados · Estratégias para o uso de ferramentas computacionais ·
+        Introdução a Modelagem e Simulação Computacional · Uso de plataformas de modelagem e simulação.
+      </p>
+    </div>
+
+    <div style="margin-top:2rem;">
+      <a href="#interativo" class="btn btn-solid" style="display:inline-block;text-decoration:none;">
+        Explorar as ferramentas ↓
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION: INTERATIVO ═══ -->
+<div class="parallax-divider" id="interativo">
+  <span class="parallax-divider-text">SEÇÃO 01 · DEMONSTRAÇÃO INTERATIVA</span>
+</div>
+
+<section style="max-width:1200px;">
+  <div class="section-header">
+    <span class="section-number">// 01 · CSS · HTML · JAVASCRIPT</span>
+    <h2 class="section-title">Domínio das <em>Tecnologias Web</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      Esta seção demonstra o domínio das três linguagens fundamentais do desenvolvimento web moderno aplicadas ao contexto educacional de Física.
+    </p>
+  </div>
+
+  <div class="info-grid scroll-reveal">
+    <div class="info-card">
+      <div class="info-card-icon">🎨</div>
+      <h3 class="info-card-title">CSS Avançado</h3>
+      <p class="info-card-text">
+        Variáveis customizadas <code style="color:var(--accent-cyan);">:root</code> para temas dinâmicos,
+        layout com <strong>Grid</strong> e <strong>Flexbox</strong>, animações <code style="color:var(--accent-cyan);">@keyframes</code>,
+        efeito glassmorphism com <code style="color:var(--accent-cyan);">backdrop-filter</code>,
+        design responsivo e transições de estado com <code style="color:var(--accent-cyan);">transition</code>.
+      </p>
+      <br>
+      <button class="btn btn-cyan" onclick="demonstrateCSSFeature()" style="font-size:0.7rem;padding:7px 14px;">
+        Demo CSS
+      </button>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">📄</div>
+      <h3 class="info-card-title">HTML Semântico</h3>
+      <p class="info-card-text">
+        Estrutura com <code style="color:var(--accent-gold);">&lt;section&gt;</code>, <code style="color:var(--accent-gold);">&lt;nav&gt;</code>, <code style="color:var(--accent-gold);">&lt;footer&gt;</code>.
+        Elemento <code style="color:var(--accent-gold);">&lt;canvas&gt;</code> para simulação e gráficos.
+        <code style="color:var(--accent-gold);">&lt;video&gt;</code> com acesso à câmera via <em>getUserMedia</em>.
+        <code style="color:var(--accent-gold);">&lt;input type="range"&gt;</code> para controle de parâmetros.
+        SVG inline para o favicon e ícone de navegação.
+      </p>
+      <br>
+      <button class="btn btn-gold" onclick="openModal('modal-html')" style="font-size:0.7rem;padding:7px 14px;">
+        Ver detalhes
+      </button>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">⚙️</div>
+      <h3 class="info-card-title">JavaScript Moderno</h3>
+      <p class="info-card-text">
+        Módulos <strong>IIFE</strong> para encapsulamento, <strong>Canvas 2D API</strong> para simulação e gráficos,
+        <strong>requestAnimationFrame</strong> para animações em tempo real,
+        <strong>MediaDevices API</strong> para rastreamento de câmera,
+        <strong>IntersectionObserver</strong> para scroll reveal e exportação de dados em <strong>CSV via Blob</strong>.
+      </p>
+      <br>
+      <button class="btn btn-pink" onclick="openModal('modal-js')" style="font-size:0.7rem;padding:7px 14px;">
+        Ver detalhes
+      </button>
+    </div>
+  </div>
+
+  <!-- CSS Feature Demo box -->
+  <div id="css-demo-box" style="
+    margin-top:2rem;
+    background:var(--bg-surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:2rem;
+    text-align:center;
+    transition: all 0.5s ease;
+    display:none;
+  " class="scroll-reveal">
+    <p id="css-demo-text" style="font-family:var(--font-mono);font-size:1rem;color:var(--accent-cyan);">
+      Efeito CSS em ação!
+    </p>
+  </div>
+</section>
+
+<!-- ═══ SECTION: DAQ ═══ -->
+<div class="parallax-divider" id="daq">
+  <span class="parallax-divider-text">SEÇÃO 02 · SISTEMA DE AQUISIÇÃO DE DADOS</span>
+</div>
+
+<div class="section-full">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-number">// 02 · DAQ · ANÁLISE ESTATÍSTICA</span>
+      <h2 class="section-title">Aquisição e <em>Análise de Dados</em></h2>
+      <div class="divider"></div>
+      <p class="section-desc">
+        Simule um sistema de aquisição automática de dados de sensores físicos em tempo real.
+        Selecione o tipo de movimento, colete amostras e analise estatisticamente os resultados.
+      </p>
+    </div>
+
+    <!-- Instruções de uso -->
+    <div class="daq-panel" style="margin-bottom:2rem;max-width:860px;margin-left:auto;margin-right:auto;">
+      <div class="daq-title">📖 COMO USAR O RASTREADOR DE VÍDEO</div>
+      <ol style="font-size:0.85rem;color:var(--text-dim);line-height:2.4;padding-left:1.4rem;">
+        <li><strong style="color:var(--accent-cyan);">📷 Ativar</strong> — clique para ligar a câmera e permita o acesso no navegador. O botão ficará vermelho e mudará para <strong style="color:#ff6b9d;">Desativar</strong>.</li>
+        <li><strong style="color:var(--accent-gold);">Calibrar a cor</strong> — <strong>clique diretamente sobre a esfera</strong> no vídeo. Use uma esfera com cor vibrante (laranja, verde, azul) sobre fundo contrastante. A calibração captura a cor média da região clicada.</li>
+        <li><strong style="color:var(--accent-cyan);">Ajustar tolerância</strong> — se a esfera não for detectada, aumente o valor. Se outros objetos forem detectados por engano, diminua.</li>
+        <li><strong style="color:var(--accent-cyan);">▶ Rastrear</strong> — inicia a captura. Mova a esfera devagar de um lado ao outro. A posição x e velocidade são registradas automaticamente a ~10 amostras/s.</li>
+        <li><strong style="color:var(--accent-gold);">⏸ Pausar</strong> — interrompe o rastreamento sem apagar os dados.</li>
+        <li><strong style="color:var(--accent-pink);">🗑 Apagar selecionadas</strong> — clique nas linhas da tabela com dados errados para selecioná-las (ficam destacadas) e então apague-as.</li>
+        <li><strong style="color:var(--accent-cyan);">📈 Gerar gráfico</strong> — gera o gráfico x(t) com os dados filtrados da tabela. Clique em <strong>⊞</strong> para expandir.</li>
+        <li><strong style="color:var(--accent-gold);">⬇ Baixar dados</strong> — exporta a tabela como CSV (separador <code>;</code>, decimal <code>,</code>) para abrir no Excel.</li>
+      </ol>
+      <p style="font-size:0.75rem;color:var(--text-dim);margin-top:0.75rem;font-family:var(--font-mono);background:var(--bg-dark);border:1px solid var(--border);border-radius:6px;padding:8px 12px;">
+        ⚠ <strong>Escala:</strong> a largura total do vídeo = 1 m real. Posicione a câmera com uma fita métrica para calibrar fisicamente. Velocidade calculada como Δx/Δt entre amostras consecutivas.
+      </p>
+    </div>
+
+    <div class="daq-layout">
+      <!-- Painel Esquerdo: Câmera + Controles -->
+      <div>
+        <div class="daq-panel">
+          <div class="daq-title">
+            <span class="dot-live"></span>
+            RASTREADOR DE VÍDEO — CÂMERA
+          </div>
+
+          <!-- Vídeo + overlay com botão expand -->
+          <div style="position:relative;" id="cam-video-container">
+            <div id="cam-video-wrap" style="position:relative;background:#000;border-radius:8px;overflow:hidden;margin-bottom:0.75rem;min-height:200px;">
+              <video id="cam-video" autoplay playsinline muted
+                style="width:100%;display:none;border-radius:8px;max-height:280px;object-fit:cover;"></video>
+              <canvas id="cam-overlay"
+                style="position:absolute;inset:0;width:100%;height:100%;pointer-events:auto;border-radius:8px;cursor:crosshair;display:none;"></canvas>
+              <div id="cam-placeholder" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;pointer-events:none;min-height:200px;">
+                <span style="font-size:2.5rem;">📷</span>
+                <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim);">Câmera desligada</span>
+              </div>
+              <!-- Expand button overlaid on video -->
+              <button id="cam-expand-btn" onclick="toggleCamExpand()"
+                style="position:absolute;top:8px;right:8px;background:rgba(10,14,26,0.75);border:1px solid var(--border);border-radius:6px;color:var(--accent-cyan);cursor:pointer;font-size:0.75rem;padding:4px 8px;font-family:var(--font-mono);backdrop-filter:blur(4px);transition:all 0.2s;display:none;"
+                title="Expandir câmera">⊞ Expandir</button>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div style="background:var(--bg-dark);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:0.75rem;">
+            <p id="cam-status" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);margin:0;">
+              Clique em 📷 Ativar para começar.
+            </p>
+          </div>
+
+          <!-- Tolerância de cor -->
+          <div style="background:var(--bg-dark);border:1px solid var(--border);border-radius:6px;padding:8px 14px;margin-bottom:0.75rem;">
+            <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);margin-bottom:6px;">
+              <span>Tolerância de cor</span>
+              <span style="color:var(--accent-gold);"><span id="cam-tol-val">60</span> / 255</span>
+            </div>
+            <input type="range" id="cam-tolerance" min="20" max="150" value="60" style="width:100%;">
+            <p style="font-size:0.65rem;color:var(--text-dim);margin-top:4px;font-family:var(--font-mono);">
+              Aumente se a esfera não for detectada. Diminua se detectar objetos errados.
+            </p>
+          </div>
+
+          <!-- Leituras ao vivo: x | t | v em linha -->
+          <div class="sensor-grid" style="margin-bottom:0.75rem;grid-template-columns:1fr 1fr 1fr;">
+            <div class="sensor-card">
+              <span class="sensor-label">Posição x</span>
+              <span class="sensor-value" id="cam-sv-x">—</span>
+              <span class="sensor-unit">m</span>
+            </div>
+            <div class="sensor-card">
+              <span class="sensor-label">Tempo</span>
+              <span class="sensor-value" id="cam-sv-t">—</span>
+              <span class="sensor-unit">s</span>
+            </div>
+            <div class="sensor-card">
+              <span class="sensor-label">Velocidade vx</span>
+              <span class="sensor-value" id="cam-sv-v">—</span>
+              <span class="sensor-unit">m/s</span>
+            </div>
+          </div>
+
+          <!-- Controles câmera: sem botão Centro e sem Câmera OFF -->
+          <div class="daq-controls" style="flex-wrap:wrap;gap:0.5rem;">
+            <button id="cam-toggle-btn" class="btn btn-cyan" onclick="camToggle()" style="font-size:0.7rem;padding:7px 16px;">📷 Ativar</button>
+            <button class="btn btn-solid" onclick="camStartTracking()" style="font-size:0.7rem;padding:7px 14px;">▶ Rastrear</button>
+            <button class="btn btn-gold" onclick="camStopTracking()" style="font-size:0.7rem;padding:7px 14px;">⏸ Pausar</button>
+            <button class="btn btn-blue" onclick="camReset()" style="font-size:0.7rem;padding:7px 14px;">↺ Zerar</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Painel Direito: Tabela + Análise -->
+      <div>
+        <div class="daq-panel" style="margin-bottom:1.5rem;">
+          <div class="daq-title" style="justify-content:space-between;display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+            <span>📊 TABELA DE DADOS — RASTREAMENTO</span>
+            <button class="btn btn-gold" onclick="camExport()" style="font-size:0.68rem;padding:5px 12px;">⬇ Baixar dados</button>
+          </div>
+
+          <div class="data-table-wrap" style="max-height:280px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>t (s)</th>
+                  <th>x (m)</th>
+                  <th>y</th>
+                  <th>vx (m/s)</th>
+                  <th>vy (m/s)</th>
+                  <th style="width:36px;"></th>
+                </tr>
+              </thead>
+              <tbody id="cam-table-body">
+                <tr><td colspan="6" style="text-align:center;color:var(--text-dim);padding:2rem;">
+                  Ative a câmera, calibre a cor e clique em ▶ Rastrear.
+                </td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Seleção e exclusão -->
+          <div style="margin-top:0.75rem;display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+            <span id="cam-sel-info" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);flex:1;">
+              Clique numa linha para selecionar
+            </span>
+            <button class="btn btn-pink" onclick="deleteSelectedRows()" style="font-size:0.7rem;padding:6px 14px;">🗑 Apagar selecionadas</button>
+          </div>
+        </div>
+
+        <div class="daq-panel" style="margin-bottom:1.5rem;">
+          <div class="daq-title">🔬 ANÁLISE ESTATÍSTICA</div>
+          <div class="analysis-box">
+            <div class="analysis-stat"><span>Amostras (n)</span><span id="ana-n">—</span></div>
+            <div class="analysis-stat"><span>Velocidade média v̄x</span><span id="ana-v-mean">—</span></div>
+            <div class="analysis-stat"><span>Desvio padrão σ(vx)</span><span id="ana-v-std">—</span></div>
+            <div class="analysis-stat"><span>Velocidade máxima vx</span><span id="ana-v-max">—</span></div>
+            <div class="analysis-stat"><span>Deslocamento total Δx</span><span id="ana-x-range">—</span></div>
+          </div>
+        </div>
+
+        <div class="daq-panel">
+          <div class="daq-title" style="display:flex;justify-content:space-between;align-items:center;">
+            <span>📈 GRÁFICO — POSIÇÃO × TEMPO</span>
+            <button id="chart-expand-btn" onclick="toggleChartExpand()"
+              style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--accent-cyan);cursor:pointer;font-size:0.72rem;padding:3px 10px;font-family:var(--font-mono);transition:all 0.2s;"
+              title="Expandir gráfico">⊞ Expandir</button>
+          </div>
+          <div id="xt-chart-wrap" style="background:var(--bg-dark);border:1px solid var(--border);border-radius:8px;min-height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim);">Clique em "Gerar gráfico" para visualizar x(t)</span>
+          </div>
+          <canvas id="cam-chart" style="display:none;"></canvas>
+          <button class="btn btn-solid" onclick="generateXTChart()" style="font-size:0.75rem;padding:9px 22px;width:100%;">
+            📈 Gerar gráfico x × t
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION: SIMULADOR ═══ -->
+<div class="parallax-divider" id="simulador">
+  <span class="parallax-divider-text">SEÇÃO 03 · SIMULAÇÃO COMPUTACIONAL</span>
+</div>
+
+<section style="max-width:1200px;">
+  <div class="section-header">
+    <span class="section-number">// 03 · MOVIMENTO UNIFORME · SIMULADOR</span>
+    <h2 class="section-title">Simulador de <em>Movimento Uniforme</em></h2>
+    <div class="divider"></div>
+    <p class="section-desc">
+      Simule o movimento uniforme de um objeto em linha reta. Ajuste a velocidade e posição inicial,
+      inicie a simulação, colete dados e gere o gráfico x(t) para análise.
+    </p>
+  </div>
+
+  <div class="daq-layout">
+    <!-- Painel Esquerdo: Simulação + Controles -->
+    <div>
+      <div class="daq-panel">
+        <div class="daq-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span><span class="dot-live" id="sim-dot-live"></span> SIMULAÇÃO — MOVIMENTO UNIFORME</span>
+          <button id="sim-expand-btn" onclick="toggleSimExpand()"
+            style="background:rgba(10,14,26,0.75);border:1px solid var(--border);border-radius:6px;color:var(--accent-cyan);cursor:pointer;font-size:0.72rem;padding:4px 10px;font-family:var(--font-mono);transition:all 0.2s;"
+            title="Expandir simulação">⊞ Expandir</button>
+        </div>
+
+        <!-- Canvas da simulação -->
+        <div style="position:relative;background:#000;border-radius:8px;overflow:hidden;margin-bottom:0.75rem;" id="sim-canvas-wrap">
+          <canvas id="sim-canvas" style="width:100%;display:block;border-radius:8px;height:220px;"></canvas>
+        </div>
+
+        <!-- Status -->
+        <div style="background:var(--bg-dark);border:1px solid var(--border);border-radius:6px;padding:8px 12px;margin-bottom:0.75rem;">
+          <p id="sim-status" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);margin:0;">
+            Configure os parâmetros e clique em ▶ Iniciar.
+          </p>
+        </div>
+
+        <!-- Parâmetros -->
+        <div style="background:var(--bg-dark);border:1px solid var(--border);border-radius:6px;padding:10px 14px;margin-bottom:0.75rem;">
+          <div class="param-slider">
+            <div class="param-label">
+              <span>Velocidade v</span>
+              <span id="lbl-sim-v">1,0</span><span style="color:var(--text-dim);font-size:0.7rem;margin-left:2px;">m/s</span>
+            </div>
+            <input type="range" id="sim-v" min="0.1" max="5" value="1.0" step="0.1" oninput="simUpdateParam()">
+          </div>
+          <div class="param-slider" style="margin-top:0.5rem;">
+            <div class="param-label">
+              <span>Posição inicial x₀</span>
+              <span id="lbl-sim-x0">0,0</span><span style="color:var(--text-dim);font-size:0.7rem;margin-left:2px;">m</span>
+            </div>
+            <input type="range" id="sim-x0" min="0" max="8" value="0" step="0.1" oninput="simUpdateParam()">
+          </div>
+          <div class="param-slider" style="margin-top:0.5rem;">
+            <div class="param-label">
+              <span>Escala (largura = ? m)</span>
+              <span id="lbl-sim-scale">10</span><span style="color:var(--text-dim);font-size:0.7rem;margin-left:2px;">m</span>
+            </div>
+            <input type="range" id="sim-scale" min="2" max="30" value="10" step="1" oninput="simUpdateParam()">
+          </div>
+        </div>
+
+        <!-- Leituras ao vivo: x | t | v̄ -->
+        <div class="sensor-grid" style="margin-bottom:0.75rem;grid-template-columns:1fr 1fr 1fr;">
+          <div class="sensor-card">
+            <span class="sensor-label">Posição x</span>
+            <span class="sensor-value" id="sim-sv-x">—</span>
+            <span class="sensor-unit">m</span>
+          </div>
+          <div class="sensor-card">
+            <span class="sensor-label">Tempo</span>
+            <span class="sensor-value" id="sim-sv-t">—</span>
+            <span class="sensor-unit">s</span>
+          </div>
+          <div class="sensor-card">
+            <span class="sensor-label">Vel. média v̄</span>
+            <span class="sensor-value" id="sim-sv-vmean">—</span>
+            <span class="sensor-unit">m/s</span>
+          </div>
+        </div>
+
+        <!-- Controles -->
+        <div class="daq-controls" style="flex-wrap:wrap;gap:0.5rem;">
+          <button id="sim-start-btn" class="btn btn-solid" onclick="simToggleStart()" style="font-size:0.7rem;padding:7px 16px;">▶ Iniciar</button>
+          <button class="btn btn-gold" onclick="simPause()" style="font-size:0.7rem;padding:7px 14px;">⏸ Pausar</button>
+          <button class="btn btn-blue" onclick="simResetAll()" style="font-size:0.7rem;padding:7px 14px;">↺ Zerar</button>
+          <button class="btn btn-cyan" onclick="simCollect()" style="font-size:0.7rem;padding:7px 14px;">⊕ Coletar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel Direito: Tabela + Análise + Gráfico -->
+    <div>
+      <!-- Tabela -->
+      <div class="daq-panel" style="margin-bottom:1.5rem;">
+        <div class="daq-title" style="justify-content:space-between;display:flex;align-items:center;flex-wrap:wrap;gap:0.5rem;">
+          <span>📊 TABELA DE DADOS — MOVIMENTO</span>
+          <button class="btn btn-gold" onclick="simExport()" style="font-size:0.68rem;padding:5px 12px;">⬇ Baixar dados</button>
+        </div>
+
+        <div class="data-table-wrap" style="max-height:260px;">
+          <table>
+            <thead>
+              <tr>
+                <th>t (s)</th>
+                <th>x (m)</th>
+                <th>vx (m/s)</th>
+                <th style="width:36px;"></th>
+              </tr>
+            </thead>
+            <tbody id="sim-table-body">
+              <tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:2rem;">
+                Inicie a simulação e clique em ⊕ Coletar para registrar pontos.
+              </td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top:0.75rem;display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+          <span id="sim-sel-info" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-dim);flex:1;">
+            Clique numa linha para selecionar
+          </span>
+          <button class="btn btn-pink" onclick="simDeleteSelected()" style="font-size:0.7rem;padding:6px 14px;">🗑 Apagar selecionadas</button>
+        </div>
+      </div>
+
+      <!-- Análise estatística -->
+      <div class="daq-panel" style="margin-bottom:1.5rem;">
+        <div class="daq-title">🔬 ANÁLISE ESTATÍSTICA</div>
+        <div class="analysis-box">
+          <div class="analysis-stat"><span>Amostras (n)</span><span id="sim-ana-n">—</span></div>
+          <div class="analysis-stat"><span>Velocidade média v̄</span><span id="sim-ana-vmean">—</span></div>
+          <div class="analysis-stat"><span>Desvio padrão σ(v)</span><span id="sim-ana-vstd">—</span></div>
+          <div class="analysis-stat"><span>Velocidade máxima</span><span id="sim-ana-vmax">—</span></div>
+          <div class="analysis-stat"><span>Deslocamento Δx</span><span id="sim-ana-dx">—</span></div>
+          <div class="analysis-stat"><span>Regressão x(t)</span><span id="sim-ana-reg">—</span></div>
+        </div>
+      </div>
+
+      <!-- Gráfico -->
+      <div class="daq-panel">
+        <div class="daq-title" style="display:flex;justify-content:space-between;align-items:center;">
+          <span>📈 GRÁFICO — POSIÇÃO × TEMPO</span>
+          <button id="sim-chart-expand-btn" onclick="toggleSimChartExpand()"
+            style="background:none;border:1px solid var(--border);border-radius:6px;color:var(--accent-cyan);cursor:pointer;font-size:0.72rem;padding:3px 10px;font-family:var(--font-mono);transition:all 0.2s;">⊞ Expandir</button>
+        </div>
+        <div id="sim-xt-wrap" style="background:var(--bg-dark);border:1px solid var(--border);border-radius:8px;min-height:160px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+          <span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim);">Colete dados e clique em "Gerar gráfico"</span>
+        </div>
+        <button class="btn btn-solid" onclick="simGenerateChart()" style="font-size:0.75rem;padding:9px 22px;width:100%;">
+          📈 Gerar gráfico x × t
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION: QUIZ ═══ -->
+<div class="parallax-divider" id="quiz">
+  <span class="parallax-divider-text">SEÇÃO 04 · QUIZ INTERATIVO</span>
+</div>
+
+<div class="section-full">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-number">// 04 · AVALIAÇÃO · QUESTÕES ALEATÓRIAS</span>
+      <h2 class="section-title"><em>Quiz</em> — Movimento Uniforme</h2>
+      <div class="divider"></div>
+      <p class="section-desc">
+        Teste seus conhecimentos sobre Movimento Uniforme, Rastreamento de Vídeo e análise de dados experimentais.
+        5 questões sorteadas aleatoriamente de um banco de 30.
+      </p>
+    </div>
+
+    <div class="quiz-wrap">
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quiz-progress-fill" style="width:0%"></div>
+      </div>
+
+      <div id="quiz-card">
+        <div class="quiz-card">
+          <p class="quiz-number" id="quiz-number">Questão 1 de 5</p>
+          <p class="quiz-question" id="quiz-question">Carregando questão...</p>
+          <div class="quiz-options" id="quiz-options"></div>
+          <p class="quiz-explanation" id="quiz-explanation"></p>
+          <div class="quiz-nav">
+            <span class="quiz-score-badge" id="quiz-score-badge">Pontos: 0/0</span>
+            <button class="btn btn-cyan" id="quiz-next" onclick="quizNext()" style="display:none;font-size:0.75rem;padding:8px 20px;">
+              Próxima →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resultado -->
+      <div class="quiz-result" id="quiz-result">
+        <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:1rem;">
+          RESULTADO FINAL
+        </div>
+        <div class="quiz-result-score" id="result-score">0/5</div>
+        <div style="font-family:var(--font-mono);font-size:1rem;color:var(--accent-gold);margin-top:0.5rem;" id="result-pct">0%</div>
+        <p class="quiz-result-msg" id="result-msg" style="margin-top:1rem;"></p>
+        <div style="margin-top:2rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <button class="btn btn-solid" onclick="quizRestart()">↺ Jogar Novamente</button>
+          <button class="btn btn-blue" onclick="openModal('modal-gabarito')">📋 Revisar Teoria</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">⚛ ACEF // IFSC // 2024</div>
+    <p class="footer-text">
+      Produto Educacional desenvolvido para a disciplina <strong>Atividades Computacionais para o Ensino de Física</strong>
+      do curso de <strong>Licenciatura em Física</strong> do <a href="https://www.ifsc.edu.br" target="_blank">Instituto Federal de Santa Catarina</a>.
+      <br><br>
+      Ferramentas: HTML5 · CSS3 · JavaScript Vanilla · Canvas API · Web APIs
+    </p>
+  </div>
+</footer>
+
+<!-- ═══ MODAIS ═══ -->
+
+<!-- Modal: Sobre -->
+<div class="modal-overlay" id="modal-about">
+  <div class="modal" style="max-width:580px;">
+    <button class="modal-close" onclick="closeModal('modal-about')">✕</button>
+    <h3 class="modal-title">⚛ Sobre este Produto Educacional</h3>
+    <div class="modal-body" style="max-height:65vh;overflow-y:auto;padding-right:0.5rem;">
+
+      <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem;">
+        Este site foi desenvolvido como <strong style="color:var(--text-main);">produto educacional</strong> da disciplina
+        <em>Atividades Computacionais para o Ensino de Física</em> (CH: 80h), optativa do curso de
+        <strong style="color:var(--text-main);">Licenciatura em Física</strong> do
+        <strong style="color:var(--accent-cyan);">Instituto Federal de Santa Catarina — IFSC</strong>.
+      </p>
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">OBJETIVO</p>
+      <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1rem;">
+        Oferecer ao estudante de Física um ambiente interativo para explorar o
+        <strong style="color:var(--text-main);">Movimento Uniforme</strong> por meio de três abordagens complementares:
+        simulação computacional, rastreamento experimental via câmera e análise quantitativa de dados.
+      </p>
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">SEÇÕES DO PRODUTO</p>
+      <ul style="padding-left:1.2rem;line-height:2.2;font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem;">
+        <li><strong style="color:var(--accent-cyan);">01 · Tecnologias Web</strong> — demonstração prática de HTML5, CSS3 e JavaScript Vanilla</li>
+        <li><strong style="color:var(--accent-cyan);">02 · Rastreador de Vídeo</strong> — aquisição de dados de posição e velocidade via câmera com detecção de cor RGB</li>
+        <li><strong style="color:var(--accent-cyan);">03 · Simulador de MU</strong> — simulação interativa com coleta manual de dados, análise estatística e gráfico x×t</li>
+        <li><strong style="color:var(--accent-cyan);">04 · Quiz</strong> — 5 questões sorteadas de um banco de 30, abrangendo MU, rastreamento e análise de dados</li>
+      </ul>
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">TECNOLOGIAS</p>
+      <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;">
+        HTML5 · CSS3 (Grid, Flexbox, variáveis, keyframes) · JavaScript ES6+ Vanilla ·
+        Canvas 2D API · MediaDevices API · IntersectionObserver · Blob/CSV export ·
+        <em>Sem frameworks, sem dependências externas.</em>
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal: HTML Info -->
+<div class="modal-overlay" id="modal-html">
+  <div class="modal" style="max-width:580px;">
+    <button class="modal-close" onclick="closeModal('modal-html')">✕</button>
+    <h3 class="modal-title">📄 HTML5 — Recursos Utilizados</h3>
+    <div class="modal-body">
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">ESTRUTURA SEMÂNTICA</p>
+      <ul style="padding-left:1.2rem;line-height:2.2;font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem;">
+        <li><code style="color:var(--accent-cyan);">&lt;nav&gt;</code> — barra de navegação com links âncora para cada seção</li>
+        <li><code style="color:var(--accent-cyan);">&lt;section&gt;</code> — delimita cada bloco temático do site</li>
+        <li><code style="color:var(--accent-cyan);">&lt;footer&gt;</code> — rodapé com informações institucionais</li>
+      </ul>
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">ELEMENTOS INTERATIVOS</p>
+      <ul style="padding-left:1.2rem;line-height:2.2;font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem;">
+        <li><code style="color:var(--accent-gold);">&lt;canvas&gt;</code> — simulação do MU, gráficos x×t e partículas animadas no hero</li>
+        <li><code style="color:var(--accent-gold);">&lt;video autoplay muted playsinline&gt;</code> — stream da câmera para rastreamento</li>
+        <li><code style="color:var(--accent-gold);">&lt;input type="range"&gt;</code> — sliders de parâmetros (velocidade, posição, tolerância de cor)</li>
+        <li><code style="color:var(--accent-gold);">&lt;table&gt;</code> — tabelas de dados dinâmicas com seleção de linhas</li>
+      </ul>
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">OUTROS RECURSOS</p>
+      <ul style="padding-left:1.2rem;line-height:2.2;font-size:0.85rem;color:var(--text-dim);">
+        <li><code style="color:var(--accent-pink);">SVG inline</code> — favicon de átomo e ícone da navbar desenhados vetorialmente</li>
+        <li><code style="color:var(--accent-pink);">data-*</code> — atributos customizados nos botões do quiz para índice de resposta</li>
+        <li><code style="color:var(--accent-pink);">&lt;link rel="icon"&gt;</code> — favicon SVG sem dependência de imagem externa</li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal: JS Info -->
+<div class="modal-overlay" id="modal-js">
+  <div class="modal" style="max-width:600px;">
+    <button class="modal-close" onclick="closeModal('modal-js')">✕</button>
+    <h3 class="modal-title">⚙️ JavaScript — Recursos Utilizados</h3>
+    <div class="modal-body" style="max-height:65vh;overflow-y:auto;padding-right:0.5rem;">
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">PADRÕES E ESTRUTURA</p>
+      <ul style="padding-left:1.2rem;line-height:2.2;font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem;">
+        <li><strong style="color:var(--accent-cyan);">IIFE</strong> <em>(Immediately Invoked Function Expression)</em> — cada módulo (câmera, simulador, quiz) é encapsulado em uma função autoexecutável, evitando poluição do escopo global</li>
+        <li><strong style="color:var(--accent-cyan);">Closures</strong> — estado interno (tableData, tracking, stream) mantido privado dentro de cada módulo</li>
+        <li><strong style="color:var(--accent-cyan);">Arrow functions</strong>, destructuring, <code>const</code>/<code>let</code>, template literals e optional chaining (<code>?.</code>) — ES6+</li>
+      </ul>
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">WEB APIS UTILIZADAS</p>
+      <ul style="padding-left:1.2rem;line-height:2.2;font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem;">
+        <li><strong style="color:var(--accent-gold);">Canvas 2D API</strong> — renderização da simulação de MU, trilha do objeto, gráficos x×t e partículas do hero</li>
+        <li><strong style="color:var(--accent-gold);">MediaDevices API</strong> — <code>getUserMedia()</code> para acesso à câmera e rastreamento de cor em tempo real</li>
+        <li><strong style="color:var(--accent-gold);">requestAnimationFrame</strong> — loop de animação sincronizado com a taxa de atualização do monitor (~60 fps)</li>
+        <li><strong style="color:var(--accent-gold);">IntersectionObserver</strong> — detecta elementos visíveis na viewport para ativar animação de entrada</li>
+        <li><strong style="color:var(--accent-gold);">Blob + URL.createObjectURL</strong> — exportação de dados como arquivo CSV sem servidor</li>
+        <li><strong style="color:var(--accent-gold);">performance.now()</strong> — medição de tempo em milissegundos para cálculo preciso de Δt no rastreamento</li>
+      </ul>
+
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.6rem;">ALGORITMOS IMPLEMENTADOS</p>
+      <ul style="padding-left:1.2rem;line-height:2.2;font-size:0.85rem;color:var(--text-dim);">
+        <li><strong style="color:var(--accent-pink);">Detecção de cor por distância RGB</strong> — centroide dos pixels dentro da tolerância define a posição da esfera</li>
+        <li><strong style="color:var(--accent-pink);">Regressão linear mínimos quadrados</strong> — calcula x(t) = a·t + b a partir dos dados coletados</li>
+        <li><strong style="color:var(--accent-pink);">Análise estatística</strong> — média, desvio padrão e coeficiente de variação calculados dinamicamente</li>
+        <li><strong style="color:var(--accent-pink);">Shuffle de Fisher-Yates</strong> — embaralhamento das questões e opções do quiz</li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Gabarito/Teoria -->
+<div class="modal-overlay" id="modal-gabarito">
+  <div class="modal" style="max-width:640px;">
+    <button class="modal-close" onclick="closeModal('modal-gabarito')">✕</button>
+    <h3 class="modal-title">📋 Revisão Teórica</h3>
+    <div class="modal-body" style="max-height:70vh;overflow-y:auto;padding-right:0.5rem;">
+
+      <!-- 1. MU -->
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.4rem;">01 · MOVIMENTO UNIFORME</p>
+      <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:0.6rem;">
+        No <strong style="color:var(--text-main);">Movimento Uniforme (MU)</strong> a velocidade é <strong style="color:var(--text-main);">constante</strong> e a aceleração é <strong style="color:var(--text-main);">nula</strong>.
+        A posição varia linearmente com o tempo.
+      </p>
+      <div style="background:var(--bg-dark);border:1px solid var(--border);border-radius:8px;padding:0.9rem 1.1rem;margin-bottom:1rem;">
+        <p style="font-family:var(--font-mono);font-size:0.82rem;color:var(--accent-gold);line-height:2.2;margin:0;">
+          x(t) = x₀ + v · t<br>
+          v = Δx / Δt = constante<br>
+          a = 0<br>
+          Δx = v · Δt
+        </p>
+      </div>
+
+      <!-- 2. Gráficos -->
+      <p style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent-cyan);letter-spacing:0.15em;margin-bottom:0.4rem;">02 · INTERPRETAÇÃO DE GRÁFICOS</p>
+      <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:0.6rem;">
+        <strong style="color:var(--text-main);">Gráfico x × t:</strong> reta com inclinação igual à velocidade v e interseção com o eixo y igual à posição inicial x₀.<br>
+        <strong style="color:var(--text-main);">Gráfico v × t:</strong> reta horizontal (v = constante).<br>
+        <strong style="color:var(--text-main);">Regressão linear</strong> x(t) = a·t + b → coeficiente angular <em>a</em> = velocidade, coeficiente linear <em>b</em> = x₀.
+      </p>
+
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══ EXPAND OVERLAYS ═══ -->
+
+<!-- Camera expand overlay -->
+<div class="expand-overlay" id="cam-expand-overlay">
+  <div class="expand-inner" style="max-width:1100px;">
+    <div class="expand-header">
+      <span>📷 RASTREADOR DE VÍDEO — CÂMERA (expandido)</span>
+      <button class="expand-close" onclick="toggleCamExpand()">✕ Fechar</button>
+    </div>
+    <div class="expand-body" style="padding:0;">
+      <div style="position:relative;background:#000;line-height:0;">
+        <video id="cam-video-big" autoplay playsinline muted
+          style="width:100%;max-height:75vh;object-fit:contain;display:block;"></video>
+        <canvas id="cam-overlay-big"
+          style="position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;"></canvas>
+      </div>
+      <div style="padding:0.75rem 1rem;background:var(--bg-surface);display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <span id="cam-status-big" style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);flex:1;">—</span>
+        <div style="display:flex;gap:0.75rem;align-items:center;">
+          <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);">x=</span>
+          <span id="cam-big-x" style="font-family:var(--font-mono);font-size:0.9rem;color:var(--accent-cyan);">—</span>
+          <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);margin-left:0.75rem;">t=</span>
+          <span id="cam-big-t" style="font-family:var(--font-mono);font-size:0.9rem;color:var(--accent-gold);">—</span>
+          <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);margin-left:0.75rem;">v=</span>
+          <span id="cam-big-v" style="font-family:var(--font-mono);font-size:0.9rem;color:var(--accent-pink);">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart expand overlay -->
+<div class="expand-overlay" id="chart-expand-overlay">
+  <div class="expand-inner" style="max-width:1000px;">
+    <div class="expand-header">
+      <span>📈 GRÁFICO — POSIÇÃO × TEMPO (expandido)</span>
+      <button class="expand-close" onclick="toggleChartExpand()">✕ Fechar</button>
+    </div>
+    <div class="expand-body">
+      <canvas id="xt-chart-big" style="width:100%;display:block;"></canvas>
+      <p id="chart-big-empty" style="text-align:center;font-family:var(--font-mono);font-size:0.8rem;color:var(--text-dim);padding:3rem 0;">
+        Gere o gráfico primeiro clicando em 📈 Gerar gráfico x × t
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- Sim expand overlay -->
+<div class="expand-overlay" id="sim-expand-overlay">
+  <div class="expand-inner" style="max-width:1100px;">
+    <div class="expand-header">
+      <span>🎬 SIMULAÇÃO — MOVIMENTO UNIFORME (expandido)</span>
+      <button class="expand-close" onclick="toggleSimExpand()">✕ Fechar</button>
+    </div>
+    <div class="expand-body" style="padding:0.75rem;">
+      <canvas id="sim-canvas-big" style="width:100%;display:block;border-radius:8px;height:400px;background:#000;"></canvas>
+      <div style="padding:0.75rem 0 0;display:flex;gap:1.5rem;flex-wrap:wrap;font-family:var(--font-mono);font-size:0.82rem;">
+        <span style="color:var(--text-dim);">x = <span id="sim-big-x" style="color:var(--accent-cyan);">—</span> m</span>
+        <span style="color:var(--text-dim);">t = <span id="sim-big-t" style="color:var(--accent-gold);">—</span> s</span>
+        <span style="color:var(--text-dim);">v̄ = <span id="sim-big-v" style="color:var(--accent-pink);">—</span> m/s</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sim chart expand overlay -->
+<div class="expand-overlay" id="sim-chart-expand-overlay">
+  <div class="expand-inner" style="max-width:1000px;">
+    <div class="expand-header">
+      <span>📈 GRÁFICO x × t — MOVIMENTO UNIFORME (expandido)</span>
+      <button class="expand-close" onclick="toggleSimChartExpand()">✕ Fechar</button>
+    </div>
+    <div class="expand-body">
+      <canvas id="sim-xt-big" style="width:100%;display:block;"></canvas>
+      <p id="sim-chart-big-empty" style="text-align:center;font-family:var(--font-mono);font-size:0.8rem;color:var(--text-dim);padding:3rem 0;">
+        Colete dados e gere o gráfico primeiro.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ATIVIDADES COMPUTACIONAIS PARA O ENSINO DE FÍSICA
+   main.js — Produto Educacional IFSC
+   ============================================================ */
+
+'use strict';
+
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+function rand(min, max) { return Math.random() * (max - min) + min; }
+function randInt(min, max) { return Math.floor(rand(min, max + 1)); }
+function fmt(num, decimals = 3) { return num.toFixed(decimals).replace('.', ','); }
+
+/* ─── SCROLL REVEAL ─── */
+(function initScrollReveal() {
+  function revealAll() {
+    document.querySelectorAll('.scroll-reveal').forEach(el => el.classList.add('visible'));
+  }
+  if ('IntersectionObserver' in window) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.scroll-reveal').forEach(el => obs.observe(el));
+    // Safety: reveal all after 2s in case observer misses anything
+    setTimeout(revealAll, 2000);
+  } else {
+    revealAll();
+  }
+})();
+
+
+/* ─── TOAST ─── */
+function showToast(msg, type = 'cyan', duration = 3000) {
+  const container = $('#toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, duration);
+}
+
+/* ─── PARTICLES ─── */
+(function initParticles() {
+  const canvas = $('#particle-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
+
+  class Particle {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = rand(0,W); this.y = rand(0,H);
+      this.vx = rand(-0.3,0.3); this.vy = rand(-0.3,0.3);
+      this.r = rand(1,3); this.alpha = rand(0.2,0.8);
+    }
+    update() {
+      this.x += this.vx; this.y += this.vy;
+      if (this.x<0||this.x>W) this.vx*=-1;
+      if (this.y<0||this.y>H) this.vy*=-1;
+    }
+    draw() {
+      ctx.beginPath(); ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(100,255,218,${this.alpha})`; ctx.fill();
+    }
+  }
+
+  function init() { resize(); particles = Array.from({length:60},()=>new Particle()); }
+
+  function loop() {
+    ctx.clearRect(0,0,W,H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    for (let i=0;i<particles.length;i++) for (let j=i+1;j<particles.length;j++) {
+      const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if (dist<100) {
+        ctx.beginPath(); ctx.strokeStyle=`rgba(100,255,218,${(1-dist/100)*0.15})`; ctx.lineWidth=1;
+        ctx.moveTo(particles[i].x,particles[i].y); ctx.lineTo(particles[j].x,particles[j].y); ctx.stroke();
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+  window.addEventListener('resize',()=>{ resize(); particles.forEach(p=>p.reset()); });
+  init(); loop();
+})();
+
+/* ─── TYPING ─── */
+(function initTyping() {
+  const box = $('.type-box');
+  if (!box) return;
+  const lines = [
+    '> Bem-vindo ao produto educacional...',
+    '> Atividades Computacionais para Física',
+    '> Simulação • Aquisição de Dados • Quiz',
+    '> IFSC — Licenciatura em Física',
+    '> Explore as ferramentas abaixo ↓',
+  ];
+  let lineIdx=0, charIdx=0, deleting=false;
+  function tick() {
+    const cur = lines[lineIdx];
+    if (!deleting) { box.textContent=cur.slice(0,charIdx+1); charIdx++; if(charIdx===cur.length){deleting=true;setTimeout(tick,1800);return;} }
+    else { box.textContent=cur.slice(0,charIdx-1); charIdx--; if(charIdx===0){deleting=false;lineIdx=(lineIdx+1)%lines.length;} }
+    setTimeout(tick,deleting?40:55);
+  }
+  tick();
+})();
+
+/* ─── DEMO BUTTONS ─── */
+(function initDemoButtons() {
+  let count = 0;
+  const counterDisplay = $('#counter-display');
+  window.counterUp   = () => { count++; counterDisplay.textContent=count; counterDisplay.classList.add('bump'); setTimeout(()=>counterDisplay.classList.remove('bump'),200); };
+  window.counterDown = () => { count--; counterDisplay.textContent=count; counterDisplay.classList.add('bump'); setTimeout(()=>counterDisplay.classList.remove('bump'),200); };
+  window.counterReset= () => { count=0; counterDisplay.textContent=0; showToast('Contador zerado!','cyan'); };
+
+  const toastMessages = [
+    ['🔬 Física é linda!','cyan'],['⚡ E = mc² — Einstein','gold'],
+    ['🌊 Ondas eletromagnéticas detectadas!','blue'],['🚀 Velocidade: 3×10⁸ m/s','pink'],
+    ['🧲 Campo magnético ativo!','cyan'],['🌡️ Temperatura: 273 K','blue'],
+    ['☢️ Constante de Planck: 6,626×10⁻³⁴ J·s','gold'],['💡 Tensão: 127 V | Corrente: 2,5 A','pink'],
+  ];
+  window.showRandomToast = () => { const [msg,type]=toastMessages[randInt(0,toastMessages.length-1)]; showToast(msg,type); };
+
+  /* THEME — aplica variáveis CSS direto em :root, sem usar classes */
+  const themes = {
+    padrao: { cyan:'#64ffda', bg:'#0a0e1a', card:'#0f1629', surface:'#141e35', border:'rgba(100,255,218,0.15)' },
+    nebula: { cyan:'#c084fc', bg:'#12001a', card:'#1a0028', surface:'#200033', border:'rgba(192,132,252,0.15)' },
+    solar:  { cyan:'#f6c90e', bg:'#1a1000', card:'#231500', surface:'#2a1a00', border:'rgba(246,201,14,0.15)' },
+    ocean:  { cyan:'#4fc3f7', bg:'#00101a', card:'#00182a', surface:'#001e33', border:'rgba(79,195,247,0.15)' },
+    matrix: { cyan:'#00ff41', bg:'#000a00', card:'#001000', surface:'#001500', border:'rgba(0,255,65,0.15)' },
+  };
+  const themeKeys  = Object.keys(themes);
+  const themeNames = { padrao:'🔵 Padrão', nebula:'🟣 Nebulosa', solar:'🟡 Solar', ocean:'🩵 Oceano', matrix:'🟢 Matrix' };
+  let themeIdx = 0;
+
+  function applyTheme(key) {
+    const v = themes[key], r = document.documentElement;
+    r.style.setProperty('--accent-cyan', v.cyan);
+    r.style.setProperty('--bg-dark',     v.bg);
+    r.style.setProperty('--bg-card',     v.card);
+    r.style.setProperty('--bg-surface',  v.surface);
+    r.style.setProperty('--border',      v.border);
+  }
+
+  window.cycleTheme = () => {
+    themeIdx = (themeIdx + 1) % themeKeys.length;
+    applyTheme(themeKeys[themeIdx]);
+    showToast(`Tema: ${themeNames[themeKeys[themeIdx]]}`, 'gold');
+  };
+
+  /* Swatches only change accent colour */
+  $$('.swatch').forEach(s => s.addEventListener('click', () => {
+    document.documentElement.style.setProperty('--accent-cyan', s.dataset.color);
+    showToast(`Cor: ${s.dataset.color}`, 'cyan');
+  }));
+
+  window.confettiBurst = () => {
+    const colors=['#64ffda','#f6c90e','#ff6b9d','#4fc3f7','#ffffff'];
+    for(let i=0;i<60;i++){
+      const el=document.createElement('div');
+      el.style.cssText=`position:fixed;left:${rand(20,80)}vw;top:-10px;width:${rand(6,14)}px;height:${rand(6,14)}px;background:${colors[randInt(0,4)]};border-radius:${Math.random()>.5?'50%':'2px'};z-index:9998;pointer-events:none;animation:confettiFall ${rand(1.5,3)}s ${rand(0,1)}s ease-in forwards;`;
+      document.body.appendChild(el); setTimeout(()=>el.remove(),4000);
+    }
+    showToast('🎉 Física é incrível!','cyan');
+  };
+
+  const sty=document.createElement('style');
+  sty.textContent=`@keyframes confettiFall{to{top:110vh;opacity:0}}@keyframes ripple{to{transform:scale(1);opacity:0}}`;
+  document.head.appendChild(sty);
+
+  document.addEventListener('click', e => {
+    const btn=e.target.closest('.btn'); if(!btn) return;
+    const rect=btn.getBoundingClientRect(), size=Math.max(rect.width,rect.height)*2;
+    const rpl=document.createElement('span');
+    rpl.style.cssText=`position:absolute;width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;background:rgba(255,255,255,.15);border-radius:50%;transform:scale(0);animation:ripple .5s ease-out;pointer-events:none;`;
+    btn.appendChild(rpl); setTimeout(()=>rpl.remove(),600);
+  });
+
+  window.openModal  = id => { const o=$(`#${id}`); if(o) o.classList.add('open'); };
+  window.closeModal = id => { const o=$(`#${id}`); if(o) o.classList.remove('open'); };
+  $$('.modal-overlay').forEach(o=>o.addEventListener('click',e=>{ if(e.target===o) o.classList.remove('open'); }));
+  window.toggleReveal = id => $(`#${id}`).classList.toggle('open');
+
+  window.demonstrateCSSFeature = function() {
+    const box=document.getElementById('css-demo-box'), text=document.getElementById('css-demo-text');
+    box.style.display='block';
+    const effects=[
+      {bg:'rgba(100,255,218,.05)',border:'rgba(100,255,218,.7)',msg:'✨ CSS Custom Properties em ação!'},
+      {bg:'rgba(246,201,14,.05)', border:'rgba(246,201,14,.7)', msg:'🎨 Transições suaves com cubic-bezier!'},
+      {bg:'rgba(255,107,157,.05)',border:'rgba(255,107,157,.7)',msg:'🌟 Animações keyframe!'},
+      {bg:'rgba(79,195,247,.05)', border:'rgba(79,195,247,.7)', msg:'🔵 Gradientes dinâmicos CSS!'},
+    ];
+    const e=effects[Math.floor(Math.random()*effects.length)];
+    Object.assign(box.style,{background:e.bg,borderColor:e.border,transform:'scale(1.01)',boxShadow:`0 0 30px ${e.border}`});
+    text.style.color=e.border; text.textContent=e.msg;
+    setTimeout(()=>{ box.style.transform='scale(1)'; box.style.boxShadow='none'; },400);
+  };
+})();
+
+/* ─── CAMERA TRACKER ─── */
+(function initCameraTracker() {
+
+  /* ── DOM refs ── */
+  const video       = document.getElementById('cam-video');
+  const overlay     = document.getElementById('cam-overlay');
+  const placeholder = document.getElementById('cam-placeholder');
+  const ctxOv       = overlay ? overlay.getContext('2d') : null;
+  const toggleBtn   = document.getElementById('cam-toggle-btn');
+  const expandBtn   = document.getElementById('cam-expand-btn');
+
+  /* Big-view refs (expand overlay) */
+  const videoBig    = document.getElementById('cam-video-big');
+  const overlayBig  = document.getElementById('cam-overlay-big');
+  const ctxBig      = overlayBig ? overlayBig.getContext('2d') : null;
+
+  const off    = document.createElement('canvas');
+  const offCtx = off.getContext('2d', { willReadFrequently: true });
+
+  /* ── State ── */
+  let stream         = null;
+  let rafId          = null;
+  let tracking       = false;
+  let startTime      = 0;
+  let recordedFrames = [];
+  let tableData      = [];
+  let selectedRows   = new Set();
+  let camExpanded    = false;
+  let chartExpanded  = false;
+
+  let calibColor = null;
+  let tolerance  = 60;
+
+  /* Last known ball position (video pixels) for overlay sync */
+  let lastBallX = null, lastBallY = null;
+
+  /* ── Helpers ── */
+  function colorDist(r1,g1,b1,r2,g2,b2){ return Math.sqrt((r1-r2)**2+(g1-g2)**2+(b1-b2)**2); }
+
+  /* ── Show/hide camera ── */
+  function showCamera(){
+    placeholder.style.display='none';
+    video.style.display='block';
+    overlay.style.display='block';
+    if(expandBtn) expandBtn.style.display='';
+  }
+  function hideCamera(){
+    placeholder.style.display='flex';
+    video.style.display='none';
+    overlay.style.display='none';
+    if(expandBtn) expandBtn.style.display='none';
+  }
+
+  /* ── Toggle button state ── */
+  function setCamBtnActive(active){
+    if(!toggleBtn) return;
+    if(active){
+      toggleBtn.textContent='📷 Desativar';
+      toggleBtn.className='btn btn-cam-active';
+    } else {
+      toggleBtn.textContent='📷 Ativar';
+      toggleBtn.className='btn btn-cyan';
+    }
+  }
+
+  /* ── Find ball ── */
+  function findBall(){
+    const SCALE=4;
+    const W=Math.floor(video.videoWidth/SCALE)||160, H=Math.floor(video.videoHeight/SCALE)||120;
+    if(off.width!==W||off.height!==H){off.width=W;off.height=H;}
+    offCtx.drawImage(video,0,0,W,H);
+    const data=offCtx.getImageData(0,0,W,H).data;
+    let sumX=0,sumY=0,count=0;
+    for(let y=0;y<H;y++) for(let x=0;x<W;x++){
+      const i=(y*W+x)*4;
+      if(colorDist(data[i],data[i+1],data[i+2],calibColor.r,calibColor.g,calibColor.b)<tolerance){sumX+=x;sumY+=y;count++;}
+    }
+    if(count<15) return {found:false};
+    return {found:true, x:(sumX/count)*SCALE, y:(sumY/count)*SCALE};
+  }
+
+  /* ── Draw on a canvas (used for both normal and big overlay) ── */
+  function drawOnCanvas(ctx, dW, dH, VW, VH, cx, cy){
+    ctx.clearRect(0,0,dW,dH);
+
+    /* scale bar */
+    const barY=dH-18;
+    ctx.strokeStyle='#f6c90e'; ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(8,barY);ctx.lineTo(dW-8,barY);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(8,barY-7);ctx.lineTo(8,barY+7);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(dW-8,barY-7);ctx.lineTo(dW-8,barY+7);ctx.stroke();
+    ctx.fillStyle='#f6c90e'; ctx.font='11px Space Mono,monospace';
+    ctx.textAlign='center'; ctx.fillText('← 1,00 m →',dW/2,dH-4); ctx.textAlign='left';
+
+    /* trail */
+    if(recordedFrames.length>1){
+      ctx.beginPath(); ctx.strokeStyle='rgba(100,255,218,0.7)'; ctx.lineWidth=2.5;
+      recordedFrames.forEach((f,i)=>{
+        const px=f.normX*dW, py=f.normY*dH;
+        i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+      });
+      ctx.stroke();
+    }
+
+    /* ball */
+    if(cx!==null){
+      const dx=cx*(dW/VW), dy=cy*(dH/VH);
+      ctx.beginPath(); ctx.arc(dx,dy,18,0,Math.PI*2);
+      ctx.strokeStyle='#64ffda'; ctx.lineWidth=3;
+      ctx.shadowBlur=20; ctx.shadowColor='#64ffda'; ctx.stroke(); ctx.shadowBlur=0;
+      ctx.strokeStyle='rgba(100,255,218,0.4)'; ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(dx-26,dy);ctx.lineTo(dx+26,dy);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(dx,dy-26);ctx.lineTo(dx,dy+26);ctx.stroke();
+    }
+  }
+
+  /* ── Draw overlay (normal + big) ── */
+  function drawOverlays(cx, cy){
+    const VW=video.videoWidth, VH=video.videoHeight;
+
+    /* normal overlay */
+    overlay.width=video.clientWidth; overlay.height=video.clientHeight;
+    drawOnCanvas(ctxOv, video.clientWidth, video.clientHeight, VW, VH, cx, cy);
+
+    /* big overlay (only if expanded) */
+    if(camExpanded && ctxBig && videoBig.videoWidth){
+      overlayBig.width=videoBig.clientWidth; overlayBig.height=videoBig.clientHeight;
+      drawOnCanvas(ctxBig, videoBig.clientWidth, videoBig.clientHeight, VW, VH, cx, cy);
+    }
+  }
+
+  /* ── Track loop ── */
+  function trackLoop(){
+    if(!tracking) return;
+    if(!video.videoWidth){rafId=requestAnimationFrame(trackLoop);return;}
+    const result=findBall();
+    const t=(performance.now()-startTime)/1000;
+
+    if(result.found){
+      lastBallX=result.x; lastBallY=result.y;
+      const normX=result.x/video.videoWidth, normY=result.y/video.videoHeight;
+      recordedFrames.push({normX,normY,t});
+      let vx=0,vy=0;
+      const n=recordedFrames.length;
+      if(n>=2){
+        const prev=recordedFrames[n-2], dt=t-prev.t;
+        if(dt>0){vx=(normX-prev.normX)/dt; vy=(normY-prev.normY)/dt;}
+      }
+      if(n===1||t-(tableData[tableData.length-1]?.t??-1)>=0.1){
+        tableData.push({t:+t.toFixed(2),x:+normX.toFixed(4),y:+normY.toFixed(4),vx:+vx.toFixed(3),vy:+vy.toFixed(3)});
+        selectedRows=new Set();
+        renderCamTable(); updateCamAnalysis();
+      }
+      drawOverlays(result.x, result.y);
+      const fmtVal=(n,d)=>n.toFixed(d).replace('.',',');
+      /* mean vx = total Δx / total Δt over all recorded data */
+      let meanVx = 0;
+      if(tableData.length>=2){
+        const first=tableData[0], last=tableData[tableData.length-1];
+        const dt=last.t-first.t;
+        if(dt>0) meanVx=(last.x-first.x)/dt;
+      } else if(tableData.length===1 && n>=2){
+        meanVx=vx;
+      } else {
+        meanVx=vx;
+      }
+      updateLiveReadings(fmtVal(normX,3), fmtVal(t,1), fmtVal(meanVx,3));
+    } else {
+      lastBallX=null; lastBallY=null;
+      drawOverlays(null,null);
+    }
+    rafId=requestAnimationFrame(trackLoop);
+  }
+
+  function updateLiveReadings(x,t,v){
+    const el=id=>document.getElementById(id);
+    if(el('cam-sv-x')) el('cam-sv-x').textContent=x;
+    if(el('cam-sv-t')) el('cam-sv-t').textContent=t;
+    if(el('cam-sv-v')) el('cam-sv-v').textContent=v;
+    if(el('cam-big-x')) el('cam-big-x').textContent=x+' m';
+    if(el('cam-big-t')) el('cam-big-t').textContent=t+' s';
+    if(el('cam-big-v')) el('cam-big-v').textContent=v+' m/s';
+  }
+
+  /* ── Sample colour ── */
+  function sampleColorAt(px,py){
+    const R=10, x0=Math.max(0,px-R), y0=Math.max(0,py-R);
+    const w=Math.min(video.videoWidth-x0,R*2), h=Math.min(video.videoHeight-y0,R*2);
+    off.width=w; off.height=h;
+    offCtx.drawImage(video,x0,y0,w,h,0,0,w,h);
+    const data=offCtx.getImageData(0,0,w,h).data;
+    let rS=0,gS=0,bS=0,c=0;
+    for(let i=0;i<data.length;i+=4){rS+=data[i];gS+=data[i+1];bS+=data[i+2];c++;}
+    return{r:rS/c,g:gS/c,b:bS/c};
+  }
+
+  /* ── EXPAND CAMERA ── */
+  window.toggleCamExpand=function(){
+    camExpanded=!camExpanded;
+    const ov=document.getElementById('cam-expand-overlay');
+    if(!ov) return;
+    if(camExpanded){
+      ov.classList.add('open');
+      if(expandBtn) expandBtn.textContent='✕ Fechar';
+      /* mirror stream to big video */
+      if(stream && videoBig){
+        videoBig.srcObject=stream;
+        videoBig.play().catch(()=>{});
+      }
+      /* sync status */
+      const st=document.getElementById('cam-status');
+      const stb=document.getElementById('cam-status-big');
+      if(st&&stb) stb.textContent=st.textContent;
+    } else {
+      ov.classList.remove('open');
+      if(expandBtn) expandBtn.textContent='⊞ Expandir';
+      if(videoBig){ videoBig.srcObject=null; }
+    }
+  };
+
+  /* click on big overlay to calibrate */
+  if(overlayBig) overlayBig.addEventListener('click',e=>{
+    if(!video.videoWidth) return;
+    const rect=overlayBig.getBoundingClientRect();
+    const scaleX=video.videoWidth/overlayBig.clientWidth, scaleY=video.videoHeight/overlayBig.clientHeight;
+    calibColor=sampleColorAt(Math.floor((e.clientX-rect.left)*scaleX),Math.floor((e.clientY-rect.top)*scaleY));
+    /* flash */
+    if(ctxBig){
+      ctxBig.beginPath();ctxBig.arc(e.clientX-rect.left,e.clientY-rect.top,24,0,Math.PI*2);
+      ctxBig.strokeStyle='#f6c90e';ctxBig.lineWidth=3;ctxBig.shadowBlur=16;ctxBig.shadowColor='#f6c90e';ctxBig.stroke();ctxBig.shadowBlur=0;
+    }
+    const statusMsg=`Cor calibrada no vídeo expandido! RGB=(${Math.round(calibColor.r)},${Math.round(calibColor.g)},${Math.round(calibColor.b)}). Clique em ▶ Rastrear.`;
+    showToast(`🎯 ${statusMsg}`,'gold',3000);
+    const st=document.getElementById('cam-status'); if(st) st.textContent=statusMsg;
+    const stb=document.getElementById('cam-status-big'); if(stb) stb.textContent=statusMsg;
+  });
+
+  /* ── EXPAND CHART ── */
+  window.toggleChartExpand=function(){
+    chartExpanded=!chartExpanded;
+    const ov=document.getElementById('chart-expand-overlay');
+    const btn=document.getElementById('chart-expand-btn');
+    if(!ov) return;
+    if(chartExpanded){
+      ov.classList.add('open');
+      if(btn) btn.textContent='✕ Fechar';
+      /* draw big chart if data exists */
+      if(tableData.length) drawBigChart();
+      else {
+        document.getElementById('xt-chart-big').style.display='none';
+        document.getElementById('chart-big-empty').style.display='block';
+      }
+    } else {
+      ov.classList.remove('open');
+      if(btn) btn.textContent='⊞ Expandir';
+    }
+  };
+
+  function drawBigChart(){
+    const cc=document.getElementById('xt-chart-big');
+    const empty=document.getElementById('chart-big-empty');
+    if(!cc||!tableData.length) return;
+    cc.style.display='block';
+    if(empty) empty.style.display='none';
+    const wrap=cc.parentElement;
+    const W=cc.width=wrap.clientWidth-32||700, H=cc.height=360;
+    _drawXTOnCanvas(cc.getContext('2d'), W, H);
+  }
+
+  /* ── Shared chart drawing function ── */
+  function _drawXTOnCanvas(ctx, W, H){
+    ctx.clearRect(0,0,W,H);
+    const pad={l:56,r:28,t:28,b:48};
+    const cW=W-pad.l-pad.r, cH=H-pad.t-pad.b;
+    const ts=tableData.map(r=>r.t), xs=tableData.map(r=>r.x);
+    const minT=Math.min(...ts), maxT=Math.max(...ts);
+    const minX=Math.min(...xs), maxX=Math.max(...xs);
+    const rangeT=maxT-minT||1, rangeX=maxX-minX||0.01;
+    const toCanX=t=>pad.l+(t-minT)/rangeT*cW;
+    const toCanY=x=>pad.t+cH-(x-minX)/rangeX*cH;
+
+    /* grid */
+    ctx.strokeStyle='rgba(100,255,218,0.07)'; ctx.lineWidth=1;
+    for(let i=0;i<=5;i++){const y=pad.t+i/5*cH;ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+cW,y);ctx.stroke();}
+    for(let i=0;i<=6;i++){const x=pad.l+i/6*cW;ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,pad.t+cH);ctx.stroke();}
+
+    /* axes */
+    ctx.strokeStyle='rgba(100,255,218,0.3)'; ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(pad.l,pad.t);ctx.lineTo(pad.l,pad.t+cH);ctx.lineTo(pad.l+cW,pad.t+cH);ctx.stroke();
+
+    /* labels */
+    ctx.fillStyle='rgba(100,255,218,0.5)'; ctx.font='11px Space Mono,monospace'; ctx.textAlign='center';
+    ctx.fillText('t (s)',pad.l+cW/2,H-6);
+    ctx.save(); ctx.translate(14,pad.t+cH/2); ctx.rotate(-Math.PI/2); ctx.fillText('x (m)',0,0); ctx.restore();
+
+    /* tick values */
+    ctx.fillStyle='rgba(100,255,218,0.4)'; ctx.font='9px Space Mono,monospace';
+    for(let i=0;i<=4;i++){
+      const v=minT+i/4*rangeT; ctx.textAlign='center';
+      ctx.fillText(v.toFixed(1).replace('.',','),toCanX(v),pad.t+cH+16);
+    }
+    for(let i=0;i<=4;i++){
+      const v=minX+i/4*rangeX; ctx.textAlign='right';
+      ctx.fillText(v.toFixed(3).replace('.',','),pad.l-6,toCanY(v)+3);
+    }
+
+    /* line */
+    ctx.beginPath(); ctx.strokeStyle='#64ffda'; ctx.lineWidth=2.5;
+    ctx.shadowBlur=10; ctx.shadowColor='#64ffda';
+    tableData.forEach((r,i)=>i===0?ctx.moveTo(toCanX(r.t),toCanY(r.x)):ctx.lineTo(toCanX(r.t),toCanY(r.x)));
+    ctx.stroke(); ctx.shadowBlur=0;
+
+    /* dots */
+    ctx.fillStyle='#64ffda';
+    tableData.forEach(r=>{ctx.beginPath();ctx.arc(toCanX(r.t),toCanY(r.x),3.5,0,Math.PI*2);ctx.fill();});
+
+    /* title */
+    ctx.font='11px Space Mono,monospace'; ctx.fillStyle='rgba(100,255,218,0.6)'; ctx.textAlign='left';
+    ctx.fillText(`posição x × tempo  (n=${tableData.length})`,pad.l+4,pad.t-10);
+  }
+
+  /* ── generateXTChart (small) ── */
+  window.generateXTChart=function(){
+    if(!tableData.length){showToast('⚠ Sem dados!','pink');return;}
+    const wrap=document.getElementById('xt-chart-wrap');
+    let cc=document.getElementById('xt-chart-canvas');
+    if(!cc){ cc=document.createElement('canvas'); cc.id='xt-chart-canvas'; cc.style.width='100%'; cc.style.display='block'; }
+    wrap.innerHTML=''; wrap.style.minHeight='auto'; wrap.style.padding='0.5rem'; wrap.style.display='block';
+    wrap.appendChild(cc);
+    const W=cc.width=wrap.clientWidth-16||460, H=cc.height=200;
+    _drawXTOnCanvas(cc.getContext('2d'), W, H);
+    showToast(`📈 Gráfico gerado com ${tableData.length} pontos!`,'cyan');
+    /* also refresh big chart if expanded */
+    if(chartExpanded) drawBigChart();
+  };
+
+  /* ── Render table ── */
+  function renderCamTable(){
+    const tbody=document.getElementById('cam-table-body'); if(!tbody) return;
+    tbody.innerHTML='';
+    if(!tableData.length){
+      tbody.innerHTML='<tr><td colspan="6" style="text-align:center;color:var(--text-dim);padding:2rem;">Ative a câmera, calibre a cor e clique em ▶ Rastrear.</td></tr>';
+      return;
+    }
+    tableData.forEach((row,i)=>{
+      const tr=document.createElement('tr');
+      const isSel=selectedRows.has(i);
+      tr.style.cursor='pointer';
+      tr.style.background=isSel?'rgba(255,107,157,0.15)':'';
+      tr.style.borderLeft=isSel?'3px solid var(--accent-pink)':'3px solid transparent';
+      tr.style.transition='background 0.15s';
+      const r=n=>String(n).replace('.',',');
+      tr.innerHTML=`
+        <td style="padding:6px 10px;font-family:var(--font-mono);font-size:0.75rem;">${r(row.t)}</td>
+        <td style="padding:6px 10px;font-family:var(--font-mono);font-size:0.75rem;">${r(row.x)}</td>
+        <td style="padding:6px 10px;font-family:var(--font-mono);font-size:0.75rem;">${r(row.y)}</td>
+        <td style="padding:6px 10px;font-family:var(--font-mono);font-size:0.75rem;">${r(row.vx)}</td>
+        <td style="padding:6px 10px;font-family:var(--font-mono);font-size:0.75rem;">${r(row.vy)}</td>
+        <td style="padding:6px 6px;text-align:center;">
+          <button onclick="event.stopPropagation();deleteSingleRow(${i})" title="Apagar"
+            style="background:none;border:none;color:var(--accent-pink);cursor:pointer;font-size:0.9rem;padding:2px 4px;opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">🗑</button>
+        </td>`;
+      tr.addEventListener('click',()=>{ if(selectedRows.has(i)) selectedRows.delete(i); else selectedRows.add(i); renderCamTable(); updateSelectionInfo(); });
+      tbody.appendChild(tr);
+    });
+    updateSelectionInfo();
+  }
+
+  function updateSelectionInfo(){
+    const info=document.getElementById('cam-sel-info');
+    if(info) info.textContent=selectedRows.size>0?`${selectedRows.size} linha(s) selecionada(s)`:'Clique numa linha para selecionar';
+  }
+
+  window.deleteSingleRow=function(idx){ tableData.splice(idx,1); selectedRows.clear(); renderCamTable(); updateCamAnalysis(); showToast('🗑 Linha removida.','pink'); };
+  window.deleteSelectedRows=function(){
+    if(!selectedRows.size){showToast('⚠ Nenhuma linha selecionada.','pink');return;}
+    [...selectedRows].sort((a,b)=>b-a).forEach(i=>tableData.splice(i,1));
+    selectedRows.clear(); renderCamTable(); updateCamAnalysis();
+    showToast('🗑 Linhas removidas.','pink');
+  };
+
+  /* ── Analysis ── */
+  function updateCamAnalysis(){
+    if(!tableData.length) return;
+    const vxs=tableData.map(r=>r.vx);
+    const mean=arr=>arr.reduce((a,b)=>a+b,0)/arr.length;
+    const std=arr=>{const m=mean(arr);return Math.sqrt(arr.reduce((s,v)=>s+(v-m)**2,0)/arr.length);};
+    const el=id=>document.getElementById(id);
+    el('ana-n').textContent      = tableData.length;
+    el('ana-v-mean').textContent = fmt(mean(vxs));
+    el('ana-v-std').textContent  = fmt(std(vxs));
+    el('ana-v-max').textContent  = fmt(Math.max(...vxs));
+    const xs=tableData.map(r=>r.x);
+    el('ana-x-range').textContent= fmt(Math.max(...xs)-Math.min(...xs));
+  }
+
+  /* ── Public controls ── */
+  window.camToggle=async function(){
+    if(!stream) {
+      /* start camera */
+      try{
+        stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment',width:{ideal:1280},height:{ideal:720}},audio:false});
+        video.srcObject=stream; await video.play();
+        showCamera(); setCamBtnActive(true);
+        showToast('📷 Câmera ativada! Clique sobre a esfera para calibrar.','cyan',4000);
+        document.getElementById('cam-status').textContent='Câmera ativa — clique sobre a esfera no vídeo para calibrar a cor.';
+      } catch(e){
+        showToast('❌ Erro: '+e.message,'pink',5000);
+        document.getElementById('cam-status').textContent='Erro ao acessar câmera: '+e.message;
+      }
+    } else {
+      /* stop camera */
+      tracking=false; cancelAnimationFrame(rafId);
+      stream.getTracks().forEach(t=>t.stop()); stream=null;
+      video.srcObject=null; hideCamera(); setCamBtnActive(false);
+      document.getElementById('cam-status').textContent='Câmera desligada.';
+      showToast('📷 Câmera desligada.','blue');
+      /* close expand if open */
+      if(camExpanded) toggleCamExpand();
+    }
+  };
+
+  /* keep camStart/camStop as aliases for compatibility */
+  window.camStart=()=>{ if(!stream) camToggle(); };
+  window.camStop=()=>{ if(stream) camToggle(); };
+
+  /* click on normal overlay to calibrate */
+  if(overlay) overlay.addEventListener('click',e=>{
+    if(!video.videoWidth) return;
+    const rect=overlay.getBoundingClientRect();
+    const scaleX=video.videoWidth/overlay.clientWidth, scaleY=video.videoHeight/overlay.clientHeight;
+    calibColor=sampleColorAt(Math.floor((e.clientX-rect.left)*scaleX),Math.floor((e.clientY-rect.top)*scaleY));
+    ctxOv.beginPath();ctxOv.arc(e.clientX-rect.left,e.clientY-rect.top,24,0,Math.PI*2);
+    ctxOv.strokeStyle='#f6c90e';ctxOv.lineWidth=3;ctxOv.shadowBlur=16;ctxOv.shadowColor='#f6c90e';ctxOv.stroke();ctxOv.shadowBlur=0;
+    const msg=`Cor calibrada! RGB=(${Math.round(calibColor.r)},${Math.round(calibColor.g)},${Math.round(calibColor.b)}). Clique em ▶ Rastrear.`;
+    showToast('🎯 '+msg,'gold',3000);
+    document.getElementById('cam-status').textContent=msg;
+  });
+
+  /* tolerance slider */
+  const tolSlider=document.getElementById('cam-tolerance');
+  if(tolSlider) tolSlider.addEventListener('input',()=>{ tolerance=+tolSlider.value; document.getElementById('cam-tol-val').textContent=tolerance; });
+
+  window.camStartTracking=()=>{
+    if(!stream){showToast('⚠ Ative a câmera primeiro!','pink');return;}
+    if(!calibColor){showToast('⚠ Clique sobre a esfera para calibrar!','pink');return;}
+    tracking=true; startTime=performance.now();
+    recordedFrames=[]; tableData=[]; selectedRows=new Set();
+    renderCamTable(); updateCamAnalysis();
+    /* reset chart area */
+    const wrap=document.getElementById('xt-chart-wrap');
+    if(wrap){wrap.innerHTML='<span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim);">Clique em \"Gerar gráfico\" para visualizar x(t)</span>';wrap.style.minHeight='180px';wrap.style.display='flex';wrap.style.alignItems='center';wrap.style.justifyContent='center';}
+    rafId=requestAnimationFrame(trackLoop);
+    document.getElementById('cam-status').textContent='▶ Rastreando... mova a esfera.';
+    showToast('▶ Rastreamento iniciado!','cyan');
+    document.querySelector('.dot-live').style.background='var(--accent-cyan)';
+  };
+
+  window.camStopTracking=()=>{
+    tracking=false; cancelAnimationFrame(rafId);
+    document.querySelector('.dot-live').style.background='var(--accent-pink)';
+    if(tableData.length){
+      showToast(`⏸ Parado. ${tableData.length} pontos.`,'gold');
+      document.getElementById('cam-status').textContent=`Parado. ${tableData.length} amostras. Gere o gráfico ou exporte.`;
+    }
+  };
+
+  window.camReset=()=>{
+    tracking=false; cancelAnimationFrame(rafId);
+    recordedFrames=[]; tableData=[]; selectedRows=new Set();
+    renderCamTable(); updateCamAnalysis();
+    if(ctxOv&&video.clientWidth) ctxOv.clearRect(0,0,overlay.width,overlay.height);
+    ['cam-sv-x','cam-sv-v','cam-sv-t'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='—';});
+    const wrap=document.getElementById('xt-chart-wrap');
+    if(wrap){wrap.innerHTML='<span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim);">Clique em \"Gerar gráfico\" para visualizar x(t)</span>';wrap.style.minHeight='180px';wrap.style.display='flex';wrap.style.alignItems='center';wrap.style.justifyContent='center';}
+    ['ana-n','ana-v-mean','ana-v-std','ana-v-max','ana-x-range'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='—';});
+    showToast('🔄 Dados zerados.','blue');
+    document.getElementById('cam-status').textContent='Dados zerados.';
+  };
+
+  window.camExport=()=>{
+    if(!tableData.length){showToast('⚠ Sem dados!','pink');return;}
+    const header='Tempo(s);x(norm);y(norm);vx(m/s);vy(m/s)';
+    const rows=tableData.map(r=>[r.t,r.x,r.y,r.vx,r.vy].join(';').replace(/\./g,',')).join('\n');
+    const blob=new Blob([header+'\n'+rows],{type:'text/csv'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='rastreamento_esfera.csv';a.click();
+    showToast('📥 Dados baixados!','gold');
+  };
+
+  /* close expand overlays with ESC */
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      if(camExpanded) toggleCamExpand();
+      if(chartExpanded) toggleChartExpand();
+    }
+  });
+
+})();
+
+/* ─── SIMULATOR ─── */
+(function initSimulator() {
+
+  /* ── Canvas refs ── */
+  const canvas    = document.getElementById('sim-canvas');
+  const canvasBig = document.getElementById('sim-canvas-big');
+  if(!canvas) return;
+  const ctx    = canvas.getContext('2d');
+  const ctxBig = canvasBig ? canvasBig.getContext('2d') : null;
+
+  /* ── State ── */
+  let running      = false;
+  let paused       = false;
+  let rafId        = null;
+  let simTime      = 0;
+  let lastTS       = null;
+  let simX         = 0;       // current position in metres
+  let simV         = 1.0;     // velocity m/s
+  let simX0        = 0.0;     // initial position
+  let simScale     = 10;      // total width in metres
+  let trailPoints  = [];      // [{x, t}] for drawing trail
+
+  let tableData    = [];
+  let selectedRows = new Set();
+  let simExpanded  = false;
+  let chartExpanded= false;
+
+  /* ── Helpers ── */
+  const el = id => document.getElementById(id);
+  const fmtV = (n,d=3) => isNaN(n)?'—':n.toFixed(d).replace('.',',');
+
+  /* ── Read sliders ── */
+  function readParams(){
+    simV     = parseFloat(el('sim-v')?.value   ?? 1);
+    simX0    = parseFloat(el('sim-x0')?.value  ?? 0);
+    simScale = parseFloat(el('sim-scale')?.value?? 10);
+  }
+
+  window.simUpdateParam = function(){
+    readParams();
+    const lv=el('lbl-sim-v'), lx=el('lbl-sim-x0'), ls=el('lbl-sim-scale');
+    if(lv) lv.textContent=fmtV(simV,1);
+    if(lx) lx.textContent=fmtV(simX0,1);
+    if(ls) ls.textContent=simScale;
+    if(!running && !paused){ simX=simX0; trailPoints=[]; drawScene(); }
+  };
+
+  /* ── Mean velocity from table ── */
+  function computeMeanV(){
+    if(tableData.length<2) return null;
+    const t0=tableData[0].t, x0=tableData[0].x;
+    const t1=tableData[tableData.length-1].t, x1=tableData[tableData.length-1].x;
+    const dt=t1-t0; if(dt<=0) return null;
+    return (x1-x0)/dt;
+  }
+
+  /* ── Draw scene on a canvas ── */
+  function drawSceneOnCanvas(c, ctx2, curX){
+    const W=c.width=c.offsetWidth||480, H=c.height=c.offsetHeight||220;
+    ctx2.clearRect(0,0,W,H);
+
+    /* Background gradient */
+    const bg=ctx2.createLinearGradient(0,0,0,H);
+    bg.addColorStop(0,'#0a0e1a'); bg.addColorStop(1,'#060810');
+    ctx2.fillStyle=bg; ctx2.fillRect(0,0,W,H);
+
+    /* Grid lines */
+    ctx2.strokeStyle='rgba(100,255,218,0.04)'; ctx2.lineWidth=1;
+    for(let i=0;i<=10;i++){
+      const x=i/10*W; ctx2.beginPath();ctx2.moveTo(x,0);ctx2.lineTo(x,H);ctx2.stroke();
+    }
+
+    /* Ground line */
+    const groundY = H*0.72;
+    ctx2.strokeStyle='rgba(100,255,218,0.18)'; ctx2.lineWidth=1.5;
+    ctx2.beginPath(); ctx2.moveTo(0,groundY); ctx2.lineTo(W,groundY); ctx2.stroke();
+
+    /* Scale ticks */
+    ctx2.fillStyle='rgba(100,255,218,0.35)'; ctx2.font='9px Space Mono,monospace'; ctx2.textAlign='center';
+    const nTicks=simScale<=5?simScale*2:simScale;
+    for(let i=0;i<=nTicks;i++){
+      const px=i/nTicks*W;
+      ctx2.strokeStyle='rgba(100,255,218,0.15)'; ctx2.lineWidth=1;
+      ctx2.beginPath(); ctx2.moveTo(px,groundY); ctx2.lineTo(px,groundY+6); ctx2.stroke();
+      if(i%Math.max(1,Math.floor(nTicks/10))===0){
+        const label=(i/nTicks*simScale).toFixed(simScale<=2?1:0);
+        ctx2.fillText(label.replace('.',','),px,groundY+16);
+      }
+    }
+    ctx2.fillStyle='rgba(100,255,218,0.3)'; ctx2.font='10px Space Mono,monospace';
+    ctx2.textAlign='center'; ctx2.fillText('x (m)',W/2,groundY+28);
+
+    /* Trail */
+    if(trailPoints.length>1){
+      ctx2.beginPath(); ctx2.strokeStyle='rgba(100,255,218,0.25)'; ctx2.lineWidth=2;
+      trailPoints.forEach((p,i)=>{
+        const px=(p.x/simScale)*W;
+        i===0?ctx2.moveTo(px,groundY-14):ctx2.lineTo(px,groundY-14);
+      });
+      ctx2.stroke();
+    }
+
+    /* Object (filled circle) */
+    const objX=(curX/simScale)*W;
+    const r=14;
+    /* glow */
+    ctx2.shadowBlur=20; ctx2.shadowColor='#64ffda';
+    ctx2.fillStyle='#64ffda';
+    ctx2.beginPath(); ctx2.arc(objX, groundY-r, r, 0, Math.PI*2); ctx2.fill();
+    ctx2.shadowBlur=0;
+    /* highlight */
+    ctx2.fillStyle='rgba(255,255,255,0.25)';
+    ctx2.beginPath(); ctx2.arc(objX-4, groundY-r-4, r*0.35, 0, Math.PI*2); ctx2.fill();
+
+    /* Velocity arrow */
+    if(running && !paused && simV!==0){
+      const arrowLen=Math.min(80,Math.abs(simV/simScale*W*3));
+      const dir=simV>0?1:-1;
+      ctx2.strokeStyle='#f6c90e'; ctx2.lineWidth=2.5;
+      ctx2.shadowBlur=8; ctx2.shadowColor='#f6c90e';
+      ctx2.beginPath();
+      ctx2.moveTo(objX,groundY-r);
+      ctx2.lineTo(objX+dir*arrowLen,groundY-r);
+      const ah=7;
+      ctx2.lineTo(objX+dir*arrowLen-dir*ah,groundY-r-ah);
+      ctx2.moveTo(objX+dir*arrowLen,groundY-r);
+      ctx2.lineTo(objX+dir*arrowLen-dir*ah,groundY-r+ah);
+      ctx2.stroke(); ctx2.shadowBlur=0;
+      ctx2.fillStyle='#f6c90e'; ctx2.font='10px Space Mono,monospace';
+      ctx2.textAlign= dir>0?'left':'right';
+      ctx2.fillText('v = '+fmtV(simV,1)+' m/s', objX+dir*(arrowLen+8), groundY-r-10);
+      ctx2.textAlign='left';
+    }
+
+    /* Time stamp */
+    ctx2.fillStyle='rgba(100,255,218,0.5)'; ctx2.font='10px Space Mono,monospace';
+    ctx2.textAlign='right';
+    ctx2.fillText('t = '+fmtV(simTime,2)+' s', W-10, 18);
+    ctx2.textAlign='left';
+  }
+
+  function drawScene(){
+    if(!canvas.offsetWidth) return;
+    drawSceneOnCanvas(canvas, ctx, simX);
+    if(simExpanded && ctxBig && canvasBig && canvasBig.offsetWidth)
+      drawSceneOnCanvas(canvasBig, ctxBig, simX);
+  }
+
+  /* ── Animation loop ── */
+  function loop(ts){
+    if(!running || paused){ lastTS=null; return; }
+    if(lastTS===null) lastTS=ts;
+    const dt=(ts-lastTS)/1000; lastTS=ts;
+    simTime+=dt;
+    simX+=simV*dt;
+
+    /* bounce at edges */
+    if(simX>simScale){ simX=simScale; }
+    if(simX<0){ simX=0; }
+
+    trailPoints.push({x:simX, t:simTime});
+    if(trailPoints.length>300) trailPoints.shift();
+
+    const vmean=computeMeanV();
+    const fv = vmean!==null ? fmtV(vmean,3) : fmtV(simV,3);
+    const elx=el('sim-sv-x'), elt=el('sim-sv-t'), elv=el('sim-sv-vmean');
+    const ebx=el('sim-big-x'), ebt=el('sim-big-t'), ebv=el('sim-big-v');
+    if(elx) elx.textContent=fmtV(simX,3);
+    if(elt) elt.textContent=fmtV(simTime,2);
+    if(elv) elv.textContent=fv;
+    if(ebx) ebx.textContent=fmtV(simX,3);
+    if(ebt) ebt.textContent=fmtV(simTime,2);
+    if(ebv) ebv.textContent=fv;
+
+    drawScene();
+    rafId=requestAnimationFrame(loop);
+  }
+
+  /* ── Controls ── */
+  function setStartBtn(isRunning){
+    const btn=el('sim-start-btn');
+    if(!btn) return;
+    if(isRunning){
+      btn.textContent='⏹ Parar';
+      btn.className='btn btn-cam-active';
+    } else {
+      btn.textContent='▶ Iniciar';
+      btn.className='btn btn-solid';
+    }
+  }
+
+  function setDot(active){
+    const d=el('sim-dot-live');
+    if(d) d.style.background = active ? 'var(--accent-cyan)' : 'var(--accent-pink)';
+  }
+
+  window.simToggleStart=function(){
+    if(!running){
+      /* Start */
+      readParams();
+      if(!paused){ simX=simX0; simTime=0; trailPoints=[]; }
+      running=true; paused=false;
+      setStartBtn(true); setDot(true);
+      el('sim-status').textContent='▶ Simulação em andamento. Use ⊕ Coletar para registrar pontos.';
+      showToast('▶ Simulação iniciada!','cyan');
+      rafId=requestAnimationFrame(loop);
+    } else {
+      /* Stop */
+      running=false; paused=false;
+      cancelAnimationFrame(rafId);
+      setStartBtn(false); setDot(false);
+      el('sim-status').textContent='⏹ Simulação parada. Colete dados ou reinicie.';
+      showToast('⏹ Simulação parada.','blue');
+    }
+  };
+
+  window.simPause=function(){
+    if(!running){ showToast('⚠ Inicie a simulação primeiro.','pink'); return; }
+    paused=!paused;
+    if(paused){
+      cancelAnimationFrame(rafId); lastTS=null;
+      el('sim-status').textContent='⏸ Pausado em t = '+fmtV(simTime,2)+' s.';
+      showToast('⏸ Pausado.','gold');
+    } else {
+      rafId=requestAnimationFrame(loop);
+      el('sim-status').textContent='▶ Retomando...';
+      showToast('▶ Retomando.','cyan');
+    }
+  };
+
+  window.simResetAll=function(){
+    running=false; paused=false;
+    cancelAnimationFrame(rafId); lastTS=null;
+    readParams();
+    simTime=0; simX=simX0; trailPoints=[];
+    tableData=[]; selectedRows=new Set();
+    setStartBtn(false); setDot(false);
+    renderSimTable(); updateSimAnalysis();
+    ['sim-sv-x','sim-sv-t','sim-sv-vmean'].forEach(id=>{const e=el(id);if(e)e.textContent='—';});
+    /* reset chart area */
+    const wrap=el('sim-xt-wrap');
+    if(wrap){wrap.innerHTML='<span style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-dim);">Colete dados e clique em \"Gerar gráfico\"</span>';wrap.style.minHeight='160px';wrap.style.display='flex';wrap.style.alignItems='center';wrap.style.justifyContent='center';}
+    ['sim-ana-n','sim-ana-vmean','sim-ana-vstd','sim-ana-vmax','sim-ana-dx','sim-ana-reg'].forEach(id=>{const e=el(id);if(e)e.textContent='—';});
+    el('sim-status').textContent='Parâmetros zerados. Configure e clique em ▶ Iniciar.';
+    drawScene();
+    showToast('↺ Zerado.','blue');
+  };
+
+  window.simCollect=function(){
+    if(!running && !paused){ showToast('⚠ Inicie a simulação primeiro!','pink'); return; }
+    tableData.push({ t:+simTime.toFixed(3), x:+simX.toFixed(4), vx:+simV.toFixed(3) });
+    selectedRows=new Set();
+    renderSimTable(); updateSimAnalysis();
+    showToast('⊕ Ponto coletado: t='+fmtV(simTime,2)+'s  x='+fmtV(simX,3)+'m','cyan',2000);
+  };
+
+  /* ── Table ── */
+  function renderSimTable(){
+    const tbody=el('sim-table-body'); if(!tbody) return;
+    tbody.innerHTML='';
+    if(!tableData.length){
+      tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--text-dim);padding:2rem;">Inicie a simulação e clique em ⊕ Coletar para registrar pontos.</td></tr>';
+      return;
+    }
+    tableData.forEach((row,i)=>{
+      const tr=document.createElement('tr');
+      const isSel=selectedRows.has(i);
+      tr.style.cursor='pointer';
+      tr.style.background=isSel?'rgba(255,107,157,0.15)':'';
+      tr.style.borderLeft=isSel?'3px solid var(--accent-pink)':'3px solid transparent';
+      const r=n=>String(n).replace('.',',');
+      tr.innerHTML=`
+        <td style="padding:6px 10px;font-family:var(--font-mono);font-size:0.75rem;">${r(row.t)}</td>
+        <td style="padding:6px 10px;font-family:var(--font-mono);font-size:0.75rem;">${r(row.x)}</td>
+        <td style="padding:6px 10px;font-family:var(--font-mono);font-size:0.75rem;">${r(row.vx)}</td>
+        <td style="padding:6px 6px;text-align:center;">
+          <button onclick="event.stopPropagation();simDeleteRow(${i})" title="Apagar"
+            style="background:none;border:none;color:var(--accent-pink);cursor:pointer;font-size:0.9rem;padding:2px 4px;opacity:0.7;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.7">🗑</button>
+        </td>`;
+      tr.addEventListener('click',()=>{
+        if(selectedRows.has(i)) selectedRows.delete(i); else selectedRows.add(i);
+        renderSimTable(); updateSimSelInfo();
+      });
+      tbody.appendChild(tr);
+    });
+    updateSimSelInfo();
+  }
+
+  function updateSimSelInfo(){
+    const info=el('sim-sel-info');
+    if(info) info.textContent=selectedRows.size>0?`${selectedRows.size} linha(s) selecionada(s)`:'Clique numa linha para selecionar';
+  }
+
+  window.simDeleteRow=function(idx){ tableData.splice(idx,1); selectedRows.clear(); renderSimTable(); updateSimAnalysis(); showToast('🗑 Linha removida.','pink'); };
+  window.simDeleteSelected=function(){
+    if(!selectedRows.size){showToast('⚠ Nenhuma linha selecionada.','pink');return;}
+    [...selectedRows].sort((a,b)=>b-a).forEach(i=>tableData.splice(i,1));
+    selectedRows.clear(); renderSimTable(); updateSimAnalysis();
+    showToast('🗑 Linhas removidas.','pink');
+  };
+
+  /* ── Analysis ── */
+  function updateSimAnalysis(){
+    if(!tableData.length) return;
+    const vxs=tableData.map(r=>r.vx), xs=tableData.map(r=>r.x), ts=tableData.map(r=>r.t);
+    const mean=arr=>arr.reduce((a,b)=>a+b,0)/arr.length;
+    const std=arr=>{const m=mean(arr);return Math.sqrt(arr.reduce((s,v)=>s+(v-m)**2,0)/arr.length);};
+    el('sim-ana-n').textContent     = tableData.length;
+    el('sim-ana-vmean').textContent = fmtV(mean(vxs))+' m/s';
+    el('sim-ana-vstd').textContent  = fmtV(std(vxs))+' m/s';
+    el('sim-ana-vmax').textContent  = fmtV(Math.max(...vxs))+' m/s';
+    el('sim-ana-dx').textContent    = fmtV(Math.max(...xs)-Math.min(...xs))+' m';
+    const n=tableData.length;
+    if(n>=2){
+      const sX=ts.reduce((a,b)=>a+b,0), sY=xs.reduce((a,b)=>a+b,0);
+      const sXY=ts.reduce((s,x,i)=>s+x*xs[i],0), sX2=ts.reduce((s,x)=>s+x*x,0);
+      const den=n*sX2-sX*sX;
+      if(Math.abs(den)>1e-10){
+        const sl=(n*sXY-sX*sY)/den, ic=(sY-sl*sX)/n;
+        el('sim-ana-reg').textContent=`x(t) = ${fmtV(sl)}·t + ${fmtV(ic)}`;
+      }
+    } else {
+      el('sim-ana-reg').textContent='—';
+    }
+  }
+
+  /* ── Chart drawing (shared) ── */
+  function _drawSimChart(cc, W, H){
+    if(!cc||!tableData.length) return;
+    const ctx2=cc.getContext('2d');
+    ctx2.clearRect(0,0,W,H);
+    const pad={l:56,r:28,t:28,b:48};
+    const cW=W-pad.l-pad.r, cH=H-pad.t-pad.b;
+    const ts=tableData.map(r=>r.t), xs=tableData.map(r=>r.x);
+    const minT=Math.min(...ts), maxT=Math.max(...ts);
+    const minX=Math.min(...xs), maxX=Math.max(...xs);
+    const rangeT=maxT-minT||1, rangeX=maxX-minX||0.01;
+    const toCanX=t=>pad.l+(t-minT)/rangeT*cW;
+    const toCanY=x=>pad.t+cH-(x-minX)/rangeX*cH;
+
+    ctx2.strokeStyle='rgba(100,255,218,0.07)'; ctx2.lineWidth=1;
+    for(let i=0;i<=5;i++){const y=pad.t+i/5*cH;ctx2.beginPath();ctx2.moveTo(pad.l,y);ctx2.lineTo(pad.l+cW,y);ctx2.stroke();}
+    for(let i=0;i<=6;i++){const x=pad.l+i/6*cW;ctx2.beginPath();ctx2.moveTo(x,pad.t);ctx2.lineTo(x,pad.t+cH);ctx2.stroke();}
+
+    ctx2.strokeStyle='rgba(100,255,218,0.3)'; ctx2.lineWidth=1.5;
+    ctx2.beginPath();ctx2.moveTo(pad.l,pad.t);ctx2.lineTo(pad.l,pad.t+cH);ctx2.lineTo(pad.l+cW,pad.t+cH);ctx2.stroke();
+
+    ctx2.fillStyle='rgba(100,255,218,0.5)'; ctx2.font='11px Space Mono,monospace'; ctx2.textAlign='center';
+    ctx2.fillText('t (s)',pad.l+cW/2,H-6);
+    ctx2.save(); ctx2.translate(14,pad.t+cH/2); ctx2.rotate(-Math.PI/2); ctx2.fillText('x (m)',0,0); ctx2.restore();
+
+    ctx2.fillStyle='rgba(100,255,218,0.4)'; ctx2.font='9px Space Mono,monospace';
+    for(let i=0;i<=4;i++){
+      ctx2.textAlign='center'; ctx2.fillText((minT+i/4*rangeT).toFixed(1).replace('.',','),toCanX(minT+i/4*rangeT),pad.t+cH+16);
+      ctx2.textAlign='right';  ctx2.fillText((minX+i/4*rangeX).toFixed(3).replace('.',','),pad.l-6,toCanY(minX+i/4*rangeX)+3);
+    }
+
+    /* regression line */
+    if(tableData.length>=2){
+      const n=tableData.length, sX=ts.reduce((a,b)=>a+b,0), sY=xs.reduce((a,b)=>a+b,0);
+      const sXY=ts.reduce((s,x,i)=>s+x*xs[i],0), sX2=ts.reduce((s,x)=>s+x*x,0);
+      const den=n*sX2-sX*sX;
+      if(Math.abs(den)>1e-10){
+        const sl=(n*sXY-sX*sY)/den, ic=(sY-sl*sX)/n;
+        ctx2.beginPath(); ctx2.strokeStyle='rgba(246,201,14,0.45)'; ctx2.lineWidth=1.5; ctx2.setLineDash([6,4]);
+        ctx2.moveTo(toCanX(minT), toCanY(sl*minT+ic));
+        ctx2.lineTo(toCanX(maxT), toCanY(sl*maxT+ic));
+        ctx2.stroke(); ctx2.setLineDash([]);
+      }
+    }
+
+    ctx2.beginPath(); ctx2.strokeStyle='#64ffda'; ctx2.lineWidth=2.5;
+    ctx2.shadowBlur=10; ctx2.shadowColor='#64ffda';
+    tableData.forEach((r,i)=>i===0?ctx2.moveTo(toCanX(r.t),toCanY(r.x)):ctx2.lineTo(toCanX(r.t),toCanY(r.x)));
+    ctx2.stroke(); ctx2.shadowBlur=0;
+
+    ctx2.fillStyle='#64ffda';
+    tableData.forEach(r=>{ctx2.beginPath();ctx2.arc(toCanX(r.t),toCanY(r.x),4,0,Math.PI*2);ctx2.fill();});
+
+    ctx2.font='11px Space Mono,monospace'; ctx2.fillStyle='rgba(100,255,218,0.6)'; ctx2.textAlign='left';
+    ctx2.fillText(`x × t  (n=${tableData.length})`,pad.l+4,pad.t-10);
+  }
+
+  window.simGenerateChart=function(){
+    if(!tableData.length){showToast('⚠ Sem dados! Colete pontos primeiro.','pink');return;}
+    const wrap=el('sim-xt-wrap');
+    let cc=document.getElementById('sim-xt-canvas');
+    if(!cc){cc=document.createElement('canvas');cc.id='sim-xt-canvas';cc.style.width='100%';cc.style.display='block';}
+    wrap.innerHTML=''; wrap.style.minHeight='auto'; wrap.style.padding='0.5rem'; wrap.style.display='block';
+    wrap.appendChild(cc);
+    const W=cc.width=wrap.clientWidth-16||460, H=cc.height=210;
+    _drawSimChart(cc, W, H);
+    showToast(`📈 Gráfico gerado com ${tableData.length} pontos!`,'cyan');
+    if(chartExpanded) drawBigSimChart();
+  };
+
+  function drawBigSimChart(){
+    const cc=el('sim-xt-big'), empty=el('sim-chart-big-empty');
+    if(!cc||!tableData.length){ if(empty) empty.style.display='block'; return; }
+    cc.style.display='block'; if(empty) empty.style.display='none';
+    const wrap=cc.parentElement;
+    const W=cc.width=wrap.clientWidth-32||700, H=cc.height=380;
+    _drawSimChart(cc, W, H);
+  }
+
+  /* ── Expand sim ── */
+  window.toggleSimExpand=function(){
+    simExpanded=!simExpanded;
+    const ov=el('sim-expand-overlay'), btn=el('sim-expand-btn');
+    if(!ov) return;
+    if(simExpanded){ ov.classList.add('open'); if(btn) btn.textContent='✕ Fechar'; drawScene(); }
+    else            { ov.classList.remove('open'); if(btn) btn.textContent='⊞ Expandir'; }
+  };
+
+  /* ── Expand chart ── */
+  window.toggleSimChartExpand=function(){
+    chartExpanded=!chartExpanded;
+    const ov=el('sim-chart-expand-overlay'), btn=el('sim-chart-expand-btn');
+    if(!ov) return;
+    if(chartExpanded){ ov.classList.add('open'); if(btn) btn.textContent='✕ Fechar'; if(tableData.length) drawBigSimChart(); }
+    else              { ov.classList.remove('open'); if(btn) btn.textContent='⊞ Expandir'; }
+  };
+
+  /* ── Export ── */
+  window.simExport=function(){
+    if(!tableData.length){showToast('⚠ Sem dados!','pink');return;}
+    const header='Tempo(s);x(m);vx(m/s)';
+    const rows=tableData.map(r=>[r.t,r.x,r.vx].join(';').replace(/\./g,',')).join('\n');
+    const blob=new Blob([header+'\n'+rows],{type:'text/csv'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='movimento_uniforme.csv';a.click();
+    showToast('📥 Dados baixados!','gold');
+  };
+
+  /* ── ESC closes overlays ── */
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      if(simExpanded)  toggleSimExpand();
+      if(chartExpanded) toggleSimChartExpand();
+    }
+  });
+
+  /* ── Initial draw ── */
+  readParams(); simX=simX0;
+  requestAnimationFrame(()=>drawScene());
+
+})();
+
+/* ─── QUIZ ─── */
+(function initQuiz() {
+
+  const allQ = [
+    /* ── MOVIMENTO UNIFORME — conceitos básicos (1–10) ── */
+    {
+      q: "No Movimento Uniforme (MU), como varia a posição x com o tempo t?",
+      options: ["x cresce de forma quadrática", "x varia de forma senoidal", "x cresce (ou decresce) linearmente", "x permanece sempre constante"],
+      correct: 2,
+      explanation: "No MU a velocidade é constante, logo x(t) = x₀ + v·t — uma função linear do tempo."
+    },
+    {
+      q: "Qual é a equação horária da posição no Movimento Uniforme?",
+      options: ["x(t) = x₀ + ½·a·t²", "x(t) = x₀ + v·t", "x(t) = v₀·t − g·t²", "x(t) = x₀·e^(vt)"],
+      correct: 1,
+      explanation: "x(t) = x₀ + v·t, onde x₀ é a posição inicial e v é a velocidade constante."
+    },
+    {
+      q: "No MU, qual é o valor da aceleração?",
+      options: ["a = g = 9,8 m/s²", "a = v/t", "a = 0", "a = Δv/Δx"],
+      correct: 2,
+      explanation: "Por definição, no Movimento Uniforme a velocidade não muda — portanto a aceleração é zero."
+    },
+    {
+      q: "Um objeto percorre 24 m em 6 s em MU. Qual é sua velocidade?",
+      options: ["2 m/s", "4 m/s", "6 m/s", "144 m/s"],
+      correct: 1,
+      explanation: "v = Δx/Δt = 24/6 = 4 m/s."
+    },
+    {
+      q: "No gráfico x × t de um MU, a inclinação (coeficiente angular) da reta representa:",
+      options: ["A aceleração do objeto", "A posição inicial", "A velocidade do objeto", "O tempo de percurso"],
+      correct: 2,
+      explanation: "Em x(t) = x₀ + v·t, o coeficiente angular é v — a velocidade constante do MU."
+    },
+    {
+      q: "No gráfico x × t de um MU, o que representa o coeficiente linear (interseção com o eixo y)?",
+      options: ["A velocidade média", "A posição inicial x₀", "A aceleração", "O deslocamento total"],
+      correct: 1,
+      explanation: "O coeficiente linear é x₀, ou seja, a posição do objeto em t = 0."
+    },
+    {
+      q: "Um objeto parte de x₀ = 2 m com velocidade v = 3 m/s. Qual sua posição em t = 5 s?",
+      options: ["10 m", "15 m", "17 m", "13 m"],
+      correct: 2,
+      explanation: "x = 2 + 3·5 = 2 + 15 = 17 m."
+    },
+    {
+      q: "Qual das afirmações abaixo é FALSA para o Movimento Uniforme?",
+      options: [
+        "A velocidade é constante ao longo do tempo",
+        "O gráfico x × t é uma reta",
+        "A aceleração é nula",
+        "O gráfico v × t é uma parábola"
+      ],
+      correct: 3,
+      explanation: "No MU o gráfico v × t é uma reta horizontal (v = constante), não uma parábola."
+    },
+    {
+      q: "Dois objetos partem do mesmo ponto em MU com velocidades v₁ = 2 m/s e v₂ = 5 m/s. Após 4 s, qual é a diferença entre suas posições?",
+      options: ["3 m", "8 m", "12 m", "20 m"],
+      correct: 2,
+      explanation: "Δx = (v₂ − v₁)·t = (5 − 2)·4 = 12 m."
+    },
+    {
+      q: "No MU, se dobrarmos o tempo de percurso, o deslocamento:",
+      options: ["Permanece igual", "Dobra também", "Quadruplica", "Aumenta pela raiz quadrada"],
+      correct: 1,
+      explanation: "Como Δx = v·Δt e v é constante, dobrar Δt implica dobrar Δx."
+    },
+
+    /* ── RASTREAMENTO DE VÍDEO — conceitos e metodologia (11–20) ── */
+    {
+      q: "No rastreador de vídeo, o que é feito para calibrar a detecção da esfera?",
+      options: [
+        "O usuário digita manualmente o valor RGB",
+        "O usuário clica sobre a esfera no vídeo para amostrar sua cor",
+        "O sistema detecta automaticamente qualquer objeto em movimento",
+        "A câmera é calibrada com um padrão de xadrez"
+      ],
+      correct: 1,
+      explanation: "O rastreador captura a cor média de uma região em torno do pixel clicado, usando distância euclidiana no espaço RGB para detectar a esfera."
+    },
+    {
+      q: "Por que se recomenda usar uma esfera de cor vibrante (laranja, verde) sobre fundo contrastante no rastreamento?",
+      options: [
+        "Para que o vídeo fique mais bonito",
+        "Para maximizar o contraste RGB e evitar falsos positivos na detecção",
+        "Porque câmeras não conseguem captar cores escuras",
+        "Para aumentar a velocidade de processamento do navegador"
+      ],
+      correct: 1,
+      explanation: "Quanto maior o contraste entre a esfera e o fundo, menor a chance do algoritmo de distância RGB detectar pixels errados."
+    },
+    {
+      q: "No rastreamento de vídeo, a posição x é normalizada entre 0 e 1. Isso significa que:",
+      options: [
+        "x = 0 é o centro do vídeo",
+        "x = 1 equivale a 1 cm no espaço real",
+        "x = 0 é a borda esquerda e x = 1 é a borda direita, correspondendo a 1 m real",
+        "A posição é medida em porcentagem da altura do vídeo"
+      ],
+      correct: 2,
+      explanation: "A largura total do vídeo é definida como 1 m. Assim x normalizado × 1 m dá a posição em metros."
+    },
+    {
+      q: "A velocidade vx exibida no rastreador é calculada como:",
+      options: [
+        "A velocidade instantânea do frame atual",
+        "A velocidade média v̄ = Δx/Δt entre o primeiro e o último ponto da tabela",
+        "A derivada analítica de x(t)",
+        "A aceleração integrada no tempo"
+      ],
+      correct: 1,
+      explanation: "O sistema calcula v̄ = (x_final − x_inicial)/(t_final − t_inicial) usando os extremos da tabela de dados."
+    },
+    {
+      q: "O que acontece se a 'Tolerância de cor' for muito alta no rastreador?",
+      options: [
+        "A esfera não será detectada",
+        "Outros objetos com cores diferentes também serão detectados como esfera",
+        "O vídeo ficará mais lento",
+        "A câmera desligará automaticamente"
+      ],
+      correct: 1,
+      explanation: "Uma tolerância alta aceita pixels com cor muito diferente da esfera, podendo incluir objetos errados no rastreamento."
+    },
+    {
+      q: "Por que é importante que a largura do vídeo cubra exatamente 1 metro do espaço real?",
+      options: [
+        "Para que o vídeo caiba na tela do computador",
+        "Para que a posição normalizada x possa ser convertida diretamente para metros",
+        "Para que o algoritmo de cor funcione corretamente",
+        "Para reduzir a latência da câmera"
+      ],
+      correct: 1,
+      explanation: "A escala física é definida por essa calibração. Sem ela, os valores de posição e velocidade não têm unidade real."
+    },
+    {
+      q: "Ao analisar o gráfico x × t obtido com o rastreador, uma reta indica que o objeto realizou:",
+      options: [
+        "Movimento Uniformemente Variado",
+        "Movimento Circular Uniforme",
+        "Movimento Uniforme",
+        "Queda livre"
+      ],
+      correct: 2,
+      explanation: "Uma reta no gráfico x × t significa x cresce linearmente com t, o que é a característica do MU."
+    },
+    {
+      q: "No experimento de rastreamento, por que é vantajoso excluir pontos discrepantes da tabela antes de gerar o gráfico?",
+      options: [
+        "Para reduzir o número de amostras e acelerar o processamento",
+        "Porque o simulador não aceita mais de 10 pontos",
+        "Para que a regressão linear e a velocidade média reflitam o movimento real, sem influência de erros de detecção",
+        "Porque pontos extremos são automaticamente negativos"
+      ],
+      correct: 2,
+      explanation: "Pontos com erro de detecção (falsos positivos) distorcem a velocidade média e a regressão. Removê-los melhora a qualidade da análise."
+    },
+    {
+      q: "O desvio padrão σ(vx) na análise estatística do rastreamento mede:",
+      options: [
+        "O erro sistemático da câmera",
+        "A variação da velocidade em relação à média — quanto menor, mais uniforme o movimento",
+        "A aceleração média do objeto",
+        "O número de frames perdidos durante a gravação"
+      ],
+      correct: 1,
+      explanation: "σ(vx) mede a dispersão dos valores de velocidade. Para MU ideal, σ → 0, indicando velocidade constante."
+    },
+    {
+      q: "No rastreador, amostras são coletadas a ~10 amostras por segundo. Por que não coletar a 60 fps (taxa máxima)?",
+      options: [
+        "Câmeras não conseguem capturar a 60 fps",
+        "Para reduzir o volume de dados e facilitar a análise, mantendo resolução temporal suficiente para MU",
+        "Porque o JavaScript só suporta 10 fps",
+        "Para economizar bateria do dispositivo"
+      ],
+      correct: 1,
+      explanation: "Para analisar MU em escala de segundos, 10 amostras/s oferecem resolução suficiente sem gerar centenas de linhas na tabela."
+    },
+
+    /* ── SIMULADOR vs RASTREAMENTO — comparações (21–27) ── */
+    {
+      q: "Qual é a principal diferença entre os dados coletados no simulador e no rastreador de vídeo?",
+      options: [
+        "O simulador usa metros e o rastreador usa centímetros",
+        "O simulador gera dados ideais (sem ruído), enquanto o rastreador captura um movimento real com erros de medição",
+        "O rastreador é mais preciso porque usa câmera de alta definição",
+        "Não há diferença — ambos medem exatamente a mesma coisa"
+      ],
+      correct: 1,
+      explanation: "O simulador é determinístico e sem ruído. O rastreador real inclui erros de detecção, vibração da câmera e variações de iluminação."
+    },
+    {
+      q: "No simulador de MU, o gráfico x × t esperado é uma reta. Ao comparar com o gráfico do rastreamento experimental, é normal observar:",
+      options: [
+        "Uma parábola, indicando aceleração constante",
+        "Uma reta perfeitamente idêntica à do simulador",
+        "Pontos ligeiramente fora da reta ideal, devido a imperfeições do experimento real",
+        "Ausência total de tendência linear"
+      ],
+      correct: 2,
+      explanation: "Medições reais sempre têm incertezas. A reta de regressão ajustada aos dados experimentais permite estimar a velocidade mesmo com ruído."
+    },
+    {
+      q: "Tanto o simulador quanto o rastreador permitem exportar dados em CSV. Qual a vantagem disso?",
+      options: [
+        "Permite imprimir os dados em papel",
+        "Permite abrir os dados no Excel ou outro software para análise mais detalhada",
+        "Comprime os dados para economizar espaço em disco",
+        "Converte automaticamente os dados para o formato SI"
+      ],
+      correct: 1,
+      explanation: "O CSV com separador ';' e decimal ',' é compatível com o Excel e LibreOffice Calc, permitindo continuar a análise fora do navegador."
+    },
+    {
+      q: "Para verificar se a esfera realmente realizou MU no experimento de rastreamento, qual análise é mais adequada?",
+      options: [
+        "Verificar se a posição máxima é maior que a mínima",
+        "Checar se o gráfico x × t se aproxima de uma reta e se σ(vx) é pequeno em relação a v̄",
+        "Contar o número de pontos coletados",
+        "Verificar se a tolerância de cor foi ajustada corretamente"
+      ],
+      correct: 1,
+      explanation: "Uma reta no gráfico e baixo desvio padrão indicam velocidade aproximadamente constante — critérios de MU."
+    },
+    {
+      q: "No simulador, o botão '⊕ Coletar' registra um ponto manualmente. Qual é a vantagem em relação ao rastreador, que coleta automaticamente?",
+      options: [
+        "A coleta manual é sempre mais precisa",
+        "Permite ao estudante escolher instantes significativos (início, meio, fim) para análise intencional",
+        "O simulador não tem erros, então coleta manual é desnecessária",
+        "A coleta automática do rastreador gera menos dados que a manual do simulador"
+      ],
+      correct: 1,
+      explanation: "A coleta intencional em instantes escolhidos é uma estratégia didática que desenvolve o raciocínio sobre amostragem experimental."
+    },
+    {
+      q: "Ao usar tanto o simulador quanto o rastreador, espera-se que a regressão linear x(t) = a·t + b forneça:",
+      options: [
+        "a = aceleração gravitacional e b = altura inicial",
+        "a ≈ velocidade do objeto e b ≈ posição inicial",
+        "a = tempo total e b = deslocamento",
+        "a = frequência e b = amplitude"
+      ],
+      correct: 1,
+      explanation: "Na equação x(t) = x₀ + v·t, o coeficiente angular 'a' é a velocidade e o coeficiente linear 'b' é a posição inicial."
+    },
+    {
+      q: "Por que o simulador é útil ANTES de realizar o experimento de rastreamento?",
+      options: [
+        "Porque o simulador substitui completamente o experimento real",
+        "Para que o estudante familiarize-se com o comportamento do MU, o tipo de gráfico esperado e os parâmetros relevantes antes de enfrentar dados reais com ruído",
+        "Porque o simulador é obrigatório para calibrar a câmera",
+        "Para gerar automaticamente o relatório experimental"
+      ],
+      correct: 1,
+      explanation: "O simulador serve como modelo ideal de referência. Conhecendo o resultado teórico, o estudante consegue avaliar melhor a qualidade dos dados reais."
+    },
+
+    /* ── ANÁLISE E INTERPRETAÇÃO DE DADOS (28–30) ── */
+    {
+      q: "Se a regressão linear dos dados experimentais fornece x(t) = 0,92·t + 0,15, qual é a velocidade estimada do objeto?",
+      options: ["0,15 m/s", "0,92 m/s", "1,07 m/s", "Não é possível saber"],
+      correct: 1,
+      explanation: "O coeficiente angular da regressão é a velocidade: v ≈ 0,92 m/s. O termo 0,15 é a posição inicial estimada."
+    },
+    {
+      q: "Em um experimento de rastreamento, foram coletados 20 pontos com v̄ = 1,2 m/s e σ = 0,05 m/s. O coeficiente de variação CV = σ/v̄ é:",
+      options: ["24 %", "4,2 %", "0,042 %", "240 %"],
+      correct: 1,
+      explanation: "CV = 0,05/1,2 ≈ 0,042 = 4,2 %. Um CV baixo indica que a variação da velocidade é pequena em relação à média — movimento aproximadamente uniforme."
+    },
+    {
+      q: "Ao aumentar o número de amostras coletadas no rastreamento, espera-se que a estimativa da velocidade média:",
+      options: [
+        "Aumente proporcionalmente",
+        "Diminua pela metade",
+        "Fique mais confiável e com menor incerteza estatística",
+        "Não mude, pois a velocidade é constante no MU"
+      ],
+      correct: 2,
+      explanation: "Com mais amostras, a lei dos grandes números garante que a estimativa de v̄ converge para o valor verdadeiro com menor incerteza."
+    },
+  ];
+
+  const N_QUESTIONS = 5;
+  let questions = [];
+  let current   = 0;
+  let score     = 0;
+  let answered  = false;
+
+  function shuffle(arr){
+    const a=[...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+    return a;
+  }
+
+  function startQuiz(){
+    questions = shuffle(allQ).slice(0, N_QUESTIONS);
+    current = 0; score = 0; answered = false;
+    const el = id => document.getElementById(id);
+    el('quiz-result').style.display  = 'none';
+    el('quiz-card').style.display    = 'block';
+    el('quiz-progress-fill').style.width = '0%';
+    renderQuestion();
+  }
+
+  function renderQuestion(){
+    const el = id => document.getElementById(id);
+    const q  = questions[current];
+    answered = false;
+
+    el('quiz-number').textContent    = `Questão ${current+1} de ${N_QUESTIONS}`;
+    el('quiz-question').textContent  = q.q;
+    el('quiz-score-badge').textContent = `Pontos: ${score}/${current}`;
+    el('quiz-explanation').textContent = '';
+    el('quiz-explanation').style.display = 'none';
+    el('quiz-next').style.display    = 'none';
+    el('quiz-progress-fill').style.width = `${(current/N_QUESTIONS)*100}%`;
+
+    const opts = el('quiz-options');
+    opts.innerHTML = '';
+    shuffle(q.options.map((o,i)=>({o,i}))).forEach(({o,i})=>{
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.textContent = o;
+      btn.dataset.idx = i;
+      btn.addEventListener('click', ()=>selectAnswer(btn, i, q.correct, q.explanation));
+      opts.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(btn, chosen, correct, explanation){
+    if(answered) return;
+    answered = true;
+
+    /* mark all options */
+    document.querySelectorAll('.quiz-option').forEach(b=>{
+      const idx = parseInt(b.dataset.idx);
+      if(idx === correct){
+        b.classList.add('correct');
+      } else if(idx === chosen && chosen !== correct){
+        b.classList.add('incorrect');
+      }
+      b.disabled = true;
+    });
+
+    const el = id => document.getElementById(id);
+    const exp = el('quiz-explanation');
+    if(chosen === correct){
+      score++;
+      exp.textContent = '✅ Correto! ' + explanation;
+      exp.style.color = 'var(--accent-cyan)';
+    } else {
+      exp.textContent = '❌ Incorreto. ' + explanation;
+      exp.style.color = 'var(--accent-pink)';
+    }
+    exp.style.display = 'block';
+
+    el('quiz-score-badge').textContent = `Pontos: ${score}/${current+1}`;
+    el('quiz-next').style.display = 'block';
+  }
+
+  window.quizNext = function(){
+    current++;
+    if(current >= N_QUESTIONS){
+      showResult();
+    } else {
+      renderQuestion();
+    }
+  };
+
+  function showResult(){
+    const el  = id => document.getElementById(id);
+    const pct = Math.round((score/N_QUESTIONS)*100);
+    el('quiz-card').style.display   = 'none';
+    el('quiz-result').style.display = 'flex';
+    el('result-score').textContent  = `${score}/${N_QUESTIONS}`;
+    el('result-pct').textContent    = `${pct}%`;
+    el('quiz-progress-fill').style.width = '100%';
+
+    let msg = '';
+    if(pct === 100)     msg = '🏆 Perfeito! Domínio completo dos conceitos de MU e análise experimental.';
+    else if(pct >= 80)  msg = '🎉 Excelente! Você demonstra sólida compreensão do Movimento Uniforme.';
+    else if(pct >= 60)  msg = '👍 Bom trabalho! Revise os conceitos de análise estatística e rastreamento.';
+    else if(pct >= 40)  msg = '📚 Continue estudando! Foque nas equações do MU e na interpretação de gráficos.';
+    else                msg = '🔄 Revise os conceitos básicos de MU, gráficos x(t) e metodologia experimental.';
+    el('result-msg').textContent = msg;
+
+    if(pct >= 80) confettiBurst();
+  }
+
+  window.quizRestart = function(){ startQuiz(); };
+
+  /* Start immediately */
+  startQuiz();
+
+})();
+
+setTimeout(()=>showToast('👋 Bem-vindo! Explore as ferramentas interativas.','cyan',5000),1200);
+
+</script>
+<script>
+window.demonstrateCSSFeature = function() {
+  const box = document.getElementById('css-demo-box');
+  const text = document.getElementById('css-demo-text');
+  if(!box||!text) return;
+  box.style.display = 'block';
+  const effects = [
+    { bg: 'rgba(100,255,218,0.05)', border: 'rgba(100,255,218,0.4)', msg: '✨ CSS Custom Properties em ação!' },
+    { bg: 'rgba(246,201,14,0.05)', border: 'rgba(246,201,14,0.4)', msg: '🎨 Transições suaves com cubic-bezier!' },
+    { bg: 'rgba(255,107,157,0.05)', border: 'rgba(255,107,157,0.4)', msg: '🌟 Animações keyframe!' },
+    { bg: 'rgba(79,195,247,0.05)',  border: 'rgba(79,195,247,0.4)',  msg: '🔵 Gradientes dinâmicos CSS!' },
+  ];
+  const e = effects[Math.floor(Math.random() * effects.length)];
+  box.style.background = e.bg;
+  box.style.borderColor = e.border;
+  box.style.transform = 'scale(1.01)';
+  box.style.boxShadow = \`0 0 30px \${e.border}\`;
+  text.style.color = e.border.replace('0.4', '1');
+  text.textContent = e.msg;
+  setTimeout(() => { box.style.transform='scale(1)'; box.style.boxShadow='none'; }, 400);
+};
+</script>
+</body>
+</html>
